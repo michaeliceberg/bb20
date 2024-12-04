@@ -45,11 +45,6 @@ const main = async () => {
 
 
 
-
-
-
-
-		
 		await db.insert(schema.units).values([{id:301,courseId:3,title:'Счёт',description:'Описание 1',order:301,imageSrc:'LottieUnit1',},
 {id:302,courseId:3,title:'Откройте скобки',description:'Описание 2',order:302,imageSrc:'LottieUnit2',},
 {id:303,courseId:3,title:'Раз два три',description:'Описание 3',order:303,imageSrc:'LottieUnit3',},
