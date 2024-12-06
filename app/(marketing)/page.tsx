@@ -5,7 +5,10 @@ import { Loader } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
-import LottieHelloBread from '@/public/LottieHelloBread.json'
+
+// /Users/mac/Downloads/LottieWaterMellonThumbsUp.json
+import LottieWaterMellonThumbsUp from '@/public/Lottie/LottieWaterMellonThumbsUp.json'
+
 import Lottie from 'lottie-react';
 
 
@@ -23,13 +26,13 @@ export default function Home() {
 						animationData={ LottieHelloBread } 
 				/> */}
 
-				{/* <Lottie 
-                    animationData={ LottieHelloBread } 
+				<Lottie 
+                    animationData={ LottieWaterMellonThumbsUp } 
                     className="h-20 w-20"
-                /> */}
+                />
 
 				
-				<Image src='/hero.svg' fill alt='Hero' />
+				{/* <Image src='/hero.svg' fill alt='Hero' /> */}
 			</div>
 
 			<div className='flex flex-col items-center gap-y-8'>
