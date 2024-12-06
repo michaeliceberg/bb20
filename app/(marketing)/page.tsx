@@ -33,7 +33,7 @@ export default function Home() {
 						<Loader className='h-5 w-5 text-muted-foreground animate-spin'></Loader>
 					</ClerkLoading>
 
-					{/* <ClerkLoaded>
+					<ClerkLoaded>
 						<SignedOut>
 							<SignUpButton mode='modal' signInForceRedirectUrl='/learn' signInFallbackRedirectUrl='/learn'>
 
@@ -54,7 +54,7 @@ export default function Home() {
 								<Link href='/learn'>Продолжаем учиться</Link>
 							</Button>
 						</SignedIn>
-					</ClerkLoaded> */}
+					</ClerkLoaded>
 
 
 					
