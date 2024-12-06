@@ -33,10 +33,9 @@ export default function Home() {
 						<Loader className='h-5 w-5 text-muted-foreground animate-spin'></Loader>
 					</ClerkLoading>
 
-					<ClerkLoaded>
+					{/* <ClerkLoaded>
 						<SignedOut>
-						{/* <SignUpButton mode='modal' afterSignInUrl='/learn' afterSignInOut='/learn'> */}
-						<SignUpButton mode='modal' signInForceRedirectUrl='/learn' signInFallbackRedirectUrl='/learn'>
+							<SignUpButton mode='modal' signInForceRedirectUrl='/learn' signInFallbackRedirectUrl='/learn'>
 
 
 								<Button size='lg' variant='secondary' className='w-full'>
@@ -44,7 +43,6 @@ export default function Home() {
 								</Button>
 							</SignUpButton>
 
-							{/* <SignInButton mode='modal' afterSignInUrl='/learn' afterSignInOut='/learn'> */}
 							<SignInButton mode='modal' signUpForceRedirectUrl='/learn' signUpFallbackRedirectUrl='/learn'>
 								<Button size='lg' variant='primaryOutline' className='w-full'>
 									У меня уже есть Аккаунт
@@ -56,7 +54,10 @@ export default function Home() {
 								<Link href='/learn'>Продолжаем учиться</Link>
 							</Button>
 						</SignedIn>
-					</ClerkLoaded>
+					</ClerkLoaded> */}
+
+
+					
 				</div>
 			</div>
 		</div>
