@@ -16,6 +16,8 @@ type Props= {
     timesDone: number
 }
 
+// РИСУЕМ УСЛОВИЕ ЗАДАЧИ С ИКОНКАМИ МОНЕТ АВТОРА
+//
 export const QuestionBubble = ({question, pts, author, timesDoneWrong, timesDone}: Props) => {
     return (
         <div className="flex items-center gap-x-4 mb-6">

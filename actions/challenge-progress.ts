@@ -13,6 +13,7 @@ import { revalidatePath } from "next/cache"
         oldCourseProgress: SuperType,
         activeCourseTitle: string,
         challengePts: number,
+        isDoneChallenge: boolean,
     ) => {
     
     const {userId} = await auth()
@@ -63,7 +64,12 @@ import { revalidatePath } from "next/cache"
 
         await db.update(userProgress).set({
             hearts: Math.min(currentUserProgress.hearts + 1, 5),
-            points: currentUserProgress.points + challengePts
+
+            
+
+
+            points: isDoneChallenge ? currentUserProgress.points + 0 : currentUserProgress.points + challengePts
+            // points: currentUserProgress.points + challengePts
         }).where(eq(userProgress.userId, userId))
 
         revalidatePath('/learn')
@@ -161,14 +167,18 @@ import { revalidatePath } from "next/cache"
                     oldCourseProgress[indexCourse].progress[indexDate].selfDoneRight = doneRight ? oldCourseProgress[indexCourse].progress[indexDate].selfDoneRight + 1 : oldCourseProgress[indexCourse].progress[indexDate].selfDoneRight,
                     oldCourseProgress[indexCourse].progress[indexDate].selfDoneWrong = doneRight ? oldCourseProgress[indexCourse].progress[indexDate].selfDoneWrong : oldCourseProgress[indexCourse].progress[indexDate].selfDoneWrong + 1,
                     oldCourseProgress[indexCourse].progress[indexDate].hearts = doneRight ? oldCourseProgress[indexCourse].progress[indexDate].hearts : oldCourseProgress[indexCourse].progress[indexDate].hearts - 1
-                    oldCourseProgress[indexCourse].progress[indexDate].pts = doneRight ? oldCourseProgress[indexCourse].progress[indexDate].pts + challengePts : oldCourseProgress[indexCourse].progress[indexDate].pts
+                    oldCourseProgress[indexCourse].progress[indexDate].pts = 
+                        isDoneChallenge ? oldCourseProgress[indexCourse].progress[indexDate].pts 
+                        : doneRight ? oldCourseProgress[indexCourse].progress[indexDate].pts + challengePts : oldCourseProgress[indexCourse].progress[indexDate].pts
 
 
                         
                     
 
                     await db.update(userProgress).set({
-                        points: doneRight ? currentUserProgress.points + challengePts : currentUserProgress.points,
+                        points: 
+                            isDoneChallenge ? currentUserProgress.points :
+                            doneRight ? currentUserProgress.points + challengePts : currentUserProgress.points,
                         courseProgress: oldCourseProgress
                 
                         }).where(eq(userProgress.userId, userId))
@@ -205,12 +215,16 @@ import { revalidatePath } from "next/cache"
                         selfDoneWrong: doneRight ? 0 : 1,
                         dateReady: '01.01.2125',
                         hearts: doneRight ? 20 : 19,
-                        pts: doneRight ? lastProgress.pts + challengePts : lastProgress.pts,
+                        pts: 
+                            isDoneChallenge ? lastProgress.pts
+                            : doneRight ? lastProgress.pts + challengePts : lastProgress.pts,
                         gems: lastProgress.gems
                     })
 
                     await db.update(userProgress).set({
-                        points: doneRight ? currentUserProgress.points + challengePts : currentUserProgress.points,
+                        points: 
+                            isDoneChallenge ? currentUserProgress.points :
+                            doneRight ? currentUserProgress.points + challengePts : currentUserProgress.points,
                         courseProgress: oldCourseProgress
                     }).where(eq(userProgress.userId, userId))
                 }
@@ -231,7 +245,9 @@ import { revalidatePath } from "next/cache"
 
 
                 await db.update(userProgress).set({
-                    points: doneRight ? currentUserProgress.points + challengePts : currentUserProgress.points,
+                    points: 
+                        isDoneChallenge ? currentUserProgress.points:
+                        doneRight ? currentUserProgress.points + challengePts : currentUserProgress.points,
                     courseProgress: oldCourseProgress
             
                 }).where(eq(userProgress.userId, userId))

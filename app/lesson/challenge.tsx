@@ -36,9 +36,6 @@ export const Challenge = ({
 	var diff = Math.abs(dateLastDone?.getTime() - dateNow.getTime());
 	var daysHowLongAgo = Math.ceil(diff / (1000 * 3600 * 24)); 
 
-    // const SomeSix = '$\\frac{ -(-\\frac{7}{15}-\\frac{14}{45}-\\frac{2}{9}) \\cdot 10\\frac{1}{3} - 1\\frac{1}{11} \\cdot (-1\\frac{3}{4} +2\\frac{2}{3})    }{   (-\\frac{1}{4} + \\frac{3}{7}): \\frac{3}{28} - (-1)    }$'
-    // const SomeSeven = 'Найти сколько будет $\\frac{9}{11}$ от $\\frac{22}{69}$'
-
 
     return (
         <div className={cn(
@@ -72,8 +69,10 @@ export const Challenge = ({
             } */}
 
 
-            {/* ЕСЛИ ЗАДАЧА НЕ РЕШЕНА ИЛИ РЕШЕНА ДАВНО
-            // */}
+            {/* РИСОВАТЬ ВАРИАНТЫ ОТВЕТОВ      ЕСЛИ ЗАДАЧА НЕ РЕШЕНА ИЛИ РЕШЕНА ДАВНО > 1 ДНЯ 
+            // 
+            //
+            */}
             {(isNaN(daysHowLongAgo) || daysHowLongAgo > 1) ? 
                 (options.map((option, i)=>(
                     <Card 

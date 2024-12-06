@@ -276,7 +276,7 @@ export const Quiz = ({
                 
                 // close()
 
-                upsertChallengeProgress(challenge.id, TrueValue, oldCourseProgress, activeCourseTitle, challenge.points)
+                upsertChallengeProgress(challenge.id, TrueValue, oldCourseProgress, activeCourseTitle, challenge.points, isDoneChallenge)
                 // .then(() => {close()})
                 // const {openWrongAnswerModal} = useWrongAnswerModal()
                 .then((response)=>{
@@ -309,7 +309,7 @@ export const Quiz = ({
 
                 open()
 
-                upsertChallengeProgress(challenge.id, FalseValue, oldCourseProgress, activeCourseTitle, challenge.points)
+                upsertChallengeProgress(challenge.id, FalseValue, oldCourseProgress, activeCourseTitle, challenge.points, isDoneChallenge)
                 
                 .then((response)=>{
                     if(response?.error === 'hearts') {
