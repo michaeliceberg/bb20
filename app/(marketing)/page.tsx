@@ -22,8 +22,14 @@ export default function Home() {
 				{/* <Lottie className="h-120 w-120 pr-5"
 						animationData={ LottieHelloBread } 
 				/> */}
+
+				{/* <Lottie 
+                    animationData={ LottieHelloBread } 
+                    className="h-20 w-20"
+                /> */}
+
 				
-				{/* <Image src='/hero.svg' fill alt='Hero' /> */}
+				<Image src='/hero.svg' fill alt='Hero' />
 			</div>
 
 			<div className='flex flex-col items-center gap-y-8'>
