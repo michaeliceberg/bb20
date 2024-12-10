@@ -10,7 +10,7 @@ import { format } from 'date-fns';
 import { Button } from "@/components/ui/button"
 import { getUserPointsHearts } from "@/usefulFunctions"
 import { Achievement } from "@/components/achievments"
-import { BuyMine } from "@/components/buy-mine"
+// import { BuyMine } from "@/components/buy-mine"
 
 
 const ProgressPage = async () => {
@@ -309,7 +309,6 @@ const ProgressPage = async () => {
 				
 				
 				
-				{/* <BuyMine /> */}
 
 
 
