@@ -77,11 +77,14 @@ const ShopPage = async () => {
                     <p className="text-muted-foreground text-center text-lg mb-6">
                         Потрать очки на что-то полезное
                     </p>
+
+
                     <Items
                         // hearts={userProgress.hearts}
                         // points={userProgress.points}
                         hearts={Hearts}
                         points={Points}
+                        gems={Gems}
                         hasActiveSubscription={isPro} 
                     />    
                 </div>

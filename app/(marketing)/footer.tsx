@@ -18,7 +18,7 @@ export const Footer = () => {
 					<Image src='/fr.svg' alt='Croatian' height={32} width={40} className='mr-4 rounded-md' />
 					Информатика
 				</Button>
-
+{/* 
 				<Button size='lg' variant='ghost' className='w-full'>
 					<Image src='/it.svg' alt='Croatian' height={32} width={40} className='mr-4 rounded-md' />
 					Русский
@@ -27,7 +27,7 @@ export const Footer = () => {
 				<Button size='lg' variant='ghost' className='w-full'>
 					<Image src='/jp.svg' alt='Croatian' height={32} width={40} className='mr-4 rounded-md' />
 					История
-				</Button>
+				</Button> */}
 			</div>
 		</footer>
 	)

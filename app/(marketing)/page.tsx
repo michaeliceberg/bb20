@@ -7,7 +7,8 @@ import Link from 'next/link';
 
 
 // /Users/mac/Downloads/LottieWaterMellonThumbsUp.json
-import LottieWaterMellonThumbsUp from '@/public/Lottie/LottieWaterMellonThumbsUp.json'
+// import LottieWaterMellonThumbsUp from '@/public/Lottie/LottieWaterMellonThumbsUp.json'
+import LottieHelloBread from '@/public/LottieHelloBread.json'
 
 import Lottie from 'lottie-react';
 
@@ -26,13 +27,14 @@ export default function Home() {
 						animationData={ LottieHelloBread } 
 				/> */}
 
-				<Lottie 
+				{/* <Lottie 
                     animationData={ LottieWaterMellonThumbsUp } 
                     className="h-20 w-20"
-                />
+                /> */}
 
 				
-				{/* <Image src='/hero.svg' fill alt='Hero' /> */}
+{/* <Image src='/hero.svg' fill alt='Hero' /> */}
+			<Image src='/LottieHelloBreadImg.jpg' fill alt='Hero' />
 			</div>
 
 			<div className='flex flex-col items-center gap-y-8'>

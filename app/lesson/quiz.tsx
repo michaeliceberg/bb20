@@ -122,7 +122,7 @@ export const Quiz = ({
     const challengesIds = challenges.map(el => el.id)
     const challengesDone = challengeProgress.filter((el) => challengesIds.includes(el.challengeId))
    
-    console.log(challengesDone)
+    // console.log(challengesDone)
 
 
     const wrongChallengesId = challengesDoneWrong.map(a => a.challengeId);
@@ -143,7 +143,22 @@ export const Quiz = ({
     const [timesDone, setTimesDone] = useState(0)
     const [dateLastDone, setDateLastDone] = useState(new Date(2025, 4, 1))
 
-    const [testData, setTestData] = useState(999)
+
+
+    // const [optionsList, setOptionsList] = useState([
+    //     {
+    //         id: 1,
+    //         imageSrc: null,
+    //         challengeId: 1,
+    //         text: '',
+    //         correct: true,
+    //         audioSrc: null
+    //     }
+    // ])
+
+    
+
+
 
 
 
@@ -157,23 +172,19 @@ export const Quiz = ({
         setIsDoneWrongChallenge(wrongChallengesId.includes(num-1))
         setIsDoneChallenge(doneChallengesId.includes(num-1))
 
-        // setDateLastDone(   challengesDone.filter(el => el.challengeId === num - 1)[-1].dateDone )
-
-
         // Берем ПОСЛЕДНЮЮ дату решенного задания
         //
         setDateLastDone(challengesDone.filter(el => el.challengeId === num - 1)
             [(challengesDone.filter(el => el.challengeId === num - 1)).length - 1]
             ?.dateDone )
 
-       
-
-
         setTimesDone(doneChallengesId.filter(x => x == num-1).length)
         setTimesDoneWrong(wrongChallengesId.filter(x => x == num-1).length)
 
-       
 
+        let toShuffle = challenges.filter(el => el.id == num-1)[0].challengeOptions
+        Shuffle(toShuffle)
+        setOptions(toShuffle)          
 
     }
 
@@ -184,48 +195,39 @@ export const Quiz = ({
     
     let [challenge] = challenges.filter(el => el.id == activeIndex)
 
-
-    // ИЩЕМ СКОЛЬКО РАЗ БЫЛ СДЕЛАН ДАННЫЙ ЧЕЛЛЕНДЖ ПРАВИЛЬНО И НЕПРАВИЛЬНО
-    //
-    // let hz = challengesDone.filter(el => el.challengeId === challenge.id) 
-    // console.log(hz)
-
-
-
+    // const [optionsList, setOptionsList] = useState(challenge?.challengeOptions ?? [])
 
 
 
     const {open} = useWrongAnswerModal()
 
    
+    const [options, setOptions] = useState(challenge?.challengeOptions ?? [])
+    // const [options, setOptions] = useState([])
+
+
+
+    
     // SHUFFLE FUNCTION
     //
-    const options = challenge?.challengeOptions ?? []
-    //
+    // let options = challenge?.challengeOptions ?? []
     // useEffect(()=>{
+    const Shuffle = (array: any) => {
+        let currentIndex = array.length;
+    
+        while (currentIndex != 0) {
+    
+        let randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex--;
+    
+        [array[currentIndex], array[randomIndex]] = [
+            array[randomIndex], array[currentIndex]];
+        }
+    }
 
-    //     const Shuffle = (array: any) => {
-    //         let currentIndex = array.length;
-        
-    //         while (currentIndex != 0) {
-        
-    //         let randomIndex = Math.floor(Math.random() * currentIndex);
-    //         currentIndex--;
-        
-    //         [array[currentIndex], array[randomIndex]] = [
-    //             array[randomIndex], array[currentIndex]];
-    //         }
-    //     }
-
-    //     Shuffle(options)
+        // Shuffle(options)
 
     // },[activeIndex, options])
-
-
-
-
-
-
 
 
 
@@ -401,16 +403,9 @@ export const Quiz = ({
 
 
 
-    // let listDoneThisChallenge = doneChallengesId.includes(challenge.id) ? 'secondary' 
-    // let howManyTimesDone = doneChallengesId.filter(x => x == challenge.id)
-    // let howManyTimesDoneWrong = wrongChallengesId.filter(x => x == challenge.id)
 
 
-
-    // console.log(howManyTimesDone)
-    // console.log(howManyTimesDoneWrong)
     
-    // [....].filter(x => x==2).length
 
 
     return(
@@ -502,10 +497,14 @@ export const Quiz = ({
                             isDoneWrongChallenge={isDoneWrongChallenge}
                             isDoneChallenge={isDoneChallenge}
                             dateLastDone={dateLastDone}
+                            challengeId={challenge.id}
                         />
                     </div>
                 </div>
             </div>
+
+
+            
         </div>
 
         <Footer 

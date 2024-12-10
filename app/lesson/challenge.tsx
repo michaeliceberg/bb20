@@ -1,6 +1,7 @@
 import { challengeOptions, challenges } from "@/db/schema"
 import { cn } from "@/lib/utils"
 import { Card } from "./card"
+import { HoverCardDemo } from "@/components/hover-card"
 
 
 
@@ -14,6 +15,7 @@ type Props={
     isDoneWrongChallenge: boolean
     isDoneChallenge: boolean
     dateLastDone: Date
+    challengeId: number
 
 }
 
@@ -27,6 +29,7 @@ export const Challenge = ({
     isDoneWrongChallenge,
     isDoneChallenge,
     dateLastDone,
+    challengeId,
 }: Props) => {
 
 
@@ -74,7 +77,10 @@ export const Challenge = ({
             //
             */}
             {(isNaN(daysHowLongAgo) || daysHowLongAgo > 1) ? 
-                (options.map((option, i)=>(
+
+            
+                (
+                    options.map((option, i)=>(
                     <Card 
                         key={option.id}
                         id={option.id}
@@ -89,7 +95,15 @@ export const Challenge = ({
                         type={type}
                         isDoneWrongChallenge={isDoneWrongChallenge}
                     />   
+                    
                 )))
+
+                
+
+
+
+
+
                 : (
 
 
@@ -115,6 +129,9 @@ export const Challenge = ({
                 )
             }
 
+                <div>
+                    <HoverCardDemo challengeId = {challengeId}/>
+                </div>
             
                 {/* {isDoneWrongChallenge 
                     && (
