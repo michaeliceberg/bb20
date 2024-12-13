@@ -202,6 +202,10 @@ export const Quiz = ({
     const {open} = useWrongAnswerModal()
 
    
+
+    
+
+
     const [options, setOptions] = useState(challenge?.challengeOptions ?? [])
     // const [options, setOptions] = useState([])
 
@@ -245,7 +249,7 @@ export const Quiz = ({
 
 
         let hz = challengesDone.filter(el => el.challengeId === challenge.id) 
-        console.log(hz)
+        // console.log(hz)
 
         if (!selectedOption) return
 
@@ -405,7 +409,7 @@ export const Quiz = ({
 
 
 
-    
+
 
 
     return(

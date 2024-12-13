@@ -43,6 +43,18 @@ type Props= {
 
 export function TableLeader({ResultLeaderTable}: Props) {
     
+
+
+    // console.log('-------------------------')
+    // console.log(ResultLeaderTable)
+
+
+    // // Фильтруем ТОЛЬКО ТЕХ пользователей, у кого ЕСТЬ прогресс в ЭТОМ учебнике
+    // //
+    // ResultLeaderTable = ResultLeaderTable.filter(el => el.progressDays.length > 0)
+
+
+
     const numbersLottieList = 
     [
         LottieNumber0,

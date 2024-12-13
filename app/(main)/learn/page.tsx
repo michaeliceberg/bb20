@@ -197,7 +197,7 @@ const LearnPage = async () => {
 	var dateNow = new Date()
 	var diff = Math.abs(dateExam.getTime() - dateNow.getTime());
 	var daysTillExam = Math.ceil(diff / (1000 * 3600 * 24)); 
-	console.log("daysTillExam: " + daysTillExam);
+	// console.log("daysTillExam: " + daysTillExam);
 	
 	const Recom_ChalPerDay = Math.round(numLeftChallenge / daysTillExam * 100) / 100
 	const lastWeekChallenges = challengeProgress.filter(challenge => {

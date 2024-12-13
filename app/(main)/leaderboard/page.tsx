@@ -58,15 +58,38 @@ const LeaderboardPage = async () => {
                 }
             })
             // console.log(filteredCourseProgress)
-            return (
-                {
-                    userName: cur_user_progress.userName,
-                    progressForCourse: filteredCourseProgress[0].progress,
-                    userImageSrc: cur_user_progress.userImageSrc
-                })
-            }        
+            
+            
+
+            // if (filteredCourseProgress[0]) {
+
+                return (
+                    {
+                        userName: cur_user_progress.userName,
+                        progressForCourse: filteredCourseProgress[0]?.progress,
+                        userImageSrc: cur_user_progress.userImageSrc
+                    })
+                // }   
+
+            }
+                
+            
+            
+
         }
     )
+
+
+
+
+    // console.log('BIG BIG BIG BIG ')
+    // console.log(BigTableLeader)
+
+
+    BigTableLeader = BigTableLeader.filter(el => el?.progressForCourse != undefined)
+
+
+
 
 
 interface progressDaysType {
