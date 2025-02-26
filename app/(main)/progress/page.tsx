@@ -10,6 +10,7 @@ import { format } from 'date-fns';
 import { Button } from "@/components/ui/button"
 import { getUserPointsHearts } from "@/usefulFunctions"
 import { Achievement } from "@/components/achievments"
+import { LottieTester } from "@/components/LottieTester"
 // import { BuyMine } from "@/components/buy-mine"
 
 
@@ -478,7 +479,9 @@ const ProgressPage = async () => {
 
 
 
+			<LottieTester />
             </FeedWrapper>
+
 
             
         </div>

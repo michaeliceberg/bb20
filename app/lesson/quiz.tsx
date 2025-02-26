@@ -32,6 +32,7 @@ import { useWrongAnswerModal } from "@/store/use-wronganswer-modal";
 // import Latex from "react-latex-next";
 import 'katex/dist/katex.min.css';
 import Latex from 'react-latex-next';
+import { useRightAnswerModal } from "@/store/use-rightanswer-modal";
 
 type Props= {
     initialPercentage: number
@@ -89,17 +90,70 @@ export const Quiz = ({
     const router = useRouter()
 
     const [finishAudio] = useAudio({src:'/finish.mp3', autoPlay: true})
+
+
+
+
+
+
+
+    const doneRightAudio = ['/MemesAudio/meme-right-chinazes.WAV', '/MemesAudio/meme-right-papichlegkaya.WAV']
+    // var randomAudioRight = doneRightAudio[Math.floor(Math.random()*doneRightAudio.length)];
+    // var randomAudioRight = doneRightAudio[0];
+
+
+    // const [randomArray, setRandomArray] = useState([]);
+    
+    // useEffect(() => {
+    //     const randomizeArray = [...array].sort(() => 0.5 - Math.random());
+    //     setRandomArray(randomizeArray.slice(0, 3));
+    // }, []);
+
+    const [randomAudioRight, setRandomAudioRight] =  useState(doneRightAudio[0]);
+    useEffect(() => {
+        const randomizeArray = [...doneRightAudio].sort(() => 0.5 - Math.random());
+        setRandomAudioRight(randomizeArray.slice(0, 3)[0]);
+    }, []);
+
+
+
+
+
+
+    const doneWrongAudio = ['/MemesAudio/meme-wrong-kid.WAV','/MemesAudio/meme-wrong-sharish.WAV']
+    // var randomAudioWrong = doneWrongAudio[Math.floor(Math.random()*doneWrongAudio.length)];
+    // var randomAudioWrong = doneWrongAudio[0];
+
+    const [randomAudioWrong, setRandomAudioWrong] =  useState(doneWrongAudio[0]);
+    useEffect(() => {
+        const randomizeArray = [...doneWrongAudio].sort(() => 0.5 - Math.random());
+        setRandomAudioWrong(randomizeArray.slice(0, 3)[0]);
+    }, []);
+
+
+
+
+
+
+
+
+    
+
     const [
         correctAudio,
         _c,
         correctControls,
-    ] = useAudio({ src: '/correct.wav' })
+    // ] = useAudio({ src: '/correct.wav' })
+    ] = useAudio({ src: randomAudioRight })
 
     const [
         incorrectAudio,
         _i,
         incorrectControls,
-    ] = useAudio({ src: '/incorrect.wav' })
+    // ] = useAudio({ src: '/incorrect.wav' })
+    ] = useAudio({ src: randomAudioWrong })
+
+
 
     const [pending, startTransition] = useTransition()
 
@@ -157,9 +211,29 @@ export const Quiz = ({
     // ])
 
     
+    // const [randomArray, setRandomArray] = useState([]);
+    
+    // useEffect(() => {
+    //     const randomizeArray = [...array].sort(() => 0.5 - Math.random());
+    //     setRandomArray(randomizeArray.slice(0, 3));
+    // }, []);
 
 
 
+
+
+
+
+
+    // const [randomArray, setRandomArray] = useState([]);
+    
+    // useEffect(() => {
+    //     const randomizeArray = [...array].sort(() => 0.5 - Math.random());
+    //     setRandomArray(randomizeArray.slice(0, 3));
+    // }, []);
+
+
+    
 
 
     const onClickNumber = (num: number) => {   
@@ -182,6 +256,11 @@ export const Quiz = ({
         setTimesDoneWrong(wrongChallengesId.filter(x => x == num-1).length)
 
 
+
+
+
+
+
         let toShuffle = challenges.filter(el => el.id == num-1)[0].challengeOptions
         Shuffle(toShuffle)
         setOptions(toShuffle)          
@@ -201,14 +280,14 @@ export const Quiz = ({
 
     const {open} = useWrongAnswerModal()
 
+    const {openR} = useRightAnswerModal()
+
    
 
     
 
 
-    const [options, setOptions] = useState(challenge?.challengeOptions ?? [])
-    // const [options, setOptions] = useState([])
-
+    
 
 
     
@@ -216,6 +295,7 @@ export const Quiz = ({
     //
     // let options = challenge?.challengeOptions ?? []
     // useEffect(()=>{
+        // const Shuffle = (array: any) : typeof challengeOptions.$inferSelect => {
     const Shuffle = (array: any) => {
         let currentIndex = array.length;
     
@@ -232,6 +312,45 @@ export const Quiz = ({
         // Shuffle(options)
 
     // },[activeIndex, options])
+
+
+
+
+
+    // const [options, setOptions] = useState(Shuffle(challenge?.challengeOptions ?? []))
+    // const [options, setOptions] = useState(challenge?.challengeOptions ?? [])
+    // const [options, setOptions] = useState(challenge?.challengeOptions)
+
+    // const randomizeArray = [...challenge?.challengeOptions].sort(() => 0.5 - Math.random());
+    // setOptions(randomizeArray.slice(0, 3));
+
+    
+
+    // const [options, setOptions] = useState(randomizeArray)
+
+    //TODO: новое перемешивание вариантов ответа
+
+    const [options, setOptions] = useState<typeof challengeOptions.$inferSelect[]>([]);
+    
+    useEffect(() => {
+        const randomizeArray  =  [...challenge?.challengeOptions].sort(() => 0.5 - Math.random());
+        setOptions(randomizeArray);
+    }, []);
+
+
+
+
+
+
+
+    //     useEffect(() => {
+    //     const randomizeArray = [...array].sort(() => 0.5 - Math.random());
+    //     setRandomArray(randomizeArray.slice(0, 3));
+    // }, []);
+
+
+
+
 
 
 
@@ -301,6 +420,7 @@ export const Quiz = ({
                         setHearts((prev) => Math.min(prev + 1, 5))
                     }
                 })
+                .then(()=>{openR()})
                 .catch(()=>toast.error('Что-то пошло не так! Попробуйте ещё раз'))
             })
         } else {
@@ -313,7 +433,7 @@ export const Quiz = ({
             startTransition(()=>{
                 reduceHearts(challenge.id)
 
-                open()
+                // open()
 
                 upsertChallengeProgress(challenge.id, FalseValue, oldCourseProgress, activeCourseTitle, challenge.points, isDoneChallenge)
                 
@@ -332,8 +452,14 @@ export const Quiz = ({
                         setHearts((prev) => Math.max(prev - 1, 0))
                     }
                 })
+                .then(()=>{open()})
                 .catch(()=>toast.error('Что-то пошло не так! Попробуйте ещё раз'))
+
+                // open()
+
             })
+
+            // open()
 
         }
     }

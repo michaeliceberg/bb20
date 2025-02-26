@@ -35,3 +35,4 @@ export const List = ({ courses, activeCourseId }: Props) => {
 		</div>
 	);
 };
+//

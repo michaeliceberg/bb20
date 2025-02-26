@@ -1,18 +1,19 @@
 'use client'
 
-import Image from "next/image"
+// import Image from "next/image"
 import { Button } from "./ui/button"
 import Link from "next/link"
-import LottieAnimationFine from '@/public/LottieProgressFine.json'
-import LottieAnimationLate from '@/public/LottieProgressLate.json'
+// import LottieAnimationFine from '@/public/LottieProgressFine.json'
+// import LottieAnimationLate from '@/public/LottieProgressLate.json'
 import LottieKapiGood1 from '@/public/Lottie/LottieKapiGood1.json'
-import LottieKapiCry from '@/public/Lottie/LottieKapiCry.json'
-import LottieKapiAngry from '@/public/Lottie/LottieKapiAngry.json'
+// import LottieKapiCry from '@/public/Lottie/LottieKapiCry.json'
+// import LottieKapiAngry from '@/public/Lottie/LottieKapiAngry.json'
 import LottieKapiSad1 from '@/public/Lottie/LottieKapiSad1.json'
-
-import LottieCroco from '@/public/Lottie/characters/LottieCroco.json'
+// import LottieTriangle3 from '@/public/Lottie/hints/Triangle3.json'
+// import LottieCroco from '@/public/Lottie/characters/LottieCroco.json'
 
 // import LegoDetail from '@/public/Lego/LegoDetail.json'
+// import AETriangle from '@/public/Lottie/hints/AETriangle.json'
 
 
 import Lottie from "lottie-react"
@@ -60,8 +61,10 @@ export const Promo = ({
 
 
                 <Lottie 
+                
+                    // animationData={ isLate ? LottieTriangle3 : LottieTriangle3 } 
                     animationData={ isLate ? LottieKapiSad1 : LottieKapiGood1 } 
-                    className="h-20 w-20"
+                className="h-20 w-20"
                 />
 
 
@@ -95,6 +98,9 @@ export const Promo = ({
                 Прогресс
             </Link>
         </Button>
+
+
+
 
 
     </div>

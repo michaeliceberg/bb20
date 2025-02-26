@@ -10,7 +10,7 @@ type Props = {
 	disabled?: boolean;
 	active?: boolean;
 };
-
+//
 export const Card = ({ title, id, imageSrc, disabled, onClick, active }: Props) => {
 	return (
 		<div

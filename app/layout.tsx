@@ -7,6 +7,7 @@ import { ExitModal } from '@/components/modals/exit-modal';
 import { HeartsModal } from '@/components/modals/hearts-modal copy';
 import { PracticeModal } from '@/components/modals/practice-modal';
 import { WrongAnswerModal } from '@/components/modals/wronganswer-modal';
+import { RightAnswerModal } from '@/components/modals/rightanswer-modal';
 
 
 const font = Nunito({ subsets: ['latin'] });
@@ -28,6 +29,7 @@ export default function RootLayout({
 				<Toaster />
 				<ExitModal />
 				<WrongAnswerModal />
+				<RightAnswerModal />
 				<HeartsModal />	
 				<PracticeModal />
 			</html>

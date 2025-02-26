@@ -25,7 +25,6 @@ const LearnPage = async () => {
 	}
 
 	const userProgressData = getUserProgress()
-	// const lessonPercentageData = getLessonPercentage()
 	const courseProgressData = getCourseProgress()
 	const challengeProgressData = getChallengeProgress()
 
@@ -36,14 +35,12 @@ const LearnPage = async () => {
 		userProgress,
 		units,
 		courseProgress,
-		// lessonPercentage,
 		challengeProgress,
 
 	] = await Promise.all([
 		userProgressData,
 		unitsData,
 		courseProgressData,
-		// lessonPercentageData,
 		challengeProgressData,
 	]);
 
@@ -230,103 +227,6 @@ const LearnPage = async () => {
 
 	const RecomNumChallengesToday:number = Math.round(Recom_ChalPerDay*4)
 
-	// console.log('RecomNumChallengesToday')
-	// console.log(RecomNumChallengesToday)
-
-
-
-	// let hw_num_1 = Math.round(RecomNumChallengesToday * 0.4)
-	// let hw_num_2 = Math.round(RecomNumChallengesToday * 0.4)
-	// let hw_num_3 = RecomNumChallengesToday - hw_num_1 - hw_num_2
-
-
-	// console.log(hw_num_1)
-	// console.log(hw_num_2)
-	// console.log(hw_num_3)
-
-	// const hw_nums_list = [hw_num_1, hw_num_2, hw_num_3]
-
-
-	// const CountNumsLeft = (doneList:number[]) => {
-	// 	return doneList[0]-doneList[1]-doneList[2]
-	// }
-
-
-
-	// interface Type_HwList {
-	// 	lesson: number;
-	// 	unitId: number;
-	// 	numChallenges: number;
-	// }
-
-
-	// let HwList: Array<Type_HwList> = [];
-
-
-
-	// let count = RecomNumChallengesToday
-	// //
-	// for (var i = 0; i < lessonStat_NO_finished.length; i++) {
-	// 	if (CountNumsLeft(lessonStat_NO_finished[i].done) < hw_nums_list[i])
-		
-	// 	if (count == 0) {
-	// 		break;
-	// 	}
-	// }
-
-
-
-	// if (not_done_les_1 < hw_num_1) {
-	// 	hw_num_2 = hw_num_2 + hw_num_1 - not_done_les_1
-	// 	HwList.push({
-	// 		lesson: lessonStat_NO_finished[0].lesson,
-	// 		unitId: lessonStat_NO_finished[0].unitId,
-	// 		numChallenges: not_done_les_1
-	// 	})
-	// } else {
-	// 	HwList.push({
-	// 		lesson: lessonStat_NO_finished[0].lesson,
-	// 		unitId: lessonStat_NO_finished[0].unitId,
-	// 		numChallenges: hw_num_1
-	// 	})
-	// }
-
-
-	// if (not_done_les_2 < hw_num_2) {
-	// 	hw_num_3 = hw_num_3 + hw_num_2 - not_done_les_2
-	// 	HwList.push({
-	// 		lesson: lessonStat_NO_finished[1].lesson,
-	// 		unitId: lessonStat_NO_finished[1].unitId,
-	// 		numChallenges: not_done_les_2
-	// 	})
-	// } else {
-	// 	HwList.push({
-	// 		lesson: lessonStat_NO_finished[1].lesson,
-	// 		unitId: lessonStat_NO_finished[1].unitId,
-	// 		numChallenges: hw_num_2
-	// 	})
-	// }
-
-
-	// if (not_done_les_3 < hw_num_3) {
-	// 	hw_num_4 = hw_num_4 + hw_num_3 - not_done_les_3
-	// 	HwList.push({
-	// 		lesson: lessonStat_NO_finished[1].lesson,
-	// 		unitId: lessonStat_NO_finished[1].unitId,
-	// 		numChallenges: not_done_les_2
-	// 	})
-	// } else {
-	// 	HwList.push({
-	// 		lesson: lessonStat_NO_finished[1].lesson,
-	// 		unitId: lessonStat_NO_finished[1].unitId,
-	// 		numChallenges: hw_num_2
-	// 	})
-	// }
-
-
-
-
-
 
 	// HW HW HW HW HW HW HW HW 
 
@@ -508,11 +408,7 @@ const LearnPage = async () => {
 	// 		)
 	// 	}, 0)
 
-	// console.log(sumBudget)
-
 	
-	// console.log(unitStat.filter(el=>el.unitId===1008))
-
 	return (
 		<div className='flex flex-row-reverse gap-[48px] px-6'>
 			<StickyWrapper>
@@ -545,16 +441,15 @@ const LearnPage = async () => {
 							activeLesson={courseProgress.activeLesson as typeof lessons.$inferSelect & {
 								unit: typeof unitsSchema.$inferSelect
 							} | undefined}
-							// activeLessonPercentage={lessonPercentage}
 							lessonStat={lessonStat}
 							percentageDone={unitStat.filter(el=>el.unitId===unit.id)[0].percentageDone}
 							imgSrc={unit.imageSrc}
-							// challengesDoneWrong={challengesDoneWrong}
-							// challengesDone={challengesDone}
 							RecomNumChallengesToday={RecomNumChallengesToday}
 						/>
 					</div>
 				))}
+
+
 
 				
 			

@@ -83,6 +83,34 @@ export const upsertUserName = async (nickName: string) => {
 
 
 
+export const upsertIsOnMeme = async (isOnMeme: boolean) => {
+	const { userId } = await auth();
+	const user = await currentUser();
+
+	if (!userId || !user) {
+		throw new Error('Вы не авторизированны!');
+	}
+
+	const existingUserProgress = await getUserProgress();
+
+	if (existingUserProgress) {
+		await db.update(userProgress).set({
+			isOnMeme: isOnMeme,
+		}). where(eq(userProgress.userId, userId))
+		
+		revalidatePath('/courses');
+		revalidatePath('/learn');
+		redirect('/leaderboard');
+	}
+
+	revalidatePath('/courses');
+	revalidatePath('/learn');
+	redirect('/leaderboard');
+};
+
+
+
+
 
 
 

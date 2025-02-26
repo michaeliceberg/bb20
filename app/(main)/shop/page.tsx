@@ -1,3 +1,5 @@
+// 'use client'
+
 import { FeedWrapper } from "@/components/feed-wrapper"
 import { StickyWrapper } from "@/components/sticky-wrapper"
 import { UserProgress } from "@/components/user-progress"
@@ -9,6 +11,10 @@ import { getUserPointsHearts } from "@/usefulFunctions"
 import { Heart } from "lucide-react"
 import LottieShop from '@/public/Lottie/LottieShop.json'
 import Lottie from "lottie-react"
+import AETriangle from '@/public/Lottie/hints/AETriangle.json'
+
+
+
 
 const ShopPage = async () => {
 
@@ -87,6 +93,18 @@ const ShopPage = async () => {
                         gems={Gems}
                         hasActiveSubscription={isPro} 
                     />    
+                </div>
+
+
+                <div>
+
+                {/* <Lottie 
+                
+                    // animationData={ isLate ? LottieTriangle3 : LottieTriangle3 } 
+                    animationData={ AETriangle } 
+                    className="h-20 w-20"
+                /> */}
+
                 </div>
             </FeedWrapper>
             

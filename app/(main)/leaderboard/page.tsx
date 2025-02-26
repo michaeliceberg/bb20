@@ -10,6 +10,7 @@ import { getUserPointsHearts } from "@/usefulFunctions"
 import Image from "next/image"
 import { redirect } from "next/navigation"
 import { TableLeader } from "@/components/leader-table"
+import { ChangeMemeIsOn } from "@/components/change-meme-is-on"
 
 const LeaderboardPage = async () => {
 
@@ -210,6 +211,18 @@ interface progressDaysType {
                     </p>
 
                     <Separator className="mb-4 h-0.5 rounded-full" />
+
+
+
+                    {/* Вкл Выкл ЗВУК МЕМОВ */}
+
+                    <div className="flex w-full justify-center items-center space-x-2 pt-10">
+                        <ChangeMemeIsOn 
+                            isOnMeme = {userProgress.isOnMeme}
+                        />
+					</div>
+
+
 
 
                     {/* Поменять ИМЯ И КАРТИНКУ */}

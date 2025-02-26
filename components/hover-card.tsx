@@ -19,7 +19,7 @@ type Props = {
     challengeId: number
 }
 
-export function HoverCardDemo({ challengeId }: Props) {
+export function NoRightAnswer({ challengeId }: Props) {
   return (
     <HoverCard>
       <HoverCardTrigger asChild>

@@ -1,7 +1,9 @@
 import { challengeOptions, challenges } from "@/db/schema"
 import { cn } from "@/lib/utils"
 import { Card } from "./card"
-import { HoverCardDemo } from "@/components/hover-card"
+import { NoRightAnswer } from "@/components/hover-card"
+import { Lightbulb } from "lucide-react"
+import { Button } from "@/components/ui/button"
 
 
 
@@ -41,6 +43,9 @@ export const Challenge = ({
 
 
     return (
+
+        <div>
+
         <div className={cn(
             "grid gap-2",
             // type === "ASSIST" && 'grid-cols-1',
@@ -129,45 +134,50 @@ export const Challenge = ({
                 )
             }
 
-                <div>
-                    <HoverCardDemo challengeId = {challengeId}/>
-                </div>
+{/* <div className="w-full flex flex-1 justify-between"> */}
             
-                {/* {isDoneWrongChallenge 
-                    && (
-
-                            <div className="text-sm lg:text-lg text-start font-bold text-rose-500 pt-10">
-                                <h1>
-                                    Задача решена неверно!
-                                </h1>
-
-                                <h1>
-                                    Повторно можно решить завтра..
-                                </h1>
-                            </div>
-
-                        
-                    )
-                }
-
-                {isDoneChallenge  
-                    && !isDoneWrongChallenge && (
-                            <h1 className="text-sm lg:text-lg text-start font-bold text-green-500">
-                                Задача решена верно.
-                            </h1>
-                    )
-                } */}
-
-
-            {/* <h1>{daysHowLongAgo}</h1>
-            {isNaN(daysHowLongAgo) 
-                && 
-                <h2>is nannnnn</h2>
-            } */}
-            {/* <h2>
-                <Latex>{SomeSeven}</Latex>
-            </h2> */}
             
         </div>
+
+
+
+
+
+        <div className="mx-auto flex items-center justify-between h-full">
+
+            <div>
+                <NoRightAnswer challengeId = {challengeId}/>
+            </div>
+
+            <div>
+
+                <Button 
+                    variant={!isDoneWrongChallenge ? "ghost" : "ghost"}
+                    className="h-[50px] w-[50px] mt-2">
+                    {/* className="h-[45px] w-[45px] border-b-8"> */}
+
+                    <Lightbulb
+                        className={cn(
+                            "h-14 w-14",
+                            (!isDoneWrongChallenge)
+                            ? "fill-neutral-400 text-neutral-400 stroke-neutral-400"
+                            : "fill-primary-foreground text-primary-foreground",
+                            // isCompleted && "fill-none stroke-[4]"
+                            (!isDoneWrongChallenge) && "fill-none stroke-[3]"
+                        )}
+                    />
+
+                </Button>
+
+
+        </div>
+
+</div>
+
+
+
+
+        </div>
+
     )
 }

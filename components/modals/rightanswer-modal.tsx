@@ -18,7 +18,6 @@ import {
 
 import { Button } from '../ui/button'
 // import { useExitModal } from '@/store/use-exit-modal'
-import { useWrongAnswerModal } from '@/store/use-wronganswer-modal'
 import { useEffect, useState } from 'react';
 // import Lottie from 'lottie-react'
 // import LottieKapiThink from '@/public/Lottie/LottieKapiThink.json'
@@ -28,13 +27,14 @@ import LottieDeathWrongCry from '@/public/Lottie/wrongAnswer/LottieDeathWrongCry
 import LottieDeathWrongDoor from '@/public/Lottie/wrongAnswer/LottieDeathWrongDoor.json'
 import LottieDeathWrongHeartsSteel from '@/public/Lottie/wrongAnswer/LottieDeathWrongHeartsSteel.json'
 import LottieDeathWrongShakeHead from '@/public/Lottie/wrongAnswer/LottieDeathWrongShakeHead.json'
+import { useRightAnswerModal } from '@/store/use-rightanswer-modal'
 
-export const WrongAnswerModal = () => {
+export const RightAnswerModal = () => {
 
     const phoneRef = useRef<LottieRefCurrentProps>(null)
 
     const [isClient, setIsClient] = useState(false)
-    const {isOpen, close} = useWrongAnswerModal()
+    const {isOpen, close} = useRightAnswerModal()
 
 
     useEffect(()=>setIsClient(true),[]) 
