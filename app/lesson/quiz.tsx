@@ -97,37 +97,22 @@ export const Quiz = ({
 
 
 
-    const doneRightAudio = ['/MemesAudio/meme-right-chinazes.WAV', '/MemesAudio/meme-right-papichlegkaya.WAV']
-    // var randomAudioRight = doneRightAudio[Math.floor(Math.random()*doneRightAudio.length)];
-    // var randomAudioRight = doneRightAudio[0];
-
-
-    // const [randomArray, setRandomArray] = useState([]);
-    
-    // useEffect(() => {
-    //     const randomizeArray = [...array].sort(() => 0.5 - Math.random());
-    //     setRandomArray(randomizeArray.slice(0, 3));
-    // }, []);
+    const doneRightAudio = ['/MemesAudio/meme-right-papichlegkaya.WAV', '/MemesAudio/meme-right-chinazes.WAV']
 
     const [randomAudioRight, setRandomAudioRight] =  useState(doneRightAudio[0]);
     useEffect(() => {
         const randomizeArray = [...doneRightAudio].sort(() => 0.5 - Math.random());
-        setRandomAudioRight(randomizeArray.slice(0, 3)[0]);
+        setRandomAudioRight(randomizeArray[0]);
     }, []);
 
 
 
-
-
-
     const doneWrongAudio = ['/MemesAudio/meme-wrong-kid.WAV','/MemesAudio/meme-wrong-sharish.WAV']
-    // var randomAudioWrong = doneWrongAudio[Math.floor(Math.random()*doneWrongAudio.length)];
-    // var randomAudioWrong = doneWrongAudio[0];
 
     const [randomAudioWrong, setRandomAudioWrong] =  useState(doneWrongAudio[0]);
     useEffect(() => {
         const randomizeArray = [...doneWrongAudio].sort(() => 0.5 - Math.random());
-        setRandomAudioWrong(randomizeArray.slice(0, 3)[0]);
+        setRandomAudioWrong(randomizeArray[0]);
     }, []);
 
 
@@ -423,6 +408,8 @@ export const Quiz = ({
                 .then(()=>{openR()})
                 .catch(()=>toast.error('Что-то пошло не так! Попробуйте ещё раз'))
             })
+
+            console.log( ' theeeeen  RIGHT')
         } else {
 
             //TODO: ADD DONE WRONG
@@ -457,6 +444,7 @@ export const Quiz = ({
 
                 // open()
 
+                console.log( ' theeeeen  WRONGGGG')
             })
 
             // open()

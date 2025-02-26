@@ -16,9 +16,7 @@ import {
 } from '@/components/ui/dialog'
 
 
-import { Button } from '../ui/button'
 // import { useExitModal } from '@/store/use-exit-modal'
-import { useWrongAnswerModal } from '@/store/use-wronganswer-modal'
 import { useEffect, useState } from 'react';
 // import Lottie from 'lottie-react'
 // import LottieKapiThink from '@/public/Lottie/LottieKapiThink.json'
@@ -28,24 +26,24 @@ import LottieDeathWrongCry from '@/public/Lottie/wrongAnswer/LottieDeathWrongCry
 import LottieDeathWrongDoor from '@/public/Lottie/wrongAnswer/LottieDeathWrongDoor.json'
 import LottieDeathWrongHeartsSteel from '@/public/Lottie/wrongAnswer/LottieDeathWrongHeartsSteel.json'
 import LottieDeathWrongShakeHead from '@/public/Lottie/wrongAnswer/LottieDeathWrongShakeHead.json'
+import { useRightAnswerModal } from '@/store/use-rightanswer-modal'
+import { Button } from './ui/button'
 
-export const WrongAnswerModal = () => {
+export const DialogRightAnswer = () => {
 
-    console.log('THATS WRONG MODAL')
+    console.log('THATS RIGHT MODAL')
 
+    // 
 
+    // const doneRightImage = ['/memes/mem-wrong-sharish.jpeg', '/memes/meme-right-papich']
+    const doneRightImage = ['/memes/meme-right-chinazes.jpg', '/memes/meme-right-papich.jpg']
 
-
-    const doneWrongImage = ['/memes/meme-wrong-kid.jpg', '/memes/meme-wrong-sharish.jpeg']
-
-    const [randomWrongImage, setRandomWrongImage] = useState(doneWrongImage[0]);
+    const [randomRightImage, setRandomRightImage] = useState(doneRightImage[0]);
     useEffect(() => {
         
-        const randomizeArray = [...doneWrongImage].sort(() => 0.5 - Math.random());
-        setRandomWrongImage(randomizeArray[0]);
+        const randomizeArray = [...doneRightImage].sort(() => 0.5 - Math.random());
+        setRandomRightImage(randomizeArray[0]);
     }, []);
-
-
 
 
 
@@ -53,7 +51,7 @@ export const WrongAnswerModal = () => {
     const phoneRef = useRef<LottieRefCurrentProps>(null)
 
     const [isClient, setIsClient] = useState(false)
-    const {isOpen, close} = useWrongAnswerModal()
+    const {isOpen, close} = useRightAnswerModal()
 
 
     useEffect(()=>setIsClient(true),[]) 
@@ -67,6 +65,20 @@ export const WrongAnswerModal = () => {
     const WrongMessageList = ['О нет!', 'Вжик!', 'АхХахахАх!', 'Почти угадал!']
     const WrongMessage = WrongMessageList[Math.floor(Math.random()*WrongMessageList.length)]
 
+
+
+    // const doneRightImage = ['/memes/mem-wrong-sharish.jpeg', '/memes/meme-right-papich']
+
+    // const [randomRightImage, setRandomRightImage] = useState(doneRightImage[0]);
+    // useEffect(() => {
+        
+    //     const randomizeArray = [...doneRightImage].sort(() => 0.5 - Math.random());
+    //     setRandomRightImage(randomizeArray[0]);
+    // }, []);
+
+
+
+
     return (
         <Dialog open={isOpen} onOpenChange={close}>
             <DialogContent className='max-w-md'>
@@ -75,26 +87,27 @@ export const WrongAnswerModal = () => {
                 <div className='items-center w-full justify-center mb-5'>
 
 
+                    <Lottie className="h-50 w-50"
+                        animationData={ WrongLottie } 
+                        lottieRef={phoneRef }
+                        loop={false}  
+                        onComplete={()=>{
+                            phoneRef.current?.stop
+                            close()
+                        }}
+                    />
 
 
-                        <Lottie className="h-50 w-50"
-                            animationData={ WrongLottie } 
-                            lottieRef={phoneRef }
-                            loop={false}  
-                            onComplete={()=>{
-                                phoneRef.current?.stop
-                                close()
-                            }}
-                        />
 
-            <Image 
-            src={randomWrongImage}
-            // src='/memes/mem-wrong-sharish.jpeg'
-            alt='Mascot'
-                height={200}
-                width={200}
-                className="border-r-8 w-full mx-auto"
-            />
+                    <Image 
+                        src={randomRightImage}
+                        alt='Mascot'
+                        height={200}
+                        width={200}
+                        className="border-r-8 w-full mx-auto"
+                    />
+
+
 
                     </div>
                     <DialogTitle className='text-center font-bold text-2xl'>

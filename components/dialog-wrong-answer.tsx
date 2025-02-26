@@ -16,7 +16,6 @@ import {
 } from '@/components/ui/dialog'
 
 
-import { Button } from '../ui/button'
 // import { useExitModal } from '@/store/use-exit-modal'
 import { useWrongAnswerModal } from '@/store/use-wronganswer-modal'
 import { useEffect, useState } from 'react';
@@ -28,8 +27,9 @@ import LottieDeathWrongCry from '@/public/Lottie/wrongAnswer/LottieDeathWrongCry
 import LottieDeathWrongDoor from '@/public/Lottie/wrongAnswer/LottieDeathWrongDoor.json'
 import LottieDeathWrongHeartsSteel from '@/public/Lottie/wrongAnswer/LottieDeathWrongHeartsSteel.json'
 import LottieDeathWrongShakeHead from '@/public/Lottie/wrongAnswer/LottieDeathWrongShakeHead.json'
+import { Button } from './ui/button'
 
-export const WrongAnswerModal = () => {
+export const DialogWrongAnswer = () => {
 
     console.log('THATS WRONG MODAL')
 
@@ -107,7 +107,7 @@ export const WrongAnswerModal = () => {
 
                 <DialogFooter className='mb-4'>
                     <div className='flex flex-col gap-y-4 w-full'>
-                        <Button 
+                        <Button
                             variant='dangerOutline' 
                             className='w-full' 
                             size='lg' 
