@@ -29,9 +29,7 @@ import LottieSelectButterfly from '@/public/LottieSelectButterfly.json'
 
 import Lottie from "lottie-react";
 import { useWrongAnswerModal } from "@/store/use-wronganswer-modal";
-// import Latex from "react-latex-next";
 import 'katex/dist/katex.min.css';
-import Latex from 'react-latex-next';
 import { useRightAnswerModal } from "@/store/use-rightanswer-modal";
 
 type Props= {
@@ -93,50 +91,48 @@ export const Quiz = ({
 
 
 
+    //TODO:
+    // // const doneRightAudio = ['/MemesAudio/meme-right-chinazes.WAV', '/MemesAudio/meme-right-papichlegkaya.WAV']
+    // const doneRightAudio = ['/MemesAudio/meme-right-papichlegkaya.WAV', '/MemesAudio/meme-right-chinazes.WAV']
+
+    // const [randomAudioRight, setRandomAudioRight] =  useState(doneRightAudio[0]);
+    // useEffect(() => {
+    //     const randomizeArray = [...doneRightAudio].sort(() => 0.5 - Math.random());
+    //     setRandomAudioRight(randomizeArray[0]);
+    // }, []);
 
 
 
+    // const doneWrongAudio = ['/MemesAudio/meme-wrong-kid.WAV','/MemesAudio/meme-wrong-sharish.WAV']
 
-    const doneRightAudio = ['/MemesAudio/meme-right-papichlegkaya.WAV', '/MemesAudio/meme-right-chinazes.WAV']
-
-    const [randomAudioRight, setRandomAudioRight] =  useState(doneRightAudio[0]);
-    useEffect(() => {
-        const randomizeArray = [...doneRightAudio].sort(() => 0.5 - Math.random());
-        setRandomAudioRight(randomizeArray[0]);
-    }, []);
-
-
-
-    const doneWrongAudio = ['/MemesAudio/meme-wrong-kid.WAV','/MemesAudio/meme-wrong-sharish.WAV']
-
-    const [randomAudioWrong, setRandomAudioWrong] =  useState(doneWrongAudio[0]);
-    useEffect(() => {
-        const randomizeArray = [...doneWrongAudio].sort(() => 0.5 - Math.random());
-        setRandomAudioWrong(randomizeArray[0]);
-    }, []);
+    // const [randomAudioWrong, setRandomAudioWrong] =  useState(doneWrongAudio[0]);
+    // useEffect(() => {
+    //     const randomizeArray = [...doneWrongAudio].sort(() => 0.5 - Math.random());
+    //     setRandomAudioWrong(randomizeArray[0]);
+    // }, []);
 
 
 
 
 
-
+    // const [isOpenDialog, setIsOpenDialog] = useState(false)
 
 
     
 
-    const [
-        correctAudio,
-        _c,
-        correctControls,
-    // ] = useAudio({ src: '/correct.wav' })
-    ] = useAudio({ src: randomAudioRight })
+    // const [
+    //     correctAudio,
+    //     _c,
+    //     correctControls,
+    // // ] = useAudio({ src: '/correct.wav' })
+    // ] = useAudio({ src: randomAudioRight })
 
-    const [
-        incorrectAudio,
-        _i,
-        incorrectControls,
-    // ] = useAudio({ src: '/incorrect.wav' })
-    ] = useAudio({ src: randomAudioWrong })
+    // const [
+    //     incorrectAudio,
+    //     _i,
+    //     incorrectControls,
+    // // ] = useAudio({ src: '/incorrect.wav' })
+    // ] = useAudio({ src: randomAudioWrong })
 
 
 
@@ -263,6 +259,7 @@ export const Quiz = ({
 
 
 
+
     const {open} = useWrongAnswerModal()
 
     const {openR} = useRightAnswerModal()
@@ -385,6 +382,14 @@ export const Quiz = ({
                 const TrueValue = true
                 
                 // close()
+                
+
+
+                // setIsOpenDialog(true)
+
+
+                openR()
+
 
                 upsertChallengeProgress(challenge.id, TrueValue, oldCourseProgress, activeCourseTitle, challenge.points, isDoneChallenge)
                 // .then(() => {close()})
@@ -395,7 +400,7 @@ export const Quiz = ({
                         return
                     }
 
-                    correctControls.play()
+                    // correctControls.play()
                     setStatus('correct')
                     setPercentage((prev)=> prev + 100/challenges.length)
 
@@ -405,7 +410,7 @@ export const Quiz = ({
                         setHearts((prev) => Math.min(prev + 1, 5))
                     }
                 })
-                .then(()=>{openR()})
+                // .then(()=>{openR()})
                 .catch(()=>toast.error('Что-то пошло не так! Попробуйте ещё раз'))
             })
 
@@ -415,12 +420,15 @@ export const Quiz = ({
             //TODO: ADD DONE WRONG
             const FalseValue = false
 
+            // setIsOpenDialog(true)
             // open()
+            
 
             startTransition(()=>{
+                open()
+
                 reduceHearts(challenge.id)
 
-                // open()
 
                 upsertChallengeProgress(challenge.id, FalseValue, oldCourseProgress, activeCourseTitle, challenge.points, isDoneChallenge)
                 
@@ -430,7 +438,7 @@ export const Quiz = ({
                         return 
                     }
 
-                    incorrectControls.play()
+                    // incorrectControls.play()
                     setStatus('wrong')
 
                     setPercentage((prev)=> prev + 100/challenges.length)
@@ -439,7 +447,7 @@ export const Quiz = ({
                         setHearts((prev) => Math.max(prev - 1, 0))
                     }
                 })
-                .then(()=>{open()})
+                // .then(()=>{open()})
                 .catch(()=>toast.error('Что-то пошло не так! Попробуйте ещё раз'))
 
                 // open()
@@ -512,6 +520,10 @@ export const Quiz = ({
 
 
 
+
+
+
+
     const title = challenge.type === "ASSIST" 
     // ? "Select the correct meaning"
     ?  lessonTitle
@@ -529,8 +541,13 @@ export const Quiz = ({
     return(
     <>
 
-        {incorrectAudio}
-        {correctAudio}
+        {/* {incorrectAudio}
+        {correctAudio} */}
+
+
+
+        {/* {isOpenDialog && <DialogRightAnswer />} */}
+        {/* <DialogRightAnswer /> */}
         <Header 
             hearts={hearts}
             percentage={percentage}
