@@ -93,14 +93,14 @@ const LeaderboardPage = async () => {
 
 
 
-interface progressDaysType {
-		date: Date;
-		pts: number;
-        ptsGotToday: number;
-        hwInARow: number;
-		selfDoneRight: number;
-        
-	}[]
+    interface progressDaysType {
+            date: Date;
+            pts: number;
+            ptsGotToday: number;
+            hwInARow: number;
+            selfDoneRight: number;
+            
+        }[]
 
 
 	let progressDays: Array<progressDaysType> = [];

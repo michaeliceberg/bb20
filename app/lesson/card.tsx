@@ -4,12 +4,12 @@ import { cn } from "@/lib/utils"
 import { stat } from "fs"
 import Image from "next/image"
 import { useCallback } from "react"
-import {useAudio, useKey } from "react-use"
+import { useKey } from "react-use"
 
 type Props = {
     id: number
     imageSrc: string | null
-    audioSrc: string | null
+    // audioSrc: string | null
     text: string
     shortcut: string
     selected?: boolean
@@ -24,7 +24,7 @@ type Props = {
 export const Card = ({
     id,
     imageSrc,
-    audioSrc,
+    // audioSrc,
     text,
     shortcut,
     selected,
@@ -34,19 +34,23 @@ export const Card = ({
     type,
     isDoneWrongChallenge,
 }: Props) => {
-    const [audio, _, controls] = useAudio({src: audioSrc || ""})
+    // const [audio, _, controls] = useAudio({src: audioSrc || ""})
 
     const handleClick = useCallback(()=>{
         if (disabled) return
 
 
-        controls.play()
+        // controls.play()
         onClick()
 
         // open()
 
 
-    },[disabled, onClick, controls])
+    },[
+        disabled, 
+        onClick, 
+        // controls
+    ])
 
     useKey(shortcut, handleClick, {}, [handleClick])
 
@@ -68,7 +72,7 @@ export const Card = ({
             )}
         >
          
-            {audio}
+            {/* {audio} */}
             {imageSrc && (
                 <div className="relative aspect-square mb-4 max-h-[80px] lg:max-h-[15-px] w-full">
                     <Image

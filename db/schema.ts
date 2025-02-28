@@ -53,7 +53,8 @@ export const userProgress = pgTable('user_progress', {
 	points: integer('points').notNull().default(0),
 
 
-	isOnMeme: boolean('is_on_meme').notNull().default(true),
+	// isOnMeme: boolean('is_on_meme').notNull().default(true),
+	isOnMeme: integer('is_on_meme').notNull().default(1),
 
 	// courseProgress: json('course_progress').$type<SuperType>().notNull().default(
 	courseProgress: json('course_progress').$type<SuperType>()

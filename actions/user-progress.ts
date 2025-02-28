@@ -83,7 +83,7 @@ export const upsertUserName = async (nickName: string) => {
 
 
 
-export const upsertIsOnMeme = async (isOnMeme: boolean) => {
+export const upsertIsOnMeme = async (isOnMeme: number) => {
 	const { userId } = await auth();
 	const user = await currentUser();
 

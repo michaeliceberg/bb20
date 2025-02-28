@@ -11,7 +11,8 @@ import { Headphones, Volume, Volume2, VolumeX } from 'lucide-react';
 
 
 type Props= {
-    isOnMeme: boolean
+    isOnMeme: number
+    // isOnMeme: boolean
 }
 
 
@@ -27,15 +28,19 @@ export const ChangeMemeIsOn = ({
 
     const [isOnMemeState, setIsOnMemeState] = useState(isOnMeme);
 
+    console.log('isOnMeme = ', isOnMemeState)
 
     const onButtonPress = () => {
 
-        setIsOnMemeState(!isOnMemeState)
+        // setIsOnMemeState(!isOnMemeState)
+        setIsOnMemeState(isOnMemeState == 1 ? 0 : 1)
+        // console.log('isOnMeme = ', isOnMeme)
 
         startTransition(()=> {
             if (pending) return;
             
-            upsertIsOnMeme(!isOnMemeState)
+            // upsertIsOnMeme(!isOnMemeState)
+            upsertIsOnMeme(isOnMemeState == 1 ? 0 : 1)
             .catch(()=>toast.error('Что-то пошло не так! Попробуйте ещё раз'))
         })
         
