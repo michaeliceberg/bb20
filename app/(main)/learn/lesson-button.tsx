@@ -83,7 +83,7 @@ if (cycleIndex <= 2){
         style={{pointerEvents: locked?"none":"auto"}}
         >
             <div className="relative flex flex-1" style={{
-                right: `${rightPosition}px`,
+                right: `${-20 + rightPosition}px`,
                 marginTop: isFirst && !isCompleted ? 60 : 24,
                 }}
             >

@@ -32,14 +32,24 @@ const LeaderboardPage = async () => {
         gotAllProgresses,
     ])
 
+ 
+    //TODO: added
     if (!userProgress || !userProgress.activeCourse) {
-        redirect('/courses')
-    }
+		redirect('/courses');
+	}
+    //
+
+
 
     const isPro = !!userSubscription?.isActive
 
     
     const [Points, Hearts, Gems] = getUserPointsHearts(userProgress)
+
+
+
+
+
 
 
 

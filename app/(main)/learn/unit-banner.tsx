@@ -36,6 +36,16 @@ import LottieAnimation9 from '@/public/LottieUnit9.json'
 
 import { cn } from "@/lib/utils";
 
+
+// <div className='size-40'> 
+// {/* <Lottie animationData={LottieAnimation} />            */}
+// <Lottie 
+//     animationData={LottieData[id%1000-1]} 
+//     loop={false}
+// />           
+// </div>
+
+
 type Props = {
     title: string;
     description: string;
@@ -68,9 +78,9 @@ export const UnitBanner = ({
     // console.log(LottieAnimation)
     // "flex items-center justify-between",
     return(
-        <div className="w-full rounded-xl  bg-green-500 p-5 text-white flex items-center justify-between">
+        <div className="w-full rounded-xl  bg-green-500 p-5 text-white flex items-center justify-between bg-[url('/memes/i-like-food.svg')]  bg-repeat">
 
-
+         
 
 
 
@@ -100,13 +110,20 @@ export const UnitBanner = ({
 
             </div>  
 
-            <div className='size-40'> 
-                {/* <Lottie animationData={LottieAnimation} />            */}
-                <Lottie 
-                    animationData={LottieData[id%1000-1]} 
-                    loop={false}
-                />           
-            </div>
+       
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
             </div>

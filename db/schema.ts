@@ -216,3 +216,165 @@ export const userSubscription = pgTable("user_subscription", {
 	stripePriceId: text('stripe_price_id').notNull(),
 	stripeCurrentPeriodEnd: timestamp('stripe_current_period_end').notNull(),
 })
+
+
+
+
+
+
+// TODO: Trainer Trainer Trainer Trainer Trainer Trainer Trainer Trainer Trainer Trainer
+
+
+
+export const t_courses = pgTable('t_courses', {
+	id: serial('id').primaryKey(),
+	title: text('title').notNull(),
+	imageSrc: text('image_src').notNull(),
+});
+
+export const t_coursesRelations = relations(t_courses, ({ many }) => ({
+	userProgress: many(userProgress),
+	t_units: many(t_units),
+}));
+
+
+
+
+
+
+
+
+
+export const t_units = pgTable('t_units', {
+	id: serial('id').primaryKey(),
+	title: text('title').notNull(), // Unit 1
+	description: text('description').notNull(), // Learn the basics
+	imageSrc: text('image_src').notNull(),
+	t_courseId: integer('t_course_id')
+		.references(() => t_courses.id, { onDelete: 'cascade' })
+		.notNull(),
+	order: integer('order').notNull(),
+});
+
+export const t_unitsRelations = relations(t_units, ({ many, one }) => ({
+	t_course: one(t_courses, {
+		fields: [t_units.t_courseId],
+		references: [t_courses.id],
+	}),
+	t_lessons: many(t_lessons),
+}));
+
+
+
+
+export const t_lessons = pgTable('t_lessons', {
+	id: serial('id').primaryKey(),
+	title: text('title').notNull(),
+	t_unitId: integer('t_unit_id')
+		.references(() => t_units.id, { onDelete: 'cascade' })
+		.notNull(),
+	order: integer('order').notNull(),
+});
+
+export const t_lessonsRelations = relations(t_lessons, ({ one, many }) => ({
+	t_unit: one(t_units, {
+		fields: [t_lessons.t_unitId],
+		references: [t_units.id],
+	}),
+	t_challenges: many(t_challenges),
+}));
+
+
+
+
+export const t_challengesEnum = pgEnum("type", ["SELECT", "ASSIST"])
+
+
+
+
+
+export const t_challenges = pgTable('t_challenges', {
+	id: serial('id').primaryKey(),
+	// id: bigint('id').primaryKey(),
+	t_lessonId: integer('lesson_id').references(()=>t_lessons.id, {onDelete: 'cascade'}).notNull(),
+	type: challengesEnum('type').notNull(),
+	question: text('question').notNull(),
+	order: integer('order').notNull(),
+	points: integer('points').notNull(),
+	author: text('author').notNull(),
+});
+
+export const t_challengesRelations = relations(t_challenges, ({ one, many }) => ({
+	t_lesson: one(t_lessons, {
+		fields: [t_challenges.t_lessonId],
+		references:[t_lessons.id],
+	}),
+	t_challengeOptions: many(t_challengeOptions),
+	t_lessonProgress: many(t_lessonProgress),
+}));
+
+
+
+
+export const t_challengeOptions = pgTable('t_challenge_options', {
+	id: serial('id').primaryKey(),
+	t_challengeId: integer('t_challenge_id').references(()=>t_challenges.id, {onDelete: 'cascade'}).notNull(),	
+	text: text('text').notNull(),
+	correct: boolean('correct').notNull(),
+	imageSrc: text('image_src'),
+	audioSrc: text('audio_src'),
+});
+
+
+export const t_challengeOptionsRelations = relations(t_challengeOptions, ({ one }) => ({
+	
+	t_challenge: one(t_challenges, {
+		fields: [t_challengeOptions.t_challengeId],
+		references:[t_challenges.id],
+	})
+}));
+
+
+
+
+
+// export const t_challengeProgress = pgTable('t_challenge_progress', {
+// 	id: serial('id').primaryKey(),
+// 	userId: text('user_id').notNull(), // TODO: confirm this 
+// 	t_challengeId: integer('t_challenge_id').references(()=>t_challenges.id, {onDelete: 'cascade'}).notNull(),	
+// 	completed: boolean('completed').notNull().default(false),
+// 	doneRight: boolean('done_right').notNull().default(false),
+// 	dateDone: timestamp('date_done').notNull().defaultNow(),
+// });
+
+
+// export const t_challengeProgressRelations = relations(t_challengeProgress, ({ one }) => ({
+	
+// 	t_challenge: one(t_challenges, {
+// 		fields: [t_challengeProgress.t_challengeId],
+// 		references:[t_challenges.id],
+// 	})
+// }));
+
+
+
+
+export const t_lessonProgress = pgTable('t_lesson_progress', {
+	id: serial('id').primaryKey(),
+	userId: text('user_id').notNull(), // TODO: confirm this 
+	t_lessonId: integer('t_lesson_id').references(()=>t_lessons.id, {onDelete: 'cascade'}).notNull(),	
+	doneRightPercent: integer('done_right_percent').notNull().default(0),
+	dateDone: timestamp('date_done').notNull().defaultNow(),
+});
+
+
+export const t_lessonProgressRelations = relations(t_lessonProgress, ({ one }) => ({
+	
+	t_challenge: one(t_challenges, {
+		fields: [t_lessonProgress.t_lessonId],
+		references:[t_challenges.id],
+	})
+}));
+
+
+
