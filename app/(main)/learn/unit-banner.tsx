@@ -1,40 +1,40 @@
 'use client'
 
 import { Button } from "@/components/ui/button";
-import Lottie from "lottie-react";
-import { Check, CircleCheckBig, NotebookText } from "lucide-react";
+// import Lottie from "lottie-react";
+import { CircleCheckBig, NotebookText } from "lucide-react";
 import Link from "next/link";
 
-// import LottieAnimation1 from '@/public/LottieUnit1.json'
-import LottieAnimation1 from '@/public/LottieBreadAverage.json'
+// // import LottieAnimation1 from '@/public/LottieUnit1.json'
+// import LottieAnimation1 from '@/public/LottieBreadAverage.json'
 
-// /Users/mac/Downloads/LottieBreadAverage.json
+// // /Users/mac/Downloads/LottieBreadAverage.json
 
-// import LottieAnimation2 from '@/public/LottieUnit2.json'
-import LottieAnimation2 from '@/public/LottieSharkMass.json'
+// // import LottieAnimation2 from '@/public/LottieUnit2.json'
+// import LottieAnimation2 from '@/public/LottieSharkMass.json'
 
-// import LottieAnimation3 from '@/public/LottieUnit3.json'
-import LottieAnimation3 from '@/public/LottieDeathMeanRho.json'
+// // import LottieAnimation3 from '@/public/LottieUnit3.json'
+// import LottieAnimation3 from '@/public/LottieDeathMeanRho.json'
 
-// import LottieAnimation4 from '@/public/LottieUnit4.json'
-import LottieAnimation4 from '@/public/LottieFoogooPressure.json'
+// // import LottieAnimation4 from '@/public/LottieUnit4.json'
+// import LottieAnimation4 from '@/public/LottieFoogooPressure.json'
 
-// import LottieAnimation5 from '@/public/LottieUnit5.json'
-import LottieAnimation5 from '@/public/LottieArchimed.json'
+// // import LottieAnimation5 from '@/public/LottieUnit5.json'
+// import LottieAnimation5 from '@/public/LottieArchimed.json'
 
-// import LottieAnimation6 from '@/public/LottieUnit6.json'
-import LottieAnimation6 from '@/public/LottieWatermelonDrink.json'
+// // import LottieAnimation6 from '@/public/LottieUnit6.json'
+// import LottieAnimation6 from '@/public/LottieWatermelonDrink.json'
 
-// import LottieAnimation7 from '@/public/LottieUnit7.json'
-import LottieAnimation7 from '@/public/LottieGameU.json'
+// // import LottieAnimation7 from '@/public/LottieUnit7.json'
+// import LottieAnimation7 from '@/public/LottieGameU.json'
 
-// import LottieAnimation8 from '@/public/LottieUnit8.json'
-import LottieAnimation8 from '@/public/LottieJolesWatts.json'
+// // import LottieAnimation8 from '@/public/LottieUnit8.json'
+// import LottieAnimation8 from '@/public/LottieJolesWatts.json'
 
 
-import LottieAnimation9 from '@/public/LottieUnit9.json'
+// import LottieAnimation9 from '@/public/LottieUnit9.json'
 
-import { cn } from "@/lib/utils";
+// import { cn } from "@/lib/utils";
 
 
 // <div className='size-40'> 
@@ -62,17 +62,17 @@ export const UnitBanner = ({
     percentageDone,
 }: Props)=>{
 
-    const LottieData = [
-        LottieAnimation1,
-        LottieAnimation2,
-        LottieAnimation3,
-        LottieAnimation4,
-        LottieAnimation5,
-        LottieAnimation6,
-        LottieAnimation7,
-        LottieAnimation8,
-        LottieAnimation9,
-    ]
+    // const LottieData = [
+    //     LottieAnimation1,
+    //     LottieAnimation2,
+    //     LottieAnimation3,
+    //     LottieAnimation4,
+    //     LottieAnimation5,
+    //     LottieAnimation6,
+    //     LottieAnimation7,
+    //     LottieAnimation8,
+    //     LottieAnimation9,
+    // ]
 
     // console.log(imgSrc)
     // console.log(LottieAnimation)
