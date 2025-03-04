@@ -207,7 +207,12 @@ const ComboList = {
                                         ['/MemesAudio/meme-right-gtapassed.WAV', '/memes/meme-right-gtapassed.jpeg'],
                                         ['/MemesAudio/meme-right-nice.WAV', '/memes/meme-right-nice.jpeg'],
                                         ['/MemesAudio/meme-right-umeetemogete.WAV', '/memes/meme-right-umeetemogete.jpeg'],
+                                        ['/MemesAudio/meme-right-chetko.WAV', '/memes/meme-right-umeetemogete.jpeg'],
                                      ],
+
+
+                                     // 
+
                     wrongLottie:     [LottieDeathHeart, LottieDeathWrongCoffin, LottieDeathWrongCry ,LottieDeathWrongDoor, LottieDeathWrongHeartsSteel, LottieDeathWrongShakeHead],
                     // wrongMessage:    ['О нет!', 'Вжик!', 'АхХахахАх!', 'Почти угадал!'],
                     rightMessage:    ['Молодец!', 'Красавчик!', 'Еееее!', 'Угадал!']
