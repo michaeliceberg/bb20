@@ -16,6 +16,33 @@ import { auth, currentUser } from "@clerk/nextjs/server"
 
 
 
+const bgList = [
+	'/bg-svg/anchors-away.svg',
+	'/bg-svg/Usersaztec.svg',
+	'/bg-svg/bubbles.svg',
+	'/bg-svg/circles-and-squares.svg',
+	'/bg-svg/cutout.svg',
+	'/bg-svg/floating-cogs.svg',
+	'/bg-svg/glamorous.svg',
+	'/bg-svg/i-like-food.svg',
+	'/bg-svg/jigsaw.svg',
+	'/bg-svg/leaf.svg',
+	'/bg-svg/random-shapes.svg',
+	'/bg-svg/skulls.svg',
+	'/bg-svg/tic-tac-toe.svg',
+	'/bg-svg/topography.svg',
+	'/bg-svg/yyy.svg',
+]
+
+
+	const randomizeArray = [...bgList].sort(() => 0.5 - Math.random());
+	// setRandomRightImage(randomizeArray[0]);
+
+
+
+
+
+
 const LearnPage = async () => {
 	const { userId } = await auth();
 	const user = await currentUser();
@@ -56,7 +83,7 @@ const LearnPage = async () => {
         redirect('/learn')
     }
 
-
+	const bgSvgSrc = randomizeArray.slice(0, units.length)
 	
 
 	// TODO:   NEW NEW NEW NEW
@@ -429,7 +456,7 @@ const LearnPage = async () => {
 
 			<FeedWrapper>
 				<Header title={userProgress.activeCourse.title} />
-				{units.map((unit)=>(
+				{units.map((unit, index)=>(
 				
 					<div key={unit.id} className='mb-10'>
 						<Unit 
@@ -445,6 +472,7 @@ const LearnPage = async () => {
 							percentageDone={unitStat.filter(el=>el.unitId===unit.id)[0].percentageDone}
 							imgSrc={unit.imageSrc}
 							RecomNumChallengesToday={RecomNumChallengesToday}
+							bgSvgSrc = {bgSvgSrc[index]}
 						/>
 					</div>
 				))}

@@ -25,7 +25,6 @@ type Props = {
     imgSrc: string;
     percentageDone: number;
     RecomNumChallengesToday: number;
-    bgSvgSrc: string
 }
 
 export const Unit = ({
@@ -40,11 +39,10 @@ export const Unit = ({
     imgSrc,
     percentageDone,
     RecomNumChallengesToday,
-    bgSvgSrc,
 }: Props) => {
     return (
         <>
-            <UnitBanner title={title} description={description} imgSrc={imgSrc} id={id} percentageDone={percentageDone} bgSvgSrc={bgSvgSrc}/>
+            <UnitBanner title={title} description={description} imgSrc={imgSrc} id={id} percentageDone={percentageDone}/>
             <div className="flex items-center flex-col relative">
                 {lessons.map((lesson, index)=>{
                     const isCurrent = lesson.id === activeLesson?.id

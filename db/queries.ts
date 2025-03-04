@@ -260,3 +260,50 @@ export const getAllProgresses = cache(async () => {
 
 	return data;
 });
+
+
+
+
+
+
+
+
+
+
+export const getTCourses = cache(async () => {
+    const data = await db.query.t_courses.findMany();
+
+    return data;
+});
+
+
+
+export const getTUnits = cache(async()=>{
+    const {userId} = await auth()
+    // const userProgress = await getUserProgress();
+    if (!userId){
+        return []
+    }
+
+    const data = await db.query.units.findMany({
+        // where: eq(units.courseId, userProgress.activeCourseId),
+        with: {
+            lessons: {
+                with: {
+                    challenges: {
+                        with: {
+                            challengeProgress: {
+                                where: eq (challengeProgress.userId,
+                                    userId
+                                )
+                            }
+                        },
+                    },
+                },
+            },
+        },
+    })
+    return data
+}
+    
+)

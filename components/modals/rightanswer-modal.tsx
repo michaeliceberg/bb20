@@ -185,6 +185,15 @@ import { useRightAnswerModal } from '@/store/use-rightanswer-modal'
 // const doneRightAudio = ['/MemesAudio/meme-right-papichlegkaya.WAV', '/MemesAudio/meme-right-chinazes.WAV']
 // const doneRightImage = ['/memes/meme-right-chinazes.jpg', '/memes/meme-right-papich.jpg']
 
+
+
+
+
+
+
+
+
+
 const ComboList = {
                     // wrongAudioImage: [
                     //                     ['/MemesAudio/meme-wrong-kid.WAV', '/memes/meme-wrong-kid.jpg'], 
@@ -192,7 +201,12 @@ const ComboList = {
                     //                  ],
                     rightAudioImage: [
                                         ['/MemesAudio/meme-right-papichlegkaya.WAV', '/memes/meme-right-papich.jpg'], 
-                                        ['/MemesAudio/meme-right-chinazes.WAV', '/memes/meme-right-chinazes.jpg']
+                                        ['/MemesAudio/meme-right-chinazes.WAV', '/memes/meme-right-chinazes.jpg'],
+                                        ['/MemesAudio/meme-right-clapping.WAV', '/memes/meme-right-clapping.jpeg'],
+                                        ['/MemesAudio/meme-right-estestvenno.WAV', '/memes/meme-right-estestvenno.jpg'],
+                                        ['/MemesAudio/meme-right-gtapassed.WAV', '/memes/meme-right-gtapassed.jpeg'],
+                                        ['/MemesAudio/meme-right-nice.WAV', '/memes/meme-right-nice.jpeg'],
+                                        ['/MemesAudio/meme-right-umeetemogete.WAV', '/memes/meme-right-umeetemogete.jpeg'],
                                      ],
                     wrongLottie:     [LottieDeathHeart, LottieDeathWrongCoffin, LottieDeathWrongCry ,LottieDeathWrongDoor, LottieDeathWrongHeartsSteel, LottieDeathWrongShakeHead],
                     // wrongMessage:    ['О нет!', 'Вжик!', 'АхХахахАх!', 'Почти угадал!'],
@@ -304,7 +318,7 @@ export const RightAnswerModal = () => {
                             size='lg' 
                             // onClick={close}
                         >
-                            - 1 
+                            +
                             <Image
                     src="/heart.svg"
                     alt='Heart'

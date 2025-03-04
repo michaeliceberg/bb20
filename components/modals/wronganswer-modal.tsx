@@ -36,10 +36,27 @@ import { useAudio } from 'react-use'
 // const doneRightAudio = ['/MemesAudio/meme-right-papichlegkaya.WAV', '/MemesAudio/meme-right-chinazes.WAV']
 // const doneRightImage = ['/memes/meme-right-chinazes.jpg', '/memes/meme-right-papich.jpg']
 
+
+
+
+
+
+
+
+
+
+
+
 const ComboList = {
                     wrongAudioImage: [
                                         ['/MemesAudio/meme-wrong-kid.WAV', '/memes/meme-wrong-kid.jpg'], 
-                                        ['/MemesAudio/meme-wrong-sharish.WAV', '/memes/meme-wrong-sharish.jpeg']
+                                        ['/MemesAudio/meme-wrong-sharish.WAV', '/memes/meme-wrong-sharish.jpeg'],
+                                        ['/MemesAudio/meme-wrong-pacankuspehy.WAV', '/memes/meme-wrong-pacankuspehy.jpeg'],
+                                        ['/MemesAudio/meme-wrong-polnomochia.WAV', '/memes/meme-wrong-polnomochia.jpeg'],
+                                        ['/MemesAudio/meme-wrong-ponovoy.WAV', '/memes/meme-wrong-ponovoy.jpeg'],
+                                        ['/MemesAudio/meme-wrong-shirokuiu.WAV', '/memes/meme-wrong-shirokuiu.jpeg'],
+                                        ['/MemesAudio/meme-wrong-tivtiraesh.WAV', '/memes/meme-wrong-tivtiraesh.jpe'],
+                                        ['/MemesAudio/meme-wrong-tipereputal.WAV', '/memes/meme-wrong-tipereputal.jpg'],
                                      ],
                     rightAudioImage: [
                                         ['/MemesAudio/meme-right-papichlegkaya.WAV', '/memes/meme-right-papich.jpg'], 

@@ -52,7 +52,6 @@ type Props = {
     imgSrc: string;
     id: number;
     percentageDone: number;
-    bgSvgSrc: string;
 }
 
 export const UnitBanner = ({
@@ -61,7 +60,6 @@ export const UnitBanner = ({
     imgSrc,
     id,
     percentageDone,
-    bgSvgSrc,
 }: Props)=>{
 
     // const LottieData = [
@@ -76,18 +74,12 @@ export const UnitBanner = ({
     //     LottieAnimation9,
     // ]
 
-
-
-    // <nav className={`navbar navbar-expand-lg navbar-${props.mode} bg-${props.mode}`}></nav>
-    // const superMessage = `hello ${title}`
-
     // console.log(imgSrc)
     // console.log(LottieAnimation)
     // "flex items-center justify-between",
     return(
-        <div className={`w-full rounded-xl  bg-green-500 p-5 text-white flex items-center justify-between bg-[url('/memes/i-like-food.svg')]  bg-repeat`} >
-        
-        
+        <div className="w-full rounded-xl  bg-green-500 p-5 text-white flex items-center justify-between bg-[url('/memes/i-like-food.svg')]  bg-repeat">
+
          
 
 
