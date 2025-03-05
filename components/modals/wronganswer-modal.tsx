@@ -29,35 +29,17 @@ import { useAudio } from 'react-use'
 
 
 
-// const WrongLottieList = [LottieDeathHeart, LottieDeathWrongCoffin, LottieDeathWrongCry ,LottieDeathWrongDoor, LottieDeathWrongHeartsSteel, LottieDeathWrongShakeHead]
-// const WrongMessageList = ['О нет!', 'Вжик!', 'АхХахахАх!', 'Почти угадал!']
-// const doneWrongAudio = ['/MemesAudio/meme-wrong-kid.WAV','/MemesAudio/meme-wrong-sharish.WAV']
-// const doneWrongImage = ['/memes/meme-wrong-kid.jpg', '/memes/meme-wrong-sharish.jpeg']
-// const doneRightAudio = ['/MemesAudio/meme-right-papichlegkaya.WAV', '/MemesAudio/meme-right-chinazes.WAV']
-// const doneRightImage = ['/memes/meme-right-chinazes.jpg', '/memes/meme-right-papich.jpg']
-
-
-
-
-
-
-
-
-
-
-
-
 const ComboList = {
                     wrongAudioImage: [
-                                        ['/MemesAudio/meme-wrong-kid.WAV', '/memes/meme-wrong-kid.jpg'], 
-                                        ['/MemesAudio/meme-wrong-sharish.WAV', '/memes/meme-wrong-sharish.jpeg'],
-                                        ['/MemesAudio/meme-wrong-polnomochia.WAV', '/memes/meme-wrong-polnomochia.jpeg'],
-                                        ['/MemesAudio/meme-wrong-ponovoy.WAV', '/memes/meme-wrong-ponovoy.jpeg'],
-                                        ['/MemesAudio/meme-wrong-shirokuiu.WAV', '/memes/meme-wrong-shirokuiu.jpeg'],
-                                        ['/MemesAudio/meme-wrong-tivtiraesh.WAV', '/memes/meme-wrong-tivtiraesh.jpeg'],
-                                        ['/MemesAudio/meme-wrong-tipereputal.WAV', '/memes/meme-wrong-tipereputal.jpg'],
-                                        ['/MemesAudio/meme-wrong-pacankuspehy.WAV', '/memes/meme-wrong-pacankuspehy.jpeg'],
-                                        ['/MemesAudio/meme-wrong-shokoladnevinovat.WAV', '/memes/meme-wrong-pacankuspehy.jpeg'],
+                                        ['/MemesAudio/meme-wrong-kid.WAV', '/MemesImage/meme-wrong-kid.jpg'], 
+                                        ['/MemesAudio/meme-wrong-sharish.WAV', '/MemesImage/meme-wrong-sharish.jpeg'],
+                                        ['/MemesAudio/meme-wrong-polnomochia.WAV', '/MemesImage/meme-wrong-polnomochia.jpeg'],
+                                        ['/MemesAudio/meme-wrong-ponovoy.WAV', '/MemesImage/meme-wrong-ponovoy.jpeg'],
+                                        ['/MemesAudio/meme-wrong-shirokuiu.WAV', '/MemesImage/meme-wrong-shirokuiu.jpeg'],
+                                        ['/MemesAudio/meme-wrong-tivtiraesh.WAV', '/MemesImage/meme-wrong-tivtiraesh.jpeg'],
+                                        ['/MemesAudio/meme-wrong-tipereputal.WAV', '/MemesImage/meme-wrong-tipereputal.jpg'],
+                                        ['/MemesAudio/meme-wrong-pacankuspehy.WAV', '/MemesImage/meme-wrong-pacankuspehy.jpeg'],
+                                        ['/MemesAudio/meme-wrong-shokoladnevinovat.WAV', '/MemesImage/meme-wrong-pacankuspehy.jpeg'],
 
 
                                         
@@ -88,6 +70,20 @@ export const WrongAnswerModal = () => {
     
 
 
+    // const [
+    //     incorrectAudio,
+    //     _i,
+    //     incorrectControls,
+    // ] = useAudio({ src: ComboList.wrongAudioImage[0][0] })
+
+
+    // const [
+    //     incorrectAudio,
+
+    // ] = useAudio({ src: ComboList.wrongAudioImage[0][0], autoPlay: true})
+    
+
+
 
     useEffect(() => {
         const randomizeArray = [...ComboList.wrongAudioImage].sort(() => 0.5 - Math.random());
@@ -113,6 +109,7 @@ export const WrongAnswerModal = () => {
         setRandomMessage(randomizeArrayMessage[0])
 
         incorrectControls.play()
+        // incorrectAudio
 
     }, [isOpen]);
 

@@ -72,7 +72,7 @@ export const ChangeMemeIsOn = ({
 
             <Image
                         // className='animate-spin'
-                        src= {isOnMemeState ? "/memes/Troll-happy-face.svg":"/memes/Troll-sad-face.svg"}
+                        src= {isOnMemeState ? "/MemesImage/Troll-happy-face.svg":"/MemesImage/Troll-sad-face.svg"}
                         alt='troll-face'
                         height={40}
                         width={40}

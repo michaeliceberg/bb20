@@ -217,7 +217,7 @@ const LearnPage = async () => {
 	let numDoneChallenge:number = lessonStat.reduce((total, lesson)=> total + lesson.done[1] + lesson.done[2], 0 )
 	let numLeftChallenge:number = numWholeChallenge - numDoneChallenge
 
-	var dateExam = new Date(2025, 4, 1);
+	var dateExam = new Date(2025, 4, 21);
 	var dateNow = new Date()
 	var diff = Math.abs(dateExam.getTime() - dateNow.getTime());
 	var daysTillExam = Math.ceil(diff / (1000 * 3600 * 24)); 

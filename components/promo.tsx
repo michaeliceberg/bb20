@@ -45,10 +45,10 @@ export const Promo = ({
 
     let isLate = false
     if (YourDaysLate > 0) {
-	    sendMsg = "Опаздываете к экзам. на "
+	    sendMsg = "Опаздываете на"
         isLate = true
 	} else {
-		sendMsg = "Опережаете экзамен на " 
+		sendMsg = "Опережаете на" 
         YourDaysLate = - YourDaysLate
 	}
 

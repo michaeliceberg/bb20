@@ -2,7 +2,7 @@ import { auth } from '@clerk/nextjs/server';
 import { eq } from 'drizzle-orm';
 import { cache, use } from 'react';
 import db from './drizzle';
-import { challengeProgress, challenges, courses, lessons, units, userProgress, userSubscription } from './schema';
+import { challengeProgress, challenges, courses, lessons, t_lessons, units, userProgress, userSubscription } from './schema';
 import { tree } from 'next/dist/build/templates/app-page';
 
 export const getUserProgress = cache(async () => {
@@ -307,3 +307,106 @@ export const getTUnits = cache(async()=>{
 }
     
 )
+
+
+
+
+
+
+
+
+
+
+
+
+
+// export const getTCourseProgress = cache (async () => {
+// 	const {userId} = await auth()
+// 	const userProgress = await getUserProgress()
+
+// 	if (!userId || !userProgress?.activeCourseId) {
+// 		return null
+// 	}
+
+// 	const unitsInActiveCourse = await db.query.t_units.findMany({
+// 		orderBy: (units, { asc })=> [asc(units.order)],
+// 		where: eq(units.courseId, userProgress.activeCourseId),
+// 		with:{
+// 			t_lessons: {
+// 				orderBy: (lessons, {asc})=> [asc(lessons.order)],
+// 				with: {
+// 					t_unit: true,
+// 					t_challenges: {
+						
+// 								where: eq(challengeProgress.userId, userId),
+					
+// 					},
+// 				},
+// 			},
+// 		},
+// 	})
+
+	
+// 	const firstUncompletedLesson = unitsInActiveCourse
+// 		.flatMap((t_unit)=>t_unit.t_lessons)
+// 		.find((t_lesson)=>{
+// 			return t_lesson.t_challenges.some((t_challenge)=>{
+// 				return !t_challenge.challengeProgress 
+// 				|| challenge.challengeProgress.length === 0 
+// 				|| challenge.challengeProgress.some((progress)=>progress.completed===false)
+// 			})
+// 		})
+
+// 	return {
+// 		activeLesson: firstUncompletedLesson,
+// 		activeLessonId: firstUncompletedLesson?.id,
+// 	}
+// })
+
+
+
+
+
+
+
+
+
+
+
+
+export const getTLesson = cache(async(t_lessonId: number)=>{
+	const {userId} = await auth()
+
+	if (!userId){
+		return null
+	}
+
+	// const courseProgress = await getCourseProgress()
+
+	// const t_lessonId = id 
+
+
+	const data = await db.query.t_lessons.findFirst({
+		where: eq(t_lessons.id, t_lessonId),
+		with: {
+			t_challenges: {
+				orderBy: (challenges, {asc})=>[asc(challenges.order)],
+				with: {
+					t_challengeOptions: true,
+				},
+			},
+		},
+	})
+	if(!data || !data.t_challenges){
+		console.log('NO DATA')
+		return null
+	}
+
+	// const normalizedChallenges = data.challenges.map((challenge)=>{
+	// 	const completed = challenge.challengeProgress && challenge.challengeProgress.length > 0 && challenge.challengeProgress.every((progress)=>progress.completed)
+
+	// 	return {...challenge, completed}
+	// })
+
+	return {... data}
+})

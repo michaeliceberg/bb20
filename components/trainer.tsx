@@ -1,46 +1,45 @@
 
 "use client"
 
-import { useEffect, useState } from "react"
-// import Question from "./Question"
+import { useState } from "react"
 import Confetti from "react-confetti"
 import { useWindowSize } from "react-use"
 import TrainerQuestion from "./trainer-question"
-// import Question from "./question"
-// import { Shuffle, shuffle2 } from "../../useful"
+import { t_challengeOptions } from "@/db/schema"
+import { Button } from "./ui/button"
+import Lottie from "lottie-react"
 
-let questions = [
+
+import LottieTrainerSharkFailDNO from '@/public/Lottie/trainer/LottieTrainerSharkFailDNO.json'
+
+
+
+
+type Props = {
+  t_lessonTitle: string,
+  
+  t_lesson: 
+    {
+      id: number,
+      t_lessonId: number,
+      type:  "SELECT" | "ASSIST"
+      question: string,
+      order: number,
+      points: number,
+      author: string,
+      t_challengeOptions: typeof t_challengeOptions.$inferSelect[],
+      // challengeProgress: number[],
+    }[]
+}
+
+
+
+
+export default function TQuiz(
   {
-    question: "What is the capital of France?",
-    options: ["London", "Berlin", "Paris", "Madrid"],
-    correctAnswer: "Paris",
-    timeLimit: 15,
-  },
-  {
-    question: "Which planet is known as the Red Planet?",
-    options: ["Mars", "Jupiter", "Venus", "Saturn"],
-    correctAnswer: "Mars",
-    timeLimit: 10,
-  },
-  {
-    question: "What is the largest mammal in the world?",
-    options: ["African Elephant", "Blue Whale", "Giraffe", "Hippopotamus"],
-    correctAnswer: "Blue Whale",
-    timeLimit: 20,
-  },
-]
-
-let questionShuffled = questions.map(q => ({
-    question: q.question,
-    // options: shuffle2(q.options),
-    options: q.options,
-    correctAnswer: q.correctAnswer,
-    timeLimit: q.timeLimit
-
-}))
-
-
-export default function Quiz() {
+    t_lessonTitle, 
+    t_lesson
+  } : Props) {
   const [quizStarted, setQuizStarted] = useState(false)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [score, setScore] = useState(0)
@@ -49,20 +48,19 @@ export default function Quiz() {
   const { width, height } = useWindowSize()
 
 
-  useEffect(()=>{
-    questionShuffled = questions.map(q => ({
-        question: q.question,
-        // options: shuffle2(q.options),
-        options: q.options,
-        correctAnswer: q.correctAnswer,
-        timeLimit: q.timeLimit
-    
+  let questions = t_lesson.map(t_challenge => (
+    {
+      question: t_challenge.question,
+      // options: ['1','2','3'], 
+      options: t_challenge.t_challengeOptions.map(el => el.text),
+      correctAnswer: "Paris",
+      timeLimit: 15,
     }))
-  }, [answeredQuestions])
-  
-//   const randomizeArrayMessage = [...ComboList.wrongMessage].sort(() => 0.5 - Math.random());
-//   setRandomMessage(randomizeArrayMessage[0])
-  
+
+
+
+  let questionShuffled = [...questions].sort(() => 0.5 - Math.random());
+
   questions = questionShuffled
 
   
@@ -102,12 +100,12 @@ export default function Quiz() {
     return (
       <div className="text-center">
         <h1 className="text-3xl font-bold mb-6">Quiz App</h1>
-        <button
+        <Button
           onClick={startQuiz}
-          className="bg-blue-500 text-white px-6 py-2 rounded-lg text-lg font-semibold hover:bg-blue-600 transition"
+          // className="bg-blue-500 text-white px-6 py-2 rounded-lg text-lg font-semibold hover:bg-blue-600 transition"
         >
           Start Quiz
-        </button>
+        </Button>
       </div>
     )
   }
@@ -116,29 +114,63 @@ export default function Quiz() {
     const isPerfectScore = score === questions.length
 
     return (
-      <div className="text-center">
-        <h1 className="text-3xl font-bold mb-6">Quiz App</h1>
-        <h2 className="text-2xl font-bold mb-4">Quiz Completed!</h2>
-        {isPerfectScore && <Confetti width={width} height={height} />}
+      <div className="text-center content-center mx-auto">
+
+        <h1 className="text-3xl font-bold mb-6">
+          Quiz App
+        </h1>
+        
+        <h2 className="text-2xl font-bold mb-4">
+          Quiz Completed!
+        </h2>
+        
+        {isPerfectScore && 
+          <Confetti width={width} height={height} />
+        }
+        
         <p className={`text-xl ${isPerfectScore ? "text-green-600 font-bold" : ""}`}>
-          Your score: {score} out of {questions.length}
+          Правильно {score} из {questions.length}
         </p>
-        <button
+
+
+
+        <Lottie 
+                
+                // animationData={ isLate ? LottieTriangle3 : LottieTriangle3 } 
+                animationData={ score > 1 ? LottieTrainerSharkFailDNO : LottieTrainerSharkFailDNO } 
+        className="h-80 w-80"
+        />
+
+
+
+
+
+        <Button
           onClick={startQuiz}
-          className="mt-4 bg-blue-500 text-white px-6 py-2 rounded-lg text-lg font-semibold hover:bg-blue-600 transition"
+          className="mt-4"
+          variant='primary'
+          // className="mt-4 bg-blue-500 text-white px-6 py-2 rounded-lg text-lg font-semibold hover:bg-blue-600 transition"
         >
-          Restart Quiz
-        </button>
+          Давай ещё раз
+        </Button>
       </div>
     )
   }
 
   return (
-    <div className="w-full max-w-md mx-auto text-center">
-      <h1 className="text-3xl font-bold mb-6">Quiz App</h1>
-      <TrainerQuestion question={questions[currentQuestionIndex]} onAnswer={handleAnswer} onTimeout={handleTimeout} />
+    <div className="w-full max-w-xl mx-auto text-center">
+      <h1 className="text-xl font-bold mt-6">
+        {t_lessonTitle}
+      </h1>
+      
+      <TrainerQuestion 
+        question={questions[currentQuestionIndex]} 
+        onAnswer={handleAnswer} 
+        onTimeout={handleTimeout} 
+      />
+      
       <p className="mt-4 text-center">
-        Question {currentQuestionIndex + 1} of {questions.length}
+        Вопрос {currentQuestionIndex + 1} из {questions.length}
       </p>
     </div>
   )

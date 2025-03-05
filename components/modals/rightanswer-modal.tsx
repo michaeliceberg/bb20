@@ -1,158 +1,10 @@
-// 'use client'
-
-// import Image from 'next/image'
-
-// import Lottie, {LottieRefCurrentProps} from 'lottie-react'
-// import {useRef} from 'react'
-
-// import {
-//     Dialog,
-//     DialogContent,
-//     DialogDescription,
-//     DialogFooter,
-//     DialogHeader,
-//     DialogTitle
-
-// } from '@/components/ui/dialog'
-
-
-// import { Button } from '../ui/button'
-// // import { useExitModal } from '@/store/use-exit-modal'
-// import { useEffect, useState } from 'react';
-// // import Lottie from 'lottie-react'
-// // import LottieKapiThink from '@/public/Lottie/LottieKapiThink.json'
-// import LottieDeathHeart from '@/public/Lottie/wrongAnswer/LottieDeathHeart.json'
-// import LottieDeathWrongCoffin from '@/public/Lottie/wrongAnswer/LottieDeathWrongCoffin.json'
-// import LottieDeathWrongCry from '@/public/Lottie/wrongAnswer/LottieDeathWrongCry.json'
-// import LottieDeathWrongDoor from '@/public/Lottie/wrongAnswer/LottieDeathWrongDoor.json'
-// import LottieDeathWrongHeartsSteel from '@/public/Lottie/wrongAnswer/LottieDeathWrongHeartsSteel.json'
-// import LottieDeathWrongShakeHead from '@/public/Lottie/wrongAnswer/LottieDeathWrongShakeHead.json'
-// import { useRightAnswerModal } from '@/store/use-rightanswer-modal'
-
-// export const RightAnswerModal = () => {
-
-//     console.log('THATS RIGHT MODAL')
-
-//     // 
-
-//     // const doneRightImage = ['/memes/mem-wrong-sharish.jpeg', '/memes/meme-right-papich']
-//     const doneRightImage = ['/memes/meme-right-chinazes.jpg', '/memes/meme-right-papich.jpg']
-
-//     const [randomRightImage, setRandomRightImage] = useState(doneRightImage[0]);
-//     useEffect(() => {
-        
-//         const randomizeArray = [...doneRightImage].sort(() => 0.5 - Math.random());
-//         setRandomRightImage(randomizeArray[0]);
-//     }, []);
-
-
-
-
-//     const phoneRef = useRef<LottieRefCurrentProps>(null)
-
-//     const [isClient, setIsClient] = useState(false)
-//     const {isOpen, close} = useRightAnswerModal()
-
-
-//     useEffect(()=>setIsClient(true),[]) 
-//     if (!isClient){
-//         return null
-//     }
-
-//     const WrongLottieList = [LottieDeathHeart, LottieDeathWrongCoffin, LottieDeathWrongCry ,LottieDeathWrongDoor, LottieDeathWrongHeartsSteel, LottieDeathWrongShakeHead]
-//     const WrongLottie = WrongLottieList[Math.floor(Math.random()*WrongLottieList.length)]
-
-//     const WrongMessageList = ['О нет!', 'Вжик!', 'АхХахахАх!', 'Почти угадал!']
-//     const WrongMessage = WrongMessageList[Math.floor(Math.random()*WrongMessageList.length)]
-
-
-
-//     // const doneRightImage = ['/memes/mem-wrong-sharish.jpeg', '/memes/meme-right-papich']
-
-//     // const [randomRightImage, setRandomRightImage] = useState(doneRightImage[0]);
-//     // useEffect(() => {
-        
-//     //     const randomizeArray = [...doneRightImage].sort(() => 0.5 - Math.random());
-//     //     setRandomRightImage(randomizeArray[0]);
-//     // }, []);
-
-
-
-
-//     return (
-//         <Dialog open={isOpen} onOpenChange={close}>
-//             <DialogContent className='max-w-md'>
-//                 <DialogHeader>
-//                 {/* <div className='flex items-center w-full justify-center mb-5'> */}
-//                 <div className='items-center w-full justify-center mb-5'>
-
-
-//                     <Lottie className="h-50 w-50"
-//                         animationData={ WrongLottie } 
-//                         lottieRef={phoneRef }
-//                         loop={false}  
-//                         onComplete={()=>{
-//                             phoneRef.current?.stop
-//                             close()
-//                         }}
-//                     />
-
-
-
-//                     <Image 
-//                         src={randomRightImage}
-//                         alt='Mascot'
-//                         height={200}
-//                         width={200}
-//                         className="border-r-8 w-full mx-auto"
-//                     />
-
-
-
-//                     </div>
-//                     <DialogTitle className='text-center font-bold text-2xl'>
-//                         {WrongMessage}
-//                     </DialogTitle>
-//                     <DialogDescription className='text-center text-base'>
-                  
-//                     </DialogDescription>   
-//                 </DialogHeader>
-
-//                 <DialogFooter className='mb-4'>
-//                     <div className='flex flex-col gap-y-4 w-full'>
-//                         <Button 
-//                             variant='dangerOutline' 
-//                             className='w-full' 
-//                             size='lg' 
-//                             // onClick={close}
-//                         >
-//                             - 1 
-//                             <Image
-//                     src="/heart.svg"
-//                     alt='Heart'
-//                     height={20}
-//                     width={20}
-//                 />
-//                         </Button>
-                        
-//                     </div>
-//                 </DialogFooter>
-
-//             </DialogContent>
-//         </Dialog>    
-//     )
-// }
-
-
-
-
-
 'use client'
 
 import Image from 'next/image'
 
 import Lottie, {LottieRefCurrentProps} from 'lottie-react'
 import {useRef} from 'react'
+import LottieCoins from '@/public/Lottie/LottieCoins.json'
 
 import {
     Dialog,
@@ -195,19 +47,16 @@ import { useRightAnswerModal } from '@/store/use-rightanswer-modal'
 
 
 const ComboList = {
-                    // wrongAudioImage: [
-                    //                     ['/MemesAudio/meme-wrong-kid.WAV', '/memes/meme-wrong-kid.jpg'], 
-                    //                     ['/MemesAudio/meme-wrong-sharish.WAV', '/memes/meme-wrong-sharish.jpeg']
-                    //                  ],
+                   
                     rightAudioImage: [
-                                        ['/MemesAudio/meme-right-papichlegkaya.WAV', '/memes/meme-right-papich.jpg'], 
-                                        ['/MemesAudio/meme-right-chinazes.WAV', '/memes/meme-right-chinazes.jpg'],
-                                        ['/MemesAudio/meme-right-clapping.WAV', '/memes/meme-right-clapping.jpeg'],
-                                        ['/MemesAudio/meme-right-estestvenno.WAV', '/memes/meme-right-estestvenno.jpg'],
-                                        ['/MemesAudio/meme-right-gtapassed.WAV', '/memes/meme-right-gtapassed.jpeg'],
-                                        ['/MemesAudio/meme-right-nice.WAV', '/memes/meme-right-nice.jpeg'],
-                                        ['/MemesAudio/meme-right-umeetemogete.WAV', '/memes/meme-right-umeetemogete.jpeg'],
-                                        ['/MemesAudio/meme-right-chetko.WAV', '/memes/meme-right-umeetemogete.jpeg'],
+                                        ['/MemesAudio/meme-right-papichlegkaya.WAV', '/MemesImage/meme-right-papich.jpg'], 
+                                        ['/MemesAudio/meme-right-chinazes.WAV', '/MemesImage/meme-right-chinazes.jpg'],
+                                        ['/MemesAudio/meme-right-clapping.WAV', '/MemesImage/meme-right-clapping.jpeg'],
+                                        ['/MemesAudio/meme-right-estestvenno.WAV', '/MemesImage/meme-right-estestvenno.jpg'],
+                                        ['/MemesAudio/meme-right-gtapassed.WAV', '/MemesImage/meme-right-gtapassed.jpeg'],
+                                        ['/MemesAudio/meme-right-nice.WAV', '/MemesImage/meme-right-nice.jpeg'],
+                                        ['/MemesAudio/meme-right-umeetemogete.WAV', '/MemesImage/meme-right-umeetemogete.jpeg'],
+                                        ['/MemesAudio/meme-right-chetko.WAV', '/MemesImage/meme-right-umeetemogete.jpeg'],
                                      ],
 
 
@@ -237,19 +86,54 @@ export const RightAnswerModal = () => {
     
 
 
+    // const [
+    //     correctAudio,
+    //     _с,
+    //     correctControls,
+    // ] = useAudio({ src: ComboList.rightAudioImage[0][0] })
+
+
+
+
+
     useEffect(() => {
         const randomizeArray = [...ComboList.rightAudioImage].sort(() => 0.5 - Math.random());
         setRandomAudio(randomizeArray[0][0]);
         setRandomImage(randomizeArray[0][1]);
+
+
+
+
+
+
+
     }, [isOpen])
 
 
 
-    const [
+
+    let [
         correctAudio,
         _с,
         correctControls,
     ] = useAudio({ src: randomAudio })
+
+
+    // const [
+    //     correctAudio,
+    //     _с,
+    //     correctControls,
+    //     refAudio,
+    // ] = useAudio({ src: randomAudio })
+
+
+
+//     const [audio, _state, _controls, ref] = useAudio({ ...props});
+// return(
+//   ...
+//   {isSound ? <div>{audio}</div> : <audio ref={ref} />}
+//   ...
+// )
 
 
 
@@ -288,7 +172,7 @@ export const RightAnswerModal = () => {
 
 
                         <Lottie className="h-50 w-50"
-                            animationData={ randomLottie } 
+                            animationData={ LottieCoins } 
                             lottieRef={phoneRef }
                             loop={false}  
                             onComplete={()=>{
@@ -324,12 +208,14 @@ export const RightAnswerModal = () => {
                             // onClick={close}
                         >
                             +
-                            <Image
-                    src="/heart.svg"
-                    alt='Heart'
-                    height={20}
-                    width={20}
-                />
+
+
+
+                    <Lottie className="h-14 w-14 mr-2 pb-2"
+						animationData={ LottieCoins } 
+					/>
+
+
                         </Button>
                         
                     </div>

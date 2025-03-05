@@ -15,8 +15,11 @@ import { eq } from 'drizzle-orm';
 import { auth, currentUser } from "@clerk/nextjs/server"
 import { UnitBanner } from './unit-banner';
 import { Button } from '@/components/ui/button';
+import { TrainerList } from '@/components/trainer-list';
 
 
+
+const lessonId = 1111
 
 const LearnPage = async () => {
 	const { userId } = await auth();
@@ -93,26 +96,47 @@ const LearnPage = async () => {
 				
 					<div key={index*1389}>
 						<UnitBanner title={course.title} description={'some shit'} imgSrc={course.imageSrc} id={1} percentageDone={20}/>
-						<p className='flex flex-col'>
+						
+						
+						<div>
 							{units.filter(u => u.courseId === course.id)
 							.map((unit, index) => (
 								<div key={index*81872} className='text-green-700'>
-									<p className='text-foreground size-sm  text-center'>
+
+									<p className='text-foreground text-xl  text-center'>
 										{unit.title}
 									</p>
-									{units.filter(ul => ul.id == unit.id)[0].lessons.map(ul => (
-										<div key={index*121} className='flex flex-1'>
-											<Button size='sm'>
-												{ul.title}
-											</Button>
+
+									{units.filter(ul => ul.id == unit.id)[0].lessons.map((t_lesson, index) => (
+										
+										<div key={index * 2241} className='grid grid-cols-2'>
+											<TrainerList t_lesson={t_lesson}/>
 										</div>
+										
+										
+										// <div key={index*121} className='flex flex-1'>
+										// 	<Button 
+										// 		size='sm' 
+										// 		onClick={()=>window.location.href = `/lesson/${lessonId}`}
+										// 		>
+										// 		{lesson.title}
+										// 	</Button>
+										// </div>
+
+
+
+
 									))}
 								</div>
 							))}
-						</p>
+						</div>
+
+
+						
 						{/* {course.title} */}
 					</div>
 				))}
+
 
 
 
