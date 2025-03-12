@@ -2,7 +2,7 @@ import { auth } from '@clerk/nextjs/server';
 import { eq } from 'drizzle-orm';
 import { cache, use } from 'react';
 import db from './drizzle';
-import { challengeProgress, challenges, courses, lessons, t_lessons, units, userProgress, userSubscription } from './schema';
+import { challengeProgress, challenges, courses, lessons, t_lessonProgress, t_lessons, units, userProgress, userSubscription } from './schema';
 import { tree } from 'next/dist/build/templates/app-page';
 
 export const getUserProgress = cache(async () => {
@@ -398,7 +398,6 @@ export const getTLesson = cache(async(t_lessonId: number)=>{
 		},
 	})
 	if(!data || !data.t_challenges){
-		console.log('NO DATA')
 		return null
 	}
 
@@ -409,4 +408,24 @@ export const getTLesson = cache(async(t_lessonId: number)=>{
 	// })
 
 	return {... data}
+})
+
+
+
+	
+
+export const getTLessonProgress = cache (async () => {
+	const { userId } = await auth()
+
+	if (!userId) {
+		return []
+	}
+	const data = await db.query.t_lessonProgress.findMany({
+		where: eq(t_lessonProgress.userId, userId),
+		orderBy: (t_lessonProgress, { desc }) => [desc(t_lessonProgress.dateDone)],
+		// limit: 10,
+
+	})
+
+	return data
 })

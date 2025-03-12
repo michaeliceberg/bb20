@@ -97,7 +97,7 @@ const LearnPage = async () => {
 	})
 
 
-	// console.log('------------------------------------------------------------------------')
+	// ------------------------------------------------------------------------
 	
 	const allChallengesInCourse:number[] = []
 
@@ -221,7 +221,6 @@ const LearnPage = async () => {
 	var dateNow = new Date()
 	var diff = Math.abs(dateExam.getTime() - dateNow.getTime());
 	var daysTillExam = Math.ceil(diff / (1000 * 3600 * 24)); 
-	// console.log("daysTillExam: " + daysTillExam);
 	
 	const Recom_ChalPerDay = Math.round(numLeftChallenge / daysTillExam * 100) / 100
 	const lastWeekChallenges = challengeProgress.filter(challenge => {
@@ -242,7 +241,6 @@ const LearnPage = async () => {
 	
 	let daysToFinishWYS = Math.round(numLeftChallenge / current_ChalPerDay)
 
-	// console.log(daysToFinishWYS)
 
 	const dateDone = new Date(dateNow.getTime() + daysToFinishWYS*(1000 * 60 * 60 * 24));
 	const formattedDate: string = format(dateDone, 'dd.MM.yyyy');
@@ -385,8 +383,6 @@ const LearnPage = async () => {
 	// 	.map((challenge, cha_ind)=>(challenge.challengeProgress[0])
 	// )))
 	  
-	// console.log(normalizedData)
-	// console.log('hello')
 
 	// const bigState = normalizedData.map(el=> el)
 
@@ -416,10 +412,6 @@ const LearnPage = async () => {
 	
 	// const hovaIndex = arr.findIndex(elem => elem.name === 'хова')
 
-	// console.log(new_arr_2)
-	// console.log(new_arr_reduce)
-	// console.log(hova)
-	// console.log(hovaIndex)
 
 	// const sumBudget = arr
 	// 	.filter(elem => elem.age > 25)

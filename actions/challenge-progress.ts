@@ -93,10 +93,7 @@ import { revalidatePath } from "next/cache"
     })
 
 
-
-    // console.log('|||||||||||||||| upsertChallengeProgress |||||||||| ')
-
-    
+   
 
     
 
@@ -132,7 +129,6 @@ import { revalidatePath } from "next/cache"
 
 
     if (oldCourseProgress instanceof Array) {
-        // console.log('YEEEEESSSSSS')
         //
         // Ищем Индекс название книги:
         //
@@ -201,7 +197,6 @@ import { revalidatePath } from "next/cache"
                     //
                     let lastProgress = oldCourseProgress[indexCourse].progress[oldCourseProgress[indexCourse].progress.length - 1]
 
-                    // console.log(lastProgress) 
                     
                     oldCourseProgress[indexCourse].progress.push({
                         date: TodayStr,
@@ -241,7 +236,7 @@ import { revalidatePath } from "next/cache"
                 
                 oldCourseProgress.push(newCourseProgress[0])
 
-                // console.log('NOOOOOOOOOO')
+                //
 
 
                 await db.update(userProgress).set({

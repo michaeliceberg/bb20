@@ -2,7 +2,7 @@
 
 import db from '@/db/drizzle';
 import { getCourseById, getUserProgress } from '@/db/queries';
-import { challengeProgress, challenges, userProgress } from '@/db/schema';
+import { challengeProgress, challenges, t_lessonProgress, userProgress } from '@/db/schema';
 import { auth, currentUser } from '@clerk/nextjs/server';
 import { and, eq } from 'drizzle-orm';
 import { revalidatePath } from 'next/cache';
@@ -224,3 +224,38 @@ export const refillHearts = async () => {
 	revalidatePath('/progress')
 	revalidatePath('/leaderboard')
 }
+
+
+
+
+export const upsertTrainerLessonProgress = async (
+	t_lessonId: number, 
+	doneRightPercent: number, 
+	trainingPts: number,
+	doneRight: number,
+	doneWrong: number,
+) => {
+
+	const { userId } = await auth();
+	const user = await currentUser();
+
+	if (!userId || !user) {
+		throw new Error('Вы не авторизированны!');
+	}
+
+
+	await db.insert(t_lessonProgress).values({
+		userId: userId,
+		t_lessonId: t_lessonId,
+		doneRightPercent: doneRightPercent,
+		trainingPts: trainingPts,
+		doneRight: doneRight,
+		doneWrong: doneWrong,
+	});
+
+
+	revalidatePath('/trainer');
+	// revalidatePath('/learn');
+	// redirect('/trainer');
+	
+};

@@ -166,7 +166,6 @@ export const Quiz = ({
     const challengesIds = challenges.map(el => el.id)
     const challengesDone = challengeProgress.filter((el) => challengesIds.includes(el.challengeId))
    
-    // console.log(challengesDone)
 
 
     const wrongChallengesId = challengesDoneWrong.map(a => a.challengeId);
@@ -358,8 +357,7 @@ export const Quiz = ({
     const onContinue = () => {
 
 
-        let hz = challengesDone.filter(el => el.challengeId === challenge.id) 
-        // console.log(hz)
+        // let hz = challengesDone.filter(el => el.challengeId === challenge.id) 
 
         if (!selectedOption) return
 
@@ -475,7 +473,7 @@ export const Quiz = ({
 
     if(challenges.length === challengesDone.length) {
         //
-        // console.log('WE HERE FINISH LESSON')
+        // WE HERE FINISH LESSON
         // 
         return(
             <>

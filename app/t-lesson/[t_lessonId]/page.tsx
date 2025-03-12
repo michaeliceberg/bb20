@@ -1,4 +1,4 @@
-import { getChallengeProgress, getLesson, getTLesson, getUserProgress } from "@/db/queries"
+import { getChallengeProgress, getLesson, getTLesson, getTLessonProgress, getUserProgress } from "@/db/queries"
 import { redirect } from "next/navigation"
 import { Quiz } from "../quiz"
 import { getUserPointsHearts } from "@/usefulFunctions"
@@ -16,16 +16,18 @@ const LessonIdPage =  async ({
     // const lessonData = getLesson(params.t_lessonId)
     const lessonData = getTLesson(params.t_lessonId)
     const userProgressData = getUserProgress()
-
+    const userTLessonProgressData = getTLessonProgress()
 
     
 
     const [
         t_lesson,
         userProgress,
+        t_lessonProgress,
     ] = await Promise.all([
         lessonData,
         userProgressData,
+        userTLessonProgressData,
     ])
 
     if (!t_lesson || !userProgress){
@@ -33,14 +35,15 @@ const LessonIdPage =  async ({
     }
 
 
-    
-
     return(
 
-        // <div>hello</div>
-        <TQuiz t_lesson={t_lesson.t_challenges} t_lessonTitle = {t_lesson.title}/>     
-            
-       
+        <TQuiz 
+            t_lesson={t_lesson.t_challenges} 
+            t_lessonId={t_lesson.id} 
+            t_lessonTitle = {t_lesson.title} 
+            t_lessonProgress={t_lessonProgress}
+        />     
+                   
     )
 }
 

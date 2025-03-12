@@ -31,7 +31,7 @@ const LessonPage =  async () => {
     .length / lesson.challenges.length * 100
 
 
-    // console.log('========NOt in brackets=======courseProgress: ')
+    // ========NOt in brackets=======
 
     
     const activeCourseTitle = !!userProgress.activeCourse 
@@ -49,13 +49,6 @@ const LessonPage =  async () => {
     // let initialHearts = userProgress.courseProgress[0].progress[0].hearts
 
     const [initialPoints, initialHearts, initialGems] = getUserPointsHearts(userProgress)
-
-
-    // console.log('-----not in ----')
-    // console.log('--- Hello in ---')
-    // console.log(initialHearts)
-
-    
 
 
     return(

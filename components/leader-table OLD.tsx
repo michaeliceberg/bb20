@@ -99,9 +99,8 @@ import { Divide } from "lucide-react";
       
     
   ]
-  // console.log('DATE LISTDATE LISTDATE LISTDATE LISTDATE LISTDATE LIST')
+  // DATE LISTDATE LISTDATE LISTDATE LISTDATE LISTDATE LIST
   
-  // console.log(dateList)
 
   export function TableLeader() {
     return (

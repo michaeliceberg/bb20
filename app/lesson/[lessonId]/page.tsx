@@ -56,11 +56,6 @@ const LessonIdPage =  async ({
     const [initialPoints, initialHearts, initialGems] = getUserPointsHearts(userProgress)
 
 
-    console.log('-----in [] ----')
-    // console.log(initialHearts)
-
-
-
     return(
         <Quiz 
             initialLessonId={lesson.id}

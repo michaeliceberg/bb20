@@ -29,11 +29,8 @@ export const Promo = ({
 }: Props) => {
 
     let sendMsg:string = ''
-    // console.log('......')
-    // console.log(YourDaysLate)
 
     const lastNumber:number = Math.abs(YourDaysLate) % 10
-    // console.log("lastNumber " + lastNumber)
     let finalWord:string = ''
     if (lastNumber == 1) {
         finalWord = 'день'

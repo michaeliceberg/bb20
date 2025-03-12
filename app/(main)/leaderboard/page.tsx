@@ -68,9 +68,6 @@ const LeaderboardPage = async () => {
                     return el
                 }
             })
-            // console.log(filteredCourseProgress)
-            
-            
 
             // if (filteredCourseProgress[0]) {
 
@@ -89,12 +86,6 @@ const LeaderboardPage = async () => {
 
         }
     )
-
-
-
-
-    // console.log('BIG BIG BIG BIG ')
-    // console.log(BigTableLeader)
 
 
     BigTableLeader = BigTableLeader.filter(el => el?.progressForCourse != undefined)
@@ -187,9 +178,6 @@ const LeaderboardPage = async () => {
        })
     })
 
-
-    // console.log(ResultLeaderTable[0])
-    
 
 
     return (

@@ -36,7 +36,6 @@
 // export const SelectAvatar = () => {
 
 //     const onChangeValue = (event: <T>) => {
-//         console.log(event.target)
 //     }
 
 //   return (

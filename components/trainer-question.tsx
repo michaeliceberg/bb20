@@ -8,9 +8,19 @@ import 'katex/dist/katex.min.css';
 import Latex from 'react-latex-next';
 import Lottie from "lottie-react"
 import LottieOclock from '@/public/Lottie/trainer/LottieOclock.json'
+import { Badge, BadgeAlert, BadgeCheck, BadgeHelp } from "lucide-react"
+import { cn } from "@/lib/utils";
 
 
 interface QuestionProps {
+  questions: {
+    question: string;
+    options: string[];
+    correctAnswer: string;
+    timeLimit: number;
+}[]
+
+  isRightList: number[]
   question: {
     question: string
     options: string[]
@@ -21,7 +31,14 @@ interface QuestionProps {
   onTimeout: () => void
 }
 
-export default function TrainerQuestion({ question, onAnswer, onTimeout }: QuestionProps) {
+export default function TrainerQuestion({
+  questions, 
+  isRightList, 
+  question, 
+  onAnswer, 
+  onTimeout 
+}: QuestionProps) {
+  
   const [timeLeft, setTimeLeft] = useState(question.timeLimit)
   const timerRef = useRef<NodeJS.Timeout | null>(null)
 
@@ -55,6 +72,40 @@ export default function TrainerQuestion({ question, onAnswer, onTimeout }: Quest
 
   return (
     <div className="bg-white shadow-md rounded-lg p-6">
+
+
+
+
+
+      <div className="flex flex-1 justify-between m-2 text-green">
+        { 
+          questions.map((el, index) => (
+            <div key={index*4847} className="fill-red-800">
+
+
+              {isRightList[index] == 1 
+                ? <BadgeCheck
+                    className={cn("h-8 w-8 fill-green-100 stroke-green-400")}
+                /> 
+                : isRightList[index] == 2 
+                ? <BadgeAlert
+                    className={cn("h-8 w-8 fill-red-100 stroke-red-400")}
+                />
+
+                : isRightList[index] == 3 
+                ? <BadgeHelp
+                    className={cn("h-8 w-8 fill-yellow-100 stroke-yellow-400 animate-bounce")}
+                />
+                
+                : <Badge 
+                    className={cn("h-8 w-8 stroke-neutral-200")}
+                />
+              }
+            </div>))
+        }
+      </div>
+
+
 
 
 
@@ -94,6 +145,15 @@ export default function TrainerQuestion({ question, onAnswer, onTimeout }: Quest
       
 
 
+
+
+
+
+      
+
+
+
+
       
 
 
@@ -104,7 +164,7 @@ export default function TrainerQuestion({ question, onAnswer, onTimeout }: Quest
         {question.options.map((option, index) => (
 
             <Button
-              key={index}
+              key={index*28748}
               onClick={() => onAnswer(option)}
               className="w-full text-left justify-start"
             >

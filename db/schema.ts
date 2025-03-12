@@ -315,6 +315,9 @@ export const t_challengesRelations = relations(t_challenges, ({ one, many }) => 
 
 
 
+// 
+
+
 
 export const t_challengeOptions = pgTable('t_challenge_options', {
 	id: serial('id').primaryKey(),
@@ -359,22 +362,30 @@ export const t_challengeOptionsRelations = relations(t_challengeOptions, ({ one 
 
 
 
+
+
+
 export const t_lessonProgress = pgTable('t_lesson_progress', {
 	id: serial('id').primaryKey(),
 	userId: text('user_id').notNull(), // TODO: confirm this 
 	t_lessonId: integer('t_lesson_id').references(()=>t_lessons.id, {onDelete: 'cascade'}).notNull(),	
 	doneRightPercent: integer('done_right_percent').notNull().default(0),
+	doneRight: integer('done_right').notNull().default(0),
+	doneWrong: integer('done_wrong').notNull().default(0),
 	dateDone: timestamp('date_done').notNull().defaultNow(),
+	trainingPts: integer('training_pts').notNull().default(0),
 });
 
 
 export const t_lessonProgressRelations = relations(t_lessonProgress, ({ one }) => ({
 	
-	t_challenge: one(t_challenges, {
+	t_lesson: one(t_lessons, {
 		fields: [t_lessonProgress.t_lessonId],
-		references:[t_challenges.id],
+		references:[t_lessons.id],
 	})
 }));
+
+
 
 
 

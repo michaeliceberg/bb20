@@ -118,12 +118,6 @@ const ProgressPage = async () => {
 
 
 
-
-	// console.log(infoUnitsStat[1].doneRightInLesson)
-
-
-
-
 	let lessonStat: Array<lessonDone> = [];
 
 	const newList = infoUnitsStat.map(unit => {
@@ -162,9 +156,6 @@ const ProgressPage = async () => {
 		})
 
 
-		// console.log(lessonStat)
-
-
 		return (
 			{
 				unitId: unitId,
@@ -188,7 +179,6 @@ const ProgressPage = async () => {
 	var dateNow = new Date()
 	var diff = Math.abs(dateExam.getTime() - dateNow.getTime());
 	var daysTillExam = Math.ceil(diff / (1000 * 3600 * 24)); 
-	// console.log("daysTillExam: " + daysTillExam);
 	
 	const Recom_ChalPerDay = Math.round(numLeftChallenge / daysTillExam * 100) / 100
 	const lastWeekChallenges = challengeProgress.filter(challenge => {
@@ -209,7 +199,6 @@ const ProgressPage = async () => {
 	
 	let daysToFinishWYS = Math.round(numLeftChallenge / current_ChalPerDay)
 
-	// console.log(daysToFinishWYS)
 
 	const dateDone = new Date(dateNow.getTime() + daysToFinishWYS*(1000 * 60 * 60 * 24));
 	const formattedDate: string = format(dateDone, 'dd.MM.yyyy');

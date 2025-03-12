@@ -81,8 +81,6 @@ export const UnitBanner = ({
     // <nav className={`navbar navbar-expand-lg navbar-${props.mode} bg-${props.mode}`}></nav>
     // const superMessage = `hello ${title}`
 
-    // console.log(imgSrc)
-    // console.log(LottieAnimation)
     // "flex items-center justify-between",
     return(
         <div className={`w-full rounded-xl  bg-green-500 p-5 text-white flex items-center justify-between bg-[url('/MemesImage/i-like-food.svg')]  bg-repeat`} >
