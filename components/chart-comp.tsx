@@ -48,15 +48,6 @@ import {
   ChartTooltipContent,
 } from "@/components/ui/chart"
 
-const chartData = [
-  { month: "Январь", right: 186, wrong: 80 },
-  { month: "Февраль", right: 305, wrong: 200 },
-  { month: "Март", right: 237, wrong: 120 },
-  { month: "Апрель", right: 73, wrong: 190 },
-  { month: "Май", right: 209, wrong: 130 },
-  { month: "Июнь", right: 214, wrong: 140 },
-]
-
 
 type Props = 
     {
@@ -85,7 +76,6 @@ export function ChartComponent({
 
 
 
-    console.log(TrainingProgressMonth)
 
   return (
     <ChartContainer config={chartConfig} className="min-h-[200px] w-full">

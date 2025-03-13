@@ -21,7 +21,7 @@ import LottieStartPrivet from '@/public/Lottie/trainer/LottieStartPrivet.json'
 import LottieStartYesCapitan from '@/public/Lottie/trainer/LottieStartYesCapitan.json'
 import { toast } from "sonner"
 import { upsertTrainerLessonProgress } from "@/actions/user-progress"
-import { Activity, Badge, BadgeAlert, BadgeCheck, BadgeHelp, Check, Coffee, TrendingUp, X } from "lucide-react"
+import { Activity, Badge, BadgeAlert, BadgeCheck, BadgeHelp, Check, Coffee, TrendingDown, TrendingUp, X } from "lucide-react"
 import { Shuffle2 } from "@/usefulFunctions"
 import { ChartComponent } from "./chart-comp"
 import moment from "moment"
@@ -93,17 +93,9 @@ export default function TQuiz(
 
 
 
-  // const new_arr_reduce = arr.reduce((total, elem) => {
-	// 	return (
-	// 		total + elem.money
-	// 	)
-	// }, 0)
 
   const t_lessonProgressThisLesson =  t_lessonProgress.filter(lessonProgress => lessonProgress.t_lessonId == t_lessonId)
   
-  // console.log(t_lessonProgressThisLesson)
-  
-
 
   const PTLByMonth = t_lessonProgressThisLesson.map(el => (
     {
@@ -117,29 +109,8 @@ export default function TQuiz(
 
 
 
-  // console.log(PTLByMonth)
-
   const uniqueMonths = PTLByMonth.map(item => item.month)
   .filter((value, index, self) => self.indexOf(value) === index)
-
-
-  // console.log(uniqueMonths)
-
-
-  // uniqueMonths.map(month => (
-  //   SumDoneRight = PTLByMonth.reduce((total, elem) => {
-  //     return (total+ elem.doneRight)
-  //   })
-  // ))
-
-
-  // const new_arr_reduce = PTLByMonth.reduce((total, elem) => {
-	// 	return (
-	// 		total + elem.doneRight
-	// 	)
-	// }, 0)
-
-  // console.log(new_arr_reduce)
 
 
 
@@ -415,33 +386,39 @@ export default function TQuiz(
 
 
       <div className="mt-4 flex justify-center gap-8">
-       <div className="flex">
-       <Check
-        className={cn("h-8 w-8 stroke-gray-600")}
-       />
+        <div className="flex">
+        <Check
+          className={cn("h-8 w-8 stroke-gray-600")}
+        />
         <p className="pt-1 pl-2">{totalD}</p>
       </div>
       
       {/* fill-green-400 stroke-red-400 */}
 
       <div className="flex">
+
+        {Math.round(totalPercentDR*100) > 80 
+        
+        ? 
+        
         <TrendingUp
-          className={cn("h-8 w-8  stroke-gray-600")}
+          className={cn("h-8 w-8  stroke-green-600")}
         />
+
+        :
+
+        <TrendingDown
+          className={cn("h-8 w-8  stroke-red-600")}
+        /> 
+        }
+        
+
+ 
+
+
         <p className="pt-1 pl-2">{Math.round(totalPercentDR*100)} %</p>
         </div>
       </div>
-
-{/* 
-
-      {t_lessonProgressThisLesson && 
-      t_lessonProgressThisLesson.map((progress, index) => (
-          <div key={28132*index}>
-              {progress.doneRightPercent}
-          </div>
-      ))
-        
-      } */}
 
 
         <Lottie                
@@ -454,7 +431,6 @@ export default function TQuiz(
           className="mt-4"
           variant='primary'
           onClick={startQuiz}
-          // className="bg-blue-500 text-white px-6 py-2 rounded-lg text-lg font-semibold hover:bg-blue-600 transition"
         >
           {randomStartButton}
         </Button>
@@ -517,7 +493,6 @@ export default function TQuiz(
 
         <Lottie 
                 
-                // animationData={ isLate ? LottieTriangle3 : LottieTriangle3 } 
                 animationData={ score / questions.length < 0.5 ? LottieTrainerSharkFailDNO : LottieTrainerSharkFailDNO } 
         className="h-80 w-80"
         />
@@ -530,7 +505,6 @@ export default function TQuiz(
           onClick={startQuiz}
           className="mt-4"
           variant='primary'
-          // className="mt-4 bg-blue-500 text-white px-6 py-2 rounded-lg text-lg font-semibold hover:bg-blue-600 transition"
         >
           Давай ещё раз
         </Button>
@@ -552,38 +526,8 @@ export default function TQuiz(
         isRightList={isRightList}
       />
       
-      {/* <div className="flex flex-1 justify-between pt-5 pb-5 m-10 text-green">
-      { 
-        questions.map((el, index) => (
-          <div className="fill-red-800">
+     
 
-
-            {isRightList[index] == 1 
-              ? <BadgeCheck
-                  className={cn("h-8 w-8 fill-green-100 stroke-green-400")}
-              /> 
-              : isRightList[index] == 2 
-              ? <BadgeAlert
-                  className={cn("h-8 w-8 fill-red-100 stroke-red-400")}
-              />
-
-              : isRightList[index] == 3 
-              ? <BadgeHelp
-                  className={cn("h-8 w-8 fill-yellow-100 stroke-yellow-400 animate-bounce")}
-              />
-              
-              : <Badge 
-                  className={cn("h-8 w-8 stroke-neutral-200")}
-              />
-            }
-          </div>))
-      }
-      </div> */}
-
-
-      {/* <p className="mt-4 text-center">
-        Вопрос {currentQuestionIndex + 1} из {questions.length}
-      </p> */}
       <p className="mt-4 text-center">
         <Button 
           variant='dangerOutline'

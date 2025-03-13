@@ -1,4 +1,4 @@
-import { SuperType, progressType } from './db/schema';
+import { SuperType, progressType, t_lessonProgress } from './db/schema';
 
 type Props = {
     hearts: number;
@@ -63,3 +63,85 @@ export const Shuffle2 = (array: string[]) => {
   }; 
 
 
+
+
+
+export const GetLessonStat = (
+
+    t_lP:  typeof t_lessonProgress.$inferSelect[],
+    t_lessonId: number,
+
+) => {
+
+
+    const t_lessonProgressThisLesson =  t_lP.filter(lessonProgress => lessonProgress.t_lessonId == t_lessonId)
+    
+    // const PTLByMonth = t_lessonProgressThisLesson.map(el => (
+    //     {
+    //     doneRight: el.doneRight,
+    //     doneWrong: el.doneWrong,
+    //     month: el.dateDone.getMonth(),
+    //     trainingPts: el.trainingPts,
+    //     doneRightPercent: el.doneRightPercent,
+    //     }
+    // ))
+
+    // const uniqueMonths = PTLByMonth.map(item => item.month)
+    // .filter((value, index, self) => self.indexOf(value) === index)
+
+    // const doneRightSumList = uniqueMonths.map(month => (
+    //     PTLByMonth.filter(el => el.month == month).reduce((total, elem) => {
+    //     return (
+    //         total + elem.doneRight
+    //     )
+    //     }, 0)
+    // ))
+
+    // const doneWrongSumList = uniqueMonths.map(month => (
+    //     PTLByMonth.filter(el => el.month == month).reduce((total, elem) => {
+    //     return (
+    //         total + elem.doneWrong
+    //     )
+    //     }, 0)
+    // ))
+
+    // const monthTable = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрб', 'Ноябрь', 'Декарбрь']
+    // const TrainingProgressMonth = uniqueMonths.map((m, index) => ({
+    //     month: monthTable[m],
+    //     doneRight: doneRightSumList[index],
+    //     doneWrong: doneWrongSumList[index],
+    // }))
+
+    
+
+    // const totalDR = TrainingProgressMonth.reduce((total, elem) => {
+    //     return (
+    //         total + elem.doneRight
+    //     )}, 0)
+    // const totalDW = TrainingProgressMonth.reduce((total, elem) => {
+    //     return (
+    //     total + elem.doneWrong
+    //     )}, 0)
+        
+
+    const totalDR = t_lessonProgressThisLesson.reduce((total, elem) => {
+    return (
+        total + elem.doneRight
+    )}, 0)
+    const totalDW = t_lessonProgressThisLesson.reduce((total, elem) => {
+        return (
+        total + elem.doneWrong
+        )}, 0)
+    
+    let totalPercentDR = 0
+    const totalD = totalDR+totalDW
+    if (totalDR > 0) {
+        totalPercentDR = totalDR/(totalD)
+    }
+
+    return ({
+        totalPercentDR: totalPercentDR,
+        totalDR: totalDR,
+    })
+
+}

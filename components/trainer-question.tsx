@@ -3,13 +3,12 @@
 
 import { useState, useEffect, useRef } from "react"
 import { Button } from "@/components/ui/button"
-// import { Shuffle } from "../../useful"
-import 'katex/dist/katex.min.css';
-import Latex from 'react-latex-next';
 import Lottie from "lottie-react"
 import LottieOclock from '@/public/Lottie/trainer/LottieOclock.json'
 import { Badge, BadgeAlert, BadgeCheck, BadgeHelp } from "lucide-react"
 import { cn } from "@/lib/utils";
+import Latex from 'react-latex-next';
+import 'katex/dist/katex.min.css';
 
 
 interface QuestionProps {
@@ -163,13 +162,18 @@ export default function TrainerQuestion({
 
         {question.options.map((option, index) => (
 
-            <Button
+            <button
               key={index*28748}
               onClick={() => onAnswer(option)}
-              className="w-full text-left justify-start"
+              className="inline-flex items-center justify-center whitespace-nowrap rounded-xl text-sm font-bold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 tracking-wide bg-white border-slate-200 border-2 border-b-4 active:border-b-2 hover:bg-slate-100 text-slate-500"
             >
-              {option}
-            </Button>
+            <p className="m-4">
+                <Latex>
+                  {option}
+                </Latex>
+            </p>
+            </button>
+            
         ))}
       </div>
 

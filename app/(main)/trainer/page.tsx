@@ -96,17 +96,20 @@ const LearnPage = async () => {
 						<div>
 							{t_units.filter(u => u.courseId === course.id)
 							.map((t_unit, index) => (
-								<div key={index*81872} className='text-green-700'>
+								<div key={index*81872}>
 
-									<p className='text-foreground text-xl  text-center'>
+									<p className='text-foreground text-xl  text-center pt-2 pb-4'>
 										{t_unit.title}
 									</p>
 
-									{t_units.filter(ul => ul.id == t_unit.id)[0].lessons.map((t_lesson, index) => (
+									{
+										t_units.filter(ul => ul.id == t_unit.id)[0].lessons.map((t_lesson, index) => (
 										
-										<div key={index * 2241} className='grid grid-cols-2'>
+										<div key={index * 2241} className='justify-center'>
 											<TrainerList t_lesson={t_lesson}/>
+									
 										</div>
+										
 										
 										
 										// <div key={index*121} className='flex flex-1'>
