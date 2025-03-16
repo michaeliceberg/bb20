@@ -1,12 +1,11 @@
 import { FeedWrapper } from '@/components/feed-wrapper';
 import { StickyWrapper } from '@/components/sticky-wrapper';
 import { UserProgress } from '@/components/user-progress';
-import { getChallengeProgress, getCourseProgress, getCourses, getTUnits, getUnits, getUserProgress } from '@/db/queries';
+import { getChallengeProgress, getCourseProgress, getCourses, getTCourses, getTLessonProgress, getTUnits, getUnits, getUserProgress } from '@/db/queries';
 import { redirect } from 'next/navigation';
 import { Header } from './header';
 import { auth, currentUser } from "@clerk/nextjs/server"
-import { UnitBanner } from './unit-banner';
-import { TrainerList } from '@/components/trainer-list';
+import { TabTCourses } from '@/components/tab-t-courses';
 
 
 
@@ -19,29 +18,31 @@ const LearnPage = async () => {
 	}
 
 
-	const coursesData = getCourses();
+	// const coursesData = getCourses();
+	const t_coursesData = getTCourses();
 
 	const userProgressData = getUserProgress()
 	const courseProgressData = getCourseProgress()
 	const challengeProgressData = getChallengeProgress()
 
-	// const unitsData = getUnits()
 	const t_unitsData = getTUnits()
-
+	const userTLessonProgressData = getTLessonProgress()
 	
 	const [
-		courses,
+		t_courses,
 		userProgress,
 		t_units,
 		courseProgress,
 		challengeProgress,
+		t_lessonProgress,
 
 	] = await Promise.all([
-		coursesData,
+		t_coursesData,
 		userProgressData,
 		t_unitsData,
 		courseProgressData,
 		challengeProgressData,
+		userTLessonProgressData,
 	]);
 
 	if (!userProgress || !userProgress.activeCourse) {
@@ -55,8 +56,6 @@ const LearnPage = async () => {
 	if (!challengeProgress){
         redirect('/learn')
     }
-
-
 
 
 
@@ -80,62 +79,14 @@ const LearnPage = async () => {
 
 			<FeedWrapper>
 				<Header title={userProgress.activeCourse.title} />
-				{courses.map((course, index)=>(
-				
-					<div key={index*1389}>
-
-						<UnitBanner 
-							title={course.title} 
-							description={'something'} 
-							imgSrc={course.imageSrc} 
-							id={1} 
-							percentageDone={20}
-						/>
-						
-						
-						<div>
-							{t_units.filter(u => u.courseId === course.id)
-							.map((t_unit, index) => (
-								<div key={index*81872}>
-
-									<p className='text-foreground text-xl  text-center pt-2 pb-4'>
-										{t_unit.title}
-									</p>
-
-									{
-										t_units.filter(ul => ul.id == t_unit.id)[0].lessons.map((t_lesson, index) => (
-										
-										<div key={index * 2241} className='justify-center'>
-											<TrainerList t_lesson={t_lesson}/>
-									
-										</div>
-										
-										
-										
-										// <div key={index*121} className='flex flex-1'>
-										// 	<Button 
-										// 		size='sm' 
-										// 		onClick={()=>window.location.href = `/lesson/${lessonId}`}
-										// 		>
-										// 		{lesson.title}
-										// 	</Button>
-										// </div>
 
 
 
-
-									))}
-								</div>
-							))}
-						</div>
-
-
-						
-						{/* {course.title} */}
-					</div>
-				))}
-
-
+				<TabTCourses 
+					t_courses={t_courses} 
+					t_units={t_units} 
+					t_lessonProgress={t_lessonProgress}
+				/>
 
 
 				

@@ -285,19 +285,20 @@ export const getTUnits = cache(async()=>{
         return []
     }
 
-    const data = await db.query.units.findMany({
+    const data = await db.query.t_units.findMany({
         // where: eq(units.courseId, userProgress.activeCourseId),
         with: {
-            lessons: {
+            t_lessons: {
                 with: {
-                    challenges: {
-                        with: {
-                            challengeProgress: {
-                                where: eq (challengeProgress.userId,
-                                    userId
-                                )
-                            }
-                        },
+                    t_challenges: {
+                        // with: {
+                            
+						// 	t_lessonProgress: {
+                        //         where: eq (challengeProgress.userId,
+                        //             userId
+                        //         )
+                        //     }
+                        // },
                     },
                 },
             },
@@ -429,3 +430,6 @@ export const getTLessonProgress = cache (async () => {
 
 	return data
 })
+
+
+

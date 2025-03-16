@@ -66,7 +66,7 @@ export const Shuffle2 = (array: string[]) => {
 
 
 
-export const GetLessonStat = (
+export const GetTLessonStat = (
 
     t_lP:  typeof t_lessonProgress.$inferSelect[],
     t_lessonId: number,
@@ -76,54 +76,6 @@ export const GetLessonStat = (
 
     const t_lessonProgressThisLesson =  t_lP.filter(lessonProgress => lessonProgress.t_lessonId == t_lessonId)
     
-    // const PTLByMonth = t_lessonProgressThisLesson.map(el => (
-    //     {
-    //     doneRight: el.doneRight,
-    //     doneWrong: el.doneWrong,
-    //     month: el.dateDone.getMonth(),
-    //     trainingPts: el.trainingPts,
-    //     doneRightPercent: el.doneRightPercent,
-    //     }
-    // ))
-
-    // const uniqueMonths = PTLByMonth.map(item => item.month)
-    // .filter((value, index, self) => self.indexOf(value) === index)
-
-    // const doneRightSumList = uniqueMonths.map(month => (
-    //     PTLByMonth.filter(el => el.month == month).reduce((total, elem) => {
-    //     return (
-    //         total + elem.doneRight
-    //     )
-    //     }, 0)
-    // ))
-
-    // const doneWrongSumList = uniqueMonths.map(month => (
-    //     PTLByMonth.filter(el => el.month == month).reduce((total, elem) => {
-    //     return (
-    //         total + elem.doneWrong
-    //     )
-    //     }, 0)
-    // ))
-
-    // const monthTable = ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрб', 'Ноябрь', 'Декарбрь']
-    // const TrainingProgressMonth = uniqueMonths.map((m, index) => ({
-    //     month: monthTable[m],
-    //     doneRight: doneRightSumList[index],
-    //     doneWrong: doneWrongSumList[index],
-    // }))
-
-    
-
-    // const totalDR = TrainingProgressMonth.reduce((total, elem) => {
-    //     return (
-    //         total + elem.doneRight
-    //     )}, 0)
-    // const totalDW = TrainingProgressMonth.reduce((total, elem) => {
-    //     return (
-    //     total + elem.doneWrong
-    //     )}, 0)
-        
-
     const totalDR = t_lessonProgressThisLesson.reduce((total, elem) => {
     return (
         total + elem.doneRight
@@ -139,9 +91,34 @@ export const GetLessonStat = (
         totalPercentDR = totalDR/(totalD)
     }
 
+    // console.log(totalDR)
+    // console.log(totalPercentDR)
+
+
     return ({
         totalPercentDR: totalPercentDR,
         totalDR: totalDR,
     })
 
 }
+
+
+export const NearestRound = (x: number) => {
+    const netTable = [ 0.2, 0.5, 0.7, 0.8, 1 ]
+
+    if (x <= 0.2) {
+        return 20
+    }
+    if (x <=0.5 && x > 0.2) {
+        return 50
+    }
+    if (x <=0.7 && x > 0.5) {
+        return 70
+    }
+    if (x <=0.8 && x > 0.7) {
+        return 80
+    }
+    if (x <=1 && x > 0.8) {
+        return 100
+    }
+  }

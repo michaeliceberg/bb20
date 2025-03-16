@@ -21,11 +21,12 @@ import LottieStartPrivet from '@/public/Lottie/trainer/LottieStartPrivet.json'
 import LottieStartYesCapitan from '@/public/Lottie/trainer/LottieStartYesCapitan.json'
 import { toast } from "sonner"
 import { upsertTrainerLessonProgress } from "@/actions/user-progress"
-import { Activity, Badge, BadgeAlert, BadgeCheck, BadgeHelp, Check, Coffee, TrendingDown, TrendingUp, X } from "lucide-react"
+import { Home, Activity, ArrowLeft, Badge, BadgeAlert, BadgeCheck, BadgeHelp, Check, Coffee, TrendingDown, TrendingUp, X } from "lucide-react"
 import { Shuffle2 } from "@/usefulFunctions"
 import { ChartComponent } from "./chart-comp"
 import moment from "moment"
 import { cn } from "@/lib/utils"
+import Image from "next/image"
 
 
 
@@ -156,8 +157,7 @@ export default function TQuiz(
 
 
 
-  // console.log(TrainingProgressMonth)
-
+  
 
 
 
@@ -423,17 +423,39 @@ export default function TQuiz(
 
         <Lottie                
                 animationData={ randomStartLottie } 
-        className="h-80 w-80"
+        className="h-80 w-80 mt-4"
         />
 
-
+        <div className="flex gap-3 justify-center mt-6">
+        <Button 
+                // className='ml-4'
+                // size='sm' 
+                // variant='danger'
+                onClick={()=>window.location.href = `/trainer`}
+                >
+                  <div className="gap-2 flex">
+                    {/* <ArrowLeft /> */}
+                    <Image
+                      src='/menu/trainer.svg'
+                      height='30'
+                      width='30'
+                      alt='trainer'
+                    />
+                    
+                    {/* <Home /> */}
+                  
+                  </div>
+                {/* {t_lesson.title} */}
+        </Button>
         <Button
-          className="mt-4"
+          // className="ml-4"
           variant='primary'
           onClick={startQuiz}
         >
           {randomStartButton}
         </Button>
+
+        </div>
       </div>
     )
   }
@@ -508,6 +530,18 @@ export default function TQuiz(
         >
           Давай ещё раз
         </Button>
+
+        <div>
+          <Button 
+                  className='mt-4'
+                  // size='sm' 
+                  variant='primaryOutline'
+                  onClick={()=>window.location.href = `/t-lesson/${t_lessonId}`}
+                  >
+                      Завершить
+                  {/* {t_lesson.title} */}
+          </Button>
+        </div>
       </div>
     )
   }
