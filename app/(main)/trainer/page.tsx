@@ -58,6 +58,7 @@ const LearnPage = async () => {
     }
 
 
+	// console.log(t_units[0].t_lessons[0].t_challenges[0].)
 
 	return (
 		<div className='flex flex-row-reverse gap-[48px] px-6'>
@@ -70,15 +71,12 @@ const LearnPage = async () => {
 					
 					hasActiveSubscription={false} 
 				/>
-
-			{/* <Promo YourDaysLate={YourDaysLate} formattedDate={formattedDate}/> */}
-			{/* <Quests points={Points} hwList={hwList} /> */}
 				
 			</StickyWrapper>
 
 
 			<FeedWrapper>
-				<Header title={userProgress.activeCourse.title} />
+				<Header title="Тренажёр" />
 
 
 
@@ -89,8 +87,6 @@ const LearnPage = async () => {
 				/>
 
 
-				
-			
 			</FeedWrapper>
 		</div>
 	);

@@ -104,21 +104,21 @@ export const GetTLessonStat = (
 
 
 export const NearestRound = (x: number) => {
-    const netTable = [ 0.2, 0.5, 0.7, 0.8, 1 ]
+    // const netTable = [ 0.2, 0.5, 0.7, 0.8, 1 ]
 
     if (x <= 0.2) {
-        return 20
+        return "20"
     }
     if (x <=0.5 && x > 0.2) {
-        return 50
+        return "50"
     }
     if (x <=0.7 && x > 0.5) {
-        return 70
+        return "70"
     }
     if (x <=0.8 && x > 0.7) {
-        return 80
+        return "80"
     }
     if (x <=1 && x > 0.8) {
-        return 100
+        return "100"
     }
   }

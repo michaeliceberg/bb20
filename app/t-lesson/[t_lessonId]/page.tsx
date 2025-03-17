@@ -1,7 +1,7 @@
 import { getChallengeProgress, getLesson, getTLesson, getTLessonProgress, getUserProgress } from "@/db/queries"
 import { redirect } from "next/navigation"
 import { Quiz } from "../quiz"
-import { getUserPointsHearts } from "@/usefulFunctions"
+import { Shuffle2, getUserPointsHearts } from "@/usefulFunctions"
 import TQuiz from "@/components/trainer"
 
 type Props = {
@@ -35,6 +35,21 @@ const LessonIdPage =  async ({
     }
 
 
+    let questions = t_lesson.t_challenges.map(t_challenge => (
+        {
+          question: t_challenge.question,
+          options: Shuffle2(t_challenge.t_challengeOptions.map(el => el.text)),
+          correctAnswer: t_challenge.t_challengeOptions[0].text,
+          timeLimit: 10,
+        }))
+
+        
+
+
+        console.log(t_lesson)
+
+
+
     return(
 
         <TQuiz 
@@ -42,6 +57,8 @@ const LessonIdPage =  async ({
             t_lessonId={t_lesson.id} 
             t_lessonTitle = {t_lesson.title} 
             t_lessonProgress={t_lessonProgress}
+
+            questions1={questions}
         />     
                    
     )

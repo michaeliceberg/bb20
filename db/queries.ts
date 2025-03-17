@@ -291,6 +291,11 @@ export const getTUnits = cache(async()=>{
             t_lessons: {
                 with: {
                     t_challenges: {
+						with: {
+							t_challengeOptions: {
+		
+							},
+						}
                         // with: {
                             
 						// 	t_lessonProgress: {

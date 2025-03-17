@@ -19,6 +19,11 @@ import LottieStartDots from '@/public/Lottie/trainer/LottieStartDots.json'
 import LottieStartMorning from '@/public/Lottie/trainer/LottieStartMorning.json'
 import LottieStartPrivet from '@/public/Lottie/trainer/LottieStartPrivet.json'
 import LottieStartYesCapitan from '@/public/Lottie/trainer/LottieStartYesCapitan.json'
+import LottieTrainerSharkFinalWin from '@/public/Lottie/trainer/LottieTrainerSharkFinalWin.json'
+
+
+
+
 import { toast } from "sonner"
 import { upsertTrainerLessonProgress } from "@/actions/user-progress"
 import { Home, Activity, ArrowLeft, Badge, BadgeAlert, BadgeCheck, BadgeHelp, Check, Coffee, TrendingDown, TrendingUp, X } from "lucide-react"
@@ -68,6 +73,13 @@ type Props = {
       // challengeProgress: number[],
     }[],
     t_lessonProgress: typeof t_lessonProgress.$inferSelect[],
+
+    questions1: {
+      question: string;
+      options: string[];
+      correctAnswer: string;
+      timeLimit: number;
+  }[]
 }
 
 
@@ -79,6 +91,10 @@ export default function TQuiz(
     t_lessonTitle, 
     t_lesson,
     t_lessonProgress,
+
+
+    questions1,
+
   } : Props) {
   const [pending, startTransition] = useTransition()
   const [quizStarted, setQuizStarted] = useState(false)
@@ -90,9 +106,14 @@ export default function TQuiz(
 
 
 
+  // const [righthAudio] = useAudio({src:'/correct.mp3', autoPlay: true})
+  const [audioCorrect, _, controlsCorrect] = useAudio({src: '/correct.wav'})
+  const [audioInCorrect, _c, controlsInCorrect] = useAudio({src: '/incorrect.wav'})
 
 
-
+  const [finishAudio] = useAudio({src:'/MemesAudio/meme-right-chetko.WAV', autoPlay: true})
+  // const [audio, _, controls] = useAudio({src: '/correct.wav'})
+  // const [audio, _, controls] = useAudio({src: '/MemesAudio/meme-right-chetko.WAV'})
 
 
   const t_lessonProgressThisLesson =  t_lessonProgress.filter(lessonProgress => lessonProgress.t_lessonId == t_lessonId)
@@ -170,17 +191,6 @@ export default function TQuiz(
 
 
 
-  // const new_arr_reduce = arr.reduce((total, elem) => {
-	// 	return (
-	// 		total + elem.money
-	// 	)
-	// }, 0)
-
-
-
-
-
-
   // const Icon = title.slice(-1) === '3' ? Skull 
   // : title.slice(-1) === '4' ? Cake 
   // : isLast ? Crown 
@@ -197,35 +207,48 @@ export default function TQuiz(
 
 
 
-  let questions = t_lesson.map(t_challenge => (
-    {
-      question: t_challenge.question,
-      // options: ['1','2','3'], 
-      options: Shuffle2(t_challenge.t_challengeOptions.map(el => el.text)),
-      correctAnswer: t_challenge.t_challengeOptions[0].text,
-      timeLimit: 10,
-    }))
-
-
-  useEffect(()=>{
-      let questions = t_lesson.map(t_challenge => (
-    {
-      question: t_challenge.question,
-      // options: ['1','2','3'], 
-      options: Shuffle2(t_challenge.t_challengeOptions.map(el => el.text)),
-      correctAnswer: t_challenge.t_challengeOptions[0].text,
-      timeLimit: 10,
-    }))
-
-  })
 
 
 
 
-  let questionShuffled = [...questions].sort(() => 0.5 - Math.random());
 
-  questions = questionShuffled
 
+
+
+
+
+  // let questions = t_lesson.map(t_challenge => (
+  //   {
+  //     question: t_challenge.question,
+  //     options: Shuffle2(t_challenge.t_challengeOptions.map(el => el.text)),
+  //     correctAnswer: t_challenge.t_challengeOptions[0].text,
+  //     timeLimit: 10,
+  //   }))
+
+
+
+
+
+  // useEffect(()=>{
+  //     let questions = t_lesson.map(t_challenge => (
+  //   {
+  //     question: t_challenge.question,
+  //     options: Shuffle2(t_challenge.t_challengeOptions.map(el => el.text)),
+  //     correctAnswer: t_challenge.t_challengeOptions[0].text,
+  //     timeLimit: 10,
+  //   }))
+
+  // }, [currentQuestionIndex])
+
+
+
+  // let questionShuffled = [...questions].sort(() => 0.5 - Math.random());
+  // questions = questionShuffled
+
+
+  const questions = questions1
+
+  
 
   const initialState:number[] = questions.map((el, index) => index == 0 ? 3 : 0)
   
@@ -245,7 +268,6 @@ export default function TQuiz(
 
 
 
-  const [audio, _, controls] = useAudio({src: '/correct.wav'})
 
 //   const handleClick = useCallback(()=>{
 //     // if (disabled) return
@@ -286,14 +308,21 @@ export default function TQuiz(
   const handleAnswer = (answer: string) => {
     
 
-    controls.play()
+    
     
     setAnsweredQuestions(answeredQuestions + 1)
 
     if (answer === questions[currentQuestionIndex].correctAnswer) {
 
+
+
+
+
+
       // РЕШЕНО ПРАВИЛЬНО  1
       //
+      controlsCorrect.play()
+
       setScore(score + 1)
 
       let newArr = [...isRightList]
@@ -309,9 +338,15 @@ export default function TQuiz(
 
 
 
-    } else {
 
+
+
+
+
+    } else {
       // РЕШЕНО НЕПРАВИЛЬНО  2
+      
+      controlsInCorrect.play()
 
       let newArr = [...isRightList]
       newArr[currentQuestionIndex] = 2
@@ -325,22 +360,38 @@ export default function TQuiz(
 
     }
 
+
+
+
+
+
+
+
+
+
+
+
     if (currentQuestionIndex < questions.length - 1) {
       setCurrentQuestionIndex(currentQuestionIndex + 1)
       
+
     } else {
+
 
       // TODO:    обновляем БД
       
       setQuizCompleted(true)
 
-        upsertTrainerLessonProgress(t_lessonId, doneRightPercent, trainingPts, score, questions.length - score)
-        .catch(()=>toast.error('Что-то пошло не так! Результат не добавлен в базу данных.'))
+
+      upsertTrainerLessonProgress(t_lessonId, doneRightPercent, trainingPts, score + 1, questions.length - score - 1)
+      .catch(()=>toast.error('Что-то пошло не так! Результат не добавлен в базу данных.'))
   
     }
   }
 
   const handleTimeout = () => {
+    
+    controlsInCorrect.play()
     setAnsweredQuestions(answeredQuestions + 1)
 
 
@@ -356,6 +407,12 @@ export default function TQuiz(
       setCurrentQuestionIndex(currentQuestionIndex + 1)
     } else {
       setQuizCompleted(true)
+
+
+      // TODO: (если на последний вопрос не дал ответа) 
+      // upsert БД но ОДИН раз (почему-то делает 2 раза)
+
+
     }
   }
 
@@ -487,12 +544,18 @@ export default function TQuiz(
   //   })
 
 
+
+
+  // TODO:  Завершили 
+
   if (quizCompleted) {
 
     const isPerfectScore = score === questions.length
 
     
     return (
+      <>
+      {finishAudio}
       <div className="text-center content-center mx-auto">
 
         <h1 className="text-3xl font-bold mb-6">
@@ -514,8 +577,7 @@ export default function TQuiz(
 
 
         <Lottie 
-                
-                animationData={ score / questions.length < 0.5 ? LottieTrainerSharkFailDNO : LottieTrainerSharkFailDNO } 
+                animationData={ score / questions.length < 0.8 ? LottieTrainerSharkFailDNO : LottieTrainerSharkFinalWin } 
         className="h-80 w-80"
         />
 
@@ -543,14 +605,27 @@ export default function TQuiz(
           </Button>
         </div>
       </div>
+      </>
     )
   }
 
+
+
+
+  // TODO:    идёт КВИЗ
   return (
+    
+    <>
+    {audioCorrect}
+    {audioInCorrect}
+    
+
     <div className="w-full max-w-xl mx-auto text-center">
       <h1 className="text-xl font-bold mt-6">
         {t_lessonTitle}
       </h1>
+      
+      
       
       <TrainerQuestion 
         questions={questions}
@@ -575,6 +650,7 @@ export default function TQuiz(
 
 
     </div>
+    </>
   )
 }
 

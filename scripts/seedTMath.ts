@@ -32,7 +32,7 @@ const main = async () => {
 
 
 		await db.insert(schema.t_courses).values([
-			{id:1,title:'Тренажер Математика 6',imageSrc:'lnip_mat_6.svg'},
+			{id:1,title:'М6',imageSrc:'lnip_mat_6.svg'},
 		]);
 
 

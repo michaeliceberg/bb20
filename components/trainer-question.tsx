@@ -76,7 +76,8 @@ export default function TrainerQuestion({
 
 
 
-      <div className="flex flex-1 justify-between m-2 text-green">
+      {/* <div className="flex flex-1 justify-between m-2 text-green"> */}
+      <div className="grid grid-cols-12 justify-between m-2 text-green gap-y-1">
         { 
           questions.map((el, index) => (
             <div key={index*4847} className="fill-red-800">
