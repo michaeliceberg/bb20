@@ -438,3 +438,33 @@ export const getTLessonProgress = cache (async () => {
 
 
 
+
+
+
+export const getAllTLessonProgress = cache (async () => {
+	const { userId } = await auth()
+
+	if (!userId) {
+		return []
+	}
+	const data = await db.query.t_lessonProgress.findMany({
+		orderBy: (t_lessonProgress, { desc }) => [desc(t_lessonProgress.dateDone)],
+		// limit: 10,
+
+	})
+
+	return data
+})
+
+
+
+export const getAllUsersProgress = cache(async () => {
+	const { userId } = await auth();
+	if (!userId) {
+		return null;
+	}
+
+	const data = await db.query.userProgress.findMany({
+	});
+	return data;
+});

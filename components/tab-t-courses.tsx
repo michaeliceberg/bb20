@@ -45,7 +45,16 @@ type Props = {
                     t_challengeOptions: typeof t_challengeOptions.$inferSelect[],
                 }[];}[]
         }[],
-        t_lessonProgress: typeof t_lessonProgress.$inferSelect[]
+        
+        t_lessonProgress: typeof t_lessonProgress.$inferSelect[],
+
+        TRatingUsers: {
+            t_lesson_id: number;
+            usersSortedStat: {
+                DR_DRP: number;
+                user_id: string | undefined;
+            }[];
+        }[],
     }
 
   
@@ -54,6 +63,7 @@ type Props = {
         t_courses,
         t_units,
         t_lessonProgress,
+        TRatingUsers,
     }: Props) => {
 
 
@@ -152,7 +162,11 @@ return(
 										t_units.filter(ul => ul.id == t_unit.id)[0].t_lessons.map((t_lesson, index) => (
 										
 										<div key={index * 2241} className='justify-center'>
-											<TrainerLessonItem t_lesson={t_lesson} t_lessonProgress={t_lessonProgress}/>
+											<TrainerLessonItem 
+                                                t_lesson={t_lesson} 
+                                                t_lessonProgress={t_lessonProgress}
+                                                TRatingUsers={TRatingUsers}
+                                                />
 									
 										</div>
 										

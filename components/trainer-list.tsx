@@ -4,7 +4,7 @@
 import { challengeProgress, challenges, t_challenges, t_lessonProgress, t_lessons, units } from '@/db/schema'
 import React from 'react'
 import { Button } from './ui/button'
-import { Check, CornerRightUp, Landmark, TrendingDown, TrendingUp } from 'lucide-react'
+import { Axe, Check, CornerRightUp, Crown, DollarSign, Landmark, Skull, TrendingDown, TrendingUp, Zap } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { GetTLessonStat } from '@/usefulFunctions'
 
@@ -16,7 +16,15 @@ type Props = {
         t_unitId: number; 
         t_challenges: typeof t_challenges.$inferSelect[]
     },
-    t_lessonProgress: typeof t_lessonProgress.$inferSelect[]
+    t_lessonProgress: typeof t_lessonProgress.$inferSelect[],
+    
+    TRatingUsers: {
+        t_lesson_id: number;
+        usersSortedStat: {
+            DR_DRP: number;
+            user_id: string | undefined;
+        }[];
+    }[],
     
 }
 
@@ -28,6 +36,7 @@ type Props = {
 export const TrainerLessonItem = ({
     t_lesson,
     t_lessonProgress,
+    TRatingUsers,
 } : Props) => {
 
 
@@ -85,7 +94,41 @@ export const TrainerLessonItem = ({
 
 
 
+            <div className='mt-1'>
+            {   
+                TRatingUsers.filter(el=>el.t_lesson_id == t_lesson.id)[0] ?
+                
+                <div>
+                    <div className='flex flex-1 gap-2'>
+                        <Crown                              
+                        className= "h-6 w-6 fill-yellow-300 stroke-neutral-700 mx-auto" />
+                        {TRatingUsers.filter(el=>el.t_lesson_id == t_lesson.id)[0]?.usersSortedStat[0].user_id}
+        
+                    </div>
 
+                    <div className='flex flex-1 gap-1 mx-auto text-center content-center justify-center'>
+                        <Zap 
+                        className= "h-5 w-5 fill-yellow-300 stroke-neutral-700" />
+                        {TRatingUsers.filter(el=>el.t_lesson_id == t_lesson.id)[0]?.usersSortedStat[0].DR_DRP}
+                        
+                    </div>
+
+                </div>
+
+
+
+                :
+                <div>
+                    <Skull 
+                    className= "h-6 w-6 stroke-neutral-500 mx-auto" />
+                </div>
+
+
+
+
+            }
+       
+            </div>
             
                     
 

@@ -168,6 +168,7 @@ const LearnPage = async () => {
 	.filter(
 		(value, index, current_value) => current_value.indexOf(value) === index
 	);
+	
 
 	let UnitsLessonsPercentage = []
 
