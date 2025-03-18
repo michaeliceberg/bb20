@@ -12,6 +12,8 @@ import { t_challengeOptions, t_lessonProgress } from "@/db/schema";
 import { GetTLessonStat } from "@/usefulFunctions";
 import 'katex/dist/katex.min.css';
 import Latex from 'react-latex-next';
+import { useState } from "react";
+import { Button } from "./ui/button";
 
 
 type Props = {    
@@ -55,7 +57,11 @@ type Props = {
     }: Props) => {
 
 
+    const [showFormulas, setShowFormulas] = useState(false)
 
+    const onClickHandler = () => {
+        setShowFormulas(!showFormulas)
+    }
 
     const AllTStat = t_courses.map(course => {
 
@@ -102,7 +108,7 @@ return(
 
     <div>
         
-        <Tabs defaultValue="Ф7-11" className="pt-5">
+        <Tabs defaultValue="М1" className="pt-5">
     
             <TabsList>
             {
@@ -121,7 +127,7 @@ return(
 
 						<TUnitBanner 
 							t_course_title={t_course.title} 
-							description={'something'} 
+							description={t_course.imageSrc} 
 							imgSrc={t_course.imageSrc} 
 							id={1} 
 							percentageDone={20}
@@ -157,42 +163,49 @@ return(
 						</div>
 
 
+
+                        <Button className="w-full mb-4 mt-4" onClick={onClickHandler} variant='primaryOutline'>
+                            Показать все формулы                                
+                        </Button>
+
+                        {showFormulas && 
+
                         
-                        <div>
-                        {t_units.filter(u => u.t_courseId === t_course.id)
-							.map((t_unit, index) => (
-								<div key={index*14213}>
+                        <div className="flex flex-col justify-center">
+                            {t_units.filter(u => u.t_courseId === t_course.id)
+                                .map((t_unit, index) => (
+                                    <div key={index*14213}>
 
-									<p className="w-full rounded-xl  bg-green-500 p-4 text-lg text-white flex justify-center pt-2 pb-2 mb-6 bg-[url('/MemesImage/i-like-food.svg')]  bg-repeat">
-										{t_unit.title}
-									</p>
+                                        <p>
+                                            {t_unit.title}
+                                        </p>
 
-									{
-										t_units.filter(ul => ul.id == t_unit.id)[0].t_lessons.map((t_lesson, index) => (
-										
-										<div key={index * 2241} className='justify-center'>
-											{t_lesson.t_challenges.map((t_challenge, index) => (
-                                                <div key={index * 9135}>
-                                                    <Latex>
-                                                    {t_challenge.question}
-                                                    </Latex>
+                                        {
+                                            t_units.filter(ul => ul.id == t_unit.id)[0].t_lessons.map((t_lesson, index) => (
+                                            
+                                            <div key={index * 2241} className='justify-center'>
+                                                {t_lesson.t_challenges.map((t_challenge, index) => (
+                                                    <div key={index * 9135}>
+                                                        <Latex>
+                                                        {t_challenge.question}
+                                                        </Latex>
 
-                                                    <Latex>
-                                                    {t_challenge.t_challengeOptions[0].text}
-                                                    </Latex>
-                                                </div>
-                                            ) )}
-									
-										</div>
-										
+                                                        <Latex>
+                                                        {t_challenge.t_challengeOptions[0].text}
+                                                        </Latex>
+                                                    </div>
+                                                ) )}
+                                        
+                                            </div>
+                                            
 
-									))}
-								</div>
-							))}
+                                        ))}
+                                    </div>
+                                ))}
 
                         </div>
 
-
+                        }
 
 
 						

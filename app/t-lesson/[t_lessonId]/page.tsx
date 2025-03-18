@@ -1,14 +1,17 @@
 import { getChallengeProgress, getLesson, getTLesson, getTLessonProgress, getUserProgress } from "@/db/queries"
 import { redirect } from "next/navigation"
 import { Quiz } from "../quiz"
-import { Shuffle2, getUserPointsHearts } from "@/usefulFunctions"
-import TQuiz from "@/components/trainer"
+import { Shuffle2, ShuffleTS, getUserPointsHearts } from "@/usefulFunctions"
+import TQuiz from "@/components/TQUIZ"
+
 
 type Props = {
     params: {
         t_lessonId: number
     }
 }
+
+
 
 const LessonIdPage =  async ({
     params,
@@ -43,11 +46,12 @@ const LessonIdPage =  async ({
           timeLimit: 10,
         }))
 
-        
+    
 
-
-        console.log(t_lesson)
-
+    questions = ShuffleTS(questions)
+  
+    
+    
 
 
     return(

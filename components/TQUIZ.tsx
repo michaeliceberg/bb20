@@ -26,7 +26,7 @@ import LottieTrainerSharkFinalWin from '@/public/Lottie/trainer/LottieTrainerSha
 
 import { toast } from "sonner"
 import { upsertTrainerLessonProgress } from "@/actions/user-progress"
-import { Home, Activity, ArrowLeft, Badge, BadgeAlert, BadgeCheck, BadgeHelp, Check, Coffee, TrendingDown, TrendingUp, X } from "lucide-react"
+import { ArrowLeft, Badge, BadgeAlert, BadgeCheck, Check, TrendingDown, TrendingUp, X, Baby, Crown, Pizza } from "lucide-react"
 import { Shuffle2 } from "@/usefulFunctions"
 import { ChartComponent } from "./chart-comp"
 import moment from "moment"
@@ -103,6 +103,31 @@ export default function TQuiz(
   const [quizCompleted, setQuizCompleted] = useState(false)
   const [answeredQuestions, setAnsweredQuestions] = useState(0)
   const { width, height } = useWindowSize()
+
+
+
+
+  const [allQuestions, setAllQuestions] = useState(questions1.slice(0, Math.round(questions1.length*0.3)))
+  const [numQuestionsButton, setNumQuestionsButton] = useState(0)
+  
+
+  const handleNumQuestions = (n: number) => {
+
+    if (n == 0) {
+      setAllQuestions(questions1.slice(0, Math.round(questions1.length*0.3)))
+    }
+    if (n == 1) {
+      setAllQuestions(questions1.slice(0, Math.round(questions1.length*0.6)))
+    }
+    if (n == 2) {
+      setAllQuestions(questions1)
+    }
+
+
+    setNumQuestionsButton(n) 
+
+    console.log(allQuestions)
+  }
 
 
 
@@ -246,8 +271,9 @@ export default function TQuiz(
   // questions = questionShuffled
 
 
-  const questions = questions1
-
+  // const questions = questions1
+  const questions = allQuestions
+  // allQuestions
   
 
   const initialState:number[] = questions.map((el, index) => index == 0 ? 3 : 0)
@@ -479,11 +505,37 @@ export default function TQuiz(
 
 
         <Lottie                
-                animationData={ randomStartLottie } 
-        className="h-80 w-80 mt-4"
+          animationData={ randomStartLottie } 
+        className="h-40 w-40 mt-4 mx-auto"
         />
 
+
+        <p className="text-sm mt-5">
+          заданий
+        </p>
+        <div className="flex gap-3 justify-center mt-2">
+          <Button className="gap-2" variant={numQuestionsButton == 0 ? 'super' : 'default'} onClick={()=>{handleNumQuestions(0)}}>
+            <Baby />
+            {Math.round(questions1.length*0.3)}
+          </Button>
+
+          <Button className="gap-2" variant={numQuestionsButton == 1 ? 'super' : 'default'} onClick={()=>{handleNumQuestions(1)}}>
+            <Pizza />
+            {Math.round(questions1.length*0.6)}
+          </Button>
+
+          <Button className="gap-2" variant={numQuestionsButton == 2 ? 'super' : 'default'} onClick={()=>{handleNumQuestions(2)}}>
+            
+            {questions1.length}
+            <Crown />
+          </Button>
+
+        </div>
+
         <div className="flex gap-3 justify-center mt-6">
+
+
+
         <Button 
                 // className='ml-4'
                 // size='sm' 
@@ -491,13 +543,13 @@ export default function TQuiz(
                 onClick={()=>window.location.href = `/trainer`}
                 >
                   <div className="gap-2 flex">
-                    {/* <ArrowLeft /> */}
-                    <Image
+                    <ArrowLeft />
+                    {/* <Image
                       src='/menu/trainer.svg'
                       height='30'
                       width='30'
                       alt='trainer'
-                    />
+                    /> */}
                     
                     {/* <Home /> */}
                   
