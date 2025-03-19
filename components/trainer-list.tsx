@@ -1,12 +1,11 @@
 'use client'
 
 
-import { challengeProgress, challenges, t_challenges, t_lessonProgress, t_lessons, units } from '@/db/schema'
+import { t_challenges, t_lessonProgress } from '@/db/schema'
 import React from 'react'
 import { Button } from './ui/button'
-import { Axe, Check, CornerRightUp, Crown, DollarSign, Landmark, Skull, TrendingDown, TrendingUp, Trophy, Zap } from 'lucide-react'
+import { CornerRightUp, Crown, Skull, Trophy, Zap } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { GetTLessonStat } from '@/usefulFunctions'
 
 type Props = {
     t_lesson: { 

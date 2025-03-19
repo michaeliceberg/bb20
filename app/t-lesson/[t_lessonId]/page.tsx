@@ -3,6 +3,7 @@ import { redirect } from "next/navigation"
 import { Quiz } from "../quiz"
 import { Shuffle2, ShuffleTS, getUserPointsHearts } from "@/usefulFunctions"
 import TQuiz from "@/components/TQUIZ"
+import { useEffect } from "react"
 
 
 
@@ -201,6 +202,16 @@ const LessonIdPage =  async ({
 
 
 
+    let finishAudioSrcList = ['/MemesAudio/meme-right-chetko.WAV',
+                        '/MemesAudio/meme-right-chinazes.WAV',
+                        '/MemesAudio/meme-right-umeetemogete.WAV',
+                        ]
+    let finishAudioSrc = ShuffleTS(finishAudioSrcList)[0]
+
+    // useEffect(()=>{
+    //     finishAudioSrc = ShuffleTS(finishAudioSrcList)[0]
+    // },)
+    
 
 
 
@@ -216,6 +227,7 @@ const LessonIdPage =  async ({
 
             questions1={questions}
             usersStat={usersStat}
+            finishAudioSrc={finishAudioSrc}
         />     
                    
     )

@@ -28,7 +28,7 @@ import LottieTrainerSharkFinalWin from '@/public/Lottie/trainer/LottieTrainerSha
 import { toast } from "sonner"
 import { upsertTrainerLessonProgress } from "@/actions/user-progress"
 import { ArrowLeft, Badge, BadgeAlert, BadgeCheck, Check, TrendingDown, TrendingUp, X, Baby, Crown, Pizza, Zap, Trophy, HandMetal, Rabbit, Heart } from "lucide-react"
-import { Shuffle2 } from "@/usefulFunctions"
+import { Shuffle2, ShuffleTS } from "@/usefulFunctions"
 import { ChartComponent } from "./chart-comp"
 import moment from "moment"
 import { cn } from "@/lib/utils"
@@ -88,7 +88,8 @@ type Props = {
     user_id: string | undefined;
     user_name: string | undefined;
     user_imgSrc: string | undefined;
-  }[]
+  }[],
+  finishAudioSrc: string,
 }
 
 
@@ -103,6 +104,7 @@ export default function TQuiz(
 
     questions1,
     usersStat,
+    finishAudioSrc,
 
   } : Props) {
   const [pending, startTransition] = useTransition()
@@ -119,6 +121,23 @@ export default function TQuiz(
   const [allQuestions, setAllQuestions] = useState(questions1.slice(0, Math.round(questions1.length*0.3)))
   const [numQuestionsButton, setNumQuestionsButton] = useState(0)
   
+
+
+
+  let finishAudioSrcList = ['/MemesAudio/meme-right-chetko.WAV',
+  '/MemesAudio/meme-right-chinazes.WAV',
+  '/MemesAudio/meme-right-umeetemogete.WAV',
+  ]
+  // let finishAudioSrc2 = ShuffleTS(finishAudioSrcList)[0]
+
+  const [finishA, setFinishA] = useState(finishAudioSrcList[0])
+
+  useEffect(()=>{
+    setFinishA(ShuffleTS(finishAudioSrcList)[0])
+  },[])
+
+
+
 
   const handleNumQuestions = (n: number) => {
 
@@ -145,7 +164,10 @@ export default function TQuiz(
   const [audioInCorrect, _c, controlsInCorrect] = useAudio({src: '/incorrect.wav'})
 
 
-  const [finishAudio] = useAudio({src:'/MemesAudio/meme-right-chetko.WAV', autoPlay: true})
+
+
+
+  const [finishAudio] = useAudio({src: finishA, autoPlay: true})
   // const [audio, _, controls] = useAudio({src: '/correct.wav'})
   // const [audio, _, controls] = useAudio({src: '/MemesAudio/meme-right-chetko.WAV'})
 

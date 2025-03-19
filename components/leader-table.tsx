@@ -157,7 +157,7 @@ export function TableLeader({ResultLeaderTable}: Props) {
 
                         </li>
 
-                        <li className="col-span-2 flex justify-center " key={index*1019}>
+                        <li className="col-span-2 flex justify-center" key={index*1019}>
                             <p className="text-lg font-bold content-center">
                                 {cur_user_stat.userName}
                             </p>
