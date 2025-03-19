@@ -70,14 +70,15 @@ const LearnPage = async () => {
         redirect('/learn')
     }
 
-
-
+	// для сравнения рейтинга в trainer-list
+	//
+	const user_id = userProgress.userId
 
 	// отфильтровать последние по дате
 	//
-	all_t_lessonProgress.map(lesson => (
-		console.log(lesson)
-	))
+	// all_t_lessonProgress.map(lesson => (
+	// 	console.log(lesson)
+	// ))
 
 
 	// const data = [
@@ -94,11 +95,6 @@ const LearnPage = async () => {
 	  .filter(
 		  (value, index, current_value) => current_value.indexOf(value) === index
 	  );
-
-
-
-
-	console.log(UniqueLessonIds)
 
 	const TRatingUsers = UniqueLessonIds.map(t_lesson_id => {
 
@@ -135,14 +131,13 @@ const LearnPage = async () => {
 
 			return  {
 				DR_DRP: DR_DRP,
-				user_id: allUsersProgress?.filter(pr => pr.userId==user_id)[0].userName,
+				user_id: allUsersProgress?.filter(pr => pr.userId==user_id)[0].userId,
+				user_name: allUsersProgress?.filter(pr => pr.userId==user_id)[0].userName,
 			}
 		
 		})
 
-
 		usersStat.sort((a, b) => b.DR_DRP - a.DR_DRP)
-
 
 		return {t_lesson_id: t_lesson_id, usersSortedStat: usersStat}
 
@@ -150,12 +145,11 @@ const LearnPage = async () => {
 
 		
 
-		// all_t_lessonProgress.filter(progress => progress.userId == user_id)
 	 )
 	
 
-	 console.log(TRatingUsers)
-	 console.log(TRatingUsers[1])
+	//  console.log(TRatingUsers)
+	//  console.log(TRatingUsers[1])
 
 
 	return (
@@ -168,6 +162,7 @@ const LearnPage = async () => {
 					gems={12}
 					
 					hasActiveSubscription={false} 
+					
 				/>
 				
 			</StickyWrapper>
@@ -183,6 +178,7 @@ const LearnPage = async () => {
 					t_units={t_units} 
 					t_lessonProgress={t_lessonProgress}
 					TRatingUsers={TRatingUsers}
+					user_id={user_id}
 				/>
 
 

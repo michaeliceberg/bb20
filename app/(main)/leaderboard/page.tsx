@@ -205,7 +205,7 @@ const LeaderboardPage = async () => {
                         Таблица лидеров
                     </h1>
                     <p className="text-muted-foreground text-center text-lg mb-6">
-                        Узнай свое положение среди остальных
+                        Выполняй задания и зарабатывай очки
                     </p>
 
                     <Separator className="mb-4 h-0.5 rounded-full" />

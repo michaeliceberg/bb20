@@ -67,7 +67,7 @@ const main = async () => {
 
 
 await db.insert(schema.t_lessons).values([{id:101,t_unitId:101,title:'Пропорции',order:101,},
-{id:102,t_unitId:101,title:'1/2 1/4 1/5 1/8 3/4 3/8',order:102,},
+{id:102,t_unitId:101,title:'SUPER дроби',order:102,},
 {id:103,t_unitId:102,title:'Было-стало',order:103,},
 {id:104,t_unitId:102,title:'Полегче',order:104,},
 
@@ -98,6 +98,9 @@ await db.insert(schema.t_lessons).values([{id:101,t_unitId:101,title:'Пропо
 
 
 	
+
+
+
 
 
 
@@ -194,6 +197,10 @@ await db.insert(schema.t_challenges).values([{id:101101001,t_lessonId:101,type:'
 
 
 
+
+
+
+
 await db.insert(schema.t_challengeOptions).values([{t_challengeId:101101001,correct:true,text:'$ \\huge  \\frac{a}{c} $'},{t_challengeId:101101001,correct:false,text:'$ \\huge  \\frac{c}{a} $'},{t_challengeId:101101001,correct:false,text:'$ \\huge  c \\cdot a $'},{t_challengeId:101101001,correct:false,text:'$ \\huge  c + a $'},{t_challengeId:101101001,correct:false,text:'$ \\huge  c - a $'},{t_challengeId:101101001,correct:false,text:'$ \\huge  a - c $'},
 {t_challengeId:101101002,correct:true,text:'$ \\huge b \\cdot c $'},{t_challengeId:101101002,correct:false,text:'$ \\huge  \\frac{b}{c} $'},{t_challengeId:101101002,correct:false,text:'$ \\huge  \\frac{c}{a} $'},{t_challengeId:101101002,correct:false,text:'$ \\huge  c + a $'},{t_challengeId:101101002,correct:false,text:'$ \\huge  c - a $'},{t_challengeId:101101002,correct:false,text:'$ \\huge  a - c $'},
 {t_challengeId:101101003,correct:true,text:'$ \\huge  a \\cdot c $'},{t_challengeId:101101003,correct:false,text:'$ \\huge  \\frac{c}{a} $'},{t_challengeId:101101003,correct:false,text:'$ \\huge  \\frac{a}{c} $'},{t_challengeId:101101003,correct:false,text:'$ \\huge  c + a $'},{t_challengeId:101101003,correct:false,text:'$ \\huge  c - a $'},{t_challengeId:101101003,correct:false,text:'$ \\huge  a - c $'},
@@ -249,12 +256,12 @@ await db.insert(schema.t_challengeOptions).values([{t_challengeId:101101001,corr
 {t_challengeId:101102042,correct:true,text:'800'},{t_challengeId:101102042,correct:false,text:'500'},{t_challengeId:101102042,correct:false,text:'60'},{t_challengeId:101102042,correct:false,text:'200'},{t_challengeId:101102042,correct:false,text:'40'},{t_challengeId:101102042,correct:false,text:'100'},
 {t_challengeId:101102043,correct:true,text:'320'},{t_challengeId:101102043,correct:false,text:'800'},{t_challengeId:101102043,correct:false,text:'60'},{t_challengeId:101102043,correct:false,text:'200'},{t_challengeId:101102043,correct:false,text:'640'},{t_challengeId:101102043,correct:false,text:'100'},
 {t_challengeId:101102044,correct:true,text:'640'},{t_challengeId:101102044,correct:false,text:'800'},{t_challengeId:101102044,correct:false,text:'600'},{t_challengeId:101102044,correct:false,text:'240'},{t_challengeId:101102044,correct:false,text:'300'},{t_challengeId:101102044,correct:false,text:'100'},
-{t_challengeId:101102045,correct:true,text:'120'},{t_challengeId:101102045,correct:false,text:'240'},{t_challengeId:101102045,correct:false,text:'360'},{t_challengeId:101102045,correct:false,text:'200'},{t_challengeId:101102045,correct:false,text:'180'},{t_challengeId:101102045,correct:false,text:'240'},
+{t_challengeId:101102045,correct:true,text:'120'},{t_challengeId:101102045,correct:false,text:'240'},{t_challengeId:101102045,correct:false,text:'360'},{t_challengeId:101102045,correct:false,text:'200'},{t_challengeId:101102045,correct:false,text:'180'},{t_challengeId:101102045,correct:false,text:'10'},
 {t_challengeId:101102046,correct:true,text:'100'},{t_challengeId:101102046,correct:false,text:'50'},{t_challengeId:101102046,correct:false,text:'150'},{t_challengeId:101102046,correct:false,text:'250'},{t_challengeId:101102046,correct:false,text:'500'},{t_challengeId:101102046,correct:false,text:'10'},
 {t_challengeId:101102047,correct:true,text:'500'},{t_challengeId:101102047,correct:false,text:'250'},{t_challengeId:101102047,correct:false,text:'100'},{t_challengeId:101102047,correct:false,text:'150'},{t_challengeId:101102047,correct:false,text:'250'},{t_challengeId:101102047,correct:false,text:'50'},
 {t_challengeId:101102048,correct:true,text:'200'},{t_challengeId:101102048,correct:false,text:'250'},{t_challengeId:101102048,correct:false,text:'100'},{t_challengeId:101102048,correct:false,text:'150'},{t_challengeId:101102048,correct:false,text:'250'},{t_challengeId:101102048,correct:false,text:'50'},
 {t_challengeId:101102049,correct:true,text:'400'},{t_challengeId:101102049,correct:false,text:'200'},{t_challengeId:101102049,correct:false,text:'250'},{t_challengeId:101102049,correct:false,text:'100'},{t_challengeId:101102049,correct:false,text:'600'},{t_challengeId:101102049,correct:false,text:'250'},
-{t_challengeId:101102050,correct:true,text:'120'},{t_challengeId:101102050,correct:false,text:'240'},{t_challengeId:101102050,correct:false,text:'48'},{t_challengeId:101102050,correct:false,text:'240'},{t_challengeId:101102050,correct:false,text:'180'},{t_challengeId:101102050,correct:false,text:'240'},
+{t_challengeId:101102050,correct:true,text:'120'},{t_challengeId:101102050,correct:false,text:'12'},{t_challengeId:101102050,correct:false,text:'48'},{t_challengeId:101102050,correct:false,text:'6'},{t_challengeId:101102050,correct:false,text:'180'},{t_challengeId:101102050,correct:false,text:'240'},
 {t_challengeId:101102051,correct:true,text:'80'},{t_challengeId:101102051,correct:false,text:'60'},{t_challengeId:101102051,correct:false,text:'120'},{t_challengeId:101102051,correct:false,text:'90'},{t_challengeId:101102051,correct:false,text:'160'},{t_challengeId:101102051,correct:false,text:'320'},
 {t_challengeId:101102052,correct:true,text:'320'},{t_challengeId:101102052,correct:false,text:'80'},{t_challengeId:101102052,correct:false,text:'160'},{t_challengeId:101102052,correct:false,text:'120'},{t_challengeId:101102052,correct:false,text:'90'},{t_challengeId:101102052,correct:false,text:'40'},
 {t_challengeId:101102053,correct:true,text:'160'},{t_challengeId:101102053,correct:false,text:'80'},{t_challengeId:101102053,correct:false,text:'60'},{t_challengeId:101102053,correct:false,text:'120'},{t_challengeId:101102053,correct:false,text:'90'},{t_challengeId:101102053,correct:false,text:'40'},
@@ -281,9 +288,6 @@ await db.insert(schema.t_challengeOptions).values([{t_challengeId:101101001,corr
 {t_challengeId:102104005,correct:true,text:'В первом 400 , во втором  400'},{t_challengeId:102104005,correct:false,text:'В первом 450, во втором 350'},{t_challengeId:102104005,correct:false,text:'В первом 420, во втором 380'},{t_challengeId:102104005,correct:false,text:'В первом 450, во втором 450'},{t_challengeId:102104005,correct:false,text:'В первом 500, во втором 400'},{t_challengeId:102104005,correct:false,text:'В первом 400, во втором 450'},
 {t_challengeId:102104006,correct:true,text:'3,75%'},{t_challengeId:102104006,correct:false,text:'2,50%'},{t_challengeId:102104006,correct:false,text:'4%'},{t_challengeId:102104006,correct:false,text:'3%'},{t_challengeId:102104006,correct:false,text:'3,20%'},{t_challengeId:102104006,correct:false,text:'4,50%'},
 {t_challengeId:102104007,correct:true,text:'5,88%'},{t_challengeId:102104007,correct:false,text:'6,20%'},{t_challengeId:102104007,correct:false,text:'7%'},{t_challengeId:102104007,correct:false,text:'6,50%'},{t_challengeId:102104007,correct:false,text:'5,50%'},{t_challengeId:102104007,correct:false,text:'6%'},]);
-
-
-
 
 
 

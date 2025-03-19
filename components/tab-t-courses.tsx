@@ -53,8 +53,11 @@ type Props = {
             usersSortedStat: {
                 DR_DRP: number;
                 user_id: string | undefined;
+                user_name: string | undefined;
             }[];
         }[],
+
+        user_id: string,
     }
 
   
@@ -64,6 +67,7 @@ type Props = {
         t_units,
         t_lessonProgress,
         TRatingUsers,
+        user_id,
     }: Props) => {
 
 
@@ -166,6 +170,7 @@ return(
                                                 t_lesson={t_lesson} 
                                                 t_lessonProgress={t_lessonProgress}
                                                 TRatingUsers={TRatingUsers}
+                                                user_id={user_id}
                                                 />
 									
 										</div>
@@ -190,7 +195,7 @@ return(
                                 .map((t_unit, index) => (
                                     <div key={index*14213}>
 
-                                        <p>
+                                        <p className="w-full pb-8 pl-4">
                                             {t_unit.title}
                                         </p>
 
@@ -199,7 +204,7 @@ return(
                                             
                                             <div key={index * 2241} className='justify-center'>
                                                 {t_lesson.t_challenges.map((t_challenge, index) => (
-                                                    <div key={index * 9135}>
+                                                    <div key={index * 9135} className="w-full pb-8 pl-4">
                                                         <Latex>
                                                         {t_challenge.question}
                                                         </Latex>

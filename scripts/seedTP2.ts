@@ -91,7 +91,7 @@ await db.insert(schema.t_challenges).values([{id:201201001,t_lessonId:201,type:'
 {id:201201012,t_lessonId:201,type:'ASSIST',order:201201012,question:'2-ой закон Ньютона $\\quad \\huge \\color{green} F=? $',points:10,author:'Ф7-11',},
 {id:201201013,t_lessonId:201,type:'ASSIST',order:201201013,question:'Вес в лифте $\\uparrow \\quad \\huge \\color{green} P=? $',points:10,author:'Ф7-11',},
 {id:201201014,t_lessonId:201,type:'ASSIST',order:201201014,question:'Вес в лифте $\\downarrow \\quad \\huge \\color{green} P=? $',points:10,author:'Ф7-11',},
-{id:201201015,t_lessonId:201,type:'ASSIST',order:201201015,question:'Период колебаний мат. маят. \\quad \\huge \\color{green} T=? $',points:10,author:'Ф7-11',},
+{id:201201015,t_lessonId:201,type:'ASSIST',order:201201015,question:'Период колебаний мат. маят. $\\quad \\huge \\color{green} T=? $',points:10,author:'Ф7-11',},
 {id:201201016,t_lessonId:201,type:'ASSIST',order:201201016,question:'Период колебаний пруж. маят $\\downarrow \\quad \\huge \\color{green} T=? $',points:10,author:'Ф7-11',},
 {id:201202001,t_lessonId:202,type:'ASSIST',order:201202001,question:'Координата $ \\quad \\huge \\color{green} x=? $',points:10,author:'Ф7-11',},
 {id:201202002,t_lessonId:202,type:'ASSIST',order:201202002,question:'Ускорение $\\quad \\huge \\color{green} a=? $',points:10,author:'Ф7-11',},

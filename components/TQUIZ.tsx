@@ -8,6 +8,7 @@ import TrainerQuestion from "./trainer-question"
 import { t_challengeOptions, t_lessonProgress } from "@/db/schema"
 import { Button } from "./ui/button"
 import Lottie from "lottie-react"
+import { Avatar, AvatarImage } from "./ui/avatar";
 
 
 
@@ -26,12 +27,13 @@ import LottieTrainerSharkFinalWin from '@/public/Lottie/trainer/LottieTrainerSha
 
 import { toast } from "sonner"
 import { upsertTrainerLessonProgress } from "@/actions/user-progress"
-import { ArrowLeft, Badge, BadgeAlert, BadgeCheck, Check, TrendingDown, TrendingUp, X, Baby, Crown, Pizza } from "lucide-react"
+import { ArrowLeft, Badge, BadgeAlert, BadgeCheck, Check, TrendingDown, TrendingUp, X, Baby, Crown, Pizza, Zap, Trophy, HandMetal, Rabbit, Heart } from "lucide-react"
 import { Shuffle2 } from "@/usefulFunctions"
 import { ChartComponent } from "./chart-comp"
 import moment from "moment"
 import { cn } from "@/lib/utils"
 import Image from "next/image"
+import { Separator } from "./ui/separator"
 
 
 
@@ -74,11 +76,18 @@ type Props = {
     }[],
     t_lessonProgress: typeof t_lessonProgress.$inferSelect[],
 
-    questions1: {
-      question: string;
-      options: string[];
-      correctAnswer: string;
-      timeLimit: number;
+  questions1: {
+    question: string;
+    options: string[];
+    correctAnswer: string;
+    timeLimit: number;
+  }[],
+
+  usersStat: {
+    DR_DRP: number;
+    user_id: string | undefined;
+    user_name: string | undefined;
+    user_imgSrc: string | undefined;
   }[]
 }
 
@@ -92,8 +101,8 @@ export default function TQuiz(
     t_lesson,
     t_lessonProgress,
 
-
     questions1,
+    usersStat,
 
   } : Props) {
   const [pending, startTransition] = useTransition()
@@ -458,50 +467,44 @@ export default function TQuiz(
           {t_lessonTitle}
         </h1>
         
-        {/* <h1 className="text-xl font-bold mb-6">
-          {questions.length} вопросов
-        </h1>
- */}
 
 
+        <ChartComponent TrainingProgressMonth = {TrainingProgressMonth}/>
 
-      <ChartComponent TrainingProgressMonth = {TrainingProgressMonth}/>
 
-
-      <div className="mt-4 flex justify-center gap-8">
-        <div className="flex">
-        <Check
-          className={cn("h-8 w-8 stroke-gray-600")}
-        />
-        <p className="pt-1 pl-2">{totalD}</p>
-      </div>
-      
-      {/* fill-green-400 stroke-red-400 */}
-
-      <div className="flex">
-
-        {Math.round(totalPercentDR*100) > 80 
-        
-        ? 
-        
-        <TrendingUp
-          className={cn("h-8 w-8  stroke-green-600")}
-        />
-
-        :
-
-        <TrendingDown
-          className={cn("h-8 w-8  stroke-red-600")}
-        /> 
-        }
+        <div className="mt-4 flex justify-center gap-8">
+          <div className="flex">
+            <Check
+              className={cn("h-8 w-8 stroke-gray-600")}
+            />
+            <p className="pt-1 pl-2">{totalD}</p>
+          </div>
         
 
- 
+          <div className="flex">
+
+            {Math.round(totalPercentDR*100) > 80 
+            
+            ? 
+            
+            <TrendingUp
+              className={cn("h-8 w-8  stroke-green-600")}
+            />
+
+            :
+
+            <TrendingDown
+              className={cn("h-8 w-8  stroke-red-600")}
+            /> 
+            }
+            
+
+    
 
 
-        <p className="pt-1 pl-2">{Math.round(totalPercentDR*100)} %</p>
+            <p className="pt-1 pl-2">{Math.round(totalPercentDR*100)} %</p>
+          </div>
         </div>
-      </div>
 
 
         <Lottie                
@@ -510,10 +513,14 @@ export default function TQuiz(
         />
 
 
+        
+        
         <p className="text-sm mt-5">
-          заданий
+          количество заданий
         </p>
+
         <div className="flex gap-3 justify-center mt-2">
+
           <Button className="gap-2" variant={numQuestionsButton == 0 ? 'super' : 'default'} onClick={()=>{handleNumQuestions(0)}}>
             <Baby />
             {Math.round(questions1.length*0.3)}
@@ -532,69 +539,109 @@ export default function TQuiz(
 
         </div>
 
+
+
         <div className="flex gap-3 justify-center mt-6">
 
+          <Button onClick={()=>window.location.href = `/trainer`} >
+            <div className="gap-2 flex">
+              <ArrowLeft />
+            </div>
+          </Button>
 
-
-        <Button 
-                // className='ml-4'
-                // size='sm' 
-                // variant='danger'
-                onClick={()=>window.location.href = `/trainer`}
-                >
-                  <div className="gap-2 flex">
-                    <ArrowLeft />
-                    {/* <Image
-                      src='/menu/trainer.svg'
-                      height='30'
-                      width='30'
-                      alt='trainer'
-                    /> */}
-                    
-                    {/* <Home /> */}
-                  
-                  </div>
-                {/* {t_lesson.title} */}
-        </Button>
-        <Button
-          // className="ml-4"
-          variant='primary'
-          onClick={startQuiz}
-        >
-          {randomStartButton}
-        </Button>
+          <Button variant='primary' onClick={startQuiz} >
+            {randomStartButton}
+          </Button>
 
         </div>
+
+        <Separator className="mt-12 h-0.5 rounded-full w-full" />
+
+
+        <div className="mt-6 mb-20 w-full">
+            
+            
+            
+
+              <ul className="grid grid-cols-5 gap-y-4 ">
+
+                <li className="col-span-2 flex justify-center ">
+                  <Trophy
+                    className= {cn("h-7 w-7 pt-1  fill-yellow-300 stroke-yellow-400")}
+                  />
+                </li>
+
+                  
+
+                <li className="col-span-2 flex justify-center">
+                  <Heart
+                    className= {cn("h-7 w-7 pt-1  fill-yellow-300 stroke-yellow-400")}
+                  />  
+                </li>
+
+
+                  
+                <li className="flex justify-center">
+                  <Zap
+                    className={cn("h-7 w-7 pt-1  fill-yellow-300 stroke-yellow-400")}
+                  />
+                </li>
+
+                
+
+                {usersStat.map((el, index)=> 
+
+                  <>
+
+                    <li className="pt-2 col-span-2 flex justify-center" key={index*7137}>
+                      {index + 1}
+                    </li>
+
+                      
+                    <li className="col-span-2 flex justify-center" key={index*7137}>
+                      <div className="flex flex-1 items-center" key={index*17137}>
+
+                        <Avatar>
+                          <AvatarImage 
+                              className="object-cover"
+                              src={el.user_imgSrc}
+                          />
+                        </Avatar>  
+
+                        {el.user_name}
+                      </div>
+                    </li>
+
+
+
+                    <li className="pt-2 flex justify-center" key={index*7337}>
+                      {el.DR_DRP}
+                    </li>
+
+                  </>
+
+                )}
+
+
+              </ul>
+
+            </div>
+
+
+        
+
+
       </div>
-    )
-  }
+    )}
 
 
 
 
   const doneRightPercent = 100
-
   const trainingPts = 200
 
 
-
-
-  // if (quizCompleted && !isDbUpdated) {
-
-  //   const isPerfectScore = score === questions.length
-
-  //   startTransition(()=> {
-
-  //     if (pending) return;
-  //     // openR()
-
-  //     // upsertChallengeProgress(challenge.id, TrueValue, oldCourseProgress, activeCourseTitle, challenge.points, isDoneChallenge)
-
-  //     upsertTrainerLessonProgress(t_lessonId, doneRightPercent, trainingPts)
-  //     // .then(()=>{setIsDbUpdated(true)})
-  //     .catch(()=>toast.error('Что-то пошло не так! Результат не добавлен в базу данных.'))
-  //   })
-
+  
 
 
 
