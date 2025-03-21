@@ -1,7 +1,7 @@
 
 "use client"
 
-import { useCallback, useEffect, useState, useTransition } from "react"
+import { useEffect, useState, useTransition } from "react"
 import Confetti from "react-confetti"
 import { useAudio, useKey, useWindowSize } from "react-use"
 import TrainerQuestion from "./trainer-question"
@@ -9,7 +9,6 @@ import { t_challengeOptions, t_lessonProgress } from "@/db/schema"
 import { Button } from "./ui/button"
 import Lottie from "lottie-react"
 import { Avatar, AvatarImage } from "./ui/avatar";
-
 
 
 import LottieTrainerSharkFailDNO from '@/public/Lottie/trainer/LottieTrainerSharkFailDNO.json'
@@ -27,13 +26,12 @@ import LottieTrainerSharkFinalWin from '@/public/Lottie/trainer/LottieTrainerSha
 
 import { toast } from "sonner"
 import { upsertTrainerLessonProgress } from "@/actions/user-progress"
-import { ArrowLeft, Badge, BadgeAlert, BadgeCheck, Check, TrendingDown, TrendingUp, X, Baby, Crown, Pizza, Zap, Trophy, HandMetal, Rabbit, Heart } from "lucide-react"
-import { Shuffle2, ShuffleTS } from "@/usefulFunctions"
+import { ArrowLeft, Badge, BadgeAlert, BadgeCheck, Check, TrendingDown, TrendingUp, X, Baby, Crown, Pizza, Zap, Trophy, Heart } from "lucide-react"
+import { ShuffleTS } from "@/usefulFunctions"
 import { ChartComponent } from "./chart-comp"
-import moment from "moment"
 import { cn } from "@/lib/utils"
-import Image from "next/image"
 import { Separator } from "./ui/separator"
+import { FinishTrainerStat } from "./finish-trainer-stat"
 
 
 
@@ -90,6 +88,7 @@ type Props = {
     user_imgSrc: string | undefined;
   }[],
   finishAudioSrc: string,
+  userId: string,
 }
 
 
@@ -105,6 +104,7 @@ export default function TQuiz(
     questions1,
     usersStat,
     finishAudioSrc,
+    userId,
 
   } : Props) {
   const [pending, startTransition] = useTransition()
@@ -132,6 +132,7 @@ export default function TQuiz(
 
   const [finishA, setFinishA] = useState(finishAudioSrcList[0])
 
+  
   useEffect(()=>{
     setFinishA(ShuffleTS(finishAudioSrcList)[0])
   },[])
@@ -170,6 +171,10 @@ export default function TQuiz(
   const [finishAudio] = useAudio({src: finishA, autoPlay: true})
   // const [audio, _, controls] = useAudio({src: '/correct.wav'})
   // const [audio, _, controls] = useAudio({src: '/MemesAudio/meme-right-chetko.WAV'})
+
+
+
+
 
 
   const t_lessonProgressThisLesson =  t_lessonProgress.filter(lessonProgress => lessonProgress.t_lessonId == t_lessonId)
@@ -234,17 +239,6 @@ export default function TQuiz(
 
 
 
-  
-
-
-
-
-
-
-
-
-
-
 
 
   // const Icon = title.slice(-1) === '3' ? Skull 
@@ -272,39 +266,7 @@ export default function TQuiz(
 
 
 
-
-  // let questions = t_lesson.map(t_challenge => (
-  //   {
-  //     question: t_challenge.question,
-  //     options: Shuffle2(t_challenge.t_challengeOptions.map(el => el.text)),
-  //     correctAnswer: t_challenge.t_challengeOptions[0].text,
-  //     timeLimit: 10,
-  //   }))
-
-
-
-
-
-  // useEffect(()=>{
-  //     let questions = t_lesson.map(t_challenge => (
-  //   {
-  //     question: t_challenge.question,
-  //     options: Shuffle2(t_challenge.t_challengeOptions.map(el => el.text)),
-  //     correctAnswer: t_challenge.t_challengeOptions[0].text,
-  //     timeLimit: 10,
-  //   }))
-
-  // }, [currentQuestionIndex])
-
-
-
-  // let questionShuffled = [...questions].sort(() => 0.5 - Math.random());
-  // questions = questionShuffled
-
-
-  // const questions = questions1
   const questions = allQuestions
-  // allQuestions
   
 
   const initialState:number[] = questions.map((el, index) => index == 0 ? 3 : 0)
@@ -317,36 +279,22 @@ export default function TQuiz(
   }
 
   
+  // interface finishListType {
+  //   question: string;
+  //   answer: string;
+  //   rightAnswer: string;
+  //   isRight: boolean;
+  // }[]
+  
+  const [finishList, setFinishList] = useState([{
+    question: '',
+    answer: '',
+    rightAnswer: '',
+    isRight: true,
+  }])
 
 
-
-
-
-
-
-
-
-//   const handleClick = useCallback(()=>{
-//     // if (disabled) return
-
-
-//     controls.play()
-//     // onClick()
-
-//     // open()
-
-
-// },[
-//     disabled, 
-//     onClick, 
-//     // controls
-// ])
-
-// useKey(shortcut, handleClick, {}, [handleClick])
-
-
-
-
+  // const [finishList, setFinishList] = useState<finishListType>()
 
 
   
@@ -357,6 +305,13 @@ export default function TQuiz(
     setQuizCompleted(false)
     setAnsweredQuestions(0)
     setIsRightList(initialState)
+
+    setFinishList([{
+      question: '',
+      answer: '',
+      rightAnswer: '',
+      isRight: true,
+    }])
 
   }
 
@@ -379,6 +334,14 @@ export default function TQuiz(
       // РЕШЕНО ПРАВИЛЬНО  1
       //
       controlsCorrect.play()
+
+      setFinishList(oldArray => [...oldArray, {
+        question: questions[currentQuestionIndex].question,
+        answer: answer,
+        rightAnswer: questions[currentQuestionIndex].correctAnswer,
+        isRight: true,
+      }])
+
 
       setScore(score + 1)
 
@@ -404,6 +367,13 @@ export default function TQuiz(
       // РЕШЕНО НЕПРАВИЛЬНО  2
       
       controlsInCorrect.play()
+
+      setFinishList(oldArray => [...oldArray, {
+        question: questions[currentQuestionIndex].question,
+        answer: answer,
+        rightAnswer: questions[currentQuestionIndex].correctAnswer,
+        isRight: false,
+      }])
 
       let newArr = [...isRightList]
       newArr[currentQuestionIndex] = 2
@@ -615,13 +585,16 @@ export default function TQuiz(
 
                   <>
 
-                    <li className="pt-2 col-span-2 flex justify-center" key={index*7137}>
+                    <li className="pt-5 col-span-2 flex justify-center" key={index*7137}>
                       {index + 1}
                     </li>
 
                       
                     <li className="col-span-2 flex justify-center" key={index*7137}>
-                      <div className="flex flex-1 items-center" key={index*17137}>
+                      <div className={el.user_id == userId 
+                      ? "flex flex-1 gap-2 items-center border-dashed border-2 border-gray-300 rounded-lg p-2"
+                      : "flex flex-1 gap-2 items-center rounded-lg p-3"
+                    } key={index*17137}>
 
                         <Avatar>
                           <AvatarImage 
@@ -636,7 +609,7 @@ export default function TQuiz(
 
 
 
-                    <li className="pt-2 flex justify-center" key={index*7337}>
+                    <li className="pt-5 flex justify-center" key={index*7337}>
                       {el.DR_DRP}
                     </li>
 
@@ -673,6 +646,9 @@ export default function TQuiz(
 
     const isPerfectScore = score === questions.length
 
+    // finishList.shift()
+    // console.log(finishList)
+    // setFinishList(list=>[...list.shift])
     
     return (
       <>
@@ -725,6 +701,22 @@ export default function TQuiz(
                   {/* {t_lesson.title} */}
           </Button>
         </div>
+
+        <div className="pt-8">
+          <Separator />
+        </div>
+
+         <FinishTrainerStat finishList = {finishList} />
+       
+
+
+        
+
+
+
+
+
+
       </div>
       </>
     )

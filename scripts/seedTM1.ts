@@ -66,48 +66,15 @@ const main = async () => {
 
 
 
+
+
 await db.insert(schema.t_lessons).values([{id:101,t_unitId:101,title:'Пропорции',order:101,},
 {id:102,t_unitId:101,title:'SUPER дроби',order:102,},
-{id:103,t_unitId:102,title:'Было-стало',order:103,},
-{id:104,t_unitId:102,title:'Полегче',order:104,},
-
+{id:103,t_unitId:102,title:'ФСУ',order:103,},
+{id:104,t_unitId:102,title:'Пусто',order:104,},
 
 
 ]);
-		
-		
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-		
-		
-
-
-	
-
-
-
-
-
-
-
-
-
-
 
 await db.insert(schema.t_challenges).values([{id:101101001,t_lessonId:101,type:'ASSIST',order:101101001,question:'$ \\huge  \\frac{a}{b} = c \\quad \\color{green} b=? $',points:10,author:'М 1',},
 {id:101101002,t_lessonId:101,type:'ASSIST',order:101101002,question:'$ \\huge  \\frac{a}{b} = c \\quad \\color{green} a=? $',points:10,author:'М 1',},
@@ -188,7 +155,20 @@ await db.insert(schema.t_challenges).values([{id:101101001,t_lessonId:101,type:'
 {id:102103004,t_lessonId:103,type:'ASSIST',order:102103004,question:'$ \\huge x^2 - 6x + 9=$',points:15,author:'М 1',},
 {id:102103005,t_lessonId:103,type:'ASSIST',order:102103005,question:'$ \\huge x^2 - 4 =$',points:15,author:'М 1',},
 {id:102103006,t_lessonId:103,type:'ASSIST',order:102103006,question:'$ \\huge x^2 - 9 =$',points:15,author:'М 1',},
-]);
+{id:102103007,t_lessonId:103,type:'ASSIST',order:102103007,question:'$ \\huge 4x^2 + 6x + 9 =$',points:15,author:'М 1',},
+{id:102103008,t_lessonId:103,type:'ASSIST',order:102103008,question:'$ \\huge 4x^2 - 6x + 9 =$',points:15,author:'М 1',},
+{id:102103009,t_lessonId:103,type:'ASSIST',order:102103009,question:'$ \\huge 25x^2 - 10x + 1 =$',points:15,author:'М 1',},
+{id:102103010,t_lessonId:103,type:'ASSIST',order:102103010,question:'$ \\huge 25x^2 + 10x + 1 =$',points:15,author:'М 1',},
+{id:102103011,t_lessonId:103,type:'ASSIST',order:102103011,question:'$ \\huge 9x^2 + 12x + 4 =$',points:15,author:'М 1',},
+{id:102103012,t_lessonId:103,type:'ASSIST',order:102103012,question:'$ \\huge 9x^2 - 12x + 4 =$',points:15,author:'М 1',},
+{id:102103013,t_lessonId:103,type:'ASSIST',order:102103013,question:'$ \\huge 16x^2 - 25 =$',points:15,author:'М 1',},
+{id:102103014,t_lessonId:103,type:'ASSIST',order:102103014,question:'$ \\huge 25x^2 - 9с^2 =$',points:15,author:'М 1',},
+{id:102103015,t_lessonId:103,type:'ASSIST',order:102103015,question:'$ \\huge 100t^2 - 36d^2 =$',points:15,author:'М 1',},]);
+
+
+
+
+
 
 
 
@@ -272,8 +252,18 @@ await db.insert(schema.t_challengeOptions).values([{t_challengeId:101101001,corr
 {t_challengeId:102103002,correct:true,text:'$ \\huge (x-2)^2 $'},{t_challengeId:102103002,correct:false,text:'$ \\huge (x+2)^2 $'},{t_challengeId:102103002,correct:false,text:'$ \\huge x^2 - 4 $'},{t_challengeId:102103002,correct:false,text:'$ \\huge x^2 + 4 $'},{t_challengeId:102103002,correct:false,text:'$ \\huge (x-2)(x+2) $'},{t_challengeId:102103002,correct:false,text:'$ \\huge (x-4)(x+4) $'},
 {t_challengeId:102103003,correct:true,text:'$ \\huge (x+3)^2 $'},{t_challengeId:102103003,correct:false,text:'$ \\huge (x-3)^2 $'},{t_challengeId:102103003,correct:false,text:'$ \\huge x^2 - 9 $'},{t_challengeId:102103003,correct:false,text:'$ \\huge x^2 + 9 $'},{t_challengeId:102103003,correct:false,text:'$ \\huge (x-3)(x+3) $'},{t_challengeId:102103003,correct:false,text:'$ \\huge (x-9)(x+9) $'},
 {t_challengeId:102103004,correct:true,text:'$ \\huge (x-3)^2 $'},{t_challengeId:102103004,correct:false,text:'$ \\huge (x+3)^2 $'},{t_challengeId:102103004,correct:false,text:'$ \\huge x^2 - 9 $'},{t_challengeId:102103004,correct:false,text:'$ \\huge x^2 + 9 $'},{t_challengeId:102103004,correct:false,text:'$ \\huge (x-3)(x+3) $'},{t_challengeId:102103004,correct:false,text:'$ \\huge (x-9)(x+9) $'},
-{t_challengeId:102103005,correct:true,text:'$ \\huge (x-2)(x+2) $'},{t_challengeId:102103005,correct:false,text:'$ \\huge (x+2)^2 $'},{t_challengeId:102103005,correct:false,text:'$ \\huge x^2 - 4 $'},{t_challengeId:102103005,correct:false,text:'$ \\huge x^2 + 4 $'},{t_challengeId:102103005,correct:false,text:'$ \\huge (x-2)^2 $'},{t_challengeId:102103005,correct:false,text:'$ \\huge (x-4)(x+4) $'},
-{t_challengeId:102103006,correct:true,text:'$ \\huge (x-3)(x+3) $'},{t_challengeId:102103006,correct:false,text:'$ \\huge (x+3)^2 $'},{t_challengeId:102103006,correct:false,text:'$ \\huge x^2 - 9 $'},{t_challengeId:102103006,correct:false,text:'$ \\huge x^2 + 9 $'},{t_challengeId:102103006,correct:false,text:'$ \\huge (x-3)^2 $'},{t_challengeId:102103006,correct:false,text:'$ \\huge (x-9)(x+9) $'},]);
+{t_challengeId:102103005,correct:true,text:'$ \\huge (x-2)(x+2) $'},{t_challengeId:102103005,correct:false,text:'$ \\huge (x+2)^2 $'},{t_challengeId:102103005,correct:false,text:'$ \\huge (x^2+4)^2 $'},{t_challengeId:102103005,correct:false,text:'$ \\huge x^2 + 4 $'},{t_challengeId:102103005,correct:false,text:'$ \\huge (x-2)^2 $'},{t_challengeId:102103005,correct:false,text:'$ \\huge (x-4)(x+4) $'},
+{t_challengeId:102103006,correct:true,text:'$ \\huge (x-3)(x+3) $'},{t_challengeId:102103006,correct:false,text:'$ \\huge (x+3)^2 $'},{t_challengeId:102103006,correct:false,text:'$ \\huge (x^2+9)^2 $'},{t_challengeId:102103006,correct:false,text:'$ \\huge x^2 + 9 $'},{t_challengeId:102103006,correct:false,text:'$ \\huge (x-3)^2 $'},{t_challengeId:102103006,correct:false,text:'$ \\huge (x-9)(x+9) $'},
+{t_challengeId:102103007,correct:true,text:'$ \\huge (2x+3)^2 $'},{t_challengeId:102103007,correct:false,text:'$ \\huge (2x-3)^2 $'},{t_challengeId:102103007,correct:false,text:'$ \\huge 4x^2 - 9 $'},{t_challengeId:102103007,correct:false,text:'$ \\huge 4x^2 + 9 $'},{t_challengeId:102103007,correct:false,text:'$ \\huge (2x-3)(2x+3) $'},{t_challengeId:102103007,correct:false,text:'$ \\huge (4x-9)(4x+9) $'},
+{t_challengeId:102103008,correct:true,text:'$ \\huge (2x-3)^2 $'},{t_challengeId:102103008,correct:false,text:'$ \\huge (2x+3)^2 $'},{t_challengeId:102103008,correct:false,text:'$ \\huge 4x^2 - 9 $'},{t_challengeId:102103008,correct:false,text:'$ \\huge 4x^2 + 9 $'},{t_challengeId:102103008,correct:false,text:'$ \\huge (2x-3)(2x+3) $'},{t_challengeId:102103008,correct:false,text:'$ \\huge (4x-9)(4x+9) $'},
+{t_challengeId:102103009,correct:true,text:'$ \\huge (5x-1)^2 $'},{t_challengeId:102103009,correct:false,text:'$ \\huge (5x+1)^2 $'},{t_challengeId:102103009,correct:false,text:'$ \\huge 25x^2-1 $'},{t_challengeId:102103009,correct:false,text:'$ \\huge 25x^2+1 $'},{t_challengeId:102103009,correct:false,text:'$ \\huge (5x-1)(5x+1) $'},{t_challengeId:102103009,correct:false,text:'$ \\huge (25x-1)(25x+1) $'},
+{t_challengeId:102103010,correct:true,text:'$ \\huge (5x+1)^2 $'},{t_challengeId:102103010,correct:false,text:'$ \\huge (5x-1)^2 $'},{t_challengeId:102103010,correct:false,text:'$ \\huge 25x^2-1 $'},{t_challengeId:102103010,correct:false,text:'$ \\huge 25x^2+1 $'},{t_challengeId:102103010,correct:false,text:'$ \\huge (5x-1)(5x+1) $'},{t_challengeId:102103010,correct:false,text:'$ \\huge (25x-1)(25x+1) $'},
+{t_challengeId:102103011,correct:true,text:'$ \\huge (3x+2)^2 $'},{t_challengeId:102103011,correct:false,text:'$ \\huge (3x-2)^2 $'},{t_challengeId:102103011,correct:false,text:'$ \\huge 9x^2-4 $'},{t_challengeId:102103011,correct:false,text:'$ \\huge 9x^2+4 $'},{t_challengeId:102103011,correct:false,text:'$ \\huge (3x-2)(3x+2) $'},{t_challengeId:102103011,correct:false,text:'$ \\huge (9x^2-4)(9x^2+4) $'},
+{t_challengeId:102103012,correct:true,text:'$ \\huge (3x-2)^2 $'},{t_challengeId:102103012,correct:false,text:'$ \\huge (3x+2)^2 $'},{t_challengeId:102103012,correct:false,text:'$ \\huge 9x^2-4 $'},{t_challengeId:102103012,correct:false,text:'$ \\huge 9x^2+4 $'},{t_challengeId:102103012,correct:false,text:'$ \\huge (3x-2)(3x+2) $'},{t_challengeId:102103012,correct:false,text:'$ \\huge (9x^2-4)(9x^2+4) $'},
+{t_challengeId:102103013,correct:true,text:'$ \\huge (4x-5)(4x+5) $'},{t_challengeId:102103013,correct:false,text:'$ \\huge (4x+5)^2 $'},{t_challengeId:102103013,correct:false,text:'$ \\huge (16x^2+25)^2$'},{t_challengeId:102103013,correct:false,text:'$ \\huge 4x^2 + 25 $'},{t_challengeId:102103013,correct:false,text:'$ \\huge (4x-5)^2 $'},{t_challengeId:102103013,correct:false,text:'$ \\huge (4x-25)(4x+25) $'},
+{t_challengeId:102103014,correct:true,text:'$ \\huge (5x-3c)(5x+3c) $'},{t_challengeId:102103014,correct:false,text:'$ \\huge (5x+3c)^2 $'},{t_challengeId:102103014,correct:false,text:'$ \\huge (25x^2+9c^2)^2$'},{t_challengeId:102103014,correct:false,text:'$ \\huge 25x^2 + 9c^2 $'},{t_challengeId:102103014,correct:false,text:'$ \\huge (5x-3c)^2 $'},{t_challengeId:102103014,correct:false,text:'$ \\huge (25x-9)(25x+9) $'},
+{t_challengeId:102103015,correct:true,text:'$ \\huge (10t-6d)(10t+6d) $'},{t_challengeId:102103015,correct:false,text:'$ \\huge (10t+6d)^2 $'},{t_challengeId:102103015,correct:false,text:'$ \\huge (100t^2+36d^2)^2$'},{t_challengeId:102103015,correct:false,text:'$ \\huge 100t^2 + 36d^2 $'},{t_challengeId:102103015,correct:false,text:'$ \\huge (100t-36d)^2 $'},{t_challengeId:102103015,correct:false,text:'$ \\huge (100t-36d)(100t+36d) $'},]);
+
 
 
 

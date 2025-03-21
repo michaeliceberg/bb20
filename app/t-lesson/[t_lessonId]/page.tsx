@@ -228,6 +228,7 @@ const LessonIdPage =  async ({
             questions1={questions}
             usersStat={usersStat}
             finishAudioSrc={finishAudioSrc}
+            userId={userProgress.userId}
         />     
                    
     )
