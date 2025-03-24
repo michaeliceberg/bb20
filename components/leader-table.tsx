@@ -14,6 +14,8 @@ import LottieNumber9 from '@/public/Lottie/fireNumbers/LottieNumber9.json'
 import Lottie from "lottie-react";
 import { Avatar, AvatarImage } from "./ui/avatar";
 import LottieCoins from '@/public/Lottie/LottieCoins.json'
+// import { sendMessageToTelegram } from "@/utils/telegram";
+// import { useEffect } from "react";
 
 
 interface progressDaysType {
@@ -43,6 +45,12 @@ type Props= {
 
 export function TableLeader({ResultLeaderTable}: Props) {
     
+
+
+
+
+
+
 
 
     

@@ -8,11 +8,6 @@ import Image from "next/image"
 import { redirect } from "next/navigation"
 import { Items } from "./items"
 import { getUserPointsHearts } from "@/usefulFunctions"
-import { Heart } from "lucide-react"
-import LottieShop from '@/public/Lottie/LottieShop.json'
-import Lottie from "lottie-react"
-import AETriangle from '@/public/Lottie/hints/AETriangle.json'
-
 
 
 
@@ -37,6 +32,7 @@ const ShopPage = async () => {
 
 
     const [Points, Hearts, Gems] = getUserPointsHearts(userProgress)
+
 
 
 
@@ -113,3 +109,28 @@ const ShopPage = async () => {
 }
 
 export default ShopPage
+
+
+
+
+
+
+
+
+
+// // pages/index.tsx
+
+// const Home = (): JSX.Element => {
+//   useEffect(() => {
+//     // Пример отправки сообщения после загрузки компонента
+//     sendMessageToTelegram("Привет! Это сообщение от вашего бота из Next.js.");
+//   }, []);
+
+//   return (
+//     <div>
+//       <h1>Привет, это Next.js и Telegram бот!</h1>
+//     </div>
+//   );
+// };
+
+// export default Home;

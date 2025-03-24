@@ -15,7 +15,6 @@
 		"db:seed:tm": "tsx ./scripts/seedTM1.ts",
 		"db:seed:tp": "tsx ./scripts/seedTP2.ts",
 		"db:seed:m11ege": "tsx ./scripts/seedM11_EGE.ts",
-		
 		"db:reset": "tsx ./scripts/reset.ts"
 	},
 	"dependencies": {
@@ -29,6 +28,7 @@
 		"@radix-ui/react-separator": "^1.0.3",
 		"@radix-ui/react-slot": "^1.0.2",
 		"@radix-ui/react-tabs": "^1.1.3",
+		"axios": "^1.8.4",
 		"class-variance-authority": "^0.7.0",
 		"clsx": "^2.1.1",
 		"date-fns": "^4.1.0",
@@ -39,6 +39,7 @@
 		"moment": "^2.30.1",
 		"next": "14.2.3",
 		"next-themes": "^0.3.0",
+		"node-telegram-bot-api": "^0.66.0",
 		"ra-data-simple-rest": "^5.0.1",
 		"react": "^18",
 		"react-admin": "^5.0.1",

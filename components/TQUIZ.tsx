@@ -32,6 +32,8 @@ import { ChartComponent } from "./chart-comp"
 import { cn } from "@/lib/utils"
 import { Separator } from "./ui/separator"
 import { FinishTrainerStat } from "./finish-trainer-stat"
+import { sendMessageToTelegram } from "@/utils/telegram"
+import { TgSendMsgCom } from "./tg-send-msg-com"
 
 
 
@@ -89,6 +91,7 @@ type Props = {
   }[],
   finishAudioSrc: string,
   userId: string,
+  userName: string,
 }
 
 
@@ -105,6 +108,7 @@ export default function TQuiz(
     usersStat,
     finishAudioSrc,
     userId,
+    userName,
 
   } : Props) {
   const [pending, startTransition] = useTransition()
@@ -116,7 +120,7 @@ export default function TQuiz(
   const { width, height } = useWindowSize()
 
 
-
+  
 
   const [allQuestions, setAllQuestions] = useState(questions1.slice(0, Math.round(questions1.length*0.3)))
   const [numQuestionsButton, setNumQuestionsButton] = useState(0)
@@ -298,6 +302,10 @@ export default function TQuiz(
 
 
   
+
+
+
+
   const startQuiz = () => {
     setQuizStarted(true)
     setCurrentQuestionIndex(0)
@@ -316,6 +324,12 @@ export default function TQuiz(
   }
 
   // let newArr = [0]
+
+
+  // conxr
+
+
+
 
   const handleAnswer = (answer: string) => {
     
@@ -646,10 +660,30 @@ export default function TQuiz(
 
     const isPerfectScore = score === questions.length
 
-    // finishList.shift()
-    // console.log(finishList)
-    // setFinishList(list=>[...list.shift])
     
+    
+    
+    // const userStat = JSON.stringify(finishList.filter(el => !el.isRight))
+    // const lesson_title = t_lessonTitle
+
+
+  
+    const numQuestions = finishList.length
+    const numQuestionsRight = finishList.filter(el => el.isRight).length
+    const message = `✅ ${userName}  ${t_lessonTitle} ${numQuestionsRight-1} / ${numQuestions-1}`
+
+
+    // useEffect(()=>{
+    //   sendMessageToTelegram(message)
+    // }, [])
+    
+    
+
+
+
+    
+
+
     return (
       <>
       {finishAudio}
@@ -658,7 +692,13 @@ export default function TQuiz(
         <h1 className="text-3xl font-bold mb-6">
           {t_lessonTitle}
         </h1>
-        
+
+
+        <TgSendMsgCom message={message} />
+
+
+
+
         <h2 className="text-2xl font-bold mb-4">
           Завершено!
         </h2>
