@@ -35,7 +35,7 @@ type Props = {
                 order: number;
                 t_unitId: number;
                 t_challenges: {
-                    imageSrc: string;
+                    imageSrc: string | null;
                     id: number;
                     points: number;
                     order: number;
