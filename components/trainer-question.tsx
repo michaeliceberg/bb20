@@ -82,6 +82,10 @@ export default function TrainerQuestion({
   const [audioCorrect, _, controlsCorrect] = useAudio({src: '/correct.wav'})
   const [audioInCorrect, _c, controlsInCorrect] = useAudio({src: '/incorrect.wav'})
 
+  const [audioConstructAdd, _ca, controlsAudioConstructAdd] = useAudio({src: '/Lottie/trainer/frozen/sounds/soundClick2.mp3'})
+  // const [audioConstructDel, _cd, controlsAudioConstructDel] = useAudio({src: '/Lottie/trainer/frozen/sounds/soundClick1.mp3'})
+  const [audioConstructFire, _cf, controlsAudioConstructFire] = useAudio({src: '/Lottie/trainer/frozen/sounds/soundClickFire1.mp3'})
+
 
   const [timeLeft, setTimeLeft] = useState(question.timeLimit)
   const timerRef = useRef<NodeJS.Timeout | null>(null)
@@ -238,22 +242,39 @@ export default function TrainerQuestion({
 
   // START TYPE CONSTRUCTOR 
 
-  const [randomFrozen, setRandomFrozen] = useState(
-  [
-    { index: 0, time: 0, status: 'unfrozen' },
-    { index: 1, time: 0, status: 'unfrozen' },
-    { index: 2, time: 3, status: 'frozen' },
-    { index: 3, time: 0, status: 'unfrozen' },
-    { index: 4, time: 7, status: 'frozen' },
-    { index: 5, time: 8, status: 'frozen' },
-  ])
+  const FrozenList = ['unfrozen','unfrozen','unfrozen','unfrozen','frozen','frozen']
+  const FrozenTimeList = [3, 4, 5, 6, 7, 8]
+
+  // var item = FrozenList[Math.floor(Math.random()*FrozenList.length)];
+  // var tt = FrozenTimeList[Math.floor(Math.random()*FrozenTimeList.length)]
+  // const [randomFrozen, setRandomFrozen] = useState(
+  // [
+  //   { index: 0, time: 0, status: 'unfrozen' },
+  //   { index: 1, time: 0, status: 'unfrozen' },
+  //   { index: 2, time: 3, status: 'frozen' },
+  //   { index: 3, time: 0, status: 'unfrozen' },
+  //   { index: 4, time: 7, status: 'frozen' },
+  //   { index: 5, time: 8, status: 'frozen' },
+  // ])
   
+
+  const [randomFrozen, setRandomFrozen] = useState(
+    [
+      { index: 0, time: FrozenTimeList[Math.floor(Math.random()*FrozenTimeList.length)], status: FrozenList[Math.floor(Math.random()*FrozenList.length)] },
+      { index: 1, time: FrozenTimeList[Math.floor(Math.random()*FrozenTimeList.length)], status: FrozenList[Math.floor(Math.random()*FrozenList.length)] },
+      { index: 2, time: FrozenTimeList[Math.floor(Math.random()*FrozenTimeList.length)], status: FrozenList[Math.floor(Math.random()*FrozenList.length)] },
+      { index: 3, time: FrozenTimeList[Math.floor(Math.random()*FrozenTimeList.length)], status: FrozenList[Math.floor(Math.random()*FrozenList.length)] },
+      { index: 4, time: FrozenTimeList[Math.floor(Math.random()*FrozenTimeList.length)], status: FrozenList[Math.floor(Math.random()*FrozenList.length)] },
+      { index: 5, time: FrozenTimeList[Math.floor(Math.random()*FrozenTimeList.length)], status: FrozenList[Math.floor(Math.random()*FrozenList.length)] },
+    ])
+    
 
 
   const [constructorList, setConstructorList] = useState<string[]>(['', '', ''])
   
   const handleConstructorAddClick = (option: string ) => {
-
+    
+    controlsAudioConstructAdd.play()
     const indexEmpty = constructorList.indexOf('')
 
     if (indexEmpty > -1) {
@@ -272,7 +293,7 @@ export default function TrainerQuestion({
 
   const handleConstructorDelClick = (delIndex: number) => {
 
-   
+      controlsAudioConstructAdd.play()
       let newList = constructorList
       newList[delIndex] = ''
       setConstructorList(newList)
@@ -281,10 +302,15 @@ export default function TrainerQuestion({
   }
 
 
+  const handleConstructButtonClick = (constrList: string[]) => {
+    if (constrList[0] == 'a') {
+      onAnswer("right")
+    } else {
+      onAnswer("wrong")
+    }
+  }
+
   // END TYPE CONSTRUCTOR 
-
-
-
 
 
 
@@ -313,16 +339,16 @@ useEffect(() => {
         }
 
 
-        // const frozenFound = randomFrozen.filter(el => el.status === 'frozen')
 
-        // console.log("randomFrozen: ", randomFrozen)
-        // console.log(prevTime)
 
+
+        // FOR CONSTRUCTOR
+        //
         const newFrozen = randomFrozen.map(el => {
           if (el.status === 'frozen' && el.time >= prevTime) {
           // if (el.status === 'frozen') {
             
-            // console.log(el.index, el.time, prevTime, el.time > prevTime, el.status)
+            controlsAudioConstructFire.play()
             return {
               // ...el,
               index: 0,
@@ -341,7 +367,7 @@ useEffect(() => {
         // console.log("newFrozen: ", newFrozen)
         setRandomFrozen(newFrozen);
 
-
+        controlsAudioConstructFire
 
 
 
@@ -355,12 +381,28 @@ useEffect(() => {
     }
   }, [question, onTimeout, randomFrozen])
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   return (
 
     <div className="bg-white shadow-md rounded-lg p-6">
 
     {audioCorrect}
     {audioInCorrect}
+    {audioConstructAdd}
+    {audioConstructFire}
 
 
 
@@ -424,7 +466,7 @@ useEffect(() => {
 
 
 
-      <h2 className="text-xl font-semibold mt-10">
+      <h2 className="text-xl font-semibold mt-4">
         <Latex>          
           {question.question}
         </Latex>
@@ -621,7 +663,7 @@ useEffect(() => {
         
         <div>
 
-          <div className="mt-8 mb-8">
+          <div className="mt-4 mb-4">
             
             {constructorList[0] !== ''
             ? <Button 
@@ -632,7 +674,7 @@ useEffect(() => {
                 {constructorList[0]} 
               </Button>
             : <Button 
-                className={constructorList.indexOf('') == 0 ? "bg-sky-100/90 text-white border-green-200": ""}
+                className={constructorList.indexOf('') == 0 ? "bg-sky-200/90 text-white": ""}
                 // className={indexFirstEmpty == 0 ? "bg-yellow-300": ""}
                 variant='construct' 
                 size='construct'
@@ -653,7 +695,7 @@ useEffect(() => {
             : <Button 
                 variant='construct' 
                 size='construct' 
-                className={constructorList.indexOf('') == 1  ? "bg-sky-100/90 text-white border-green-200 ml-4 mr-4 ": "ml-4 mr-4"}
+                className={constructorList.indexOf('') == 1  ? "bg-sky-200/90 text-white ml-4 mr-4 ": "ml-4 mr-4"}
               > 
                 2 
               </Button>
@@ -669,7 +711,7 @@ useEffect(() => {
             : <Button 
                 variant='construct' 
                 size='construct'
-                className={constructorList.indexOf('') == 2  ? "bg-sky-100/90 text-white border-green-200": ""}
+                className={constructorList.indexOf('') == 2  ? "bg-sky-200/90 text-white": ""}
               > 
                 3 
               </Button>
@@ -734,6 +776,7 @@ useEffect(() => {
             className="mt-8" 
             variant= 'primary'
             disabled={constructorList.filter(x => x=='').length !== 0}
+            onClick={()=>{handleConstructButtonClick(constructorList)}}
           >
             готово
           </Button>

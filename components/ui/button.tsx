@@ -34,7 +34,7 @@ const buttonVariants = cva(
 				today: 'bg-green-500/10 text-green-600 border-green-300 hover:border-green-300 hover:border-2 transition-none',
 
 			
-				construct: 'bg-transparent text-slate-200 border-slate-200 border-dashed border-2 hover:bg-slate-100',
+				construct: 'bg-transparent text-slate-300 border-slate-200 border-dashed border-2 hover:bg-slate-100',
 
 			},
 			size: {
