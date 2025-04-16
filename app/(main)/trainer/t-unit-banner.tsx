@@ -5,6 +5,7 @@ import { t_lessonProgress } from "@/db/schema";
 import { NearestRound } from "@/usefulFunctions";
 // import Lottie from "lottie-react";
 import { CircleCheckBig, Divide, NotebookText, Squircle, ToyBrick } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 // // import LottieAnimation1 from '@/public/LottieUnit1.json'
@@ -72,7 +73,7 @@ type Props = {
                 id: number;
                 points: number;
                 order: number;
-                type: "SELECT" | "ASSIST";
+                type:  "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT",
                 question: string;
                 author: string;
                 t_lessonId: number;
@@ -129,6 +130,10 @@ export const TUnitBanner = ({
     
     const thisCourseStat = CourseStat.filter(el => el.courseTitle == t_course_title)[0]
 
+
+    console.log(CourseStat)
+
+
     const averageDonePercent = thisCourseStat.listOfMini.reduce((a, b) => a + b) / thisCourseStat.listOfMini.length;
     // console.log('thisCourseStat: ', thisCourseStat)
 
@@ -146,13 +151,28 @@ export const TUnitBanner = ({
                             {t_course_title}
                         </h3>
 
-                        <p className="text-lg">
+                        {/* <p className="text-lg">
                             {description}
-                        </p>
+                        </p> */}
 
-                        <div className="flex flex-1 gap-2">
-                            <CircleCheckBig className="h-6 w-6"/>
-                            {Math.round(averageDonePercent*100)}%
+                        <div className="flex flex-1 gap-2 mt-4">
+                            
+                            
+                            {/* <Image 
+                                src='/RatingSvg/rating-ant.svg'
+                                alt='Mascot'
+                                height={30}
+                                width={30}
+                                className=" hidden lg:block"
+                            /> */}
+                            
+                            {/* <CircleCheckBig className="h-6 w-6"/> */}
+                            
+                            <p className="mt-3">
+                                {Math.round(averageDonePercent*100)}%
+                            </p>
+                            
+                            
                         </div>
 
                     </div>

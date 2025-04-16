@@ -66,7 +66,7 @@ type Props = {
     {
       id: number,
       t_lessonId: number,
-      type:  "SELECT" | "ASSIST"
+      type:  "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT",
       question: string,
       order: number,
       points: number,
@@ -74,14 +74,41 @@ type Props = {
       t_challengeOptions: typeof t_challengeOptions.$inferSelect[],
       // challengeProgress: number[],
     }[],
-    t_lessonProgress: typeof t_lessonProgress.$inferSelect[],
+
+  t_lessonProgress: typeof t_lessonProgress.$inferSelect[],
+
+
+
 
   questions1: {
+    questionType: "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT",
     question: string;
-    options: string[];
+    options: string[] 
+
+    optionsQ : {
+      optQ: string;
+      pairId: number;
+      id: number;
+    }[]
+
+  
+    optionsA : {
+      optA: string;
+      pairId: number;
+      id: number;
+    }[]
+
+    optionsConstructRight: string[];
+
     correctAnswer: string;
     timeLimit: number;
   }[],
+  
+  
+  
+
+  
+  
 
   usersStat: {
     DR_DRP: number;
@@ -93,6 +120,22 @@ type Props = {
   userId: string,
   userName: string,
 }
+
+
+
+
+
+
+// optionsQ: ({
+//   optQ1: {
+//       id: number;
+//       imageSrc: string | null;
+//       text: string;
+//       correct: boolean;
+//       audioSrc: string | null;
+//       t_challengeId: number;
+//   };
+
 
 
 
@@ -128,9 +171,10 @@ export default function TQuiz(
 
 
 
-  let finishAudioSrcList = ['/MemesAudio/meme-right-chetko.WAV',
-  '/MemesAudio/meme-right-chinazes.WAV',
-  '/MemesAudio/meme-right-umeetemogete.WAV',
+  let finishAudioSrcList = [
+    '/MemesAudio/meme-right-chetko.WAV',
+    '/MemesAudio/meme-right-chinazes.WAV',
+    '/MemesAudio/meme-right-umeetemogete.WAV',
   ]
   // let finishAudioSrc2 = ShuffleTS(finishAudioSrcList)[0]
 
@@ -298,7 +342,6 @@ export default function TQuiz(
   }])
 
 
-  // const [finishList, setFinishList] = useState<finishListType>()
 
 
   
@@ -338,7 +381,19 @@ export default function TQuiz(
     
     setAnsweredQuestions(answeredQuestions + 1)
 
-    if (answer === questions[currentQuestionIndex].correctAnswer) {
+
+
+
+    let answerIsRight = false
+    questions[currentQuestionIndex].questionType == 'ASSIST'
+    ?
+    answerIsRight = answer === questions[currentQuestionIndex].correctAnswer
+    :
+    answerIsRight = answer === "right"
+
+    
+    if (answerIsRight) {
+    // if (answer === questions[currentQuestionIndex].correctAnswer) {
 
 
 
@@ -347,7 +402,10 @@ export default function TQuiz(
 
       // РЕШЕНО ПРАВИЛЬНО  1
       //
-      controlsCorrect.play()
+      if (questions[currentQuestionIndex].questionType == 'ASSIST') {
+        controlsCorrect.play()
+      }
+      // controlsCorrect.play()
 
       setFinishList(oldArray => [...oldArray, {
         question: questions[currentQuestionIndex].question,
@@ -379,8 +437,10 @@ export default function TQuiz(
 
     } else {
       // РЕШЕНО НЕПРАВИЛЬНО  2
-      
-      controlsInCorrect.play()
+      if (questions[currentQuestionIndex].questionType == 'ASSIST') {
+        controlsInCorrect.play()
+      }
+      // controlsInCorrect.play()
 
       setFinishList(oldArray => [...oldArray, {
         question: questions[currentQuestionIndex].question,
@@ -571,7 +631,7 @@ export default function TQuiz(
 
               <ul className="grid grid-cols-5 gap-y-4 ">
 
-                <li className="col-span-2 flex justify-center ">
+                <li key={3313} className="col-span-2 flex justify-center ">
                   <Trophy
                     className= {cn("h-7 w-7 pt-1  fill-yellow-300 stroke-yellow-400")}
                   />
@@ -579,7 +639,7 @@ export default function TQuiz(
 
                   
 
-                <li className="col-span-2 flex justify-center">
+                <li key={33132} className="col-span-2 flex justify-center">
                   <Heart
                     className= {cn("h-7 w-7 pt-1  fill-yellow-300 stroke-yellow-400")}
                   />  
@@ -587,7 +647,7 @@ export default function TQuiz(
 
 
                   
-                <li className="flex justify-center">
+                <li key={33131} className="flex justify-center">
                   <Zap
                     className={cn("h-7 w-7 pt-1  fill-yellow-300 stroke-yellow-400")}
                   />
@@ -599,16 +659,16 @@ export default function TQuiz(
 
                   <>
 
-                    <li className="pt-5 col-span-2 flex justify-center" key={index*7137}>
+                    <li className="pt-5 col-span-2 flex justify-center" key={index*722137}>
                       {index + 1}
                     </li>
 
                       
                     <li className="col-span-2 flex justify-center" key={index*7137}>
-                      <div className={el.user_id == userId 
+                      <div key={index*18} className={el.user_id == userId 
                       ? "flex flex-1 gap-2 items-center border-dashed border-2 border-gray-300 rounded-lg p-2"
                       : "flex flex-1 gap-2 items-center rounded-lg p-3"
-                    } key={index*17137}>
+                      }>
 
                         <Avatar>
                           <AvatarImage 
@@ -623,7 +683,7 @@ export default function TQuiz(
 
 
 
-                    <li className="pt-5 flex justify-center" key={index*7337}>
+                    <li className="pt-5 flex justify-center" key={index*73437}>
                       {el.DR_DRP}
                     </li>
 
@@ -824,3 +884,10 @@ export default function TQuiz(
 
 
 
+
+
+
+// Type 
+
+// '({ optQ1: string; optQ2?: undefined; optQ3?: undefined; } | { optQ2: string; optQ1?: undefined; optQ3?: undefined; } | { optQ3: string; optQ1?: undefined; optQ2?: undefined; })[]' is not assignable to type 
+// '[{ optQ1: string; optQ2?: undefined; optQ3?: undefined; } | { optQ2: string; optQ1?: undefined; optQ3?: undefined; } | { optQ3: string; optQ1?: undefined; optQ2?: undefined; }]

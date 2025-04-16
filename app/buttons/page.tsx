@@ -18,6 +18,7 @@ const ButtonsPage = () => {
 			<Button variant='isNotLate'>+10</Button>
 			<Button variant='statDefault'>0.5</Button>
 			<Button variant='today'>0.5</Button>
+			<Button variant='construct'> x </Button>
 
 
 

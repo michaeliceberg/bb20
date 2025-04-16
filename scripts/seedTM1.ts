@@ -47,31 +47,18 @@ const main = async () => {
 
 
 
-
-
-
-
-
-
-
-
-
 		await db.insert(schema.t_units).values([{id:101,t_courseId:1,title:'Счёт',description:'Описание 1',order:101,imageSrc:'LottieUnit1',},
 {id:102,t_courseId:1,title:'Откройте скобки',description:'Описание 2',order:102,imageSrc:'LottieUnit2',},
 
+
 ]);
-
-
-
-
-
-
-
 
 await db.insert(schema.t_lessons).values([{id:101,t_unitId:101,title:'Пропорции',order:101,},
 {id:102,t_unitId:101,title:'SUPER дроби',order:102,},
 {id:103,t_unitId:102,title:'ФСУ',order:103,},
 {id:104,t_unitId:102,title:'Пусто',order:104,},
+{id:105,t_unitId:102,title:'Пусто Прямая',order:105,},
+{id:106,t_unitId:102,title:'Конструктор',order:106,},
 
 
 ]);
@@ -163,14 +150,16 @@ await db.insert(schema.t_challenges).values([{id:101101001,t_lessonId:101,type:'
 {id:102103012,t_lessonId:103,type:'ASSIST',order:102103012,question:'$ \\huge 9x^2 - 12x + 4 =$',points:15,author:'М 1',},
 {id:102103013,t_lessonId:103,type:'ASSIST',order:102103013,question:'$ \\huge 16x^2 - 25 =$',points:15,author:'М 1',},
 {id:102103014,t_lessonId:103,type:'ASSIST',order:102103014,question:'$ \\huge 25x^2 - 9с^2 =$',points:15,author:'М 1',},
-{id:102103015,t_lessonId:103,type:'ASSIST',order:102103015,question:'$ \\huge 100t^2 - 36d^2 =$',points:15,author:'М 1',},]);
-
-
-
-
-
-
-
+{id:102103015,t_lessonId:103,type:'ASSIST',order:102103015,question:'$ \\huge 100t^2 - 36d^2 =$',points:15,author:'М 1',},
+{id:102104001,t_lessonId:104,type:'CONNECT',order:102104001,question:'Соедините $ \\huge $',points:15,author:'М 1',},
+{id:102104002,t_lessonId:104,type:'CONNECT',order:102104002,question:'Соедините $ \\huge $',points:15,author:'М 1',},
+{id:102104003,t_lessonId:104,type:'CONNECT',order:102104003,question:'Соедините $ \\huge $',points:15,author:'М 1',},
+{id:102104004,t_lessonId:104,type:'CONNECT',order:102104004,question:'Соедините $ \\huge $',points:15,author:'М 1',},
+{id:102105001,t_lessonId:105,type:'SLIDER',order:102105001,question:'Найдите на прямой $ \\huge \\sqrt{7}$',points:15,author:'М 1',},
+{id:102105002,t_lessonId:105,type:'SLIDER',order:102105002,question:'Найдите на прямой $ \\huge \\sqrt{40}$',points:15,author:'М 1',},
+{id:102105003,t_lessonId:105,type:'SLIDER',order:102105003,question:'Найдите на прямой $ \\huge \\sqrt{500}$',points:15,author:'М 1',},
+{id:102105004,t_lessonId:105,type:'SLIDER',order:102105004,question:'Найдите на прямой $ \\huge \\sqrt{20}$',points:15,author:'М 1',},
+{id:102106001,t_lessonId:106,type:'CONSTRUCT',order:102106001,question:'Напишите $ \\large a b c$',points:15,author:'М 1',},]);
 
 
 
@@ -262,16 +251,16 @@ await db.insert(schema.t_challengeOptions).values([{t_challengeId:101101001,corr
 {t_challengeId:102103012,correct:true,text:'$ \\huge (3x-2)^2 $'},{t_challengeId:102103012,correct:false,text:'$ \\huge (3x+2)^2 $'},{t_challengeId:102103012,correct:false,text:'$ \\huge 9x^2-4 $'},{t_challengeId:102103012,correct:false,text:'$ \\huge 9x^2+4 $'},{t_challengeId:102103012,correct:false,text:'$ \\huge (3x-2)(3x+2) $'},{t_challengeId:102103012,correct:false,text:'$ \\huge (9x^2-4)(9x^2+4) $'},
 {t_challengeId:102103013,correct:true,text:'$ \\huge (4x-5)(4x+5) $'},{t_challengeId:102103013,correct:false,text:'$ \\huge (4x+5)^2 $'},{t_challengeId:102103013,correct:false,text:'$ \\huge (16x^2+25)^2$'},{t_challengeId:102103013,correct:false,text:'$ \\huge 4x^2 + 25 $'},{t_challengeId:102103013,correct:false,text:'$ \\huge (4x-5)^2 $'},{t_challengeId:102103013,correct:false,text:'$ \\huge (4x-25)(4x+25) $'},
 {t_challengeId:102103014,correct:true,text:'$ \\huge (5x-3c)(5x+3c) $'},{t_challengeId:102103014,correct:false,text:'$ \\huge (5x+3c)^2 $'},{t_challengeId:102103014,correct:false,text:'$ \\huge (25x^2+9c^2)^2$'},{t_challengeId:102103014,correct:false,text:'$ \\huge 25x^2 + 9c^2 $'},{t_challengeId:102103014,correct:false,text:'$ \\huge (5x-3c)^2 $'},{t_challengeId:102103014,correct:false,text:'$ \\huge (25x-9)(25x+9) $'},
-{t_challengeId:102103015,correct:true,text:'$ \\huge (10t-6d)(10t+6d) $'},{t_challengeId:102103015,correct:false,text:'$ \\huge (10t+6d)^2 $'},{t_challengeId:102103015,correct:false,text:'$ \\huge (100t^2+36d^2)^2$'},{t_challengeId:102103015,correct:false,text:'$ \\huge 100t^2 + 36d^2 $'},{t_challengeId:102103015,correct:false,text:'$ \\huge (100t-36d)^2 $'},{t_challengeId:102103015,correct:false,text:'$ \\huge (100t-36d)(100t+36d) $'},]);
-
-
-
-
-
-
-
-
-
+{t_challengeId:102103015,correct:true,text:'$ \\huge (10t-6d)(10t+6d) $'},{t_challengeId:102103015,correct:false,text:'$ \\huge (10t+6d)^2 $'},{t_challengeId:102103015,correct:false,text:'$ \\huge (100t^2+36d^2)^2$'},{t_challengeId:102103015,correct:false,text:'$ \\huge 100t^2 + 36d^2 $'},{t_challengeId:102103015,correct:false,text:'$ \\huge (100t-36d)^2 $'},{t_challengeId:102103015,correct:false,text:'$ \\huge (100t-36d)(100t+36d) $'},
+{t_challengeId:102104001,correct:true,text:'$ \\huge \\frac{1}{4}$'},{t_challengeId:102104001,correct:false,text:'$ \\huge \\frac{1}{8}$'},{t_challengeId:102104001,correct:false,text:'$ \\huge \\frac{3}{4}$'},{t_challengeId:102104001,correct:false,text:'$ \\huge 0,25$'},{t_challengeId:102104001,correct:false,text:'$ \\huge 0,125$'},{t_challengeId:102104001,correct:false,text:'$ \\huge 0,75$'},
+{t_challengeId:102104002,correct:true,text:'$ \\huge \\frac{1}{5}$'},{t_challengeId:102104002,correct:false,text:'$ \\huge \\frac{3}{8}$'},{t_challengeId:102104002,correct:false,text:'$ \\huge \\frac{3}{4}$'},{t_challengeId:102104002,correct:false,text:'$ \\huge 0,2$'},{t_challengeId:102104002,correct:false,text:'$ \\huge 0,375$'},{t_challengeId:102104002,correct:false,text:'$ \\huge 0,75$'},
+{t_challengeId:102104003,correct:true,text:'$ \\huge \\frac{1}{4}$'},{t_challengeId:102104003,correct:false,text:'$ \\huge \\frac{3}{8}$'},{t_challengeId:102104003,correct:false,text:'$ \\huge \\frac{1}{8}$'},{t_challengeId:102104003,correct:false,text:'$ \\huge 0,25$'},{t_challengeId:102104003,correct:false,text:'$ \\huge 0,375$'},{t_challengeId:102104003,correct:false,text:'$ \\huge 0,125$'},
+{t_challengeId:102104004,correct:true,text:'$ \\huge \\frac{1}{5}$'},{t_challengeId:102104004,correct:false,text:'$ \\huge \\frac{1}{8}$'},{t_challengeId:102104004,correct:false,text:'$ \\huge \\frac{1}{4}$'},{t_challengeId:102104004,correct:false,text:'$ \\huge 0,2$'},{t_challengeId:102104004,correct:false,text:'$ \\huge 0,125$'},{t_challengeId:102104004,correct:false,text:'$ \\huge 0,25$'},
+{t_challengeId:102105001,correct:true,text:'2,65'},{t_challengeId:102105001,correct:false,text:'0'},{t_challengeId:102105001,correct:false,text:'0'},{t_challengeId:102105001,correct:false,text:'0'},{t_challengeId:102105001,correct:false,text:'0'},{t_challengeId:102105001,correct:false,text:'0'},
+{t_challengeId:102105002,correct:true,text:'6,32'},{t_challengeId:102105002,correct:false,text:'0'},{t_challengeId:102105002,correct:false,text:'0'},{t_challengeId:102105002,correct:false,text:'0'},{t_challengeId:102105002,correct:false,text:'0'},{t_challengeId:102105002,correct:false,text:'0'},
+{t_challengeId:102105003,correct:true,text:'22,36'},{t_challengeId:102105003,correct:false,text:'0'},{t_challengeId:102105003,correct:false,text:'0'},{t_challengeId:102105003,correct:false,text:'0'},{t_challengeId:102105003,correct:false,text:'0'},{t_challengeId:102105003,correct:false,text:'0'},
+{t_challengeId:102105004,correct:true,text:'4,47'},{t_challengeId:102105004,correct:false,text:'0'},{t_challengeId:102105004,correct:false,text:'0'},{t_challengeId:102105004,correct:false,text:'0'},{t_challengeId:102105004,correct:false,text:'0'},{t_challengeId:102105004,correct:false,text:'0'},
+{t_challengeId:102106001,correct:true,text:'a'},{t_challengeId:102106001,correct:false,text:'b'},{t_challengeId:102106001,correct:false,text:'c'},{t_challengeId:102106001,correct:false,text:'d'},{t_challengeId:102106001,correct:false,text:'e'},{t_challengeId:102106001,correct:false,text:'f'},]);
 
 
 

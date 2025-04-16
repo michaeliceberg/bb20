@@ -134,7 +134,7 @@ export const lessonsRelations = relations(lessons, ({ one, many }) => ({
 
 
 
-export const challengesEnum = pgEnum("type", ["SELECT", "ASSIST"])
+export const challengesEnum = pgEnum("type", ["SELECT", "ASSIST", "CONNECT", "SLIDER", "CONSTRUCT"])
 
 
 
@@ -149,6 +149,8 @@ export const challenges = pgTable('challenges', {
 	order: integer('order').notNull(),
 	points: integer('points').notNull(),
 	author: text('author').notNull(),
+
+	imageSrc: text('image_src'),
 });
 
 export const challengesRelations = relations(challenges, ({ one, many }) => ({
@@ -287,7 +289,7 @@ export const t_lessonsRelations = relations(t_lessons, ({ one, many }) => ({
 
 
 
-export const t_challengesEnum = pgEnum("type", ["SELECT", "ASSIST"])
+export const t_challengesEnum = pgEnum("type", ["SELECT", "ASSIST", "CONNECT", "SLIDER", "CONSTRUCT"])
 
 
 
@@ -297,11 +299,14 @@ export const t_challenges = pgTable('t_challenges', {
 	id: serial('id').primaryKey(),
 	// id: bigint('id').primaryKey(),
 	t_lessonId: integer('lesson_id').references(()=>t_lessons.id, {onDelete: 'cascade'}).notNull(),
-	type: challengesEnum('type').notNull(),
+	type: t_challengesEnum('type').notNull(),
 	question: text('question').notNull(),
 	order: integer('order').notNull(),
 	points: integer('points').notNull(),
 	author: text('author').notNull(),
+
+	imageSrc: text('image_src'),
+
 });
 
 export const t_challengesRelations = relations(t_challenges, ({ one, many }) => ({
@@ -336,31 +341,6 @@ export const t_challengeOptionsRelations = relations(t_challengeOptions, ({ one 
 		references:[t_challenges.id],
 	})
 }));
-
-
-
-
-
-// export const t_challengeProgress = pgTable('t_challenge_progress', {
-// 	id: serial('id').primaryKey(),
-// 	userId: text('user_id').notNull(), // TODO: confirm this 
-// 	t_challengeId: integer('t_challenge_id').references(()=>t_challenges.id, {onDelete: 'cascade'}).notNull(),	
-// 	completed: boolean('completed').notNull().default(false),
-// 	doneRight: boolean('done_right').notNull().default(false),
-// 	dateDone: timestamp('date_done').notNull().defaultNow(),
-// });
-
-
-// export const t_challengeProgressRelations = relations(t_challengeProgress, ({ one }) => ({
-	
-// 	t_challenge: one(t_challenges, {
-// 		fields: [t_challengeProgress.t_challengeId],
-// 		references:[t_challenges.id],
-// 	})
-// }));
-
-
-
 
 
 

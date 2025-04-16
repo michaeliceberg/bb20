@@ -40,6 +40,7 @@ const ComboList = {
                                         ['/MemesAudio/meme-wrong-tipereputal.WAV', '/MemesImage/meme-wrong-tipereputal.jpg'],
                                         ['/MemesAudio/meme-wrong-pacankuspehy.WAV', '/MemesImage/meme-wrong-pacankuspehy.jpeg'],
                                         ['/MemesAudio/meme-wrong-shokoladnevinovat.WAV', '/MemesImage/meme-wrong-pacankuspehy.jpeg'],
+                                        ['/MemesAudio/meme-wrong-etofiaskobratan.WAV', '/MemesImage/meme-wrong-etofiaskobratan.jpeg'],
 
 
                                         

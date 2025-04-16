@@ -572,7 +572,7 @@ export const Quiz = ({
                 
                 <div className='pt-2 grid grid-cols-6 gap-2 justify-between'>
                 {challenges.map((challenge)=>(
-                    <div key={challenge.id}>
+                    <div key={challenge.id * 12786}>
                         <Button 
                             variant={
                                 

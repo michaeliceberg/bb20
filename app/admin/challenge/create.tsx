@@ -21,6 +21,18 @@ export const ChallengeCreate = () => {
                             id: "ASSIST",
                             name: "ASSIST",
                         },
+                        {
+                            id: "CONNECT",
+                            name: "CONNECT",
+                        },
+                        {
+                            id: "SLIDER",
+                            name: "SLIDER",
+                        },
+                        {
+                            id: "CONSTRUCT",
+                            name: "CONSTRUCT",
+                        },
                     ]}
                     validate={[required()]} 
                 /> 

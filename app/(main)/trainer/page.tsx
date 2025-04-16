@@ -70,6 +70,10 @@ const LearnPage = async () => {
         redirect('/learn')
     }
 
+	if (!t_units) {
+		redirect('/learn')
+	}
+
 	// для сравнения рейтинга в trainer-list
 	//
 	const user_id = userProgress.userId

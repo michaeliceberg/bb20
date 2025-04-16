@@ -34,12 +34,15 @@ const buttonVariants = cva(
 				today: 'bg-green-500/10 text-green-600 border-green-300 hover:border-green-300 hover:border-2 transition-none',
 
 			
+				construct: 'bg-transparent text-slate-200 border-slate-200 border-dashed border-2 hover:bg-slate-100',
+
 			},
 			size: {
 				default: 'h-11 px-4 py-2',
 				xs: 'h-7 px-2',
 				sm: 'h-9 px-3',
 				lg: 'h-12 px-8',
+				construct: 'h-16 px-8',
 				icon: 'h-10 w-10',
 				rounded: 'rounded-full',
 				buy: 'px-12 h-12',

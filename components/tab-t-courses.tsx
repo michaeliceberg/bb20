@@ -35,10 +35,11 @@ type Props = {
                 order: number;
                 t_unitId: number;
                 t_challenges: {
+                    imageSrc: string;
                     id: number;
                     points: number;
                     order: number;
-                    type: "SELECT" | "ASSIST";
+                    type:  "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT",
                     question: string;
                     author: string;
                     t_lessonId: number;
@@ -62,7 +63,7 @@ type Props = {
 
   
 
-    export const TabTCourses = ({
+    export const    TabTCourses = ({
         t_courses,
         t_units,
         t_lessonProgress,
@@ -100,6 +101,11 @@ type Props = {
     })
 
 
+
+    console.log(AllTStat)
+
+
+
     let CourseStat = AllTStat.map(t_course => {
         let listOfMini:number[] = []
         t_course.StatThisCourse.map(unit => {
@@ -115,8 +121,6 @@ type Props = {
 
     })
 
-    // console.log(CourseStat)
-    // const averageDonePercent = CourseStat.reduce((a, b) => a + b) / CourseStat.length;
 
 return(
 
@@ -171,7 +175,7 @@ return(
                                                 t_lessonProgress={t_lessonProgress}
                                                 TRatingUsers={TRatingUsers}
                                                 user_id={user_id}
-                                                />
+                                            />
 									
 										</div>
 										
