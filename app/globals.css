@@ -80,3 +80,34 @@ body,
 		@apply bg-background text-foreground;
 	}
 }
+
+
+body {
+	transition-property: opacity, background, transform, filter;
+	/* transition-timing-function: ease-in-out; */
+	transition-timing-function: ease-out;
+	transition-duration: 300ms;
+}
+
+.page-transition {
+	opacity: 0;
+	background: white;
+	transform: translateY(40px);
+	filter: blur(12px)
+}
+
+
+.trainer-slide-up-transition {
+	opacity: 0.7;
+	background: rgb(103, 216, 103);
+	transform: translateY(-40px);
+	filter: blur(12px)
+}
+
+
+.trainer-slide-down-transition {
+	opacity: 0.7;
+	background: rgb(210, 84, 84);
+	transform: translateY(40px);
+	filter: blur(12px)
+}

@@ -97,11 +97,14 @@ const LessonIdPage =  async ({
     // }
 
 
+
+    console.log( t_lesson.t_challenges )
+
     let questions = t_lesson.t_challenges.map(t_challenge => (
         {
             questionType: t_challenge.type,
             question: t_challenge.question,
-
+            imageSrc: t_challenge.imageSrc, //string | null
             options: Shuffle2(t_challenge.t_challengeOptions.map(el => el.text)),
 
             optionsQ : ShuffleTS([
@@ -148,7 +151,8 @@ const LessonIdPage =  async ({
           
             
             correctAnswer: t_challenge.t_challengeOptions[0].text,
-            timeLimit: 10,
+            // timeLimit: t_challenge.points,
+            timeLimit: 1000,
             // timeLimit: 1234,
         }
     

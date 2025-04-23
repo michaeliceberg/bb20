@@ -16,12 +16,14 @@ import { SliderModern } from "./slider-modern"
 // import SliderDemo from "./slider-modern"
 // import SliderModern from "./slider-modern"
 import LottieSkull from '@/public/Lottie/trainer/frozen/LottieSkull.json'
+import Image from "next/image"
 
 
 interface QuestionProps {
   questions: {
     questionType: "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT",
     question: string;
+    imageSrc: string | null;
     options: string[]  
     optionsQ : {
       optQ: string;
@@ -46,6 +48,7 @@ interface QuestionProps {
   question: {
     questionType: "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT",
     question: string
+    imageSrc: string | null;
     options: string[]  
     
     optionsQ : {
@@ -163,6 +166,7 @@ export default function TrainerQuestion({
       //
       // Если нажат только один ответ ИЛИ A или Q
       //
+      // controlsAudioConstructAdd.play()
 
       return
     }
@@ -245,8 +249,7 @@ export default function TrainerQuestion({
   const FrozenList = ['unfrozen','unfrozen','unfrozen','unfrozen','frozen','frozen']
   const FrozenTimeList = [3, 4, 5, 6, 7, 8]
 
-  // var item = FrozenList[Math.floor(Math.random()*FrozenList.length)];
-  // var tt = FrozenTimeList[Math.floor(Math.random()*FrozenTimeList.length)]
+  //
   // const [randomFrozen, setRandomFrozen] = useState(
   // [
   //   { index: 0, time: 0, status: 'unfrozen' },
@@ -392,9 +395,6 @@ useEffect(() => {
 
 
 
-
-
-
   return (
 
     <div className="bg-white shadow-md rounded-lg p-6">
@@ -470,9 +470,21 @@ useEffect(() => {
         <Latex>          
           {question.question}
         </Latex>
-      
       </h2>
       
+      {
+       question.imageSrc &&  question.imageSrc !== '0' &&
+       
+       <Image
+        className="pt-8 mx-auto"
+        // src='/trainer-images/triangle7.svg'
+        src={`/trainer-images/${question.imageSrc}`}
+        alt='triangle'
+        height={90}
+        width={90}
+       />  
+      }
+
 
 
 

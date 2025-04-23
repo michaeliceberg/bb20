@@ -162,7 +162,7 @@ return(
 							.map((t_unit, index) => (
 								<div key={index*81872}>
 
-									<p className="w-full rounded-xl  bg-green-500 p-4 text-lg text-white flex justify-center pt-2 pb-2 mb-6 bg-[url('/MemesImage/i-like-food.svg')]  bg-repeat">
+									<p className="font-bold w-full rounded-xl  bg-green-500 p-4 text-lg text-white flex justify-center pt-2 pb-2 mb-6 bg-[url('/MemesImage/i-like-food.svg')]  bg-repeat">
 										{t_unit.title}
 									</p>
 

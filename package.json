@@ -14,6 +14,8 @@
 		"db:seed:m6": "tsx ./scripts/seedMath6.ts",
 		"db:seed:tm": "tsx ./scripts/seedTM1.ts",
 		"db:seed:tm3": "tsx ./scripts/seedTM3.ts",
+		"db:seed:tm9": "tsx ./scripts/seedTM9.ts",
+		"db:seed:tm10": "tsx ./scripts/seedTM10.ts",
 		"db:seed:tp": "tsx ./scripts/seedTP2.ts",
 		"db:seed:m11ege": "tsx ./scripts/seedM11_EGE.ts",
 		"db:reset": "tsx ./scripts/reset.ts"

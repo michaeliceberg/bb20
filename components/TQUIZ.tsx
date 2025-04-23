@@ -68,6 +68,7 @@ type Props = {
       t_lessonId: number,
       type:  "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT",
       question: string,
+      imageSrc: string | null;
       order: number,
       points: number,
       author: string,
@@ -83,6 +84,7 @@ type Props = {
   questions1: {
     questionType: "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT",
     question: string;
+    imageSrc: string | null;
     options: string[] 
 
     optionsQ : {
@@ -372,13 +374,15 @@ export default function TQuiz(
   // conxr
 
 
+  function sleep(ms: number): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, ms))
+  }
 
 
-  const handleAnswer = (answer: string) => {
+  const handleAnswer = async (answer: string) => {
     
 
-    
-    
+
     setAnsweredQuestions(answeredQuestions + 1)
 
 
@@ -391,12 +395,21 @@ export default function TQuiz(
     :
     answerIsRight = answer === "right"
 
+
+
+
     
     if (answerIsRight) {
     // if (answer === questions[currentQuestionIndex].correctAnswer) {
 
 
+      const body = document.querySelector("body")
 
+      body?.classList.add("trainer-slide-up-transition")
+
+      await sleep(200)
+    
+    
 
 
 
@@ -430,13 +443,27 @@ export default function TQuiz(
 
 
 
+      await sleep(200)
+
+      body?.classList.remove ("trainer-slide-up-transition")
 
 
 
 
-
-    } else {
+    } else 
+    
+    {
       // РЕШЕНО НЕПРАВИЛЬНО  2
+
+
+      const body = document.querySelector("body")
+
+      body?.classList.add("trainer-slide-down-transition")
+
+      await sleep(200)
+
+
+
       if (questions[currentQuestionIndex].questionType == 'ASSIST') {
         controlsInCorrect.play()
       }
@@ -459,8 +486,17 @@ export default function TQuiz(
 
       setIsRightList(newArr)
 
+
+
+      await sleep(200)
+
+      body?.classList.remove ("trainer-slide-down-transition")
+    
     }
 
+
+
+    
 
 
 
