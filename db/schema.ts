@@ -150,7 +150,8 @@ export const challenges = pgTable('challenges', {
 	points: integer('points').notNull(),
 	author: text('author').notNull(),
 
-	imageSrc: text('image_src'),
+	difficulty: text('difficulty').notNull(),
+	imageSrc: text('image_src').notNull(),
 });
 
 export const challengesRelations = relations(challenges, ({ one, many }) => ({
@@ -305,7 +306,8 @@ export const t_challenges = pgTable('t_challenges', {
 	points: integer('points').notNull(),
 	author: text('author').notNull(),
 
-	imageSrc: text('image_src'),
+	difficulty: text('difficulty').notNull(),
+	imageSrc: text('image_src').notNull(),
 
 });
 

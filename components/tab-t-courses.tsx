@@ -35,7 +35,8 @@ type Props = {
                 order: number;
                 t_unitId: number;
                 t_challenges: {
-                    imageSrc: string | null;
+                    imageSrc: string;
+                    difficulty: string;
                     id: number;
                     points: number;
                     order: number;
@@ -102,7 +103,7 @@ type Props = {
 
 
 
-    console.log(AllTStat)
+    // console.log(AllTStat)
 
 
 

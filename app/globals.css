@@ -111,3 +111,30 @@ body {
 	transform: translateY(40px);
 	filter: blur(12px)
 }
+
+
+
+.trainer-slide-left-green-start-transition {
+	opacity: 0.7;
+	background: rgb(103, 216, 103);
+	transform: translateX(-40px);
+	filter: blur(12px)
+}
+
+.trainer-slide-left-green-end-transition {
+	opacity: 1;
+	background: white;
+	transform: translateX(+40px);
+	filter: blur(0px)
+}
+
+
+
+.example-button {
+	background: rgb(86, 1, 245);
+	color: white;
+	font-size: 1.8rem; border-radius: 0.4rem;
+	border: none;
+	padding: 0.4rem 0.8rem;
+	cursor: pointer;
+}

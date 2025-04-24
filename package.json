@@ -38,6 +38,7 @@
 		"date-fns": "^4.1.0",
 		"dotenv": "^16.4.5",
 		"drizzle-orm": "^0.30.10",
+		"framer-motion": "^12.8.2",
 		"lottie-react": "^2.4.0",
 		"lucide-react": "^0.378.0",
 		"moment": "^2.30.1",

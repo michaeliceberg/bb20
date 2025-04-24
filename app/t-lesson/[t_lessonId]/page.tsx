@@ -31,7 +31,7 @@ const LessonIdPage =  async ({
 
 
 
-    const t_unitsData = getTUnits()
+    // const t_unitsData = getTUnits()
 	const userAllTLessonProgressData = getAllTLessonProgress()
 	const allUsersProgressData = getAllUsersProgress()
 
@@ -98,7 +98,7 @@ const LessonIdPage =  async ({
 
 
 
-    console.log( t_lesson.t_challenges )
+    // console.log( t_lesson.t_challenges )
 
     let questions = t_lesson.t_challenges.map(t_challenge => (
         {

@@ -4,11 +4,16 @@
 import { useState, useEffect, useRef } from "react"
 import Lottie from "lottie-react"
 import LottieOclock from '@/public/Lottie/trainer/LottieOclock.json'
-import { Badge, BadgeAlert, BadgeCheck, BadgeHelp } from "lucide-react"
+import LottieTimer from '@/public/Lottie/trainer/LottieTimer.json'
+
+
+import { Badge, BadgeAlert, BadgeCheck, BadgeHelp, Check, Circle, CircleDashed, Diamond, Flame, Square, SquareDashedBottom, X } from "lucide-react"
 import { cn } from "@/lib/utils";
 import Latex from 'react-latex-next';
 import 'katex/dist/katex.min.css';
 import LottieLightning from '@/public/Lottie/trainer/LottieLightning.json'
+
+
 import { useAudio } from "react-use"
 import { Slider } from "./ui/slider"
 import { Button } from "./ui/button"
@@ -67,9 +72,14 @@ interface QuestionProps {
 
     correctAnswer: string
     timeLimit: number
+
+    
   }
   onAnswer: (answer: string) => void
   onTimeout: () => void
+
+  isRightPrevious: boolean
+  randomEmotionLottie: any
 }
 
 export default function TrainerQuestion({
@@ -77,7 +87,10 @@ export default function TrainerQuestion({
   isRightList, 
   question, 
   onAnswer, 
-  onTimeout 
+  onTimeout, 
+  isRightPrevious,
+  randomEmotionLottie,
+
 }: QuestionProps) {
   
 
@@ -407,35 +420,80 @@ useEffect(() => {
 
 
       {/* <div className="flex flex-1 justify-between m-2 text-green"> */}
-      <div className="grid grid-cols-12 justify-between m-2 text-green gap-y-1">
-        { 
-          questions.map((el, index) => (
-            <div key={index*484317} className="fill-red-800">
+      <ul className="grid grid-cols-12 justify-between gap-y-1">
+
+        <li key={373} className="col-span-3 flex justify-center ">
+
+        {/* var last_element = array1[array1.length - 1]; */}
+        {/* {isRightList[]} */}
+
+        <Lottie 
+              className="h-30 w-30" 
+              animationData = {randomEmotionLottie}
+              // loop={false}
+          /> 
+          {/* LottieTrainerSharkThinkin */}
+        </li>
 
 
-              {isRightList[index] == 1 
-                ? <BadgeCheck
-                    className={cn("h-8 w-8 fill-green-100 stroke-green-400")}
-                /> 
-                : isRightList[index] == 2 
-                ? <BadgeAlert
-                    className={cn("h-8 w-8 fill-red-100 stroke-red-400")}
-                />
-
-                : isRightList[index] == 3 
-                ? <BadgeHelp
-                    className={cn("h-8 w-8 fill-yellow-100 stroke-yellow-400 animate-bounce")}
-                />
-                
-                : <Badge 
-                    className={cn("h-8 w-8 stroke-neutral-200")}
-                />
-              }
-            </div>))
-        }
-      </div>
 
 
+        <li key={374} className="col-span-7 mt-4 ml-2">
+
+          <div className="grid grid-cols-12 justify-between m-2 text-green gap-y-1">
+
+          { 
+            questions.map((el, index) => (
+              <div key={index*484317} className="fill-red-800">
+
+
+                {isRightList[index] == 1 
+                  // ? <BadgeCheck
+                  ? <Check
+                  
+                      className={cn("pr-2 h-6 w-6 fill-green-100 stroke-green-400")}
+                  /> 
+                  : isRightList[index] == 2 
+                  // ? <BadgeAlert
+                  ? <X
+                      className={cn("pr-2 h-6 w-6 fill-red-100 stroke-red-400")}
+                  />
+
+                  : isRightList[index] == 3 
+                  ? <Flame
+                    className={cn("pr-2 h-6 w-6 stroke-yellow-400 animate-bounce")}
+                    // className={cn("h-6 w-6 fill-yellow-100 stroke-yellow-400 animate-bounce")}
+                  />
+                  
+                  : <Circle
+                  // : <Badge 
+                      className={cn("pr-2 mt-1 h-4 w-4 fill-neutral-200 stroke-neutral-200")}
+                  />
+                }
+              </div>))
+          }
+          </div>
+        </li>
+
+
+
+        <li key={375} className="col-span-2 flex justify-center ">
+          
+        </li>
+        
+
+
+      </ul>
+
+
+
+
+
+
+
+      {/* TODO:   M O T I O N сдвигаем влево на новый вопрос */}
+
+      <div>
 
 
 
@@ -443,7 +501,15 @@ useEffect(() => {
         
         <div className="w-full bg-gray-200 rounded-full h-4 mt-4 col-span-10">
           <div
-            className="bg-yellow-400 h-4 rounded-full transition-all duration-1000 ease-linear"
+            // className="bg-yellow-400 h-4 rounded-full transition-all duration-1000 ease-linear"
+            className=
+            {timeLeft > 5
+              ? "bg-sky-300 h-4 rounded-full transition-all duration-1000 ease-linear"
+              : "bg-red-300 h-4 rounded-full transition-all duration-1000 ease-linear"
+            }
+            
+
+
             style={{ width: `${(timeLeft / question.timeLimit) * 100}%` }}
           />
         </div>
@@ -452,9 +518,10 @@ useEffect(() => {
         <div className="flex flex-1 content-center mx-auto justify-center text-center col-span-2">
           <Lottie 
               className="h-10 w-10" 
-              animationData={LottieOclock}
+              animationData={LottieTimer}
               // loop={false}
           /> 
+
           <p className="text-lg font-bold pt-2">
             {timeLeft}
           </p>
@@ -807,6 +874,17 @@ useEffect(() => {
 
 
       }
+
+
+      </div>
+
+      {/* TODO: end motion */}
+
+
+
+
+
+
 
     </div>
   )

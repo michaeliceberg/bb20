@@ -15,11 +15,22 @@ import LottieTrainerSharkFailDNO from '@/public/Lottie/trainer/LottieTrainerShar
 
 import LottieTrainerSharkStart from '@/public/Lottie/trainer/LottieTrainerSharkStart.json'
 import LottieTrainerSharkStartUdachi from '@/public/Lottie/trainer/LottieTrainerSharkStartUdachi.json'
-import LottieStartDots from '@/public/Lottie/trainer/LottieStartDots.json'
+// import LottieStartDots from '@/public/Lottie/trainer/LottieStartDots.json'
 import LottieStartMorning from '@/public/Lottie/trainer/LottieStartMorning.json'
 import LottieStartPrivet from '@/public/Lottie/trainer/LottieStartPrivet.json'
 import LottieStartYesCapitan from '@/public/Lottie/trainer/LottieStartYesCapitan.json'
 import LottieTrainerSharkFinalWin from '@/public/Lottie/trainer/LottieTrainerSharkFinalWin.json'
+
+
+import LottieTrainerSharkThinkin from '@/public/Lottie/trainer/LottieTrainerSharkThinkin.json'
+import LottieTrainerSharkFailCry from '@/public/Lottie/trainer/LottieTrainerSharkFailCry.json'
+import LottieStartDots from '@/public/Lottie/trainer/LottieStartDots.json'
+import LottieTrainerSharkFinalNoo from '@/public/Lottie/trainer/LottieTrainerSharkFinalNoo.json'
+import LottieTrainerSharkFasterPistol from '@/public/Lottie/trainer/LottieTrainerSharkFasterPistol.json'
+import LottieTrainerSharkFinalWinClap from '@/public/Lottie/trainer/LottieTrainerSharkFinalWinClap.json'
+
+
+
 
 
 
@@ -43,10 +54,26 @@ import { TgSendMsgCom } from "./tg-send-msg-com"
 const LottieStartList = [
   LottieTrainerSharkStart, 
   LottieTrainerSharkStartUdachi,
-  LottieStartDots,
+  // LottieStartDots,
   LottieStartMorning,
   LottieStartPrivet,
   LottieStartYesCapitan,
+]
+
+
+
+const LottieEmotionRightList = [
+  LottieStartDots, 
+  LottieTrainerSharkThinkin,
+  LottieTrainerSharkFinalWinClap,
+
+]
+
+const LottieEmotionWrongList = [
+  LottieTrainerSharkFailCry, 
+  LottieTrainerSharkFinalNoo,
+  LottieTrainerSharkFasterPistol,
+
 ]
 
 const startButton = [
@@ -68,7 +95,7 @@ type Props = {
       t_lessonId: number,
       type:  "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT",
       question: string,
-      imageSrc: string | null;
+      imageSrc: string;
       order: number,
       points: number,
       author: string,
@@ -84,7 +111,7 @@ type Props = {
   questions1: {
     questionType: "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT",
     question: string;
-    imageSrc: string | null;
+    imageSrc: string;
     options: string[] 
 
     optionsQ : {
@@ -205,7 +232,7 @@ export default function TQuiz(
 
     setNumQuestionsButton(n) 
 
-    console.log(allQuestions)
+    // console.log(allQuestions)
   }
 
 
@@ -299,7 +326,13 @@ export default function TQuiz(
 
   const [randomStartLottie, setRandomStartLottie] = useState(LottieStartList[0])
   const [randomStartButton, setRandomStartButton] = useState(startButton[0])
+
+  // const [randomEmotionRightLottie, setRandomEmotionRightLottie] = useState(LottieEmotionRightList[0])
+  // const [randomEmotionWrongLottie, setRandomEmotionWrongLottie] = useState(LottieEmotionWrongList[0])
   
+  const [randomEmotionLottie, setRandomEmotionLottie] = useState(LottieEmotionRightList[0])
+  // const [randomEmotionWrongLottie, setRandomEmotionWrongLottie] = useState(LottieEmotionWrongList[0])
+
   useEffect(()=>{
     setRandomStartLottie([...LottieStartList].sort(() => 0.5 - Math.random())[0])
     setRandomStartButton([...startButton].sort(() => 0.5 - Math.random())[0])
@@ -311,6 +344,7 @@ export default function TQuiz(
 
 
 
+  const [isRightPrevious, setIsRightPrevious] = useState(true)
 
 
 
@@ -368,10 +402,6 @@ export default function TQuiz(
 
   }
 
-  // let newArr = [0]
-
-
-  // conxr
 
 
   function sleep(ms: number): Promise<void> {
@@ -401,10 +431,11 @@ export default function TQuiz(
     
     if (answerIsRight) {
     // if (answer === questions[currentQuestionIndex].correctAnswer) {
+      setIsRightPrevious(true)
+      setRandomEmotionLottie([...LottieEmotionRightList].sort(() => 0.5 - Math.random())[0])
 
 
       const body = document.querySelector("body")
-
       body?.classList.add("trainer-slide-up-transition")
 
       await sleep(200)
@@ -455,6 +486,9 @@ export default function TQuiz(
     {
       // РЕШЕНО НЕПРАВИЛЬНО  2
 
+      setIsRightPrevious(false)
+      // setRandomEmotionLottie([...LottieEmotionWrongList].sort(() => 0.5 - Math.random())[0])
+      setRandomEmotionLottie([...LottieEmotionRightList].sort(() => 0.5 - Math.random())[0])
 
       const body = document.querySelector("body")
 
@@ -870,9 +904,10 @@ export default function TQuiz(
     
 
     <div className="w-full max-w-xl mx-auto text-center">
-      <h1 className="text-xl font-bold mt-6">
+
+      {/* <h1 className="text-xl font-bold mt-6">
         {t_lessonTitle}
-      </h1>
+      </h1> */}
       
       
       
@@ -882,6 +917,9 @@ export default function TQuiz(
         onAnswer={handleAnswer} 
         onTimeout={handleTimeout} 
         isRightList={isRightList}
+
+        isRightPrevious={isRightPrevious}
+        randomEmotionLottie={randomEmotionLottie}
       />
       
      

@@ -14,6 +14,7 @@ type Props = {
         order: number; 
         t_unitId: number; 
         t_challenges: typeof t_challenges.$inferSelect[]
+        
     },
     t_lessonProgress: typeof t_lessonProgress.$inferSelect[],
     
