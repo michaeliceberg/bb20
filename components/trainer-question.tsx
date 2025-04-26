@@ -438,7 +438,7 @@ useEffect(() => {
 
 
 
-        <li key={374} className="col-span-7 mt-4 ml-2">
+        <li key={374} className="col-span-7 mt-4 ml-4">
 
           <div className="grid grid-cols-12 justify-between m-2 text-green gap-y-1">
 

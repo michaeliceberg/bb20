@@ -176,6 +176,7 @@ return(
                                                 t_lessonProgress={t_lessonProgress}
                                                 TRatingUsers={TRatingUsers}
                                                 user_id={user_id}
+                                                index={index}
                                             />
 									
 										</div>
