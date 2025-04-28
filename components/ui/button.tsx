@@ -36,6 +36,10 @@ const buttonVariants = cva(
 			
 				construct: 'bg-transparent text-slate-300 border-slate-200 border-dashed border-2 hover:bg-slate-100',
 
+				trainer_bad: 'bg-pink-500 text-primary-foreground hover:bg-pink-500/90 border-pink-600 border-b-4 active:border-b-0',
+				trainer_better: 'bg-amber-500 text-primary-foreground hover:bg-amber-500/90 border-amber-600 border-b-4 active:border-b-0',
+				trainer_best: 'bg-green-400 text-primary-foreground hover:bg-green-400/90 border-green-500 border-b-4 active:border-b-0',
+
 			},
 			size: {
 				default: 'h-11 px-4 py-2',

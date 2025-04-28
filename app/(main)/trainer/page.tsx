@@ -111,7 +111,12 @@ const LearnPage = async () => {
 
 
 		const usersStat = UniqueUserIds.map(user_id => {
+			//
+			// current lesson   current user
+			//
 			const CLCUProgress = currentLessonProgress.filter(progress => progress.userId == user_id)
+
+
 
 			let DRP = 0
 
@@ -123,17 +128,17 @@ const LearnPage = async () => {
 
 			const doneWrong = CLCUProgress.reduce((total, elem) => {
 				return (
-					total + elem.doneRight
+					total + elem.doneWrong
 				)
 			}, 0)
 
 			if (doneRight + doneWrong > 0) {
 				DRP = doneRight/(doneRight + doneWrong)
 			}
-
 			const DR_DRP = doneRight * DRP
 
 			return  {
+				DRP: Math.round(DRP * 100),
 				DR_DRP: DR_DRP,
 				user_id: allUsersProgress?.filter(pr => pr.userId==user_id)[0].userId,
 				user_name: allUsersProgress?.filter(pr => pr.userId==user_id)[0].userName,
@@ -152,7 +157,7 @@ const LearnPage = async () => {
 	 )
 	
 
-	//  console.log(TRatingUsers)
+	//  console.log(TRatingUsers[0].usersSortedStat)
 	//  console.log(TRatingUsers[1])
 
 

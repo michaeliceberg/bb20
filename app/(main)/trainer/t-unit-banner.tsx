@@ -1,5 +1,6 @@
 'use client'
 
+import { FlipLink } from "@/components/reveal-links";
 import { Button } from "@/components/ui/button";
 import { t_lessonProgress } from "@/db/schema";
 import { NearestRound } from "@/usefulFunctions";
@@ -131,7 +132,7 @@ export const TUnitBanner = ({
     const thisCourseStat = CourseStat.filter(el => el.courseTitle == t_course_title)[0]
 
 
-    console.log(CourseStat)
+    // console.log(CourseStat)
 
 
     const averageDonePercent = thisCourseStat.listOfMini.reduce((a, b) => a + b) / thisCourseStat.listOfMini.length;
@@ -148,7 +149,12 @@ export const TUnitBanner = ({
                     <div className="col-span-7">
                     
                         <h3 className="text-2xl font-bold">
-                            {t_course_title}
+
+                        {/* <section className="grid place-content-center gap-2 bg-green-300 px-8 py-24 text-black"> */}
+                            <FlipLink href="#">
+                                {t_course_title}
+                            </FlipLink>
+                        {/* </section> */}
                         </h3>
 
                         {/* <p className="text-lg">
@@ -179,19 +185,26 @@ export const TUnitBanner = ({
 
 
 
-                
+
 
                     <div className="col-span-3">
 
                         <div className="grid grid-cols-5 gap-x-5">
                             {thisCourseStat.listOfMini.map((el, index) => 
                                 <ToyBrick 
-                                key={index*1659}
-                                className= {el >= 0.9 
-                                    ? `h-6 w-6 fill-yellow-300 stroke-neutral-700`
-                                    : el > 0 ? `h-6 w-6 fill-red-400 stroke-neutral-700`
-                                    : `h-6 w-6 fill-white stroke-neutral-400 opacity-${80}`
-                                    }
+                                    key={index*1659}
+                                    className= {
+                                        el >= 0.9 
+                                        ? `h-6 w-6 fill-green-400/90 stroke-neutral-700`
+                                        
+                                        : el > 0.5
+                                        ? `h-6 w-6 fill-amber-500/90 stroke-neutral-700`
+                                        
+                                        : el > 0 
+                                        ? `h-6 w-6 fill-pink-500/90 stroke-neutral-700`
+
+                                        : `h-6 w-6 fill-white stroke-neutral-400 opacity-${80}`
+                                        }
                                 />
                             )}
                         </div>
