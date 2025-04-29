@@ -15,7 +15,6 @@ import { eq } from 'drizzle-orm';
 import { auth, currentUser } from "@clerk/nextjs/server"
 
 
-
 const bgList = [
 	'/bg-svg/anchors-away.svg',
 	'/bg-svg/Usersaztec.svg',
@@ -372,61 +371,9 @@ const LearnPage = async () => {
 
 
 
-	// const numbers = [1, 2, 3, 4];
-	// const filteredNumbers = someData.map((num, index) => {
-	// 	return {
-	// 		el: index
-	// 	}
-	// });
 	
-	// const normalizedData = units[0].lessons
-	// 	.map((lesson, ind_lesson)=>(lesson.challenges
-	// 	.map((challenge, cha_ind)=>(challenge.challengeProgress[0])
-	// )))
-	  
-
-	// const bigState = normalizedData.map(el=> el)
-
-	// const arr = [
-	// 	{name: 'вася', age: 20, money: 500},
-	// 	{name: 'коля', age: 17, money: 1500},
-	// 	{name: 'вписка', age: 30, money: 2500},
-	// 	{name: 'бум', age: 35, money: 50},
-	// 	{name: 'хова', age: 15, money: 10},
-	// 	{name: 'мел', age: 90, money: 5000},
-	// ]
-	
-	// const new_arr = arr.filter(el =>  el.age>30)
-	// const new_arr_2 = arr.filter(el =>  {
-	// 	if (el.age>30) {
-	// 		return el
-	// 	}
-	// })
-
-	// const new_arr_reduce = arr.reduce((total, elem) => {
-	// 	return (
-	// 		total + elem.money
-	// 	)
-	// }, 0)
-
-	// const hova = arr.find(elem=>elem.name==='хова')
-	
-	// const hovaIndex = arr.findIndex(elem => elem.name === 'хова')
-
-
-	// const sumBudget = arr
-	// 	.filter(elem => elem.age > 25)
-	// 	.map(elem => {
-	// 		return {
-	// 			disco: elem.money,
-	// 			facimilie: 'Mr. ' + elem.name,
-	// 		}
-	// 	})
-	// 	.reduce((total, elem) => {
-	// 		return (
-	// 			total + elem.disco
-	// 		)
-	// 	}, 0)
+	 
+		
 
 	
 	return (
@@ -441,34 +388,65 @@ const LearnPage = async () => {
 					hasActiveSubscription={false} 
 				/>
 
-			<Promo YourDaysLate={YourDaysLate} formattedDate={formattedDate}/>
-			<Quests points={Points} hwList={hwList} />
+				<Promo YourDaysLate={YourDaysLate} formattedDate={formattedDate}/>
+				<Quests points={Points} hwList={hwList} />
 				
 			</StickyWrapper>
 
+			
+
+
+
+			{/* const CenterImage = () => {
+
+return (
+  <motion.div
+	className="sticky top-0 h-screen w-full"
+	style={{
+	  clipPath,
+	  backgroundSize,
+	  opacity,
+	  backgroundImage:
+		"url(https://images.unsplash.com/photo-1460186136353-977e9d6085a1?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)",
+	  backgroundPosition: "center",
+	  backgroundRepeat: "no-repeat",
+	}}
+  />
+);
+}; */}
+
+
 
 			<FeedWrapper>
-				<Header title={userProgress.activeCourse.title} />
-				{units.map((unit, index)=>(
-				
-					<div key={unit.id} className='mb-10'>
-						<Unit 
-							id={unit.id}
-							order={unit.order}
-							description={unit.description}
-							title={unit.title}
-							lessons={unit.lessons}
-							activeLesson={courseProgress.activeLesson as typeof lessons.$inferSelect & {
-								unit: typeof unitsSchema.$inferSelect
-							} | undefined}
-							lessonStat={lessonStat}
-							percentageDone={unitStat.filter(el=>el.unitId===unit.id)[0].percentageDone}
-							imgSrc={unit.imageSrc}
-							RecomNumChallengesToday={RecomNumChallengesToday}
-							bgSvgSrc = {bgSvgSrc[index]}
-						/>
-					</div>
-				))}
+				<div className='absolute z-10'>
+					<Header title={userProgress.activeCourse.title} />
+
+
+					{/* <HeroParallax /> */}
+
+
+					{units.map((unit, index)=>(
+					
+						<div key={unit.id} className='mb-10'>
+							<Unit 
+								id={unit.id}
+								order={unit.order}
+								description={unit.description}
+								title={unit.title}
+								lessons={unit.lessons}
+								activeLesson={courseProgress.activeLesson as typeof lessons.$inferSelect & {
+									unit: typeof unitsSchema.$inferSelect
+								} | undefined}
+								lessonStat={lessonStat}
+								percentageDone={unitStat.filter(el=>el.unitId===unit.id)[0].percentageDone}
+								imgSrc={unit.imageSrc}
+								RecomNumChallengesToday={RecomNumChallengesToday}
+								bgSvgSrc = {bgSvgSrc[index]}
+							/>
+						</div>
+					))}
+
+				</div>
 
 
 
@@ -480,3 +458,10 @@ const LearnPage = async () => {
 };
 
 export default LearnPage;
+
+
+
+
+
+
+

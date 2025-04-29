@@ -14,12 +14,8 @@ import 'katex/dist/katex.min.css';
 import Latex from 'react-latex-next';
 import { ReactNode, useState } from "react";
 import { Button } from "./ui/button";
-import { Block } from "./block";
 import Image from "next/image";
-import ChipTabs from "./SlideTabs";
-import { BouncyCardsFeatures } from "./BouncyCardFeatures";
 import { motion } from 'framer-motion'
-import { FlipLink, RevealLinks } from "./reveal-links";
 
 
 type Props = {    
@@ -138,9 +134,11 @@ return(
 
     <div>
         
-        <ChipTabs />
+        {/* <ChipTabs /> */}
+        {/* <SmoothScrollLenis /> */}
+        {/* <SmoothScrollHero /> */}
         {/* <RevealLinks /> */}
-
+        {/* <AuroraHero /> */}
 
         {/* <BouncyCardsFeatures /> */}
         {/* <SlideTabsExample /> */}
