@@ -418,10 +418,11 @@ return (
 
 
 			<FeedWrapper>
-				<div className='absolute z-10'>
+				
 					<Header title={userProgress.activeCourse.title} />
 
-
+					{/* <div className='absolute z-10'> */}
+					
 					{/* <HeroParallax /> */}
 
 
@@ -446,7 +447,7 @@ return (
 						</div>
 					))}
 
-				</div>
+				{/* </div> */}
 
 
 

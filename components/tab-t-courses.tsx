@@ -1,21 +1,21 @@
 'use client'
 
-import { TUnitBanner } from "@/app/(main)/trainer/t-unit-banner";
+import { TCourseBanner } from "@/app/(main)/trainer/t-course-banner";
 import {
     Tabs,
     TabsContent,
     TabsList,
     TabsTrigger,
   } from "@/components/ui/tabs"
-import { TrainerLessonItem } from "./trainer-list";
 import { t_challengeOptions, t_lessonProgress } from "@/db/schema";
 import { GetTLessonStat } from "@/usefulFunctions";
 import 'katex/dist/katex.min.css';
 import Latex from 'react-latex-next';
 import { ReactNode, useState } from "react";
 import { Button } from "./ui/button";
-import Image from "next/image";
 import { motion } from 'framer-motion'
+import { TrainerLessonItemRound } from "./trainer-list-round";
+import { Block } from "./block";
 
 
 type Props = {    
@@ -132,7 +132,7 @@ type Props = {
 
 return(
 
-    <div>
+    <div className="flex items-center flex-col relative">
         
         {/* <ChipTabs /> */}
         {/* <SmoothScrollLenis /> */}
@@ -143,24 +143,31 @@ return(
         {/* <BouncyCardsFeatures /> */}
         {/* <SlideTabsExample /> */}
 
-        <Tabs defaultValue="М9" className="pt-5">
+        <Tabs defaultValue="М9" className="pt-5      flex items-center flex-col relative ">
     
+
+            {/*  TODO:    TAB TOP */}
             <TabsList>
             {
                 t_courses.map((t_course, index) => (
-                    <TabsTrigger key={index*21983} value={t_course.title}>{t_course.title}</TabsTrigger>
+                    <TabsTrigger key={index*21983} value={t_course.title}>
+                        {t_course.title}
+                    </TabsTrigger>
                 )) 
             }
             </TabsList>
         
 
+
+
+            {/* TODO:    COURSE banner  */}
             {t_courses.map((t_course, index) => (
                 
-                <TabsContent key={index*19339} value={t_course.title} className="pt-4">
+                <TabsContent key={index*19339} value={t_course.title} className="pt-4     ">
                     
                     <div key={index*1389}>
 
-						<TUnitBanner 
+						<TCourseBanner 
 							t_course_title={t_course.title} 
 							description={t_course.imageSrc} 
 							imgSrc={t_course.imageSrc} 
@@ -174,13 +181,26 @@ return(
 						/>
 						
 						
-						<div className="ml-4">
+
+
+
+                        {/* TODO:   unit Banner */}
+                        
+						<div className="flex items-center flex-col relative w-full">
+
+                        
+
 							{t_units.filter(u => u.t_courseId === t_course.id)
 							.map((t_unit, index) => (
-								<div key={index*81872}>
+
+								<div key={index*81872} className="w-full ml-7">
 
 
-                                    <BounceCard className="mt-14 col-span-12 md:col-span-8">
+
+
+
+{/* <BounceCard className="mt-14 col-span-12 md:col-span-8"> */}
+                                        {/* <BounceCard className="mt-14 w-full">
                                     
                                         <CardTitle>
                                             <div className="flex justify-between">
@@ -201,15 +221,16 @@ return(
                                                     &&  t_unit.t_lessons[t_unit.t_lessons.length - 1].t_challenges.filter(el => !el.question.includes("Соедините") )[0].imageSrc  !== '0' 
                                                     ?
                                                     
-                                                    <Image
-                                                        className="pt-8 mx-auto"
-                                                        src={`/trainer-images/${
-                                                            t_unit.t_lessons[t_unit.t_lessons.length - 1].t_challenges.filter(el => !el.question.includes("Соедините") )[0].imageSrc
-                                                        }`}
-                                                        alt='task_image'
-                                                        height={90}
-                                                        width={90}
-                                                    />  
+                                                    // <Image
+                                                    //     className="pt-8 mx-auto"
+                                                    //     src={`/trainer-images/${
+                                                    //         t_unit.t_lessons[t_unit.t_lessons.length - 1].t_challenges.filter(el => !el.question.includes("Соедините") )[0].imageSrc
+                                                    //     }`}
+                                                    //     alt='task_image'
+                                                    //     height={90}
+                                                    //     width={90}
+                                                    // />  
+                                                    <div></div>
 
                                                     :
                                                     <p className="text-gray-700 m-7 pt-3 pb-3 text-2xl">
@@ -222,11 +243,11 @@ return(
                                             </span>
                                         </div>
                                         
-                                    </BounceCard>
+                                    </BounceCard> */}
 
 
 
-									{/* <Block 
+									<Block 
                                         
                                         whileHover={{
                                             scale: 0.9,
@@ -235,7 +256,7 @@ return(
                                         }}
 
                                         className=
-                                            "mt-10 font-bold w-full rounded-xl  bg-green-500 p-4 text-2xl text-white justify-center pt-2 pb-2 bg-[url('/MemesImage/i-like-food.svg')]  bg-repeat"
+                                            "mt-10 font-bold w-full rounded-xl  bg-green-500 p-4 text-2xl text-white  pt-2 pb-2 bg-[url('/MemesImage/i-like-food.svg')]  bg-repeat"
                                     >
                                         <div className="flex justify-between">
                                             <p>
@@ -254,15 +275,16 @@ return(
                                             &&  t_unit.t_lessons[t_unit.t_lessons.length - 1].t_challenges.filter(el => !el.question.includes("Соедините") )[0].imageSrc  !== '0' 
                                             ?
                                             
-                                            <Image
-                                                className="pt-8 mx-auto"
-                                                src={`/trainer-images/${
-                                                    t_unit.t_lessons[t_unit.t_lessons.length - 1].t_challenges.filter(el => !el.question.includes("Соедините") )[0].imageSrc
-                                                }`}
-                                                alt='task_image'
-                                                height={90}
-                                                width={90}
-                                            />  
+                                            // <Image
+                                            //     className="pt-8 mx-auto"
+                                            //     src={`/trainer-images/${
+                                            //         t_unit.t_lessons[t_unit.t_lessons.length - 1].t_challenges.filter(el => !el.question.includes("Соедините") )[0].imageSrc
+                                            //     }`}
+                                            //     alt='task_image'
+                                            //     height={90}
+                                            //     width={90}
+                                            // />  
+                                            <div></div>
 
                                             :
                                             <p className="text-gray-700 m-7 pt-3 pb-3 text-lg">
@@ -276,7 +298,7 @@ return(
 
 
                                         </div>
-									</Block> */}
+									</Block>
 
 
 
@@ -288,10 +310,11 @@ return(
 
 
 									{
-										t_units.filter(ul => ul.id == t_unit.id)[0].t_lessons.map((t_lesson, index) => (
-										
+										t_units.filter(ul => ul.id == t_unit.id)[0].t_lessons.map((t_lesson, index) => {
+										                                    
+                                        return(
 										<div key={index * 2241} className='justify-center'>
-											<TrainerLessonItem 
+											<TrainerLessonItemRound 
                                                 t_lesson={t_lesson} 
                                                 t_lessonProgress={t_lessonProgress}
                                                 TRatingUsers={TRatingUsers}
@@ -300,9 +323,9 @@ return(
                                             />
 									
 										</div>
-										
+                                        )}
 
-									))}
+									)}
 								</div>
 							))}
 						</div>
@@ -390,7 +413,7 @@ const BounceCard = ({
     return (
       <motion.div
         whileHover={{ scale: 0.95, rotate: "-1deg", boxShadow: "8px 8px #758277", }}
-        className={`bg-green-500 text-2xl text-white justify-center bg-[url('/MemesImage/i-like-food.svg')] group relative min-h-[250px] overflow-hidden rounded-2xl pl-6 pr-6 pt-6 ${className}`}
+        className={`w-full bg-green-500 text-2xl text-white justify-center bg-[url('/MemesImage/i-like-food.svg')] group relative min-h-[250px] overflow-hidden rounded-2xl pl-6 pr-6 pt-6 ${className}`}
       >
         {children}
       </motion.div>

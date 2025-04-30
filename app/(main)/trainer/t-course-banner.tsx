@@ -1,5 +1,6 @@
 'use client'
 
+import Example from "@/components/hover-me";
 import { FlipLink } from "@/components/reveal-links";
 import { Button } from "@/components/ui/button";
 import { t_lessonProgress } from "@/db/schema";
@@ -115,7 +116,7 @@ type Props = {
 
 
 
-export const TUnitBanner = ({
+export const TCourseBanner = ({
     t_course_title,
     description,
     imgSrc,
@@ -132,7 +133,7 @@ export const TUnitBanner = ({
     const thisCourseStat = CourseStat.filter(el => el.courseTitle == t_course_title)[0]
 
 
-    // console.log(CourseStat)
+
 
 
     const averageDonePercent = thisCourseStat.listOfMini.reduce((a, b) => a + b) / thisCourseStat.listOfMini.length;
@@ -140,7 +141,8 @@ export const TUnitBanner = ({
 
     return(
 
-        <div className="ml-4 mb-10 w-full rounded-xl border-2 border-foreground border-dashed p-5 text-foreground flex items-center justify-between ">
+        // <div className="ml-4 w-full rounded-xl border-2 border-foreground border-dashed p-5 text-foreground flex items-center justify-between ">
+        <div className="ml-4 w-full rounded-xl border-2 border-slate-200 border-dashed p-5 text-foreground flex items-center justify-between ">
          
             <div className="flex flex-1 items-center justify-between">
 
@@ -184,10 +186,10 @@ export const TUnitBanner = ({
                     </div>
 
 
+                    <Example data={thisCourseStat.listOfMini}/>
 
 
-
-                    <div className="col-span-3">
+                    {/* <div className="col-span-3">
 
                         <div className="grid grid-cols-5 gap-x-5">
                             {thisCourseStat.listOfMini.map((el, index) => 
@@ -209,7 +211,7 @@ export const TUnitBanner = ({
                             )}
                         </div>
                             
-                    </div>
+                    </div> */}
     
                 </div>  
 

@@ -90,33 +90,33 @@ export const UnitBanner = ({
 
 
 
-        <div className="flex flex-1 items-center justify-between">
+            <div className="flex flex-1 items-center justify-between">
 
-            <div className="space-y-2.5">
-                <h3 className="text-2xl font-bold">
-                    {title}
-                </h3>
+                <div className="space-y-2.5">
+                    <h3 className="text-2xl font-bold">
+                        {title}
+                    </h3>
 
-                <p className="text-lg">
-                    {description}
-                </p>
+                    <p className="text-lg">
+                        {description}
+                    </p>
 
-                <div className="flex flex-1 gap-2">
-                    <CircleCheckBig className="h-6 w-6"
-                                    // className={cn(
-                                    //     "h-10 w-10",
-                                    //     2==1
-                                    //     ? "fill-neutral-400 text-neutral-400 stroke-neutral-400"
-                                    //     : "fill-primary-foreground text-primary-foreground",
-                                    //     1==1 && "fill-none stroke-[4]"
-                                    // )}
-                                />
-                    {Math.round(percentageDone*100)}%
-                </div>
+                    <div className="flex flex-1 gap-2">
+                        <CircleCheckBig className="h-6 w-6"
+                                        // className={cn(
+                                        //     "h-10 w-10",
+                                        //     2==1
+                                        //     ? "fill-neutral-400 text-neutral-400 stroke-neutral-400"
+                                        //     : "fill-primary-foreground text-primary-foreground",
+                                        //     1==1 && "fill-none stroke-[4]"
+                                        // )}
+                                    />
+                        {Math.round(percentageDone*100)}%
+                    </div>
 
-            </div>  
+                </div>  
 
-       
+        
 
 
 
