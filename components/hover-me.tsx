@@ -20,7 +20,8 @@ const Example = ({
 }: Props) => {
   return (
     // <div className="grid w-full place-content-center bg-gradient-to-br from-indigo-500 to-violet-500 px-4 py-12 text-slate-900">
-    <div className="grid w-full place-content-center  text-slate-900">
+    // <div className="grid w-full place-content-center  text-slate-900">
+    <div className="grid w-full place-content-center ">
       <TiltCard data={data} />
     </div>
   );
@@ -77,7 +78,7 @@ const TiltCard = ({
         transform,
       }}
     //   className="relative h-60 w-72 rounded-xl bg-gradient-to-br from-indigo-300 to-violet-300"
-      className="relative h-60 w-72 rounded-xl bg-gradient-to-br from-red-300 to-green-300"
+      className="relative h-60 w-64 rounded-xl bg-gradient-to-br from-red-300 to-green-300"
     >
       <div
         style={{
@@ -110,22 +111,24 @@ const TiltCard = ({
         >
           
           
+
+
           
-          <div className="col-span-3 mt-4 mb-4">
+          <div className="col-span-3 mt-6 mb-4">
 
                         <div className="grid grid-cols-5 gap-x-5">
                             {data.map((el, index) => 
                                 <ToyBrick 
                                     key={index*1659}
                                     className= {
-                                        el >= 0.9 
-                                        ? `h-6 w-6 fill-green-400/90 stroke-neutral-700`
+                                        el > 0.9 
+                                        ? `h-6 w-6 fill-yellow-300 stroke-neutral-600`
                                         
-                                        : el > 0.5
-                                        ? `h-6 w-6 fill-amber-500/90 stroke-neutral-700`
+                                        : el > 0.6
+                                        ? `h-6 w-6 fill-green-400 stroke-neutral-600`
                                         
                                         : el > 0 
-                                        ? `h-6 w-6 fill-pink-500/90 stroke-neutral-700`
+                                        ? `h-6 w-6 fill-red-400 stroke-neutral-600`
 
                                         : `h-6 w-6 fill-white stroke-neutral-400 opacity-${80}`
                                         }

@@ -163,7 +163,7 @@ return(
             {/* TODO:    COURSE banner  */}
             {t_courses.map((t_course, index) => (
                 
-                <TabsContent key={index*19339} value={t_course.title} className="pt-4     ">
+                <TabsContent key={index*19339} value={t_course.title} className="pt-10">
                     
                     <div key={index*1389}>
 

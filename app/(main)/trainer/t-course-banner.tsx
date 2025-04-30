@@ -2,6 +2,7 @@
 
 import Example from "@/components/hover-me";
 import { FlipLink } from "@/components/reveal-links";
+import { TypeTextEffect } from "@/components/type-text-effect";
 import { Button } from "@/components/ui/button";
 import { t_lessonProgress } from "@/db/schema";
 import { NearestRound } from "@/usefulFunctions";
@@ -142,52 +143,41 @@ export const TCourseBanner = ({
     return(
 
         // <div className="ml-4 w-full rounded-xl border-2 border-foreground border-dashed p-5 text-foreground flex items-center justify-between ">
-        <div className="ml-4 w-full rounded-xl border-2 border-slate-200 border-dashed p-5 text-foreground flex items-center justify-between ">
+        <div className="ml-4 mb-4 w-full ">
          
-            <div className="flex flex-1 items-center justify-between">
+            
 
-                <div className="grid grid-cols-12 gap-8">
-                    
-                    <div className="col-span-7">
-                    
-                        <h3 className="text-2xl font-bold">
 
-                        {/* <section className="grid place-content-center gap-2 bg-green-300 px-8 py-24 text-black"> */}
+            <div className="flex flex-1 justify-between">
+                    
+                    <div>
+                    
+                        <p className="text-2xl font-bold">
                             <FlipLink href="#">
                                 {t_course_title}
                             </FlipLink>
-                        {/* </section> */}
-                        </h3>
+                        </p>
 
                         {/* <p className="text-lg">
                             {description}
                         </p> */}
 
-                        <div className="flex flex-1 gap-2 mt-4">
-                            
-                            
-                            {/* <Image 
-                                src='/RatingSvg/rating-ant.svg'
-                                alt='Mascot'
-                                height={30}
-                                width={30}
-                                className=" hidden lg:block"
-                            /> */}
-                            
-                            {/* <CircleCheckBig className="h-6 w-6"/> */}
-                            
-                            <p className="mt-3">
-                                {Math.round(averageDonePercent*100)}%
-                            </p>
-                            
-                            
+                        
+
+                        <div className="flex flex-1 gap-2">                                                                               
+                            <p className="text-sm">
+                                пройдено {Math.round(averageDonePercent*100)}%
+                            </p>                                  
                         </div>
+
+                        <TypeTextEffect />
 
                     </div>
 
-
-                    <Example data={thisCourseStat.listOfMini}/>
-
+                    {/* <div className="col-span-4"> */}
+                    <div>
+                        <Example data={thisCourseStat.listOfMini}/>
+                    </div>
 
                     {/* <div className="col-span-3">
 
@@ -215,7 +205,7 @@ export const TCourseBanner = ({
     
                 </div>  
 
-            </div>
+            
 
         </div> 
     )

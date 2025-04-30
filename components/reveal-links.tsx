@@ -23,7 +23,8 @@ export const FlipLink = ({ children, href }: { children: string; href: string })
       href={href}
       className="relative block overflow-hidden whitespace-nowrap text-3xl uppercase sm:text-3xl md:text-3xl lg:text-3xl"
       style={{
-        lineHeight: 0.75,
+        // lineHeight: 0.75,
+        lineHeight: 0.95,
       }}
     >
       <div>
