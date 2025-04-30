@@ -143,7 +143,7 @@ export const TCourseBanner = ({
     return(
 
         // <div className="ml-4 w-full rounded-xl border-2 border-foreground border-dashed p-5 text-foreground flex items-center justify-between ">
-        <div className="ml-4 mb-4 w-full ">
+        <div className="ml-4 mb-4 w-full">
          
             
 
@@ -170,8 +170,9 @@ export const TCourseBanner = ({
                             </p>                                  
                         </div>
 
-                        <TypeTextEffect />
-
+                        <div className="w-[140px] h-[35px]">
+                            <TypeTextEffect />
+                        </div>
                     </div>
 
                     {/* <div className="col-span-4"> */}

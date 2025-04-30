@@ -16,6 +16,7 @@ import { Button } from "./ui/button";
 import { motion } from 'framer-motion'
 import { TrainerLessonItemRound } from "./trainer-list-round";
 import { Block } from "./block";
+import { FlipLink } from "./reveal-links";
 
 
 type Props = {    
@@ -132,7 +133,7 @@ type Props = {
 
 return(
 
-    <div className="flex items-center flex-col relative">
+    <div className="flex items-center flex-col relative ">
         
         {/* <ChipTabs /> */}
         {/* <SmoothScrollLenis /> */}
@@ -249,16 +250,25 @@ return(
 
 									<Block 
                                         
-                                        whileHover={{
-                                            scale: 0.9,
-                                            rotate: index % 2 == 0 ? "1deg" : "-1deg",
-                                            boxShadow: "5px 5px #758277",
-                                        }}
+                                        // whileHover={{
+                                        //     scale: 0.9,
+                                        //     rotate: index % 2 == 0 ? "1deg" : "-1deg",
+                                        //     boxShadow: "5px 5px #758277",
+                                        // }}
 
                                         className=
                                             "mt-10 font-bold w-full rounded-xl  bg-green-500 p-4 text-2xl text-white  pt-2 pb-2 bg-[url('/MemesImage/i-like-food.svg')]  bg-repeat"
                                     >
                                         <div className="flex justify-between">
+                                            
+                                            
+                                            {/* <p>
+                                                <FlipLink href="#">
+                                                    {t_unit.title}
+                                                </FlipLink>
+                                            </p> */}
+                                            
+                                            
                                             <p>
                                                 {t_unit.title}
                                             </p>
