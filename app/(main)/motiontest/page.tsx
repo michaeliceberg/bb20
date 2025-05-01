@@ -1,54 +1,17 @@
-'use client'
+// app/page.tsx
+// import SpiderAnimation from "@/components/SpiderAnimation";
 
-import React from 'react'
-import { motion } from 'framer-motion'
-import { Button } from '@/components/ui/button'
+import SpiderAnimation from "./spider";
 
-const MotionTestPage = () => {
+export default function Home() {
   return (
-	<div 
-		style={{
-			display: "grid", 
-			placeContent: "center", 
-			height: "100vh", 
-			gap: "0.8rem"
-		}}
-	
-	>
-		<button className="example-button">
-			click me!
-		</button>
-		
-		hello
-
-
-	</div>
-  )
+    <main className="flex min-h-screen flex-col items-center justify-between p-24">
+      <h1 className="text-4xl font-bold mb-8">Паук и котенок</h1>
+      <SpiderAnimation />
+    </main>
+  );
 }
 
 
-export default MotionTestPage
 
-
-
-
-
-
-// <motion.div
-// 			initial={{
-// 				rotate: '0deg'
-// 			}}
-// 			animate={{
-// 				rotate: '90deg'
-// 			}}
-// 			transition={{
-// 				duration: 2,
-// 				// type: 'spring',
-// 				ease: 'backInOut',
-// 			}}
-// 			style={{
-// 				width: 150, 
-// 				height: 150, 
-// 				background: "black",
-// 			}}
-// 		></motion.div>
+{/* <Image src='/Lottie/trainer/spider/spider.svg' alt='Croatian' height={32} width={40} className='mr-4 rounded-md' /> */}

@@ -451,17 +451,17 @@ useEffect(() => {
                   // ? <BadgeCheck
                   ? <Check
                   
-                      className={cn("pr-2 h-6 w-6 fill-green-100 stroke-green-400")}
+                      className={cn("pr-2 h-7 w-7 fill-green-100 stroke-green-400")}
                   /> 
                   : isRightList[index] == 2 
                   // ? <BadgeAlert
                   ? <X
-                      className={cn("pr-2 h-6 w-6 fill-red-100 stroke-red-400")}
+                      className={cn("pr-2 h-7 w-7 fill-red-100 stroke-red-400")}
                   />
 
                   : isRightList[index] == 3 
                   ? <Flame
-                    className={cn("pr-2 h-6 w-6 stroke-yellow-400 animate-bounce")}
+                    className={cn("pr-2 h-7 w-7 stroke-yellow-400 animate-bounce")}
                     // className={cn("h-6 w-6 fill-yellow-100 stroke-yellow-400 animate-bounce")}
                   />
                   
