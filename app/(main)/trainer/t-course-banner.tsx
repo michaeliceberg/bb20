@@ -143,68 +143,43 @@ export const TCourseBanner = ({
     return(
 
         // <div className="ml-4 w-full rounded-xl border-2 border-foreground border-dashed p-5 text-foreground flex items-center justify-between ">
-        <div className="ml-4 mb-4 w-full">
+        <div className="ml-4 mt-4 mb-4 w-full">
          
             
 
 
-            <div className="flex flex-1 justify-between">
+            <div className="flex justify-between">
                     
-                    <div>
+                <p className="text-2xl font-bold">
+                    <FlipLink href="#">
+                        {t_course_title.split(' ')[1]}
+                    </FlipLink>
+                </p>
+                
+
+                <p className="text-sm pt-2">
+                    пройдено {Math.round(averageDonePercent*100)}%
+                </p>                                  
+
                     
-                        <p className="text-2xl font-bold">
-                            <FlipLink href="#">
-                                {t_course_title}
-                            </FlipLink>
-                        </p>
+            </div> 
 
-                        {/* <p className="text-lg">
-                            {description}
-                        </p> */}
 
-                        
+            <div className="flex justify-between mt-10">
 
-                        <div className="flex flex-1 gap-2">                                                                               
-                            <p className="text-sm">
-                                пройдено {Math.round(averageDonePercent*100)}%
-                            </p>                                  
-                        </div>
+                <div className="w-[140px] h-[35px]">
+                    <TypeTextEffect />
+                </div>
+                
 
-                        <div className="w-[140px] h-[35px]">
-                            <TypeTextEffect />
-                        </div>
-                    </div>
 
-                    {/* <div className="col-span-4"> */}
-                    <div>
-                        <Example data={thisCourseStat.listOfMini}/>
-                    </div>
+                <div>
+                    <Example data={thisCourseStat.listOfMini}/>
+                </div>
 
-                    {/* <div className="col-span-3">
-
-                        <div className="grid grid-cols-5 gap-x-5">
-                            {thisCourseStat.listOfMini.map((el, index) => 
-                                <ToyBrick 
-                                    key={index*1659}
-                                    className= {
-                                        el >= 0.9 
-                                        ? `h-6 w-6 fill-green-400/90 stroke-neutral-700`
-                                        
-                                        : el > 0.5
-                                        ? `h-6 w-6 fill-amber-500/90 stroke-neutral-700`
-                                        
-                                        : el > 0 
-                                        ? `h-6 w-6 fill-pink-500/90 stroke-neutral-700`
-
-                                        : `h-6 w-6 fill-white stroke-neutral-400 opacity-${80}`
-                                        }
-                                />
-                            )}
-                        </div>
-                            
-                    </div> */}
+            </div>
     
-                </div>  
+               
 
             
 

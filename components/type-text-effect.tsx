@@ -1,6 +1,12 @@
 import React, { ReactNode, useEffect, useState } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
+import Lottie from "lottie-react";
+
+
+import LottieDeathMeanRho from '@/public/LottieDeathMeanRho.json'
+
+
 
 export const TypeTextEffect = () => {
   return (
@@ -9,13 +15,13 @@ export const TypeTextEffect = () => {
       <BlockInTextCard
 
         examples={[
-        //   "Does your product work for SMBs?",
-          "Ты молодец! Теорема Виета у тебя супер)",
-        //   "How does seat based pricing work?",
-        // "What's the meaning of life?",
-        "What's the?",
-    ]}
+            "Молодец! У тебя получается Теорема Виета!",
+            "Хмм..",
+            "Попробуй что-нибудь ещё..",
+        ]}
+
       />
+
     </div>
   );
 };
@@ -28,7 +34,7 @@ const BlockInTextCard = ({
   examples: string[];
 }) => {
   return (
-    <div className="w-full max-w-xl space-y-6">
+    <div className="w-full max-w-xl">
 
         <Typewrite examples={examples} />
 
@@ -56,22 +62,28 @@ const Typewrite = ({ examples }: { examples: string[] }) => {
   }, []);
 
   return (
-    <p className="mt-4 mr-4 mb-2.5 text-xs font-light">
+    <p className="text-xs font-light">
       {/* <span className="inline-block size-2 bg-neutral-950" /> */}
       <span className="ml-3">
 
 
-        <Image 
+        <Lottie 
+            className="size-36" 
+            animationData={LottieDeathMeanRho}
+            // loop={false}
+        /> 
+
+        {/* <Image 
             src='/mascot.svg' 
             height={40} 
             width={40} 
             alt='Mascot' 
-        />
+        /> */}
 
         {/* BB:{" "} */}
 
 
-        <div className="relative mt-4 py-2 px-4 border-2 rounded-xl text-center text-sm lg:text-base w-full pb-1 pt-1">
+        <div className="relative mt-4 py-2 px-4 border-2 rounded-xl font-semibold text-center text-sm lg:text-base w-full pb-1 pt-1">
     
             {examples[exampleIndex].split("").map((l, i) => (
                 <motion.span
@@ -121,8 +133,9 @@ const Typewrite = ({ examples }: { examples: string[] }) => {
                 </motion.span>
             ))}
             <div 
-                    className="absolute -left-3 ml-6 -mt-1 top-0 w-0 h-0 border-x-8 border-x-transparent border-t-8 transform -translate-y-1/2 rotate-180"
-            />
+                    // className="absolute -left-3 -mt-1 top-0 w-0 h-0 border-x-8 border-x-transparent border-t-8 transform -translate-y-1/2 rotate-180"
+                    className="absolute left-1/2 -mt-1 top-0 w-0 h-0 border-x-8 border-x-transparent border-t-8 transform -translate-y-1/2 rotate-180"
+                    />
         </div>
       </span>
 

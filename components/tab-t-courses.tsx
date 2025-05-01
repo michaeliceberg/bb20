@@ -152,7 +152,7 @@ return(
             {
                 t_courses.map((t_course, index) => (
                     <TabsTrigger key={index*21983} value={t_course.title}>
-                        {t_course.title}
+                         {t_course.title.split(' ')[0]}
                     </TabsTrigger>
                 )) 
             }
