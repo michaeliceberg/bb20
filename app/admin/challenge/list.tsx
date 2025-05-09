@@ -30,6 +30,22 @@ export const ChallengeList = () => {
                             id: "CONSTRUCT",
                             name: "CONSTRUCT",
                         },
+                        {
+                            id: "WORKBOOK",
+                            name: "WORKBOOK",
+                        },
+                        {
+                            id: "R ASSIST",
+                            name: "R ASSIST",
+                        },
+                        {
+                            id: "R CONNECT",
+                            name: "R CONNECT",
+                        },
+                        {
+                            id: "R SLIDER",
+                            name: "R SLIDER",
+                        },
                     ]}
                 />
                 <ReferenceField source='lessonId' reference='lessons'/>

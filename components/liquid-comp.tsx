@@ -7,7 +7,7 @@ type VoteType = {
   color: string;
 };
 
-const BarPoll = () => {
+const LiquidComp = () => {
   const [votes, setVotes] = useState<VoteType[]>([
     {
       title: "Tabs",
@@ -128,4 +128,4 @@ const Bars = ({ votes }: { votes: VoteType[] }) => {
   );
 };
 
-export default BarPoll;
+export default LiquidComp;

@@ -3,9 +3,9 @@
 
 import { useEffect, useState, useTransition } from "react"
 import Confetti from "react-confetti"
-import { useAudio, useKey, useWindowSize } from "react-use"
+import { useAudio, useWindowSize } from "react-use"
 import TrainerQuestion from "./trainer-question"
-import { t_challengeOptions, t_lessonProgress } from "@/db/schema"
+import { t_challenges, t_lessonProgress } from "@/db/schema"
 import { Button } from "./ui/button"
 import Lottie from "lottie-react"
 import { Avatar, AvatarImage } from "./ui/avatar";
@@ -43,8 +43,8 @@ import { ChartComponent } from "./chart-comp"
 import { cn } from "@/lib/utils"
 import { Separator } from "./ui/separator"
 import { FinishTrainerStat } from "./finish-trainer-stat"
-import { sendMessageToTelegram } from "@/utils/telegram"
 import { TgSendMsgCom } from "./tg-send-msg-com"
+import { QuestionType } from "@/app/t-lesson/[t_lessonId]/page"
 
 
 
@@ -89,55 +89,10 @@ type Props = {
   t_lessonId: number,
   t_lessonTitle: string,
   
-  t_lesson: 
-    {
-      id: number,
-      t_lessonId: number,
-      type:  "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT",
-      question: string,
-      imageSrc: string;
-      order: number,
-      points: number,
-      author: string,
-      t_challengeOptions: typeof t_challengeOptions.$inferSelect[],
-      // challengeProgress: number[],
-    }[],
-
+  t_lesson: typeof t_challenges.$inferSelect[]
   t_lessonProgress: typeof t_lessonProgress.$inferSelect[],
 
-
-
-
-  questions1: {
-    questionType: "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT",
-    question: string;
-    imageSrc: string;
-    options: string[] 
-
-    optionsQ : {
-      optQ: string;
-      pairId: number;
-      id: number;
-    }[]
-
-  
-    optionsA : {
-      optA: string;
-      pairId: number;
-      id: number;
-    }[]
-
-    optionsConstructRight: string[];
-
-    correctAnswer: string;
-    timeLimit: number;
-  }[],
-  
-  
-  
-
-  
-  
+  questions1: QuestionType[],
 
   usersStat: {
     DR_DRP: number;
@@ -149,24 +104,6 @@ type Props = {
   userId: string,
   userName: string,
 }
-
-
-
-
-
-
-// optionsQ: ({
-//   optQ1: {
-//       id: number;
-//       imageSrc: string | null;
-//       text: string;
-//       correct: boolean;
-//       audioSrc: string | null;
-//       t_challengeId: number;
-//   };
-
-
-
 
 
 export default function TQuiz(
@@ -216,7 +153,9 @@ export default function TQuiz(
 
 
 
-
+  //
+  // Выбор сколько задач выдать в Lesson'e
+  //
   const handleNumQuestions = (n: number) => {
 
     if (n == 0) {
@@ -232,7 +171,6 @@ export default function TQuiz(
 
     setNumQuestionsButton(n) 
 
-    // console.log(allQuestions)
   }
 
 
@@ -356,19 +294,6 @@ export default function TQuiz(
   const initialState:number[] = questions.map((el, index) => index == 0 ? 3 : 0)
   
   const [isRightList, setIsRightList] = useState(initialState)
-  const IconList = {
-      right: BadgeCheck,
-      wrong: BadgeAlert,
-      empty: Badge,
-  }
-
-  
-  // interface finishListType {
-  //   question: string;
-  //   answer: string;
-  //   rightAnswer: string;
-  //   isRight: boolean;
-  // }[]
   
   const [finishList, setFinishList] = useState([{
     question: '',
@@ -393,12 +318,15 @@ export default function TQuiz(
     setAnsweredQuestions(0)
     setIsRightList(initialState)
 
-    setFinishList([{
-      question: '',
-      answer: '',
-      rightAnswer: '',
-      isRight: true,
-    }])
+    // setFinishList([{
+    //   question: '',
+    //   answer: '',
+    //   rightAnswer: '',
+    //   isRight: true,
+    // }])
+
+
+    setFinishList([])
 
   }
 
@@ -411,8 +339,6 @@ export default function TQuiz(
 
   const handleAnswer = async (answer: string) => {
     
-
-
     setAnsweredQuestions(answeredQuestions + 1)
 
 
@@ -430,11 +356,13 @@ export default function TQuiz(
 
     
     if (answerIsRight) {
-    // if (answer === questions[currentQuestionIndex].correctAnswer) {
+
       setIsRightPrevious(true)
       setRandomEmotionLottie([...LottieEmotionRightList].sort(() => 0.5 - Math.random())[0])
 
 
+      // Анимация Зеленым фоном вверх при правильном ответе
+      //
       const body = document.querySelector("body")
       body?.classList.add("trainer-slide-up-transition")
 
@@ -490,10 +418,11 @@ export default function TQuiz(
       // setRandomEmotionLottie([...LottieEmotionWrongList].sort(() => 0.5 - Math.random())[0])
       setRandomEmotionLottie([...LottieEmotionRightList].sort(() => 0.5 - Math.random())[0])
 
+
+      // Анимация Красным фоном вниз при НЕправильном ответе
+      //
       const body = document.querySelector("body")
-
       body?.classList.add("trainer-slide-down-transition")
-
       await sleep(200)
 
 
@@ -791,27 +720,12 @@ export default function TQuiz(
     const isPerfectScore = score === questions.length
 
     
-    
-    
-    // const userStat = JSON.stringify(finishList.filter(el => !el.isRight))
-    // const lesson_title = t_lessonTitle
-
-
   
     const numQuestions = finishList.length
     const numQuestionsRight = finishList.filter(el => el.isRight).length
     const message = `✅ ${userName}  ${t_lessonTitle} ${numQuestionsRight-1} / ${numQuestions-1}`
 
-
-    // useEffect(()=>{
-    //   sendMessageToTelegram(message)
-    // }, [])
-    
-    
-
-
-
-    
+   
 
 
     return (
@@ -845,7 +759,7 @@ export default function TQuiz(
 
         <Lottie 
                 animationData={ score / questions.length < 0.8 ? LottieTrainerSharkFailDNO : LottieTrainerSharkFinalWin } 
-        className="h-80 w-80"
+        className="h-80 w-80 mx-auto"
         />
 
 
@@ -943,25 +857,3 @@ export default function TQuiz(
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Type 
-
-// '({ optQ1: string; optQ2?: undefined; optQ3?: undefined; } | { optQ2: string; optQ1?: undefined; optQ3?: undefined; } | { optQ3: string; optQ1?: undefined; optQ2?: undefined; })[]' is not assignable to type 
-// '[{ optQ1: string; optQ2?: undefined; optQ3?: undefined; } | { optQ2: string; optQ1?: undefined; optQ3?: undefined; } | { optQ3: string; optQ1?: undefined; optQ2?: undefined; }]

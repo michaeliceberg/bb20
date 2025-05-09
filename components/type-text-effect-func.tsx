@@ -7,18 +7,20 @@ import Lottie from "lottie-react";
 import LottieDeathMeanRho from '@/public/LottieDeathMeanRho.json'
 
 
+type Props = {
+  someText: string,
+}
 
-export const TypeTextEffect = () => {
+export const TypeTextEffectFunc = ({
+  someText,
+}: Props) => {
   return (
     <div className="flex items-center justify-center text-neutral-800">
     {/* <div className="flex items-center justify-center bg-neutral-100 text-neutral-800"> */}
       <BlockInTextCard
 
         examples={[
-            "Молодец! У тебя получается Теорема Виета!",
-            "Хмм..",
-            "Попробуй что-нибудь ещё..",
-            "$ \\huge  x \\cdot \\frac{1}{7}=\\frac{c}{b}   \\quad b=? $",
+            someText
         ]}
 
       />
@@ -46,7 +48,7 @@ const BlockInTextCard = ({
 const LETTER_DELAY = 0.025;
 const BOX_FADE_DURATION = 0.125;
 
-const FADE_DELAY = 5;
+const FADE_DELAY = 500;
 const MAIN_FADE_DURATION = 0.25;
 
 const SWAP_DELAY_IN_MS = 5500;
@@ -54,13 +56,13 @@ const SWAP_DELAY_IN_MS = 5500;
 const Typewrite = ({ examples }: { examples: string[] }) => {
   const [exampleIndex, setExampleIndex] = useState(0);
 
-  useEffect(() => {
-    const intervalId = setInterval(() => {
-      setExampleIndex((pv) => (pv + 1) % examples.length);
-    }, SWAP_DELAY_IN_MS);
+  // useEffect(() => {
+  //   const intervalId = setInterval(() => {
+  //     setExampleIndex((pv) => (pv + 1) % examples.length);
+  //   }, SWAP_DELAY_IN_MS);
 
-    return () => clearInterval(intervalId);
-  }, []);
+  //   return () => clearInterval(intervalId);
+  // }, []);
 
   return (
     <p className="text-xs font-light">
@@ -68,23 +70,8 @@ const Typewrite = ({ examples }: { examples: string[] }) => {
       <span className="ml-3">
 
 
-        <Lottie 
-            className="size-36" 
-            animationData={LottieDeathMeanRho}
-            // loop={false}
-        /> 
 
-        {/* <Image 
-            src='/mascot.svg' 
-            height={40} 
-            width={40} 
-            alt='Mascot' 
-        /> */}
-
-        {/* BB:{" "} */}
-
-
-        <div className="relative mt-4 py-2 px-4 border-2 rounded-xl font-semibold text-center text-sm lg:text-base w-full pb-1 pt-1">
+        <div className=" mt-4 py-2 px-4 font-semibold text-sm lg:text-base pb-1 pt-1">
             
             {examples[exampleIndex].split("").map((l, i) => (
               
@@ -135,9 +122,7 @@ const Typewrite = ({ examples }: { examples: string[] }) => {
                 </motion.span>
             ))}
 
-            <div 
-              className="absolute left-1/2 -mt-1 top-0 w-0 h-0 border-x-8 border-x-transparent border-t-8 transform -translate-y-1/2 rotate-180"
-            />
+
 
         </div>
       </span>

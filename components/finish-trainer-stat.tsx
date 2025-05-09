@@ -39,10 +39,15 @@ export const FinishTrainerStat = ({ finishList }: Props) => {
             верный ответ
           </li>
 
-
+    
 
         {finishList.map((el, index) => (
+        
+        
         <>
+        
+
+
             <li className='col-span-2' key={index* 6219}>
                 <div className='p-2'>
                     <Latex>
@@ -78,14 +83,13 @@ export const FinishTrainerStat = ({ finishList }: Props) => {
                     </div>
                 }
             </li>
+        
 
-
-
-
-
-
+        
         </>
-        ))}
+
+
+    ))}
 
     </ul>
 

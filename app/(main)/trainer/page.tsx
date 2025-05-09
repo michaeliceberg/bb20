@@ -191,6 +191,8 @@ const LearnPage = async () => {
 				/>
 
 
+				{/* <ScrollTriggered /> */}
+
 			</FeedWrapper>
 		</div>
 	);

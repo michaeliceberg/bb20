@@ -3,53 +3,9 @@
 import Example from "@/components/hover-me";
 import { FlipLink } from "@/components/reveal-links";
 import { TypeTextEffect } from "@/components/type-text-effect";
-import { Button } from "@/components/ui/button";
-import { t_lessonProgress } from "@/db/schema";
-import { NearestRound } from "@/usefulFunctions";
-// import Lottie from "lottie-react";
-import { CircleCheckBig, Divide, NotebookText, Squircle, ToyBrick } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-
-// // import LottieAnimation1 from '@/public/LottieUnit1.json'
-// import LottieAnimation1 from '@/public/LottieBreadAverage.json'
-
-// // /Users/mac/Downloads/LottieBreadAverage.json
-
-// // import LottieAnimation2 from '@/public/LottieUnit2.json'
-// import LottieAnimation2 from '@/public/LottieSharkMass.json'
-
-// // import LottieAnimation3 from '@/public/LottieUnit3.json'
-// import LottieAnimation3 from '@/public/LottieDeathMeanRho.json'
-
-// // import LottieAnimation4 from '@/public/LottieUnit4.json'
-// import LottieAnimation4 from '@/public/LottieFoogooPressure.json'
-
-// // import LottieAnimation5 from '@/public/LottieUnit5.json'
-// import LottieAnimation5 from '@/public/LottieArchimed.json'
-
-// // import LottieAnimation6 from '@/public/LottieUnit6.json'
-// import LottieAnimation6 from '@/public/LottieWatermelonDrink.json'
-
-// // import LottieAnimation7 from '@/public/LottieUnit7.json'
-// import LottieAnimation7 from '@/public/LottieGameU.json'
-
-// // import LottieAnimation8 from '@/public/LottieUnit8.json'
-// import LottieAnimation8 from '@/public/LottieJolesWatts.json'
+import { t_lessonProgress, t_units } from "@/db/schema";
 
 
-// import LottieAnimation9 from '@/public/LottieUnit9.json'
-
-// import { cn } from "@/lib/utils";
-
-
-// <div className='size-40'> 
-// {/* <Lottie animationData={LottieAnimation} />            */}
-// <Lottie 
-//     animationData={LottieData[id%1000-1]} 
-//     loop={false}
-// />           
-// </div>
 
 
 type Props = {
@@ -60,28 +16,8 @@ type Props = {
     percentageDone: number;
 
     t_course_id: number,
-    t_units: {
-        id: number;
-        title: string;
-        description: string;
-        imageSrc: string;
-        t_courseId: number;
-        order: number;
-        t_lessons: {
-            id: number;
-            title: string;
-            order: number;
-            t_unitId: number;
-            t_challenges: {
-                id: number;
-                points: number;
-                order: number;
-                type:  "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT",
-                question: string;
-                author: string;
-                t_lessonId: number;
-            }[];}[]
-    }[],
+    t_units: typeof t_units.$inferSelect[]
+    
     t_lessonProgress: typeof t_lessonProgress.$inferSelect[]
     CourseStat: {
         listOfMini: number[],
@@ -168,7 +104,9 @@ export const TCourseBanner = ({
             <div className="flex justify-between mt-10">
 
                 <div className="w-[140px] h-[35px]">
-                    <TypeTextEffect />
+                        
+                        <TypeTextEffect />
+                    
                 </div>
                 
 

@@ -1,5 +1,6 @@
 import { relations } from 'drizzle-orm';
-import { bigint, bigserial, boolean, integer, json, jsonb, pgEnum, pgTable, serial, text, timestamp } from 'drizzle-orm/pg-core';
+// import { bigint } from 'drizzle-orm/mysql-core';
+import { boolean, integer, json, jsonb, pgEnum, pgTable, serial, text, timestamp } from 'drizzle-orm/pg-core';
 
 
 
@@ -134,15 +135,17 @@ export const lessonsRelations = relations(lessons, ({ one, many }) => ({
 
 
 
-export const challengesEnum = pgEnum("type", ["SELECT", "ASSIST", "CONNECT", "SLIDER", "CONSTRUCT"])
+export const challengesEnum = pgEnum("type", ["SELECT", "ASSIST", "CONNECT", "SLIDER", "CONSTRUCT", "WORKBOOK",
+												        "R ASSIST", "R CONNECT", "R SLIDER",
+])
 
 
 
 
 
 export const challenges = pgTable('challenges', {
+	// id: serial('id').primaryKey(),
 	id: serial('id').primaryKey(),
-	// id: bigint('id').primaryKey(),
 	lessonId: integer('lesson_id').references(()=>lessons.id, {onDelete: 'cascade'}).notNull(),
 	type: challengesEnum('type').notNull(),
 	question: text('question').notNull(),
@@ -290,7 +293,9 @@ export const t_lessonsRelations = relations(t_lessons, ({ one, many }) => ({
 
 
 
-export const t_challengesEnum = pgEnum("type", ["SELECT", "ASSIST", "CONNECT", "SLIDER", "CONSTRUCT"])
+export const t_challengesEnum = pgEnum("type", ["SELECT", "ASSIST", "CONNECT", "SLIDER", "CONSTRUCT", "WORKBOOK",
+															"R ASSIST", "R CONNECT", "R SLIDER",
+])
 
 
 
@@ -299,6 +304,7 @@ export const t_challengesEnum = pgEnum("type", ["SELECT", "ASSIST", "CONNECT", "
 export const t_challenges = pgTable('t_challenges', {
 	id: serial('id').primaryKey(),
 	// id: bigint('id').primaryKey(),
+	// id: bigint('id').primaryKey(),
 	t_lessonId: integer('lesson_id').references(()=>t_lessons.id, {onDelete: 'cascade'}).notNull(),
 	type: t_challengesEnum('type').notNull(),
 	question: text('question').notNull(),
@@ -306,6 +312,7 @@ export const t_challenges = pgTable('t_challenges', {
 	points: integer('points').notNull(),
 	author: text('author').notNull(),
 
+	numRans: text('num_r_ans').notNull(),
 	difficulty: text('difficulty').notNull(),
 	imageSrc: text('image_src').notNull(),
 

@@ -189,18 +189,11 @@ if (cycleIndex <= 2){
                                 
                             }}
                         >
+
                             <Button
                                 size='rounded'
                                 // variant={locked ? "locked" : "secondary"}
-                                // variant={
-                                //     percentage > 90
-                                //     ? 'trainer_best'
 
-                                //     ? percentage > 60
-                                //     : 'trainer_better'
-
-                                //     : 'trainer_bad'
-                                // }
                                 variant= {
                                     percentage > 90  
                                     ? 'trainer_best' 
@@ -213,16 +206,45 @@ if (cycleIndex <= 2){
 
                                     : 'default'
                                     }
-                                
-                                    className="h-[70px] w-[70px] border-b-8"
+                                    className="h-[70px] w-[70px] border-b-8
+                                    
+                                    group relative overflow-hidden px-4 py-2 transition-colors"
                             >
+                                    {percentage > 90 && 
+                                        <motion.span
+                                            initial={{
+                                            y: "100%",
+                                            }}
+                                            animate={{
+                                            y: "-100%",
+                                            }}
+                                            transition={{
+                                            repeat: Infinity,
+                                            repeatType: "mirror",
+                                            duration: 1,
+                                            ease: "linear",
+                                            }}
+                                            className="duration-300 absolute inset-0 z-0 scale-125 bg-gradient-to-t 
+                                            
+                                            from-yellow-400/0 from-40% 
+                                            via-white/100 
+                                            to-indigo-400/0 to-60% 
+                                            
+                                            transition-opacity "
+                                        />
+                                    }
+{/* from-indigo-400/0 from-40% 
+via-indigo-400/100 
+to-indigo-400/0 to-60%  
+
+opacity-0 transition-opacity group-hover:opacity-100"
+*/}
+
+
                                 <Icon
                                     className={cn(
                                         "h-10 w-10",
-                                        
-                                        
-
-                                    
+                                     
                                     percentage > 1 
                                     ? 'fill-primary-foreground text-primary-foreground' 
 

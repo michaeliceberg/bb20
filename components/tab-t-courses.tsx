@@ -7,7 +7,7 @@ import {
     TabsList,
     TabsTrigger,
   } from "@/components/ui/tabs"
-import { t_challengeOptions, t_lessonProgress } from "@/db/schema";
+import { t_challengeOptions, t_lessonProgress, t_units } from "@/db/schema";
 import { GetTLessonStat } from "@/usefulFunctions";
 import 'katex/dist/katex.min.css';
 import Latex from 'react-latex-next';
@@ -21,11 +21,40 @@ import { FlipLink } from "./reveal-links";
 
 type Props = {    
         t_courses: {
-                        id: number;
-                        title: string;
-                        imageSrc: string;
-                    }[],
-        t_units: {
+            id: number;
+            title: string;
+            imageSrc: string;
+        }[],
+        t_units:  // typeof t_units.$inferSelect[]
+        
+
+
+
+         // {
+    //     id: number;
+    //     title: string;
+    //     description: string;
+    //     imageSrc: string;
+    //     t_courseId: number;
+    //     order: number;
+    //     t_lessons: {
+    //         id: number;
+    //         title: string;
+    //         order: number;
+    //         t_unitId: number;
+    //         t_challenges: {
+    //             id: number;
+    //             points: number;
+    //             order: number;
+    //             type:  "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT" | "WORKBOOK" | "R ASSIST" | "R CONNECT" | "R SLIDER",
+    //             question: string;
+    //             author: string;
+    //             t_lessonId: number;
+    //         }[];}[]
+    // }[],
+
+    
+        {
             id: number;
             title: string;
             description: string;
@@ -39,11 +68,12 @@ type Props = {
                 t_unitId: number;
                 t_challenges: {
                     imageSrc: string;
+                    numRans: string;
                     difficulty: string;
                     id: number;
                     points: number;
                     order: number;
-                    type:  "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT",
+                    type:  "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT" | "WORKBOOK" | "R ASSIST" | "R CONNECT" | "R SLIDER",
                     question: string;
                     author: string;
                     t_lessonId: number;
@@ -144,7 +174,9 @@ return(
         {/* <BouncyCardsFeatures /> */}
         {/* <SlideTabsExample /> */}
 
-        <Tabs defaultValue="М9" className="pt-5      flex items-center flex-col relative ">
+        <Tabs defaultValue=
+            {t_courses[0].title}
+            className="pt-5      flex items-center flex-col relative ">
     
 
             {/*  TODO:    TAB TOP */}
@@ -281,10 +313,14 @@ return(
                                         <div className="rounded-xl bg-white/50">
 
                                         {
-                                            t_unit.t_lessons[t_unit.t_lessons.length - 1].t_challenges.filter(el => !el.question.includes("Соедините") )[0].imageSrc 
-                                            &&  t_unit.t_lessons[t_unit.t_lessons.length - 1].t_challenges.filter(el => !el.question.includes("Соедините") )[0].imageSrc  !== '0' 
+                                            // t_unit.t_lessons[t_unit.t_lessons.length - 1].t_challenges.filter(el => !el.question.includes("Соедините") )[0].imageSrc 
+                                            // &&  t_unit.t_lessons[t_unit.t_lessons.length - 1].t_challenges.filter(el => !el.question.includes("Соедините") )[0].imageSrc  !== '0' 
+                                            t_unit.title != '1'
+                                            
+                                            
                                             ?
                                             
+
                                             // <Image
                                             //     className="pt-8 mx-auto"
                                             //     src={`/trainer-images/${
@@ -294,7 +330,12 @@ return(
                                             //     height={90}
                                             //     width={90}
                                             // />  
-                                            <div></div>
+
+                                            <div>
+
+                                            </div>
+
+
 
                                             :
                                             <p className="text-gray-700 m-7 pt-3 pb-3 text-lg">

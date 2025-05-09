@@ -33,6 +33,22 @@ export const ChallengeEdit = () => {
                             id: "CONSTRUCT",
                             name: "CONSTRUCT",
                         },
+                        {
+                            id: "WORKBOOK",
+                            name: "WORKBOOK",
+                        },
+                        {
+                            id: "R ASSIST",
+                            name: "R ASSIST",
+                        },
+                        {
+                            id: "R CONNECT",
+                            name: "R CONNECT",
+                        },
+                        {
+                            id: "R SLIDER",
+                            name: "R SLIDER",
+                        },
                     ]}
                     validate={[required()]} 
                 /> 

@@ -1,14 +1,12 @@
 import * as React from "react";
 import { Slider, SliderRange, SliderThumb, SliderTrack } from "@radix-ui/react-slider";
-// import { Slider } from "radix-ui";
-// import { SliderRange } from "@radix-ui/react-slider";
-
 
 type Props = {
     randomValueForSlider: number;
     rightAnswer: number;
     sliderValue: number[];
     setSliderValue: (id: number[]) => void;
+    options: string[],
 }
 
 
@@ -18,18 +16,23 @@ export const SliderModern = ({
     rightAnswer,
     sliderValue,
     setSliderValue,
+    options,
 }: Props) => {
 
     
 
-
+    const intOptions:number[] = options.map(el => +el)
     const defaultValue=[Math.round((rightAnswer/2 + 3/2*rightAnswer*randomValueForSlider)*10)/10] 
 
-    const minV= Math.round((rightAnswer/2 + 3/2*rightAnswer*randomValueForSlider)*10)/10
+    // const minV= Math.round((rightAnswer/2 + 3/2*rightAnswer*randomValueForSlider)*10)/10
 
-    const maxV= Math.round((rightAnswer + 3/2*rightAnswer*randomValueForSlider)*10)/10
+    // const maxV= Math.round((rightAnswer + 3/2*rightAnswer*randomValueForSlider)*10)/10
 
-    const step = Math.round(1/2*rightAnswer/10*10)/10
+    const minV= Math.min(...intOptions)
+    const maxV= Math.max(...intOptions)
+
+    // const step = Math.round(1/2*rightAnswer/10*10)/10
+    const step = 1
 
     // const onValueChange = () => {(val) => setSliderValue(val)}
     
@@ -51,7 +54,7 @@ export const SliderModern = ({
 			</SliderTrack>
 			<SliderThumb
 				// className="block size-5 rounded-[10px] bg-white shadow-[0_2px_10px] shadow-blackA4 hover:bg-violet3 focus:shadow-[0_0_0_5px] focus:shadow-blackA5 focus:outline-none"
-				className="block size-5 rounded-[10px] bg-white shadow-[0_8px_20px] shadow-sky-800 hover:bg-sky-500/90 focus:shadow-[0_0_0_5px] focus:shadow-800 focus:outline-none"
+				className="block size-5 rounded-[10px] bg-white shadow-[0_8px_20px] shadow-sky-800 hover:bg-sky-500/90 focus:shadow-[0_0_0_3px] focus:shadow-800 focus:outline-none"
 				aria-label="Volume"
 			/>
 		</Slider>
