@@ -1,6 +1,7 @@
 'use client'
 
 import Example from "@/components/hover-me";
+import HTMLContent from "@/components/motion-number";
 import { FlipLink } from "@/components/reveal-links";
 import { TypeTextEffect } from "@/components/type-text-effect";
 import { t_lessonProgress, t_units } from "@/db/schema";
@@ -93,8 +94,10 @@ export const TCourseBanner = ({
                 </p>
                 
 
-                <p className="text-sm pt-2">
-                    пройдено {Math.round(averageDonePercent*100)}%
+                <p className="text-sm pt-2 flex">
+                    пройдено:
+                    <HTMLContent percent={Math.round(averageDonePercent*100)} />
+                    %
                 </p>                                  
 
                     

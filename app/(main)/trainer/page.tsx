@@ -6,6 +6,8 @@ import { redirect } from 'next/navigation';
 import { Header } from './header';
 import { auth, currentUser } from "@clerk/nextjs/server"
 import { TabTCourses } from '@/components/tab-t-courses';
+import ScrollTriggered from '@/components/framer-card';
+import HTMLContent from '@/components/motion-number';
 
 
 
@@ -190,8 +192,9 @@ const LearnPage = async () => {
 					user_id={user_id}
 				/>
 
+				
 
-				{/* <ScrollTriggered /> */}
+				<ScrollTriggered />
 
 			</FeedWrapper>
 		</div>
