@@ -379,8 +379,8 @@ export const VanillaDrag = () => {
     const snapPoints:SnapPointsType = {
 
         type: 'constraints-box',
-        // unit: 'percent',
-        unit: 'pixel',
+        unit: 'percent',
+        // unit: 'pixel',
         points: 
             // [
             //     { x: 0.1, y: 0.1 }, 
@@ -391,20 +391,29 @@ export const VanillaDrag = () => {
             //     { x: 1, y: 1 },
             //     { x: 0.3, y: 0.3 },
             // ],
-            [
-                { x: 100, y: 100 }, 
-                // { x: 400, y: 480 }, 
-                { x: 350, y: 350 }, 
-                // { y: 100 }, 
-                // { x: 200 }, 
+            // [
+            //     { x: 100, y: 100 }, 
+            //     // { x: 400, y: 480 }, 
+            //     { x: 350, y: 350 }, 
+            //     // { y: 100 }, 
+            //     // { x: 200 }, 
                 
+            // ],
+            [
+                { x: 0.1, y: 0.1 }, 
+                { x: 0.3, y: 0.2 }, 
+                { y: 0.5 }, 
+                { x: 0.75 }, 
+                { x: 0.9, y: 0.9 }, 
+                { x: 1, y: 1 },
+                { x: 0.3, y: 0.3 },
             ],
     };
  
 
 
 
-    const { dragProps, snapTo } = useSnap(
+    const { dragProps, currentSnappointIndex } = useSnap(
         {
             direction: 'both',
             ref: buttonRef,
@@ -420,7 +429,7 @@ export const VanillaDrag = () => {
         })
 
         
-        console.log(snapTo)
+        console.log(currentSnappointIndex)
 
 
 
@@ -441,6 +450,73 @@ export const VanillaDrag = () => {
                 }
             },
         }
+
+        
+
+        // animate={{ backgroundColor: ['hsl(0, 100, 50)', 'hsl(-120, 100, 50)'] }}.
+
+        const maxView = 600
+        const minView = 0
+
+
+
+
+
+
+
+
+    //     type constrType = {
+    //         constraints: Partial<BoundingBox> | RefObject<Element | null>,
+    //         ref: RefObject<Element | null>,
+    //     }
+
+    //     const resolveConstraintsMini = ({constraints, ref }: constrType) => {
+    //         if (constraints === undefined) {
+    //             return null;
+    //         };
+                        
+    //         if (!ref.current) {
+    //             throw new Error('Element ref is empty')
+    //         };
+
+    //         const constraintsBoxRef = useRef<BoundingBox | null>(null);
+    //         const box = 'current' in constraints ? constraintsBoxRef.current : constraints;
+    //         if (!box) {
+    //             throw new Error("Constraints wasn't measured");
+    //         }
+     
+     
+    //         const elementBox = ref.current.getBoundingClientRect();
+    //         const style = window.getComputedStyle(ref.current);
+    //         const transformMatrix = new DOMMatrixReadOnly(style.transform);
+    //         const baseX = window.scrollX + elementBox.x - transformMatrix.e;
+    //         const baseY = window.scrollY + elementBox.y - transformMatrix.f;
+     
+    //         const left = box.left !== undefined ? baseX + box.left : undefined;
+    //         const top = box.top !== undefined ? baseY + box.top : undefined;
+     
+    //         const right = box.right !== undefined ? baseX + box.right : undefined;
+    //         const bottom = box.bottom !== undefined ? baseY + box.bottom : undefined;
+     
+    //         const width = (left !== undefined && right !== undefined) ? right - left : undefined;
+    //         const height = (top !== undefined && bottom !== undefined) ? bottom - top : undefined;
+     
+    //         return {
+    //             left,
+    //             top,
+    //             width,
+    //             height,
+    //             right,
+    //             bottom,
+    //         };
+    //     };
+
+    // const box = resolveConstraintsMini(
+    //     {
+    //         constraints: containerRef,
+    //         ref: containerRef,
+    //     }
+    // )
 
         
     return (
@@ -496,11 +572,13 @@ export const VanillaDrag = () => {
 
 
 
-                <motion.circle
+                {/* <motion.circle
                     cx="100"
                     cy="100"
+                    // cx="0.2"
+                    // cy="0.2"
                     r="80"
-                    stroke="#FF0055"
+                    stroke=   {currentSnappointIndex == 0 ? "#FF0055" : "#7700FF"}
                     variants={draw}
                     custom={1}
                     style={{
@@ -508,11 +586,13 @@ export const VanillaDrag = () => {
                         strokeLinecap: "round",
                         fill: "transparent",
                     }}
-                />
+                /> */}
+
+
 
                 <motion.line
                     x1="300"
-                    y1="300"
+                    y1="200"
                     x2="400"
                     y2="400"
                     stroke="#7700FF"
@@ -525,35 +605,9 @@ export const VanillaDrag = () => {
                     }}
                 />
 
-                <motion.line
-                    x1="360"
-                    y1="170"
-                    x2="360"
-                    y2="30"
-                    stroke="#7700FF"
-                    variants={draw}
-                    custom={3}
-                    style={{
-                        strokeWidth: 10,
-                        strokeLinecap: "round",
-                        fill: "transparent",
-                    }}
-                />
+               
 
-                <motion.line
-                    x1="360"
-                    y1="30"
-                    x2="220"
-                    y2="30"
-                    stroke="#7700FF"
-                    variants={draw}
-                    custom={4}
-                    style={{
-                        strokeWidth: 10,
-                        strokeLinecap: "round",
-                        fill: "transparent",
-                    }}
-                />
+
 
 
             </motion.svg> 
