@@ -153,7 +153,10 @@ body {
     width: 100%;
     min-height: 500px;
     border-radius: 4px;
-    border: 2px solid #0479cd;
+    /* border: 2px solid #0479cd; */
+    /* border: 2px solid #cbd5e1; */
+    border: 1px dashed #cbd5e1;
+	
     position: relative;
  
     .drag-handle {
@@ -169,7 +172,9 @@ body {
     }
  
     .snappoint {
-        background: #cd0404;
+        /* background: #cd0404; */
+        background: #0284c7;
+		
         border-radius: 4px;
         position: absolute;
         opacity: 0.5;
