@@ -1,7 +1,7 @@
 'use client'
 
 
-import { MotionProps, useAnimationControls } from "framer-motion";
+import { BoundingBox, MotionProps, useAnimationControls } from "framer-motion";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpLeft, Cog } from "lucide-react";
@@ -26,29 +26,33 @@ export const AnimRightTriangleSin = ({
 
     const [x1, y1, x2, y2, x3, y3] = threeCoordinates
 
+    const HEIGHT_FORMULA_COEFF = 0.8
+
+
+    // const lineCoordinates = [
+    //     {
+    //         x1: x1,
+    //         y1: y1,
+    //         x2: x2,
+    //         y2: y2,
+    //     },
+    //     {
+    //         x1: x2,
+    //         y1: y2,
+    //         x2: x3,
+    //         y2: y3,
+    //     },
+    //     {
+    //         x1: x3,
+    //         y1: y3,
+    //         x2: x1,
+    //         y2: y1,
+    //     },
+    // ]
+
+
+
     
-
-
-    const lineCoordinates = [
-        {
-            x1: x1,
-            y1: y1,
-            x2: x2,
-            y2: y2,
-        },
-        {
-            x1: x2,
-            y1: y2,
-            x2: x3,
-            y2: y3,
-        },
-        {
-            x1: x3,
-            y1: y3,
-            x2: x1,
-            y2: y1,
-        },
-    ]
 
 
     const strokeWidth = 10
@@ -79,6 +83,71 @@ export const AnimRightTriangleSin = ({
     const handleWidth = 60;
     const handleHeight = 60;
 
+    const containerRef = useRef<HTMLDivElement>(null);
+
+    const [width, setWidth] = useState(0);
+    const [height, setHeight] = useState(0);
+    const [left, setLeft] = useState(0);
+    const [top, setTop] = useState(0);
+ 
+    useLayoutEffect(() => {
+        setWidth(containerRef.current?.getBoundingClientRect().width ?? 0);
+        setHeight(containerRef.current?.getBoundingClientRect().height ?? 0);
+        setLeft(containerRef.current?.getBoundingClientRect().left ?? 0);
+        setTop(containerRef.current?.getBoundingClientRect().top ?? 0);
+
+
+        
+    }, []);
+
+    // Так как вначале width и height не посчиталось, надо через useEffect обновить Snap координаты
+    useEffect(()=> {
+
+        setBigSnapListState([
+
+            {
+                pointId: 0,
+                isFree: true,
+                occupiedBy: 0,
+                coord: { x: (x1+x2) * width /2, y: (y1+y2) * height /2 }, 
+                // coord: { x: tt, y: cc }, 
+                // coord: { x: 492, y: 50 }, 
+            },
+            {
+                pointId: 1,
+                isFree: true,
+                occupiedBy: 1,
+                coord: { x: (x2+x3) * width /2, y: (y2+y3) * height /2 },
+            },
+            {
+                pointId: 2,
+                isFree: true,
+                occupiedBy: 2,
+                coord: { x: (x1+x3) * width /2, y: (y1+y3) * height /2 },
+            },
+
+
+            {
+                pointId: 3,
+                isFree: true,
+                occupiedBy: -1,
+                coord: { x: x1 * height , y: HEIGHT_FORMULA_COEFF * height},
+            },
+            {
+                pointId: 4,
+                isFree: true,
+                occupiedBy: -1,
+                coord: { x: x1 * height, y: (HEIGHT_FORMULA_COEFF + 0.1) * height},
+            },
+
+
+            
+
+        ])
+
+    }, [width, height])
+
+
 
 
 
@@ -89,19 +158,21 @@ export const AnimRightTriangleSin = ({
                 pointId: 0,
                 isFree: true,
                 occupiedBy: 0,
-                coord: { x: (x1+x2)/2, y: (y1+y2)/2 }, 
+                coord: { x: (x1+x2) * width /2, y: (y1+y2) * height /2 }, 
+                // coord: { x: tt, y: cc }, 
+                // coord: { x: 492, y: 50 }, 
             },
             {
                 pointId: 1,
                 isFree: true,
                 occupiedBy: 1,
-                coord: { x: (x2+x3)/2, y: (y2+y3)/2 },
+                coord: { x: (x2+x3) * width /2, y: (y2+y3) * height /2 },
             },
             {
                 pointId: 2,
                 isFree: true,
                 occupiedBy: 2,
-                coord: { x: (x1+x3)/2, y: (y1+y3)/2 },
+                coord: { x: (x1+x3) * width /2, y: (y1+y3) * height /2 },
             },
 
 
@@ -109,13 +180,13 @@ export const AnimRightTriangleSin = ({
                 pointId: 3,
                 isFree: true,
                 occupiedBy: -1,
-                coord: { x: x1 + deltaX + 20, y: y3 + deltaY - 90 + 20},
+                coord: { x: x1 * height , y: HEIGHT_FORMULA_COEFF * height},
             },
             {
                 pointId: 4,
                 isFree: true,
                 occupiedBy: -1,
-                coord: { x: x1 + deltaX + 20, y: y3 + deltaY + 4  + 20},
+                coord: { x: x1 * height, y: (HEIGHT_FORMULA_COEFF + 0.1) * height},
             },
 
 
@@ -124,17 +195,22 @@ export const AnimRightTriangleSin = ({
         ]
     )
 
+    
 
     const FormulaDots = [
         {
             id: 'formulaDot1',
-            cx: x1 + deltaX + 20,
-            cy: y3 + deltaY - 90 + 20,
+            // cx: x1 + deltaX + 20,
+            // cy: y3 + deltaY - 90 + 20,
+            cx: x1 * width,
+            cy: HEIGHT_FORMULA_COEFF * height ,
         },
         {
             id: 'formulaDot2',
-            cx: x1 + deltaX + 20,
-            cy: y3 + deltaY + 4 + 20,
+            // cx: x1 + deltaX + 20,
+            // cy: y3 + deltaY + 4 + 20,
+            cx: x1 * width,
+            cy: (HEIGHT_FORMULA_COEFF + 0.1) * height,
         },
 
     ]
@@ -160,17 +236,31 @@ export const AnimRightTriangleSin = ({
 
 
 
-    const containerRef = useRef<HTMLDivElement>(null);
-
-    const [width, setWidth] = useState(0);
-    const [height, setHeight] = useState(0);
- 
-    useLayoutEffect(() => {
-        setWidth(containerRef.current?.getBoundingClientRect().width ?? 0);
-        setHeight(containerRef.current?.getBoundingClientRect().height ?? 0);
-    }, []);
+    
  
 
+
+
+    const lineCoordinates = [
+        {
+            x1: width * x1,
+            y1: height * y1,
+            x2: width * x2,
+            y2: height * y2,
+        },
+        {
+            x1: width * x2,
+            y1: height * y2,
+            x2: width * x3,
+            y2: height * y3,
+        },
+        {
+            x1: width * x3,
+            y1: height * y3,
+            x2: width * x1,
+            y2: height * y1,
+        },
+    ]
 
 
     type PointsInitialFree = {
@@ -214,6 +304,8 @@ export const AnimRightTriangleSin = ({
  
     const snapPoints:SnapPointsType = {
         type: 'constraints-box',
+        // unit: 'percent',
+
         unit: 'pixel',
         points: points,
     };
@@ -260,6 +352,10 @@ export const AnimRightTriangleSin = ({
                 },
                 
             })
+
+
+
+        console.log(spanResult)
 
         useSnapList[0]=
             {
@@ -493,8 +589,8 @@ export const AnimRightTriangleSin = ({
 
 
 
-        console.log('mega')
-        console.log(mega)
+        // console.log('mega')
+        // console.log(mega)
 
 
         // 123
@@ -721,14 +817,15 @@ function placeDiv(x_pos: number, y_pos: number, elementId: string) {
 
 useEffect(()=>{
 
+    // 111
 
-    placeDiv((x1+x2)/2, (y1+y2)/2, `${ButtonList[0].id}`)
-    placeDiv((x3+x2)/2, (y3+y2)/2, `${ButtonList[1].id}`)
-    placeDiv((x1+x3)/2, (y1+y3)/2, `${ButtonList[2].id}`)
+    placeDiv((x1+x2)*width/2, (y1+y2)*height/2, `${ButtonList[0].id}`)
+    placeDiv((x3+x2)*width/2, (y3+y2)*height/2, `${ButtonList[1].id}`)
+    placeDiv((x1+x3)*width/2, (y1+y3)*height/2, `${ButtonList[2].id}`)
 
 
 
-    placeDiv(x1, y3 + deltaY - 35 + 20, 'sin')
+    placeDiv(x1*width, height*0.8 , 'sin')
 
 
 
@@ -736,18 +833,123 @@ useEffect(()=>{
     
     placeDiv(xCoordinates[0], xCoordinates[1], 'x')
     
-    placeDiv(x1 + 410 , y1+y3 + deltaY - 60, 'btnAnswer')
+
+    placeDiv(width * 0.5, height * HEIGHT_FORMULA_COEFF, 'btnAnswer')
+
+
 
     FormulaDots.map((dot, index) => {
-        placeDiv(dot.cx, dot.cy + deltaY, dot.id)
+        placeDiv(width * 0.8, height * HEIGHT_FORMULA_COEFF, dot.id)
       
     })
 
 
-}, [])
+}, [width, height, left, top])
     
 
 const transition = { duration: 1, yoyo: Infinity, ease: "easeInOut"}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+// resolveConstraintsComponent( {containerRef, ButtonList[0].buttonRef})
+// const box = resolveConstraintsComponent( containerRef, ButtonList[0].buttonRef)
+
+
+// console.log(box)
+
+
+
+// // TODO: 123
+
+// const ref = ButtonList[0].buttonRef
+// // const ref = useRef<HTMLButtonElement>(null)
+
+
+
+
+// const constraintsBoxRef = useRef<BoundingBox | null>(null);
+// const constraints = containerRef
+
+
+
+// const resolveConstraints = () => {
+//     if (constraints === undefined) {
+//         return null;
+//     };
+
+   
+//     if (!ref.current) {
+//         throw new Error('Element ref is empty')
+//     };
+
+//     const box = 'current' in constraints ? constraintsBoxRef.current : constraints;
+//     if (!box) {
+//         throw new Error("Constraints wasn't measured");
+//     }
+
+
+//     const elementBox = ref.current.getBoundingClientRect();
+//     const style = window.getComputedStyle(ref.current);
+//     const transformMatrix = new DOMMatrixReadOnly(style.transform);
+//     const baseX = window.scrollX + elementBox.x - transformMatrix.e;
+//     const baseY = window.scrollY + elementBox.y - transformMatrix.f;
+
+//     const left = box.left !== undefined ? baseX + box.left : undefined;
+//     const top = box.top !== undefined ? baseY + box.top : undefined;
+
+//     const right = box.right !== undefined ? baseX + box.right : undefined;
+//     const bottom = box.bottom !== undefined ? baseY + box.bottom : undefined;
+
+//     const width = (left !== undefined && right !== undefined) ? right - left : undefined;
+//     const height = (top !== undefined && bottom !== undefined) ? bottom - top : undefined;
+
+//     return {
+//         left,
+//         top,
+//         width,
+//         height,
+//         right,
+//         bottom,
+//     };
+// };
+
+
+// useEffect(()=>{
+//     const boxx = resolveConstraints();
+//     // if (!box) {
+//     //     throw new Error(`constraints weren't provided`);
+//     // }
+//     console.log(boxx)
+
+// },[])
+
+
+
+
+    useEffect(()=>{
+        console.log(width)
+        console.log(height)
+        console.log(left)
+        console.log(top)
+    },[width, height])
+
+
+
+
+
+
+
 
 
 
@@ -848,7 +1050,7 @@ const transition = { duration: 1, yoyo: Infinity, ease: "easeInOut"}
             </motion.div>
 
             {/* угол X */}
-                            
+{/*                             
             <motion.div
                 id='x'
                 initial={{ opacity: 0, scale: 0 }}
@@ -862,7 +1064,7 @@ const transition = { duration: 1, yoyo: Infinity, ease: "easeInOut"}
                 x 
 
             </motion.div>
-
+ */}
 
 
 
@@ -888,9 +1090,11 @@ const transition = { duration: 1, yoyo: Infinity, ease: "easeInOut"}
 
 
             <motion.svg
-                width="600"
-                height="600"
-                viewBox="0 0 600 600"
+                width= {width}
+                height= {height}
+                // width="600"
+                // height="600"
+                // viewBox="0 0 600 600"
                 initial="hidden"
                 animate="visible"
                 style={{ maxWidth: "80vw" }}
@@ -898,7 +1102,7 @@ const transition = { duration: 1, yoyo: Infinity, ease: "easeInOut"}
 
 
 
-
+{/*  222
 <motion.path
     transition={transition}
     initial={{ pathLength: 0.001 }}
@@ -911,7 +1115,7 @@ const transition = { duration: 1, yoyo: Infinity, ease: "easeInOut"}
     strokeWidth="11"
     strokeLinecap="round" 
     // custom={5}
-/>
+/> */}
 
 
 
@@ -928,6 +1132,10 @@ const transition = { duration: 1, yoyo: Infinity, ease: "easeInOut"}
                     <motion.line
                         key={index*5131078}
 
+                        // x1 = {line.x1}
+                        // y1 = {line.y1}
+                        // x2 = {line.x2}
+                        // y2 = {line.y2}
                         x1 = {line.x1}
                         y1 = {line.y1}
                         x2 = {line.x2}
@@ -943,6 +1151,27 @@ const transition = { duration: 1, yoyo: Infinity, ease: "easeInOut"}
                     />
 
                 ))}
+
+{/* 
+<motion.polygon
+    points={`${x1},${y1} ${x2},${y2} ${x3},${y3}`}
+    // fill="#234236"
+    fill="transparent"
+    variants = {draw}
+
+    // style={{
+    //     strokeWidth: strokeWidth,
+    //     strokeLinecap: "round",
+    //     fill: "transparent",
+    // }}
+  /> */}
+
+
+
+
+
+
+
 
 
 
@@ -990,11 +1219,11 @@ const transition = { duration: 1, yoyo: Infinity, ease: "easeInOut"}
                 {/* TODO:  FORMULA LINE (дробь)*/}
 
                 <motion.line
-                    x1 = {x1 + deltaX - 20}
-                    y1 = {y3 + deltaY - 15 + 20 }
+                    x1 = {x1 * width + 120}
+                    y1 = {HEIGHT_FORMULA_COEFF * height + 20}
                     // x2 = {x3 + deltaX + 120 }
-                    x2 = {x1 + deltaX + 120 }
-                    y2 = {y3 + deltaY - 15 + 20 }
+                    x2 = {x1 * width + 120 + 120 }
+                    y2 = {HEIGHT_FORMULA_COEFF * height + 20}
                     stroke= "#404040"
                     variants = {draw}
                     custom={3.5}
@@ -1015,7 +1244,7 @@ const transition = { duration: 1, yoyo: Infinity, ease: "easeInOut"}
                         key={index*51075138}
 
                         cx={dot.cx + handleWidth/2}
-                        cy={dot.cy + handleWidth/2}
+                        cy={dot.cy + handleHeight/2}
                         r="4"
                         // stroke= {colorCircle1}
                         stroke= {colorLineSlate}

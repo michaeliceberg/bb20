@@ -132,6 +132,10 @@ export const useSnapFTrue = ({
             }
  
             const box = resolveConstraints();
+
+            // console.log('box::::::')
+            // console.log(box)
+
             if (!box) {
                 throw new Error(`constraints weren't provided`);
             }
