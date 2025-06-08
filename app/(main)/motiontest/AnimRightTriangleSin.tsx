@@ -754,7 +754,7 @@ const transition = { duration: 1, yoyo: Infinity, ease: "easeInOut"}
                 // viewBox="0 0 600 600"
                 initial="hidden"
                 animate="visible"
-                style={{ maxWidth: "80vw" }}
+                // style={{ maxWidth: "80vw" }}
             >
 
 
