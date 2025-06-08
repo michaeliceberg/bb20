@@ -84,44 +84,13 @@ export default function Home() {
 
 
         <AnimRightTriangleSin
-            // threeCoordinates = {[40, 40, 550, 40, 40, 350]}
             threeCoordinates = {[0.1, 0.1, 0.9, 0.1, 0.1, 0.6]}
 
-            // xCoordinates = {[50, 295]}
-            // arcSVG = {"M 45,290 Q 80,280 90,315"}
 
 
-            xCoordinates = {[464, 42]}
+            // xCoordinates = {[0.13, 0.47]}
+            xCoordinates = {[0.7, 0.11]}
             arcSVG = {"M 440,42 Q 420,80 460,92"}
-
-
-            // threeCoordinates = {[40, 40, 550, 40, 550, 350]}
-
-            // xCoordinates = {[115, 45]}
-            // arcSVG = {"M 153,42 Q 170,80 140,100"}
-
-            // xCoordinates = {[515, 285]}
-            // arcSVG = {"M 480,300 Q 505,265 548,280"}
-
-
-            // threeCoordinates = {[40, 40, 550, 350, 40, 350]}
-
-            // xCoordinates = {[62, 72]}
-            // arcSVG = {"M 43,120 Q 85,130 120,90"}
-
-            // xCoordinates = {[450, 305]}
-            // arcSVG = {"M 420,348 Q 410,305 450,290"}
-
-
-
-            // threeCoordinates = {[40, 350, 550, 40, 550, 350]}
-
-            // xCoordinates = {[120, 305]}
-            // arcSVG = {"M 145,290 Q 175,315 165,348"}
-
-            // xCoordinates = {[505, 85]}
-            // arcSVG = {"M 450,105 Q 470,150 550,140"}
-
 
         />
 

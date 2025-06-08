@@ -22,6 +22,7 @@ import { TypeConnect } from "@/app/t-lesson/[t_lessonId]/type-connect"
 import { TypeWorkbook } from "@/app/t-lesson/[t_lessonId]/type-workbook"
 import { TypeConstructor } from "@/app/t-lesson/[t_lessonId]/type-constructor"
 import { AnimRightTriangleSin } from "@/app/(main)/motiontest/AnimRightTriangleSin"
+import { TypeAssistTRIANGLE } from "@/app/t-lesson/[t_lessonId]/type-assist-triangle"
 
 
 interface QuestionProps {
@@ -351,10 +352,31 @@ useEffect(() => {
 
         {
           question.questionType == "ASSIST" 
-          ? <TypeAssist 
-              question={question} 
-              onAnswer={onAnswer}
-            />
+          // ? <TypeAssist 
+          //     question={question} 
+          //     onAnswer={onAnswer}
+          //   />
+
+            ? <TypeAssistTRIANGLE 
+            // question={question} 
+            // onAnswer={onAnswer}
+
+
+            threeCoordinates = {[0.1, 0.1, 0.9, 0.1, 0.1, 0.6]}
+
+
+
+            // xCoordinates = {[0.13, 0.47]}
+            xCoordinates = {[0.7, 0.11]}
+            arcSVG = {"M 440,42 Q 420,80 460,92"}
+
+
+          />
+
+
+
+
+
 
           : question.questionType == "SLIDER"         
           ? <TypeSlider 
@@ -375,6 +397,19 @@ useEffect(() => {
               options = {question.options} 
             />
                     
+    
+        //     TypeWorkbookTRIANGLE
+
+        // <AnimRightTriangleSin
+        //     threeCoordinates = {[0.1, 0.1, 0.9, 0.1, 0.1, 0.6]}
+        //     // xCoordinates = {[0.13, 0.47]}
+        //     xCoordinates = {[0.7, 0.11]}
+        //     arcSVG = {"M 440,42 Q 420,80 460,92"}
+
+        // />
+
+
+
 
 
           : <TypeConstructor

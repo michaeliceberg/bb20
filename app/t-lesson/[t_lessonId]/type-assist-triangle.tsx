@@ -1,14 +1,28 @@
 'use client'
 
+import React from 'react'
+import { QuestionType } from './page'
+import Latex from 'react-latex-next';
+import 'katex/dist/katex.min.css';
+
+
 
 import { BoundingBox, MotionProps, useAnimationControls } from "framer-motion";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
 import { ArrowUpLeft, Cog } from "lucide-react";
-import { SnapPointsType } from "./useSnap";
-import { useSnapFTrue } from "./useSnapFTrue";
+// import { SnapPointsType } from "./useSnap";
+// import { useSnapFTrue } from "./useSnapFTrue";
 import { Button } from "@/components/ui/button";
+import { SnapPointsType } from './useSnap';
+import { useSnapFTrue } from './useSnapFTrue';
 
+
+
+// type Props = {
+//   question: QuestionType
+//   onAnswer: (answer: string) => void
+// }
 
 
 type Props = {
@@ -18,13 +32,26 @@ type Props = {
     
 }
 
-export const AnimRightTriangleSin = ({
+
+
+
+
+// export const TypeAssistTRIANGLE = ({
+//     question,
+//     onAnswer,
+// }:Props) => {
+
+
+
+  export const TypeAssistTRIANGLE = ({
     threeCoordinates,
     xCoordinates,
     arcSVG,
 }: Props) => {
 
-    const [x1, y1, x2, y2, x3, y3] = threeCoordinates
+
+
+  const [x1, y1, x2, y2, x3, y3] = threeCoordinates
 
 
 
@@ -610,132 +637,161 @@ useEffect(()=>{
 
 
 
-    return (
+
+
+
+
+
+  return (
+    
+  // <div className="grid grid-cols-2 gap-x-2 gap-y-2 mt-10">
+    
+  //   {question.options.map((option, index) => (
+
+  //         <button
+  //           key={index*28748}
+  //           onClick={() => onAnswer(option)}
+  //           className="inline-flex items-center justify-center whitespace-nowrap rounded-xl text-sm font-bold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 tracking-wide bg-white border-slate-200 border-2 border-b-4 active:border-b-2 hover:bg-slate-100 text-slate-500"
+  //         >
+  //           <p className="m-4">
+  //             <Latex>
+  //               {option}
+  //             </Latex>
+  //           </p>
+  //         </button>
+          
+  //   ))}
+
+  
+  // </div>
+
+
+
+
+
+
+
+  <motion.div 
+  className="SnappingExample" 
+  ref={containerRef}
+>
+  
+  
+  {/* TODO: 234 СТИКЕРЫ - кнопки,  которые перетягиваем */}
+
+   {ButtonList.map( (button, index) => 
+
+      <motion.button 
+          key={index*51078}
+          id={`${button.id}`}
+          ref={button.buttonRef}
+          className={`text-xl rounded text-primary-foreground `}
+          style={{ width: handleWidth, height: handleHeight }} 
+          drag 
+          dragConstraints={containerRef}
+          {...useSnapList[index].dragProps}
+
+          custom={13}
+
+          variants = {{
+              initialBG: {
+                  backgroundColor: colorLineSlate,
+                  
+              },
+              snapColorBG: {
+                  backgroundColor: colorLineList[index],
+              },
+          }}
+
+          initial = 'initialBG'
+          animate= {listControlsColorBG[index]}
+          
+
+          whileHover={{
+              scale: 1.2,
+              rotate: 5,
+              transition: { duration: 0.2 },
+          }}
+          whileTap={{
+              scale: 0.8,
+              rotate: -5,
+          }}
+          transition={{
+              type: "spring",
+              stiffness: 400,
+              damping: 17,
+          }}
+      
+
+
+      >
+              
+          {button.text}
+
+          <motion.div className="absolute top-0 -pt-4  text-white text-2xl">
+
+              <ArrowUpLeft size='20' />
+
+          </motion.div>
+
+
+      </motion.button>
+      
+  )} 
+
+
+
+
+
+
+
+  {/* TODO: sin  Пишем формулу */}
 
       
-        
+  <motion.div
+      id='sin'
+      initial={{ opacity: 0, scale: 0 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{
+          duration: 0.4,
+          scale: { type: "spring", visualDuration: 0.4, bounce: 0.5 },
+      }}
+      className="absolute text-3xl"
+  >
+     sin(x) = 
 
-        <motion.div 
-            className="SnappingExample" 
-            ref={containerRef}
-        >
-            
-            
-            {/* TODO: 234 СТИКЕРЫ - кнопки,  которые перетягиваем */}
+  </motion.div>
 
-             {ButtonList.map( (button, index) => 
+  {/* угол X */}
+                  
+  <motion.div
+      id='x'
+      initial={{ opacity: 0, scale: 0 }}
+      animate={{ opacity: 1, scale: 1 }}
+      transition={{
+          duration: 0.4,
+          scale: { type: "spring", visualDuration: 0.4, bounce: 0.5 },
+      }}
+      className="absolute text-3xl text-slate-300 font-bold"
+  >
+      x 
 
-                <motion.button 
-                    key={index*51078}
-                    id={`${button.id}`}
-                    ref={button.buttonRef}
-                    className={`text-xl rounded text-primary-foreground `}
-                    style={{ width: handleWidth, height: handleHeight }} 
-                    drag 
-                    dragConstraints={containerRef}
-                    {...useSnapList[index].dragProps}
-
-                    custom={13}
-
-                    variants = {{
-                        initialBG: {
-                            backgroundColor: colorLineSlate,
-                            
-                        },
-                        snapColorBG: {
-                            backgroundColor: colorLineList[index],
-                        },
-                    }}
-
-                    initial = 'initialBG'
-                    animate= {listControlsColorBG[index]}
-                    
-
-                    whileHover={{
-                        scale: 1.2,
-                        rotate: 5,
-                        transition: { duration: 0.2 },
-                    }}
-                    whileTap={{
-                        scale: 0.8,
-                        rotate: -5,
-                    }}
-                    transition={{
-                        type: "spring",
-                        stiffness: 400,
-                        damping: 17,
-                    }}
-                
-
-
-                >
-                        
-                    {button.text}
-
-                    <motion.div className="absolute top-0 -pt-4  text-white text-2xl">
-
-                        <ArrowUpLeft size='20' />
-
-                    </motion.div>
-
-
-                </motion.button>
-                
-            )} 
+  </motion.div>
 
 
 
 
 
-        
+  {/* TODO: ОТВЕТ */}
 
-            {/* TODO: sin  Пишем формулу */}
-
-                
-            <motion.div
-                id='sin'
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{
-                    duration: 0.4,
-                    scale: { type: "spring", visualDuration: 0.4, bounce: 0.5 },
-                }}
-                className="absolute text-3xl"
-            >
-               sin(x) = 
-
-            </motion.div>
-
-            {/* угол X */}
-                            
-            <motion.div
-                id='x'
-                initial={{ opacity: 0, scale: 0 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{
-                    duration: 0.4,
-                    scale: { type: "spring", visualDuration: 0.4, bounce: 0.5 },
-                }}
-                className="absolute text-3xl text-slate-300 font-bold"
-            >
-                x 
-
-            </motion.div>
-
-
-
-
-
-            {/* TODO: ОТВЕТ */}
-
-            <Button 
-                id = 'btnAnswer'
-                disabled = {!isAnswered}
-                className = "absolute"
-                variant='primary'
-            >
-                ответить
-            </Button>
+  <Button 
+      id = 'btnAnswer'
+      disabled = {!isAnswered}
+      className = "absolute"
+      variant='primary'
+  >
+      ответить
+  </Button>
 
 
 
@@ -746,32 +802,32 @@ useEffect(()=>{
 
 
 
-            <motion.svg
-                width= {width}
-                height= {height}
-                // width="600"
-                // height="600"
-                // viewBox="0 0 600 600"
-                initial="hidden"
-                animate="visible"
-                // style={{ maxWidth: "80vw" }}
-            >
+  <motion.svg
+      width= {width}
+      height= {height}
+      // width="600"
+      // height="600"
+      // viewBox="0 0 600 600"
+      initial="hidden"
+      animate="visible"
+      // style={{ maxWidth: "80vw" }}
+  >
 
 
 
 {/*  Дуга УГЛА 222
 <motion.path
-    transition={transition}
-    initial={{ pathLength: 0.001 }}
-    animate={{ pathLength: 1 }}
-    // 123
-    // threeCoordinates = {[40, 40, 550, 40, 40, 350]}
-    d={arcSVG}
-    fill="none"
-    stroke={colorLineSlate}
-    strokeWidth="11"
-    strokeLinecap="round" 
-    // custom={5}
+transition={transition}
+initial={{ pathLength: 0.001 }}
+animate={{ pathLength: 1 }}
+// 123
+// threeCoordinates = {[40, 40, 550, 40, 40, 350]}
+d={arcSVG}
+fill="none"
+stroke={colorLineSlate}
+strokeWidth="11"
+strokeLinecap="round" 
+// custom={5}
 /> */}
 
 
@@ -782,46 +838,46 @@ useEffect(()=>{
 
 
 
-                {/* TODO:  LINES    рисуем серые линии */}
+      {/* TODO:  LINES    рисуем серые линии */}
 
-                {lineCoordinates.map((line, index) => (
+      {lineCoordinates.map((line, index) => (
 
-                    <motion.line
-                        key={index*5131078}
+          <motion.line
+              key={index*5131078}
 
-                        // x1 = {line.x1}
-                        // y1 = {line.y1}
-                        // x2 = {line.x2}
-                        // y2 = {line.y2}
-                        x1 = {line.x1}
-                        y1 = {line.y1}
-                        x2 = {line.x2}
-                        y2 = {line.y2}
-                        stroke = {colorLineSlate}
-                        variants = {draw}
-                        custom={2 + index * 1.5}
-                        style={{
-                            strokeWidth: strokeWidth,
-                            strokeLinecap: "round",
-                            fill: "transparent",
-                        }}
-                    />
+              // x1 = {line.x1}
+              // y1 = {line.y1}
+              // x2 = {line.x2}
+              // y2 = {line.y2}
+              x1 = {line.x1}
+              y1 = {line.y1}
+              x2 = {line.x2}
+              y2 = {line.y2}
+              stroke = {colorLineSlate}
+              variants = {draw}
+              custom={2 + index * 1.5}
+              style={{
+                  strokeWidth: strokeWidth,
+                  strokeLinecap: "round",
+                  fill: "transparent",
+              }}
+          />
 
-                ))}
+      ))}
 
 {/* 
 <motion.polygon
-    points={`${x1},${y1} ${x2},${y2} ${x3},${y3}`}
-    // fill="#234236"
-    fill="transparent"
-    variants = {draw}
+points={`${x1},${y1} ${x2},${y2} ${x3},${y3}`}
+// fill="#234236"
+fill="transparent"
+variants = {draw}
 
-    // style={{
-    //     strokeWidth: strokeWidth,
-    //     strokeLinecap: "round",
-    //     fill: "transparent",
-    // }}
-  /> */}
+// style={{
+//     strokeWidth: strokeWidth,
+//     strokeLinecap: "round",
+//     fill: "transparent",
+// }}
+/> */}
 
 
 
@@ -833,158 +889,158 @@ useEffect(()=>{
 
 
 
-                {/* TODO: 123 рисуем ЦВЕТНЫЕ SNAP линии (просто меняем Opacity) */}
+      {/* TODO: 123 рисуем ЦВЕТНЫЕ SNAP линии (просто меняем Opacity) */}
 
 
-                {lineCoordinates.map((line, index) => (
+      {lineCoordinates.map((line, index) => (
 
-                    <motion.line
-                        key={index*5107851}
+          <motion.line
+              key={index*5107851}
 
-                        x1 = {line.x1}
-                        y1 = {line.y1}
-                        x2 = {line.x2}
-                        y2 = {line.y2}
-                        stroke= {colorLineList[index]}
-                        variants = {{
-                            initial: {
-                                opacity: '0',
-                            },
-                            snapColor: {
-                                opacity: [0, 1],
-                            }
-                        }}
-                        custom={0}
-                        style={{
-                            strokeWidth: strokeWidth,
-                            strokeLinecap: "round",
-                            fill: "transparent",
-                        }}
-                        initial = 'initial'
-                        animate = {listControlsColorLine[index]}
-                        // transition={{ duration: 1 }}
-                        // transition={{ type: "spring" }}
-                    />
+              x1 = {line.x1}
+              y1 = {line.y1}
+              x2 = {line.x2}
+              y2 = {line.y2}
+              stroke= {colorLineList[index]}
+              variants = {{
+                  initial: {
+                      opacity: '0',
+                  },
+                  snapColor: {
+                      opacity: [0, 1],
+                  }
+              }}
+              custom={0}
+              style={{
+                  strokeWidth: strokeWidth,
+                  strokeLinecap: "round",
+                  fill: "transparent",
+              }}
+              initial = 'initial'
+              animate = {listControlsColorLine[index]}
+              // transition={{ duration: 1 }}
+              // transition={{ type: "spring" }}
+          />
 
-                ))}
-                
+      ))}
+      
 
 
 
 
 
-                {/* TODO:  FORMULA LINE (дробь)*/}
+      {/* TODO:  FORMULA LINE (дробь)*/}
 
-                <motion.line
-                    x1 = {x1 * width + 120}
-                    y1 = {HEIGHT_FORMULA_COEFF * height + 20}
-                    // x2 = {x3 + deltaX + 120 }
-                    x2 = {x1 * width + 120 + 120 }
-                    y2 = {HEIGHT_FORMULA_COEFF * height + 20}
-                    stroke= "#404040"
-                    variants = {draw}
-                    custom={3.5}
-                    style={{
-                        strokeWidth: 3,
-                        strokeLinecap: "round",
-                        fill: "transparent",
-                    }}
-                />
+      <motion.line
+          x1 = {x1 * width + 120}
+          y1 = {HEIGHT_FORMULA_COEFF * height + 20}
+          // x2 = {x3 + deltaX + 120 }
+          x2 = {x1 * width + 120 + 120 }
+          y2 = {HEIGHT_FORMULA_COEFF * height + 20}
+          stroke= "#404040"
+          variants = {draw}
+          custom={3.5}
+          style={{
+              strokeWidth: 3,
+              strokeLinecap: "round",
+              fill: "transparent",
+          }}
+      />
 
 
-                {/* TODO:  FORMULA snap CIRCLES    222 */}
+      {/* TODO:  FORMULA snap CIRCLES    222 */}
 
-                {FormulaDots.map((dot, index) => (
+      {FormulaDots.map((dot, index) => (
 
 
-                    <motion.circle  
-                        key={index*51075138}
+          <motion.circle  
+              key={index*51075138}
 
-                        cx={dot.cx + handleWidth/2}
-                        cy={dot.cy + handleHeight/2}
-                        r="4"
-                        // stroke= {colorCircle1}
-                        stroke= {colorLineSlate}
+              cx={dot.cx + handleWidth/2}
+              cy={dot.cy + handleHeight/2}
+              r="4"
+              // stroke= {colorCircle1}
+              stroke= {colorLineSlate}
 
-                        variants={draw}
-                        custom={6.5 + index}
-                        style={{
-                            strokeWidth: strokeWidth,
-                            strokeLinecap: "round",
-                            fill: "transparent",
-                        }}
-                    />
+              variants={draw}
+              custom={6.5 + index}
+              style={{
+                  strokeWidth: strokeWidth,
+                  strokeLinecap: "round",
+                  fill: "transparent",
+              }}
+          />
 
 
-                ))}
+      ))}
 
 
 
 
 
-                {/* TODO:   GRAY   CIRCLE  на Lines */}
+      {/* TODO:   GRAY   CIRCLE  на Lines */}
 
-                {lineCoordinates.map((line, index) => (
+      {lineCoordinates.map((line, index) => (
 
-                    <motion.circle  
-                        key={index*55101783}
+          <motion.circle  
+              key={index*55101783}
 
-                        cx={(line.x1+line.x2)/2}
-                        cy={(line.y1+line.y2)/2}
-                        r="4"
-                        // stroke= {colorCircle1}
-                        stroke= {colorLineSlate}
+              cx={(line.x1+line.x2)/2}
+              cy={(line.y1+line.y2)/2}
+              r="4"
+              // stroke= {colorCircle1}
+              stroke= {colorLineSlate}
 
-                        variants={draw}
-                        custom={6.5}
-                        style={{
-                            strokeWidth: strokeWidth,
-                            strokeLinecap: "round",
-                            fill: "transparent",
-                        }}
-                    />
+              variants={draw}
+              custom={6.5}
+              style={{
+                  strokeWidth: strokeWidth,
+                  strokeLinecap: "round",
+                  fill: "transparent",
+              }}
+          />
 
-                ))}
+      ))}
 
 
 
 
-                {/* TODO: COLOR circle SNAP на Lines */}
+      {/* TODO: COLOR circle SNAP на Lines */}
 
-                {lineCoordinates.map((line, index) => (
+      {lineCoordinates.map((line, index) => (
 
-                    <motion.circle  
-                        key={index*5106378}
+          <motion.circle  
+              key={index*5106378}
 
-                        cx={(line.x1+line.x2)/2}
-                        cy={(line.y1+line.y2)/2}
-                        r="4"
-                        stroke= {colorLineList[index]}
+              cx={(line.x1+line.x2)/2}
+              cy={(line.y1+line.y2)/2}
+              r="4"
+              stroke= {colorLineList[index]}
 
-                        variants = {{
-                            initial: {
-                                opacity: '0'
-                            },
-                            snapColor: {
-                                opacity: [0, 1],
-                            }
-                        }}
+              variants = {{
+                  initial: {
+                      opacity: '0'
+                  },
+                  snapColor: {
+                      opacity: [0, 1],
+                  }
+              }}
 
-                        custom={0}
-                        style={{
-                            strokeWidth: strokeWidth,
-                            strokeLinecap: "round",
-                            fill: "transparent",
-                        }}
+              custom={0}
+              style={{
+                  strokeWidth: strokeWidth,
+                  strokeLinecap: "round",
+                  fill: "transparent",
+              }}
 
-                        initial = 'initial'
-                        animate = {listControlsColorLine[index]}
-                    />
+              initial = 'initial'
+              animate = {listControlsColorLine[index]}
+          />
 
 
-                ))}
+      ))}
 
-                
+      
 
 
 
@@ -993,13 +1049,17 @@ useEffect(()=>{
 
 
 
-            </motion.svg> 
+  </motion.svg> 
 
 
-            
+  
 
-        </motion.div>
-    );
-};
+</motion.div>
+);
 
 
+
+
+
+  
+}
