@@ -21,6 +21,7 @@ import { TypeSlider } from "@/app/t-lesson/[t_lessonId]/type-slider"
 import { TypeConnect } from "@/app/t-lesson/[t_lessonId]/type-connect"
 import { TypeWorkbook } from "@/app/t-lesson/[t_lessonId]/type-workbook"
 import { TypeConstructor } from "@/app/t-lesson/[t_lessonId]/type-constructor"
+import { AnimRightTriangleSin } from "@/app/(main)/motiontest/AnimRightTriangleSin"
 
 
 interface QuestionProps {
@@ -374,6 +375,7 @@ useEffect(() => {
               options = {question.options} 
             />
                     
+
 
           : <TypeConstructor
               question={question} 

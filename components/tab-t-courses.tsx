@@ -17,6 +17,7 @@ import { motion } from 'framer-motion'
 import { TrainerLessonItemRound } from "./trainer-list-round";
 import { Block } from "./block";
 import { FlipLink } from "./reveal-links";
+import { AnimRightTriangleSin } from "@/app/(main)/motiontest/AnimRightTriangleSin";
 
 
 type Props = {    
@@ -213,7 +214,6 @@ return(
                             CourseStat={CourseStat}
 						/>
 						
-						
 
 
 
@@ -387,6 +387,10 @@ return(
                             Показать все формулы                                
                         </Button>
 
+
+                        
+
+
                         {showFormulas && 
 
                         
@@ -427,6 +431,14 @@ return(
                         }
 
 
+
+
+                     <AnimRightTriangleSin
+                      threeCoordinates = {[0.1, 0.1, 0.9, 0.1, 0.1, 0.6]}
+                      xCoordinates = {[464, 42]}
+                      arcSVG = {"M 440,42 Q 420,80 460,92"}
+                    />
+
 						
 					</div>
 
@@ -454,25 +466,34 @@ export default TabTCourses
 
 
 
-const BounceCard = ({
-    className,
-    children,
-  }: {
-    className: string;
-    children: ReactNode;
-  }) => {
-    return (
-      <motion.div
-        whileHover={{ scale: 0.95, rotate: "-1deg", boxShadow: "8px 8px #758277", }}
-        className={`w-full bg-green-500 text-2xl text-white justify-center bg-[url('/MemesImage/i-like-food.svg')] group relative min-h-[250px] overflow-hidden rounded-2xl pl-6 pr-6 pt-6 ${className}`}
-      >
-        {children}
-      </motion.div>
-    );
-  };
+// const BounceCard = ({
+//     className,
+//     children,
+//   }: {
+//     className: string;
+//     children: ReactNode;
+//   }) => {
+//     return (
+//       <motion.div
+//         whileHover={{ scale: 0.95, rotate: "-1deg", boxShadow: "8px 8px #758277", }}
+//         className={`w-full bg-green-500 text-2xl text-white justify-center bg-[url('/MemesImage/i-like-food.svg')] group relative min-h-[250px] overflow-hidden rounded-2xl pl-6 pr-6 pt-6 ${className}`}
+//       >
+//         {children}
+//       </motion.div>
+//     );
+//   };
   
-  const CardTitle = ({ children }: { children: ReactNode }) => {
-    return (
-      <h3 className="mx-auto text-center text-3xl font-semibold">{children}</h3>
-    );
-  };
+//   const CardTitle = ({ children }: { children: ReactNode }) => {
+//     return (
+//       <h3 className="mx-auto text-center text-3xl font-semibold">{children}</h3>
+//     );
+//   };
+
+
+
+
+//   ?  <AnimRightTriangleSin
+//   threeCoordinates = {[0.1, 0.1, 0.9, 0.1, 0.1, 0.6]}
+//   xCoordinates = {[464, 42]}
+//   arcSVG = {"M 440,42 Q 420,80 460,92"}
+// >

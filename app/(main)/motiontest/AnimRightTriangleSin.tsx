@@ -29,36 +29,8 @@ export const AnimRightTriangleSin = ({
     const HEIGHT_FORMULA_COEFF = 0.8
 
 
-    // const lineCoordinates = [
-    //     {
-    //         x1: x1,
-    //         y1: y1,
-    //         x2: x2,
-    //         y2: y2,
-    //     },
-    //     {
-    //         x1: x2,
-    //         y1: y2,
-    //         x2: x3,
-    //         y2: y3,
-    //     },
-    //     {
-    //         x1: x3,
-    //         y1: y3,
-    //         x2: x1,
-    //         y2: y1,
-    //     },
-    // ]
-
-
-
-    
-
-
     const strokeWidth = 10
 
-    const deltaX = 150
-    const deltaY = 150
 
     const colorLineSlate = "#cbd5e1"  // slate300
     
@@ -101,17 +73,19 @@ export const AnimRightTriangleSin = ({
     }, []);
 
     // Так как вначале width и height не посчиталось, надо через useEffect обновить Snap координаты
+    //
     useEffect(()=> {
 
         setBigSnapListState([
+
+
+            // INITIAL STATE (Кнопки находятся в точках)
 
             {
                 pointId: 0,
                 isFree: true,
                 occupiedBy: 0,
                 coord: { x: (x1+x2) * width /2, y: (y1+y2) * height /2 }, 
-                // coord: { x: tt, y: cc }, 
-                // coord: { x: 492, y: 50 }, 
             },
             {
                 pointId: 1,
@@ -127,17 +101,20 @@ export const AnimRightTriangleSin = ({
             },
 
 
+            // SNAP FORMULA
+
+
             {
                 pointId: 3,
                 isFree: true,
                 occupiedBy: -1,
-                coord: { x: x1 * height , y: HEIGHT_FORMULA_COEFF * height},
+                coord: { x: x1 * width * 2.5, y: HEIGHT_FORMULA_COEFF * height - handleWidth},
             },
             {
                 pointId: 4,
                 isFree: true,
                 occupiedBy: -1,
-                coord: { x: x1 * height, y: (HEIGHT_FORMULA_COEFF + 0.1) * height},
+                coord: { x: x1 * width * 2.5, y: (HEIGHT_FORMULA_COEFF + 0.1) * height - handleWidth/4},
             },
 
 
@@ -159,8 +136,7 @@ export const AnimRightTriangleSin = ({
                 isFree: true,
                 occupiedBy: 0,
                 coord: { x: (x1+x2) * width /2, y: (y1+y2) * height /2 }, 
-                // coord: { x: tt, y: cc }, 
-                // coord: { x: 492, y: 50 }, 
+
             },
             {
                 pointId: 1,
@@ -200,17 +176,13 @@ export const AnimRightTriangleSin = ({
     const FormulaDots = [
         {
             id: 'formulaDot1',
-            // cx: x1 + deltaX + 20,
-            // cy: y3 + deltaY - 90 + 20,
-            cx: x1 * width,
-            cy: HEIGHT_FORMULA_COEFF * height ,
+            cx: BigSnapListState[3].coord.x,
+            cy: BigSnapListState[3].coord.y,
         },
         {
             id: 'formulaDot2',
-            // cx: x1 + deltaX + 20,
-            // cy: y3 + deltaY + 4 + 20,
-            cx: x1 * width,
-            cy: (HEIGHT_FORMULA_COEFF + 0.1) * height,
+            cx: BigSnapListState[4].coord.x,
+            cy: BigSnapListState[4].coord.y,
         },
 
     ]
@@ -237,9 +209,6 @@ export const AnimRightTriangleSin = ({
 
 
     
- 
-
-
 
     const lineCoordinates = [
         {
@@ -266,8 +235,6 @@ export const AnimRightTriangleSin = ({
     type PointsInitialFree = {
         y?: number;
         x?: number;
-
-        // pointId: number;
     }[] 
 
     type PointsInitialFreeID = {
@@ -294,18 +261,14 @@ export const AnimRightTriangleSin = ({
         }
     ))
 
-    // console.log('pointsInitialFreeWithID!!!!', pointsInitialFreeWithID)
-    
-
-    // const [points, setPoints] = useState(PointsInitialFree)
+   
     const points = PointsInitialFree
 
 
  
     const snapPoints:SnapPointsType = {
         type: 'constraints-box',
-        // unit: 'percent',
-
+       
         unit: 'pixel',
         points: points,
     };
@@ -325,14 +288,52 @@ export const AnimRightTriangleSin = ({
     let useSnapList: TypeUseSnapList= []
 
     
-    // const useSnapList = ButtonList.map((button, index) => {
 
 
-        // TODO: FTrue  изначально TRUE (прикреплены к точкам)
-        //
-        let ii = 0
-        let spanResult  = useSnapFTrue(
+    // TODO: FTrue  изначально TRUE (прикреплены к точкам)
+    //
+    let ii = 0
+    let spanResult  = useSnapFTrue(
+        
+        {
+            // initialSnapPoint: index, // к чему изначально прикреплена эта кнопка
+            initialSnapPoint: BigSnapListState.filter(el=>el.occupiedBy == ButtonList[ii].id)[0]?.pointId, 
+
             
+            direction: 'both',
+            ref: ButtonList[ii].buttonRef,
+            constraints: containerRef,
+
+            snapPoints: 
+            { 
+                type: snapPoints.type,
+                unit: snapPoints.unit,
+                
+                // сюда вставляем СВОБОДНЫЕ snap point
+                points: snapPoints.points,
+            },
+            
+        })
+
+
+
+    useSnapList[0]=
+        {
+            buttonId: ButtonList[0].id,
+            buttonIndex: ii,
+            dragProps: spanResult.dragProps,
+            currentSnappointIndex: spanResult.currentSnappointIndex       
+        }
+    
+
+
+
+
+        // Хук useSnap нельзя пихать в ButtonList.map, поэтому 3 отдельных индекса ii
+        //
+        ii = 1
+        spanResult  = useSnapFTrue(
+        
             {
                 // initialSnapPoint: index, // к чему изначально прикреплена эта кнопка
                 initialSnapPoint: BigSnapListState.filter(el=>el.occupiedBy == ButtonList[ii].id)[0]?.pointId, 
@@ -353,25 +354,22 @@ export const AnimRightTriangleSin = ({
                 
             })
 
-
-
-        console.log(spanResult)
-
-        useSnapList[0]=
+        useSnapList[ii]=
             {
-                buttonId: ButtonList[0].id,
+                buttonId: ButtonList[ii].id,
                 buttonIndex: ii,
                 dragProps: spanResult.dragProps,
                 currentSnappointIndex: spanResult.currentSnappointIndex       
             }
-        
-  
 
 
 
 
 
-            ii = 1
+
+
+
+            ii = 2
             spanResult  = useSnapFTrue(
             
                 {
@@ -401,96 +399,6 @@ export const AnimRightTriangleSin = ({
                     dragProps: spanResult.dragProps,
                     currentSnappointIndex: spanResult.currentSnappointIndex       
                 }
-
-
-
-
-
-
-
-
-                ii = 2
-                spanResult  = useSnapFTrue(
-                
-                    {
-                        // initialSnapPoint: index, // к чему изначально прикреплена эта кнопка
-                        initialSnapPoint: BigSnapListState.filter(el=>el.occupiedBy == ButtonList[ii].id)[0]?.pointId, 
-        
-                        
-                        direction: 'both',
-                        ref: ButtonList[ii].buttonRef,
-                        constraints: containerRef,
-            
-                        snapPoints: 
-                        { 
-                            type: snapPoints.type,
-                            unit: snapPoints.unit,
-                            
-                            // сюда вставляем СВОБОДНЫЕ snap point
-                            points: snapPoints.points,
-                        },
-                        
-                    })
-        
-                useSnapList[ii]=
-                    {
-                        buttonId: ButtonList[ii].id,
-                        buttonIndex: ii,
-                        dragProps: spanResult.dragProps,
-                        currentSnappointIndex: spanResult.currentSnappointIndex       
-                    }
-
-
-
-
-
-
-
-
-
-    // const useSnapList = ButtonList.map((button, index) => {
-
-
-    //     // TODO: FTrue  изначально TRUE (прикреплены к точкам)
-    //     //
-    //     const spanResult  = useSnapFTrue(
-            
-    //         {
-    //             // initialSnapPoint: index, // к чему изначально прикреплена эта кнопка
-    //             initialSnapPoint: BigSnapListState.filter(el=>el.occupiedBy == button.id)[0]?.pointId, 
-
-                
-    //             direction: 'both',
-    //             ref: button.buttonRef,
-    //             constraints: containerRef,
-    
-    //             snapPoints: 
-    //             { 
-    //                 type: snapPoints.type,
-    //                 unit: snapPoints.unit,
-                    
-    //                 // сюда вставляем СВОБОДНЫЕ snap point
-    //                 points: snapPoints.points,
-    //             },
-                
-    //         })
-
-    //     return (
-    //         {
-    //             buttonId: button.id,
-    //             buttonIndex: index,
-    //             dragProps: spanResult.dragProps,
-    //             currentSnappointIndex: spanResult.currentSnappointIndex       
-    //         }
-    //     )
-    // })
-
-
-
-
-
-
-
 
 
 
@@ -555,10 +463,7 @@ export const AnimRightTriangleSin = ({
         })
 
        
-        // console.log('LifeSaver::::')
-        // console.log(LifeSaver)
-        
-        
+
         const mega = pointsInitialFreeWithID.map((el, index )=>{
 
             // ищем, есть ли этот index в занятых LifeSaver
@@ -600,162 +505,6 @@ export const AnimRightTriangleSin = ({
 
 
 
-        // // Делаем так чтобы Занятые точки НЕ магнитились 123
-        // // в Магнит пихаем вместо координаты точки  pointsInitial[0]
-        // //
-        // // TODO: тут добавляем >= 0 , а не > 0 потому что нет Нулевого магнита
-        // const OccupiedPointsObject = LifeSaver.filter(el => el.currentSnappointIndex >= 0)
-        // const OccupiedPointsList = OccupiedPointsObject.map(el => el.currentSnappointIndex)
-
-        // console.log('OccupiedPointsList: ', OccupiedPointsList)
-        // // console.log('pointsInitial: ', pointsInitial)
-
-
-        // // pointsInitialFreeWithID.map((pointInitialFree, index )=> {
-        // //     LifeSaver.filter(lifePoint => lifePoint.currentSnappointIndex == index)
-        // // } )
-
-        // const foundUseful =  LifeSaver.map(lifeP => {
-        //     const foundOccupied = pointsInitialFreeWithID.filter((pInitial, index )=> index == lifeP.currentSnappointIndex)
-
-        //     return foundOccupied
-        // })
-
-        // console.log(foundUseful)
-
-
-
-        // let freeList:PointsInitialFree = []
-        // PointsInitialFree.map((point, index) => {
-        //         //    
-        //         // ЕСЛИ не СОДЕРЖИТ занятые
-        //         //
-        //         if (!OccupiedPointsList.includes(index)) {
-        //             freeList.push(point)
-        //             return {
-        //         point
-        //       } 
-        //     } 
-        //     else {
-        //         // вместо занятой точки, пихаем магнит {y: 0}
-        //         // freeList.push(pointsInitial[0])
-        //     }
-        // });
-        // console.log('freeList: ', freeList)
-
-
-
-
-
-        // setItems(items.map(a => (a.id === 2 ? {...a, data: "c"} : a)))
-
-        // setState(prev => [ ...prev.filter(item => item.id !== 2), { id: 2, data: "c" } ])
-
-
-
-        // const updateData = ({ idToUpdate, newData }) => {
-        //     setItem(
-        //       items.map(({ id, data }) =>
-        //         id === idToUpdate ? { id, data: newData } : { id, data }
-        //       )
-        //     );
-        //   }
-
-
-
-        // OccupiedPointsList
-        // setBigSnapListState
-        // BigSnapListState 
-
-
-        // const indexesWasFreeNowOccInBig = BigSnapListState.filter(el => el.isFree)
-
-        // это все свободные точки в Big
-        // const BigSnapListStateFrees = BigSnapListState.filter(el => el.isFree)
-        // //
-        // // смотрим какие iD заняты
-        // //
-        // const BigSnapOcc = OccupiedPointsList.map(occPointIdex => {
-        //     return BigSnapListStateFrees[occPointIdex]
-        // })
-
-        // // console.log('BigSnapOcc::', BigSnapOcc)
-
-
-
-        // const BigSnapFree = BigSnapListState.filter((el, index) => !OccupiedPointsList.includes(index) )
-
-        // const BigSnapFree = OccupiedPointsList.filter((el, index) => !OccupiedPointsList.includes(index) )
-
-        // console.log('BigSnapListState>>> ')
-        // console.log(BigSnapListState)
-
-        // console.log('BigSnapFree:::---', BigSnapFree)
-
-        // OccupiedPointsList.map(occPointIndex => {
-
-        // })
-
-
-        // BigSnapListState.filter(el => el.isFree).map((el, indexBig ) => {
-        //     OccupiedPointsList.map(occPointIndex => {
-        //         if (indexBig == occPointIndex) {
-        //             // setBigSnapListState
-        //         }
-        //     })
-        // })
-
-
-
-
-        // BigSnapListState.filter(el => el.isFree).map((el, indexBig ) => {
-        //     setBigSnapListState(OccupiedPointsList.map(occPointIndex => {
-        //         if (indexBig == occPointIndex) {
-        //             return { ...el, isFree: false };
-        //         }
-        //     }
-        // ))
-            
-            // OccupiedPointsList.map(occPointIndex => {
-            //     if (indexBig == occPointIndex) {
-            //         // setBigSnapListState
-            //     }
-            // })
-
-
-        // })
-
-
-        // setMyList(myList.map(artwork => {
-        //     if (artwork.id === artworkId) {
-        //       // Create a *new* object with changes
-        //       return { ...artwork, seen: nextSeen };
-        //     } else {
-        //       // No changes
-        //       return artwork;
-        //     }
-        //   }));
-
-
-
-
-        // const newFrees = BigSnapFree.map(el => el.coord)
-        // setPoints(newFrees)
-
-
-        // setPoints(freeList)
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -765,7 +514,7 @@ export const AnimRightTriangleSin = ({
 
         useSnapList.map((useSnapResult, indexButton) => {
                 
-            // 234
+            // 
             // Если SnapPoint Не равен индексу Стикера, то перекрашиваем
             //
             if (useSnapResult.currentSnappointIndex != indexButton) 
@@ -827,9 +576,6 @@ useEffect(()=>{
 
     placeDiv(x1*width, height*0.8 , 'sin')
 
-
-
-
     
     placeDiv(xCoordinates[0], xCoordinates[1], 'x')
     
@@ -839,7 +585,8 @@ useEffect(()=>{
 
 
     FormulaDots.map((dot, index) => {
-        placeDiv(width * 0.8, height * HEIGHT_FORMULA_COEFF, dot.id)
+
+        placeDiv(dot.cx, dot.cy, dot.id)
       
     })
 
@@ -852,102 +599,12 @@ const transition = { duration: 1, yoyo: Infinity, ease: "easeInOut"}
 
 
 
-
-
-
-
-
-
-
-
-
-
-// resolveConstraintsComponent( {containerRef, ButtonList[0].buttonRef})
-// const box = resolveConstraintsComponent( containerRef, ButtonList[0].buttonRef)
-
-
-// console.log(box)
-
-
-
-// // TODO: 123
-
-// const ref = ButtonList[0].buttonRef
-// // const ref = useRef<HTMLButtonElement>(null)
-
-
-
-
-// const constraintsBoxRef = useRef<BoundingBox | null>(null);
-// const constraints = containerRef
-
-
-
-// const resolveConstraints = () => {
-//     if (constraints === undefined) {
-//         return null;
-//     };
-
-   
-//     if (!ref.current) {
-//         throw new Error('Element ref is empty')
-//     };
-
-//     const box = 'current' in constraints ? constraintsBoxRef.current : constraints;
-//     if (!box) {
-//         throw new Error("Constraints wasn't measured");
-//     }
-
-
-//     const elementBox = ref.current.getBoundingClientRect();
-//     const style = window.getComputedStyle(ref.current);
-//     const transformMatrix = new DOMMatrixReadOnly(style.transform);
-//     const baseX = window.scrollX + elementBox.x - transformMatrix.e;
-//     const baseY = window.scrollY + elementBox.y - transformMatrix.f;
-
-//     const left = box.left !== undefined ? baseX + box.left : undefined;
-//     const top = box.top !== undefined ? baseY + box.top : undefined;
-
-//     const right = box.right !== undefined ? baseX + box.right : undefined;
-//     const bottom = box.bottom !== undefined ? baseY + box.bottom : undefined;
-
-//     const width = (left !== undefined && right !== undefined) ? right - left : undefined;
-//     const height = (top !== undefined && bottom !== undefined) ? bottom - top : undefined;
-
-//     return {
-//         left,
-//         top,
-//         width,
-//         height,
-//         right,
-//         bottom,
-//     };
-// };
-
-
-// useEffect(()=>{
-//     const boxx = resolveConstraints();
-//     // if (!box) {
-//     //     throw new Error(`constraints weren't provided`);
-//     // }
-//     console.log(boxx)
-
-// },[])
-
-
-
-
-    useEffect(()=>{
-        console.log(width)
-        console.log(height)
-        console.log(left)
-        console.log(top)
-    },[width, height])
-
-
-
-
-
+    // useEffect(()=>{
+    //     console.log(width)
+    //     console.log(height)
+    //     console.log(left)
+    //     console.log(top)
+    // },[width, height])
 
 
 
@@ -1102,7 +759,7 @@ const transition = { duration: 1, yoyo: Infinity, ease: "easeInOut"}
 
 
 
-{/*  222
+{/*  Дуга УГЛА 222
 <motion.path
     transition={transition}
     initial={{ pathLength: 0.001 }}
@@ -1235,7 +892,7 @@ const transition = { duration: 1, yoyo: Infinity, ease: "easeInOut"}
                 />
 
 
-                {/* TODO:  FORMULA snap CIRCLES*/}
+                {/* TODO:  FORMULA snap CIRCLES    222 */}
 
                 {FormulaDots.map((dot, index) => (
 
