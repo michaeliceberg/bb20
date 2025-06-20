@@ -50,6 +50,10 @@ export const ChallengeCreate = () => {
                             name: "R SLIDER",
                         },
 
+                        {
+                            id: "GEOSIN",
+                            name: "GEOSIN",
+                        },
 
 
                         

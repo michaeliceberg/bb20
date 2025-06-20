@@ -7,7 +7,7 @@ import {
     TabsList,
     TabsTrigger,
   } from "@/components/ui/tabs"
-import { t_challengeOptions, t_lessonProgress, t_units } from "@/db/schema";
+import { t_challengeOptions, t_challengesEnum, t_lessonProgress, t_units } from "@/db/schema";
 import { GetTLessonStat } from "@/usefulFunctions";
 import 'katex/dist/katex.min.css';
 import Latex from 'react-latex-next';
@@ -74,7 +74,8 @@ type Props = {
                     id: number;
                     points: number;
                     order: number;
-                    type:  "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT" | "WORKBOOK" | "R ASSIST" | "R CONNECT" | "R SLIDER",
+                    type:  "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT" | "WORKBOOK" | "R ASSIST" | "R CONNECT" | "R SLIDER" | "GEOSIN",
+                    // type:  typeof t_challengesEnum.$inferSelect[],
                     question: string;
                     author: string;
                     t_lessonId: number;

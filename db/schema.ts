@@ -136,11 +136,25 @@ export const lessonsRelations = relations(lessons, ({ one, many }) => ({
 
 
 export const challengesEnum = pgEnum("type", ["SELECT", "ASSIST", "CONNECT", "SLIDER", "CONSTRUCT", "WORKBOOK",
-												        "R ASSIST", "R CONNECT", "R SLIDER",
+												        "R ASSIST", "R CONNECT", "R SLIDER", "GEOSING",
 ])
 
 
+export const t_challengesEnum = pgEnum("type", ["SELECT", "ASSIST", "CONNECT", "SLIDER", "CONSTRUCT", "WORKBOOK",
+															"R ASSIST", "R CONNECT", "R SLIDER", "GEOSIN",
+])
 
+
+// export const typeChallenges = "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT" | "WORKBOOK" | "R ASSIST" | "R CONNECT" | "R SLIDER" | "GEOSIN"
+
+// export const challengesEnumAllVariants:[string, ...string[]] = ["SELECT", "ASSIST", "CONNECT", "SLIDER", "CONSTRUCT", "WORKBOOK",
+// "R ASSIST", "R CONNECT", "R SLIDER", "GEOSING",]
+
+
+// export const challengesEnum = pgEnum("type", challengesEnumAllVariants)
+
+
+// export const t_challengesEnum = pgEnum("type", challengesEnumAllVariants)
 
 
 export const challenges = pgTable('challenges', {
@@ -293,10 +307,9 @@ export const t_lessonsRelations = relations(t_lessons, ({ one, many }) => ({
 
 
 
-export const t_challengesEnum = pgEnum("type", ["SELECT", "ASSIST", "CONNECT", "SLIDER", "CONSTRUCT", "WORKBOOK",
-															"R ASSIST", "R CONNECT", "R SLIDER",
-])
-
+// export const t_challengesEnum = pgEnum("type", ["SELECT", "ASSIST", "CONNECT", "SLIDER", "CONSTRUCT", "WORKBOOK",
+// 															"R ASSIST", "R CONNECT", "R SLIDER", "GEOSIN",
+// ])
 
 
 

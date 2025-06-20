@@ -46,6 +46,10 @@ export const ChallengeList = () => {
                             id: "R SLIDER",
                             name: "R SLIDER",
                         },
+                        {
+                            id: "GEOSIN",
+                            name: "GEOSIN",
+                        },
                     ]}
                 />
                 <ReferenceField source='lessonId' reference='lessons'/>

@@ -5,6 +5,7 @@ import { useRef } from "react";
 // import { AnimTrygoTable } from "./AnimTrygoTable";
 import { ShuffleTS } from "@/usefulFunctions";
 import { AnimRightTriangleSin } from "./AnimRightTriangleSin";
+import AppWithStyles from "./bounce";
 
 
 
@@ -72,6 +73,25 @@ export default function Home() {
   return (
     <div>
 
+
+
+
+
+
+
+
+
+    <AppWithStyles />
+
+
+
+
+
+
+
+
+
+
         {/* <AnimRightTriangleFindKatetGipo
             // threeCoordinates = {[100, 100, 550, 100, 100, 400]}
             // threeCoordinates = {RightTriangleList[0].coordinates}          
@@ -80,9 +100,8 @@ export default function Home() {
         /> */}
 
 
-
-
-
+        
+{/*     
         <AnimRightTriangleSin
             threeCoordinates = {[0.1, 0.1, 0.9, 0.1, 0.1, 0.6]}
 
@@ -92,7 +111,7 @@ export default function Home() {
             xCoordinates = {[0.7, 0.11]}
             arcSVG = {"M 440,42 Q 420,80 460,92"}
 
-        />
+        /> */}
 
 
         {/* <AnimTrygoTable ButtonList={ButtonList} /> */}

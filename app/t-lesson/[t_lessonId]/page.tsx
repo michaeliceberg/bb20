@@ -32,7 +32,7 @@ function replaceAll(str:string, find:string, replace:string) {
 
 export type QuestionType = {
        
-    questionType: "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT" | "WORKBOOK" | "R ASSIST" | "R CONNECT" | "R SLIDER";
+    questionType: "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT" | "WORKBOOK" | "R ASSIST" | "R CONNECT" | "R SLIDER" | "GEOSIN";
     question: string;
     imageSrc: string;
     options: string[];
@@ -50,6 +50,7 @@ export type QuestionType = {
     optionsConstructRight: string[],
     correctAnswer: string,
     timeLimit: number,
+    difficulty: string,
 
 }
 
@@ -94,7 +95,7 @@ type Props = {
     }
 }
 
-
+// TODO: Грузим ТОЛЬКО 1 LESSON в котором много challenge
 
 const LessonIdPage =  async ({
     params,
@@ -146,6 +147,10 @@ const LessonIdPage =  async ({
     const randomGeneratedTypes = ["R ASSIST", "R SLIDER", "R CONNECT"]
     const isRandomGeneratedType = randomGeneratedTypes.some(type => t_lesson.t_challenges[0].type.includes(type))
     
+
+    const GEOSIN_Type = ["GEOSIN"]
+    const isGEOSIN_Type = GEOSIN_Type.some(type => t_lesson.t_challenges[0].type.includes(type))
+
 
     let resultGeneratedChallengeQuestion = ""
     // const ListGeneratesQnA: GeneratedType = []
@@ -236,7 +241,8 @@ const LessonIdPage =  async ({
                             
                             optionsConstructRight: [options[0],options[1],options[2]],          
                           
-                            
+                            difficulty: challenge.difficulty,
+
                             correctAnswer: rightAns.toString(),
                             // timeLimit: t_challenge.points,
                             timeLimit: 1000,
@@ -251,17 +257,22 @@ const LessonIdPage =  async ({
 
 
 
-    } else {
+    } 
+    
+    else {
+        
         // Это НЕ RANDOM GENERATE Lesson
+        
+        // ничего не делаем
     }
 
     
 
-    console.log(ListGeneratesQnA)
+    // console.log(ListGeneratesQnA)
 
 
 
-
+    
 
     let questions: QuestionType[]
 
@@ -385,7 +396,7 @@ const LessonIdPage =  async ({
             
             optionsConstructRight: [t_challenge.t_challengeOptions[0].text, t_challenge.t_challengeOptions[1].text, t_challenge.t_challengeOptions[2].text],          
           
-            
+            difficulty: t_challenge.difficulty,
             correctAnswer: t_challenge.t_challengeOptions[0].text,
             // timeLimit: t_challenge.points,
             timeLimit: 1000,
@@ -479,11 +490,15 @@ const LessonIdPage =  async ({
 
 
 
+    // ЕСЛИ ТИП GEOSIN , то НЕ шафлим, а идем в порядке 
 
+    if (questions[0].questionType == 'GEOSIN') {
 
-    
+    } else {
+        questions = ShuffleTS(questions)
+    }
 
-    questions = ShuffleTS(questions)
+    // questions = ShuffleTS(questions)
   
     
     

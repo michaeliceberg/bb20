@@ -49,6 +49,10 @@ export const ChallengeEdit = () => {
                             id: "R SLIDER",
                             name: "R SLIDER",
                         },
+                        {
+                            id: "GEOSIN",
+                            name: "GEOSIN",
+                        },
                     ]}
                     validate={[required()]} 
                 /> 

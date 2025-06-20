@@ -94,8 +94,8 @@ export const TCourseBanner = ({
                 </p>
                 
 
-                <p className="text-sm pt-2 flex">
-                    пройдено:
+                <p className="text-sm pt-2 flex gap-x-1">
+                    пройдено 
                     <HTMLContent percent={Math.round(averageDonePercent*100)} />
                     %
                 </p>                                  

@@ -35,7 +35,7 @@ const main = async () => {
 
 
 		await db.insert(schema.t_courses).values([
-			{id:9,title:'М9 Математика-9',imageSrc:'lnip_mat_6.svg'},
+			{id:9,title:'М9 МАТЕМАТИКА-9',imageSrc:'lnip_mat_6.svg'},
 		]);
 
 
@@ -45,82 +45,86 @@ const main = async () => {
 		
 
 
+		
+
+
 
 		await db.insert(schema.t_units).values([{id:901,t_courseId:9,title:'Теорема Виета',description:'Описание 1',order:901,imageSrc:'LottieUnit1',},
 {id:902,t_courseId:9,title:'Sin Cos Треугольник',description:'',order:902,imageSrc:'LottieUnit2',},
-
-
-
-
-
-
 ]);
 
 await db.insert(schema.t_lessons).values([{id:901,t_unitId:901,title:'Подбери два числа',order:901,},
 {id:902,t_unitId:901,title:'Упрощенный Виет',order:902,},
 {id:903,t_unitId:901,title:'Угадай корень',order:903,},
-{id:904,t_unitId:902,title:'sin cos база',order:904,},]);
+{id:904,t_unitId:902,title:'SIN COS',order:904,},]);
 
-await db.insert(schema.t_challenges).values([{id:901901001,t_lessonId:901,type:'ASSIST',order:901901001,question:'$\\begin{cases} x_1 \\cdot x_2 = 32 \\newline x_1 + x_2 = 18 \\end{cases}$',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901901002,t_lessonId:901,type:'ASSIST',order:901901002,question:'$\\begin{cases} x_1 \\cdot x_2 = 10 \\newline x_1 + x_2 = 7 \\end{cases}$',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901901003,t_lessonId:901,type:'ASSIST',order:901901003,question:'$\\begin{cases} x_1 \\cdot x_2 = 12 \\newline x_1 + x_2 = 7 \\end{cases}$',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901901004,t_lessonId:901,type:'ASSIST',order:901901004,question:'$\\begin{cases} x_1 \\cdot x_2 = 8 \\newline x_1 + x_2 = 6 \\end{cases}$',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901901005,t_lessonId:901,type:'ASSIST',order:901901005,question:'$\\begin{cases} x_1 \\cdot x_2 = 15 \\newline x_1 + x_2 = 8 \\end{cases}$',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901901006,t_lessonId:901,type:'ASSIST',order:901901006,question:'$\\begin{cases} x_1 \\cdot x_2 = 9 \\newline x_1 + x_2 = 6 \\end{cases}$',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901901007,t_lessonId:901,type:'ASSIST',order:901901007,question:'$\\begin{cases} x_1 \\cdot x_2 = 20 \\newline x_1 + x_2 = 9 \\end{cases}$',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901901008,t_lessonId:901,type:'ASSIST',order:901901008,question:'$\\begin{cases} x_1 \\cdot x_2 = 14 \\newline x_1 + x_2 = 9 \\end{cases}$',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901901009,t_lessonId:901,type:'ASSIST',order:901901009,question:'$\\begin{cases} x_1 \\cdot x_2 = 16 \\newline x_1 + x_2 = 8 \\end{cases}$',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901901010,t_lessonId:901,type:'ASSIST',order:901901010,question:'$\\begin{cases} x_1 \\cdot x_2 = 18 \\newline x_1 + x_2 = 9 \\end{cases}$',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901901011,t_lessonId:901,type:'ASSIST',order:901901011,question:'$\\begin{cases} x_1 \\cdot x_2 = 24 \\newline x_1 + x_2 = 10 \\end{cases}$',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901901012,t_lessonId:901,type:'ASSIST',order:901901012,question:'$\\begin{cases} x_1 \\cdot x_2 = 21 \\newline x_1 + x_2 = 10 \\end{cases}$',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901901013,t_lessonId:901,type:'ASSIST',order:901901013,question:'$\\begin{cases} x_1 \\cdot x_2 = 25 \\newline x_1 + x_2 = 10 \\end{cases}$',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901901014,t_lessonId:901,type:'ASSIST',order:901901014,question:'$\\begin{cases} x_1 \\cdot x_2 = 30 \\newline x_1 + x_2 = 11 \\end{cases}$',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901901015,t_lessonId:901,type:'ASSIST',order:901901015,question:'$\\begin{cases} x_1 \\cdot x_2 = 28 \\newline x_1 + x_2 = 11 \\end{cases}$',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901901016,t_lessonId:901,type:'ASSIST',order:901901016,question:'$\\begin{cases} x_1 \\cdot x_2 = 32 \\newline x_1 + x_2 = 12 \\end{cases}$',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901901017,t_lessonId:901,type:'ASSIST',order:901901017,question:'$\\begin{cases} x_1 \\cdot x_2 = 36 \\newline x_1 + x_2 = 12 \\end{cases}$',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901901018,t_lessonId:901,type:'ASSIST',order:901901018,question:'$\\begin{cases} x_1 \\cdot x_2 = 40 \\newline x_1 + x_2 = 13 \\end{cases}$',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901901019,t_lessonId:901,type:'ASSIST',order:901901019,question:'$\\begin{cases} x_1 \\cdot x_2 = 42 \\newline x_1 + x_2 = 13 \\end{cases}$',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901901020,t_lessonId:901,type:'ASSIST',order:901901020,question:'$\\begin{cases} x_1 \\cdot x_2 = 45 \\newline x_1 + x_2 = 14 \\end{cases}$',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901901021,t_lessonId:901,type:'ASSIST',order:901901021,question:'$\\begin{cases} x_1 \\cdot x_2 = 48 \\newline x_1 + x_2 = 14 \\end{cases}$',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901902001,t_lessonId:902,type:'ASSIST',order:901902001,question:'$ x^2 - 5x + 6    \\quad x=? $',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901902002,t_lessonId:902,type:'ASSIST',order:901902002,question:'$ x^2 - 12x + 32    \\quad x=? $',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901902003,t_lessonId:902,type:'ASSIST',order:901902003,question:'$ x^2 - 3x + 2    \\quad x=? $',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901902004,t_lessonId:902,type:'ASSIST',order:901902004,question:'$ x^2 - 7x + 12    \\quad x=? $',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901902005,t_lessonId:902,type:'ASSIST',order:901902005,question:'$ x^2 - 10x + 16    \\quad x=? $',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901902006,t_lessonId:902,type:'ASSIST',order:901902006,question:'$ x^2 - 6x + 8    \\quad x=? $',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901902007,t_lessonId:902,type:'ASSIST',order:901902007,question:'$ x^2 - 6x + 5    \\quad x=? $',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901902008,t_lessonId:902,type:'ASSIST',order:901902008,question:'$ x^2 - 8x + 7    \\quad x=? $',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901902009,t_lessonId:902,type:'ASSIST',order:901902009,question:'$ x^2 - 14x + 24    \\quad x=? $',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901902010,t_lessonId:902,type:'ASSIST',order:901902010,question:'$ x^2 - 15x + 50    \\quad x=? $',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901902011,t_lessonId:902,type:'ASSIST',order:901902011,question:'$ x^2 - 15x + 36    \\quad x=? $',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901902012,t_lessonId:902,type:'ASSIST',order:901902012,question:'$ x^2 - 8x + 12    \\quad x=? $',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901902013,t_lessonId:902,type:'ASSIST',order:901902013,question:'$ x^2 - 8x + 15    \\quad x=? $',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901902014,t_lessonId:902,type:'CONNECT',order:901902014,question:'Соедините',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901902015,t_lessonId:902,type:'CONNECT',order:901902015,question:'Соедините',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901902016,t_lessonId:902,type:'CONNECT',order:901902016,question:'Соедините',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901902017,t_lessonId:902,type:'CONNECT',order:901902017,question:'Соедините',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901902018,t_lessonId:902,type:'CONNECT',order:901902018,question:'Соедините',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901902019,t_lessonId:902,type:'CONNECT',order:901902019,question:'Соедините',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901902020,t_lessonId:902,type:'CONNECT',order:901902020,question:'Соедините',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901902021,t_lessonId:902,type:'CONNECT',order:901902021,question:'Соедините',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901903001,t_lessonId:903,type:'ASSIST',order:901903001,question:'$ 2x^2 - 5x + 3    \\quad x=? $',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901903002,t_lessonId:903,type:'ASSIST',order:901903002,question:'$ 3x^2 + 7x - 10    \\quad x=? $',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901903003,t_lessonId:903,type:'ASSIST',order:901903003,question:'$ 2x^2 - 9x + 7    \\quad x=? $',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901903004,t_lessonId:903,type:'ASSIST',order:901903004,question:'$ 5x^2 - 12x + 7    \\quad x=? $',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901903005,t_lessonId:903,type:'ASSIST',order:901903005,question:'$ 10x^2 - 41x + 31    \\quad x=? $',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901903006,t_lessonId:903,type:'ASSIST',order:901903006,question:'$ 6x^2 - 5x -1    \\quad x=? $',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901903007,t_lessonId:903,type:'ASSIST',order:901903007,question:'$ 9x^2 + 4x - 13    \\quad x=? $',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901903008,t_lessonId:903,type:'ASSIST',order:901903008,question:'$ -3x^2 + 4x - 1    \\quad x=? $',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901903009,t_lessonId:903,type:'ASSIST',order:901903009,question:'$ 6x^2 + 7x + 1    \\quad x=? $',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901903010,t_lessonId:903,type:'ASSIST',order:901903010,question:'$ -10x^2 + x + 9    \\quad x=? $',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901903011,t_lessonId:903,type:'ASSIST',order:901903011,question:'$ -2x^2 + 7x + 9    \\quad x=? $',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901903012,t_lessonId:903,type:'ASSIST',order:901903012,question:'$ -3x^2 - 7x + 10    \\quad x=? $',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901903013,t_lessonId:903,type:'ASSIST',order:901903013,question:'$ -8x^2 - 3x + 11    \\quad x=? $',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901903014,t_lessonId:903,type:'ASSIST',order:901903014,question:'$ -8x^2 + 5x + 13    \\quad x=? $',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901903015,t_lessonId:903,type:'ASSIST',order:901903015,question:'$ -2x^2 + 5x + 7    \\quad x=? $',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901903016,t_lessonId:903,type:'ASSIST',order:901903016,question:'$ -13x^2 + 3x + 16    \\quad x=? $',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:901903017,t_lessonId:903,type:'ASSIST',order:901903017,question:'$ -5x^2 + 3x + 8    \\quad x=? $',points:12,author:'М 9',imageSrc:'0',difficulty:'1',numRans:'1'},
-{id:902904001,t_lessonId:904,type:'ASSIST',order:902904001,question:'Найдите сторону',points:12,author:'М 9',imageSrc:'triangle-1.svg',difficulty:'1',numRans:'1'},]);
+await db.insert(schema.t_challenges).values([{id:901901001,t_lessonId:901,type:'ASSIST',order:901901001,question:'$\\begin{cases} x_1 \\cdot x_2 = 32 \\newline x_1 + x_2 = 18 \\end{cases}$',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901901002,t_lessonId:901,type:'ASSIST',order:901901002,question:'$\\begin{cases} x_1 \\cdot x_2 = 10 \\newline x_1 + x_2 = 7 \\end{cases}$',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901901003,t_lessonId:901,type:'ASSIST',order:901901003,question:'$\\begin{cases} x_1 \\cdot x_2 = 12 \\newline x_1 + x_2 = 7 \\end{cases}$',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901901004,t_lessonId:901,type:'ASSIST',order:901901004,question:'$\\begin{cases} x_1 \\cdot x_2 = 8 \\newline x_1 + x_2 = 6 \\end{cases}$',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901901005,t_lessonId:901,type:'ASSIST',order:901901005,question:'$\\begin{cases} x_1 \\cdot x_2 = 15 \\newline x_1 + x_2 = 8 \\end{cases}$',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901901006,t_lessonId:901,type:'ASSIST',order:901901006,question:'$\\begin{cases} x_1 \\cdot x_2 = 9 \\newline x_1 + x_2 = 6 \\end{cases}$',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901901007,t_lessonId:901,type:'ASSIST',order:901901007,question:'$\\begin{cases} x_1 \\cdot x_2 = 20 \\newline x_1 + x_2 = 9 \\end{cases}$',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901901008,t_lessonId:901,type:'ASSIST',order:901901008,question:'$\\begin{cases} x_1 \\cdot x_2 = 14 \\newline x_1 + x_2 = 9 \\end{cases}$',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901901009,t_lessonId:901,type:'ASSIST',order:901901009,question:'$\\begin{cases} x_1 \\cdot x_2 = 16 \\newline x_1 + x_2 = 8 \\end{cases}$',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901901010,t_lessonId:901,type:'ASSIST',order:901901010,question:'$\\begin{cases} x_1 \\cdot x_2 = 18 \\newline x_1 + x_2 = 9 \\end{cases}$',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901901011,t_lessonId:901,type:'ASSIST',order:901901011,question:'$\\begin{cases} x_1 \\cdot x_2 = 24 \\newline x_1 + x_2 = 10 \\end{cases}$',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901901012,t_lessonId:901,type:'ASSIST',order:901901012,question:'$\\begin{cases} x_1 \\cdot x_2 = 21 \\newline x_1 + x_2 = 10 \\end{cases}$',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901901013,t_lessonId:901,type:'ASSIST',order:901901013,question:'$\\begin{cases} x_1 \\cdot x_2 = 25 \\newline x_1 + x_2 = 10 \\end{cases}$',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901901014,t_lessonId:901,type:'ASSIST',order:901901014,question:'$\\begin{cases} x_1 \\cdot x_2 = 30 \\newline x_1 + x_2 = 11 \\end{cases}$',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901901015,t_lessonId:901,type:'ASSIST',order:901901015,question:'$\\begin{cases} x_1 \\cdot x_2 = 28 \\newline x_1 + x_2 = 11 \\end{cases}$',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901901016,t_lessonId:901,type:'ASSIST',order:901901016,question:'$\\begin{cases} x_1 \\cdot x_2 = 32 \\newline x_1 + x_2 = 12 \\end{cases}$',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901901017,t_lessonId:901,type:'ASSIST',order:901901017,question:'$\\begin{cases} x_1 \\cdot x_2 = 36 \\newline x_1 + x_2 = 12 \\end{cases}$',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901901018,t_lessonId:901,type:'ASSIST',order:901901018,question:'$\\begin{cases} x_1 \\cdot x_2 = 40 \\newline x_1 + x_2 = 13 \\end{cases}$',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901901019,t_lessonId:901,type:'ASSIST',order:901901019,question:'$\\begin{cases} x_1 \\cdot x_2 = 42 \\newline x_1 + x_2 = 13 \\end{cases}$',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901901020,t_lessonId:901,type:'ASSIST',order:901901020,question:'$\\begin{cases} x_1 \\cdot x_2 = 45 \\newline x_1 + x_2 = 14 \\end{cases}$',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901901021,t_lessonId:901,type:'ASSIST',order:901901021,question:'$\\begin{cases} x_1 \\cdot x_2 = 48 \\newline x_1 + x_2 = 14 \\end{cases}$',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901902001,t_lessonId:902,type:'ASSIST',order:901902001,question:'$ x^2 - 5x + 6    \\quad x=? $',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901902002,t_lessonId:902,type:'ASSIST',order:901902002,question:'$ x^2 - 12x + 32    \\quad x=? $',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901902003,t_lessonId:902,type:'ASSIST',order:901902003,question:'$ x^2 - 3x + 2    \\quad x=? $',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901902004,t_lessonId:902,type:'ASSIST',order:901902004,question:'$ x^2 - 7x + 12    \\quad x=? $',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901902005,t_lessonId:902,type:'ASSIST',order:901902005,question:'$ x^2 - 10x + 16    \\quad x=? $',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901902006,t_lessonId:902,type:'ASSIST',order:901902006,question:'$ x^2 - 6x + 8    \\quad x=? $',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901902007,t_lessonId:902,type:'ASSIST',order:901902007,question:'$ x^2 - 6x + 5    \\quad x=? $',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901902008,t_lessonId:902,type:'ASSIST',order:901902008,question:'$ x^2 - 8x + 7    \\quad x=? $',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901902009,t_lessonId:902,type:'ASSIST',order:901902009,question:'$ x^2 - 14x + 24    \\quad x=? $',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901902010,t_lessonId:902,type:'ASSIST',order:901902010,question:'$ x^2 - 15x + 50    \\quad x=? $',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901902011,t_lessonId:902,type:'ASSIST',order:901902011,question:'$ x^2 - 15x + 36    \\quad x=? $',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901902012,t_lessonId:902,type:'ASSIST',order:901902012,question:'$ x^2 - 8x + 12    \\quad x=? $',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901902013,t_lessonId:902,type:'ASSIST',order:901902013,question:'$ x^2 - 8x + 15    \\quad x=? $',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901902014,t_lessonId:902,type:'CONNECT',order:901902014,question:'Соедините',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901902015,t_lessonId:902,type:'CONNECT',order:901902015,question:'Соедините',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901902016,t_lessonId:902,type:'CONNECT',order:901902016,question:'Соедините',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901902017,t_lessonId:902,type:'CONNECT',order:901902017,question:'Соедините',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901902018,t_lessonId:902,type:'CONNECT',order:901902018,question:'Соедините',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901902019,t_lessonId:902,type:'CONNECT',order:901902019,question:'Соедините',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901902020,t_lessonId:902,type:'CONNECT',order:901902020,question:'Соедините',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901902021,t_lessonId:902,type:'CONNECT',order:901902021,question:'Соедините',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901903001,t_lessonId:903,type:'ASSIST',order:901903001,question:'$ 2x^2 - 5x + 3    \\quad x=? $',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901903002,t_lessonId:903,type:'ASSIST',order:901903002,question:'$ 3x^2 + 7x - 10    \\quad x=? $',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901903003,t_lessonId:903,type:'ASSIST',order:901903003,question:'$ 2x^2 - 9x + 7    \\quad x=? $',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901903004,t_lessonId:903,type:'ASSIST',order:901903004,question:'$ 5x^2 - 12x + 7    \\quad x=? $',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901903005,t_lessonId:903,type:'ASSIST',order:901903005,question:'$ 10x^2 - 41x + 31    \\quad x=? $',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901903006,t_lessonId:903,type:'ASSIST',order:901903006,question:'$ 6x^2 - 5x -1    \\quad x=? $',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901903007,t_lessonId:903,type:'ASSIST',order:901903007,question:'$ 9x^2 + 4x - 13    \\quad x=? $',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901903008,t_lessonId:903,type:'ASSIST',order:901903008,question:'$ -3x^2 + 4x - 1    \\quad x=? $',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901903009,t_lessonId:903,type:'ASSIST',order:901903009,question:'$ 6x^2 + 7x + 1    \\quad x=? $',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901903010,t_lessonId:903,type:'ASSIST',order:901903010,question:'$ -10x^2 + x + 9    \\quad x=? $',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901903011,t_lessonId:903,type:'ASSIST',order:901903011,question:'$ -2x^2 + 7x + 9    \\quad x=? $',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901903012,t_lessonId:903,type:'ASSIST',order:901903012,question:'$ -3x^2 - 7x + 10    \\quad x=? $',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901903013,t_lessonId:903,type:'ASSIST',order:901903013,question:'$ -8x^2 - 3x + 11    \\quad x=? $',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901903014,t_lessonId:903,type:'ASSIST',order:901903014,question:'$ -8x^2 + 5x + 13    \\quad x=? $',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901903015,t_lessonId:903,type:'ASSIST',order:901903015,question:'$ -2x^2 + 5x + 7    \\quad x=? $',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901903016,t_lessonId:903,type:'ASSIST',order:901903016,question:'$ -13x^2 + 3x + 16    \\quad x=? $',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:901903017,t_lessonId:903,type:'ASSIST',order:901903017,question:'$ -5x^2 + 3x + 8    \\quad x=? $',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:902904001,t_lessonId:904,type:'GEOSIN',order:902904001,question:'Укажи стороны',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'1',numRans:'1'},
+{id:902904002,t_lessonId:904,type:'GEOSIN',order:902904002,question:'Укажи стороны',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'2',numRans:'1'},
+{id:902904003,t_lessonId:904,type:'GEOSIN',order:902904003,question:'Чему равен sin?',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'3',numRans:'1'},
+{id:902904004,t_lessonId:904,type:'GEOSIN',order:902904004,question:'Составь таблицу',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'4',numRans:'1'},
+{id:902904005,t_lessonId:904,type:'GEOSIN',order:902904005,question:'Найди катет',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'5',numRans:'1'},
+{id:902904006,t_lessonId:904,type:'GEOSIN',order:902904006,question:'Найди гипотенузу',points:12,author:'М9 МАТЕМАТИКА-9',imageSrc:'0',difficulty:'6',numRans:'1'},]);
+
+
 
 
 
@@ -185,10 +189,12 @@ await db.insert(schema.t_challengeOptions).values([{t_challengeId:901901001,corr
 {t_challengeId:901903015,correct:true,text:'$ \\large -1 \\quad \\frac{7}{2} $',imageSrc:''},{t_challengeId:901903015,correct:false,text:'$ \\large -1 \\quad \\frac{16}{13} $',imageSrc:''},{t_challengeId:901903015,correct:false,text:'$ \\large -1 \\quad \\frac{8}{3} $',imageSrc:''},{t_challengeId:901903015,correct:false,text:'$ \\large 1 \\quad \\frac{3}{2} $',imageSrc:''},{t_challengeId:901903015,correct:false,text:'$ \\large 1 \\quad - \\frac{10}{3} $',imageSrc:''},{t_challengeId:901903015,correct:false,text:'$ \\large 1 \\quad \\frac{7}{2} $',imageSrc:''},
 {t_challengeId:901903016,correct:true,text:'$ \\large -1 \\quad \\frac{16}{13} $',imageSrc:''},{t_challengeId:901903016,correct:false,text:'$ \\large -1 \\quad \\frac{8}{3} $',imageSrc:''},{t_challengeId:901903016,correct:false,text:'$ \\large 1 \\quad \\frac{3}{2} $',imageSrc:''},{t_challengeId:901903016,correct:false,text:'$ \\large 1 \\quad - \\frac{10}{3} $',imageSrc:''},{t_challengeId:901903016,correct:false,text:'$ \\large 1 \\quad \\frac{7}{2} $',imageSrc:''},{t_challengeId:901903016,correct:false,text:'$ \\large 1 \\quad \\frac{7}{5} $',imageSrc:''},
 {t_challengeId:901903017,correct:true,text:'$ \\large -1 \\quad \\frac{8}{5} $',imageSrc:''},{t_challengeId:901903017,correct:false,text:'$ \\large 1 \\quad \\frac{3}{2} $',imageSrc:''},{t_challengeId:901903017,correct:false,text:'$ \\large 1 \\quad - \\frac{10}{3} $',imageSrc:''},{t_challengeId:901903017,correct:false,text:'$ \\large 1 \\quad \\frac{7}{2} $',imageSrc:''},{t_challengeId:901903017,correct:false,text:'$ \\large 1 \\quad \\frac{7}{5} $',imageSrc:''},{t_challengeId:901903017,correct:false,text:'$ \\large 1 \\quad \\frac{31}{10} $',imageSrc:''},
-{t_challengeId:902904001,correct:true,text:'$ \\large 7 \\cdot sin(x) $',imageSrc:''},{t_challengeId:902904001,correct:false,text:'$ \\large 7 \\cdot cos(x) $',imageSrc:''},{t_challengeId:902904001,correct:false,text:'$ \\large 7 \\cdot tg(x) $',imageSrc:''},{t_challengeId:902904001,correct:false,text:'$ \\large 7 \\cdot ctg(x) $',imageSrc:''},{t_challengeId:902904001,correct:false,text:'$ \\large \\frac{7}{ sin(x) }  $',imageSrc:''},{t_challengeId:902904001,correct:false,text:'$ \\large \\frac{7}{ cos(x) }  $',imageSrc:''},]);
-
-
-
+{t_challengeId:902904001,correct:true,text:'0',imageSrc:''},{t_challengeId:902904001,correct:false,text:'0',imageSrc:''},{t_challengeId:902904001,correct:false,text:'0',imageSrc:''},{t_challengeId:902904001,correct:false,text:'0',imageSrc:''},{t_challengeId:902904001,correct:false,text:'0',imageSrc:''},{t_challengeId:902904001,correct:false,text:'0',imageSrc:''},
+{t_challengeId:902904002,correct:true,text:'0',imageSrc:''},{t_challengeId:902904002,correct:false,text:'0',imageSrc:''},{t_challengeId:902904002,correct:false,text:'0',imageSrc:''},{t_challengeId:902904002,correct:false,text:'0',imageSrc:''},{t_challengeId:902904002,correct:false,text:'0',imageSrc:''},{t_challengeId:902904002,correct:false,text:'0',imageSrc:''},
+{t_challengeId:902904003,correct:true,text:'0',imageSrc:''},{t_challengeId:902904003,correct:false,text:'0',imageSrc:''},{t_challengeId:902904003,correct:false,text:'0',imageSrc:''},{t_challengeId:902904003,correct:false,text:'0',imageSrc:''},{t_challengeId:902904003,correct:false,text:'0',imageSrc:''},{t_challengeId:902904003,correct:false,text:'0',imageSrc:''},
+{t_challengeId:902904004,correct:true,text:'0',imageSrc:''},{t_challengeId:902904004,correct:false,text:'0',imageSrc:''},{t_challengeId:902904004,correct:false,text:'0',imageSrc:''},{t_challengeId:902904004,correct:false,text:'0',imageSrc:''},{t_challengeId:902904004,correct:false,text:'0',imageSrc:''},{t_challengeId:902904004,correct:false,text:'0',imageSrc:''},
+{t_challengeId:902904005,correct:true,text:'0',imageSrc:''},{t_challengeId:902904005,correct:false,text:'0',imageSrc:''},{t_challengeId:902904005,correct:false,text:'0',imageSrc:''},{t_challengeId:902904005,correct:false,text:'0',imageSrc:''},{t_challengeId:902904005,correct:false,text:'0',imageSrc:''},{t_challengeId:902904005,correct:false,text:'0',imageSrc:''},
+{t_challengeId:902904006,correct:true,text:'0',imageSrc:''},{t_challengeId:902904006,correct:false,text:'0',imageSrc:''},{t_challengeId:902904006,correct:false,text:'0',imageSrc:''},{t_challengeId:902904006,correct:false,text:'0',imageSrc:''},{t_challengeId:902904006,correct:false,text:'0',imageSrc:''},{t_challengeId:902904006,correct:false,text:'0',imageSrc:''},]);
 
 
 		console.log('Seeding Finished');

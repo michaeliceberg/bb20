@@ -1,7 +1,9 @@
 
 "use client"
 
-import { useState, useEffect, useRef } from "react"
+import { motion } from "framer-motion";
+
+import { useState, useEffect, useRef, useLayoutEffect } from "react"
 import Lottie from "lottie-react"
 
 import LottieOclockBlue from '@/public/Lottie/trainer/LottieOclockBlue.json'
@@ -21,8 +23,16 @@ import { TypeSlider } from "@/app/t-lesson/[t_lessonId]/type-slider"
 import { TypeConnect } from "@/app/t-lesson/[t_lessonId]/type-connect"
 import { TypeWorkbook } from "@/app/t-lesson/[t_lessonId]/type-workbook"
 import { TypeConstructor } from "@/app/t-lesson/[t_lessonId]/type-constructor"
+
 import { AnimRightTriangleSin } from "@/app/(main)/motiontest/AnimRightTriangleSin"
-import { TypeAssistTRIANGLE } from "@/app/t-lesson/[t_lessonId]/type-assist-triangle"
+// import { TypeAssistTRIANGLETable } from "@/app/t-lesson/[t_lessonId]/type-assist-triangle-table"
+import { TypeAssistTRIANGLEgdeKatet } from "@/app/t-lesson/[t_lessonId]/type-assist-triangle-katet";
+import { TypeAssistTRIANGLEgdeProtivKatet } from "@/app/t-lesson/[t_lessonId]/type-assist-triangle-protiv-katet";
+import { TypeAssistTRIANGLEsincostg } from "@/app/t-lesson/[t_lessonId]/type-assist-triangle-sin-cos-tg";
+import { TypeAssistTRIANGLEformGip } from "@/app/t-lesson/[t_lessonId]/type-assist-triangle-form-gip";
+
+
+
 
 
 interface QuestionProps {
@@ -51,6 +61,47 @@ export default function TrainerQuestion({
   
 
 
+
+
+  let ButtonList =  [
+    {
+        id: 0,
+        text: ' $ \\frac{ 1 } {2}  $ ',
+        buttonRef: useRef<HTMLButtonElement>(null),
+    },
+    {
+        id: 1,
+        text: ' $ \\frac{ \\sqrt {2} } {2}  $ ',
+        buttonRef: useRef<HTMLButtonElement>(null),
+    },
+    {
+        id: 2,
+        text: ' $ \\frac{ \\sqrt {3} } {2}  $ ',
+        buttonRef: useRef<HTMLButtonElement>(null),
+    },
+
+    {
+        id: 0,
+        text: ' $ \\frac{ 1 } {2}  $ ',
+        buttonRef: useRef<HTMLButtonElement>(null),
+    },
+    {
+        id: 1,
+        text: ' $ \\frac{ \\sqrt {2} } {2}  $ ',
+        buttonRef: useRef<HTMLButtonElement>(null),
+    },
+    {
+        id: 2,
+        text: ' $ \\frac{ \\sqrt {3} } {2}  $ ',
+        buttonRef: useRef<HTMLButtonElement>(null),
+    },
+
+  ]
+
+
+
+
+
   const [audioCorrect, _, controlsCorrect] = useAudio({src: '/correct.wav'})
   const [audioInCorrect, _c, controlsInCorrect] = useAudio({src: '/incorrect.wav'})
 
@@ -69,18 +120,18 @@ export default function TrainerQuestion({
 
   // START TYPE CONSTRUCTOR 
 
-  const FrozenList = ['unfrozen','unfrozen','unfrozen','unfrozen','frozen','frozen']
-  const FrozenTimeList = [3, 4, 5, 6, 7, 8]
+  // const FrozenList = ['unfrozen','unfrozen','unfrozen','unfrozen','frozen','frozen']
+  // const FrozenTimeList = [3, 4, 5, 6, 7, 8]
 
-  const [randomFrozen, setRandomFrozen] = useState(
-    [
-      { index: 0, time: FrozenTimeList[Math.floor(Math.random()*FrozenTimeList.length)], status: FrozenList[Math.floor(Math.random()*FrozenList.length)] },
-      { index: 1, time: FrozenTimeList[Math.floor(Math.random()*FrozenTimeList.length)], status: FrozenList[Math.floor(Math.random()*FrozenList.length)] },
-      { index: 2, time: FrozenTimeList[Math.floor(Math.random()*FrozenTimeList.length)], status: FrozenList[Math.floor(Math.random()*FrozenList.length)] },
-      { index: 3, time: FrozenTimeList[Math.floor(Math.random()*FrozenTimeList.length)], status: FrozenList[Math.floor(Math.random()*FrozenList.length)] },
-      { index: 4, time: FrozenTimeList[Math.floor(Math.random()*FrozenTimeList.length)], status: FrozenList[Math.floor(Math.random()*FrozenList.length)] },
-      { index: 5, time: FrozenTimeList[Math.floor(Math.random()*FrozenTimeList.length)], status: FrozenList[Math.floor(Math.random()*FrozenList.length)] },
-    ])
+  // const [randomFrozen, setRandomFrozen] = useState(
+  //   [
+  //     { index: 0, time: FrozenTimeList[Math.floor(Math.random()*FrozenTimeList.length)], status: FrozenList[Math.floor(Math.random()*FrozenList.length)] },
+  //     { index: 1, time: FrozenTimeList[Math.floor(Math.random()*FrozenTimeList.length)], status: FrozenList[Math.floor(Math.random()*FrozenList.length)] },
+  //     { index: 2, time: FrozenTimeList[Math.floor(Math.random()*FrozenTimeList.length)], status: FrozenList[Math.floor(Math.random()*FrozenList.length)] },
+  //     { index: 3, time: FrozenTimeList[Math.floor(Math.random()*FrozenTimeList.length)], status: FrozenList[Math.floor(Math.random()*FrozenList.length)] },
+  //     { index: 4, time: FrozenTimeList[Math.floor(Math.random()*FrozenTimeList.length)], status: FrozenList[Math.floor(Math.random()*FrozenList.length)] },
+  //     { index: 5, time: FrozenTimeList[Math.floor(Math.random()*FrozenTimeList.length)], status: FrozenList[Math.floor(Math.random()*FrozenList.length)] },
+  //   ])
     
 
   const [constructorList, setConstructorList] = useState<string[]>(['', '', ''])
@@ -155,32 +206,32 @@ useEffect(() => {
 
 
 
-        // FOR CONSTRUCTOR
-        //
-        const newFrozen = randomFrozen.map(el => {
-          if (el.status === 'frozen' && el.time >= prevTime) {
-          // if (el.status === 'frozen') {
+        // // FOR CONSTRUCTOR
+        // //
+        // const newFrozen = randomFrozen.map(el => {
+        //   if (el.status === 'frozen' && el.time >= prevTime) {
+        //   // if (el.status === 'frozen') {
             
-            // TODO: sound Fire
-            // controlsAudioConstructFire.play()
-            return {
-              // ...el,
-              index: 0,
-              time: 0,
-              status: 'unfrozen',              
-            };
+        //     // TODO: sound Fire
+        //     // controlsAudioConstructFire.play()
+        //     return {
+        //       // ...el,
+        //       index: 0,
+        //       time: 0,
+        //       status: 'unfrozen',              
+        //     };
 
-          } else {
-            // No change
-            return el;
+        //   } else {
+        //     // No change
+        //     return el;
            
-          }
-        });
-        // Re-render with the new array
+        //   }
+        // });
+        // // Re-render with the new array
 
-        setRandomFrozen(newFrozen);
+        // setRandomFrozen(newFrozen);
 
-        // controlsAudioConstructFire
+        // // controlsAudioConstructFire
 
 
 
@@ -192,10 +243,199 @@ useEffect(() => {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current)
     }
-  }, [question, onTimeout, randomFrozen])
+  // }, [question, onTimeout, randomFrozen])
+  }, [question, onTimeout])
 
 
 
+
+
+
+
+
+
+
+  const triangleGdeProtivKatet = [
+            {
+              'coords': [0.1, 0.1, 0.9, 0.1, 0.1, 0.6],
+              'xCoord': [0.7, 0.2],
+              'answer': ['прил. к', 'гипотенуза', 'прот. к'],
+            },
+            {
+              'coords': [0.1, 0.1, 0.9, 0.1, 0.1, 0.6],
+              'xCoord': [0.15, 0.5],
+              'answer': ['прот. к', 'гипотенуза', 'прил. к'],
+            },
+
+            {
+              'coords': [0.1, 0.1, 0.8, 0.1, 0.8, 0.6],
+              'xCoord': [0.7, 0.5],
+              'answer': ['прот. к', 'прил. к', 'гипотенуза'],
+            },
+            {
+              'coords': [0.1, 0.1, 0.8, 0.1, 0.8, 0.6],
+              'xCoord': [0.25, 0.2],
+              'answer': ['прил. к', 'прот. к', 'гипотенуза'],
+            },
+
+            {
+              'coords': [0.1, 0.6, 0.8, 0.6, 0.8, 0.1],
+              'xCoord': [0.25, 0.6],
+              'answer': ['прил. к', 'прот. к', 'гипотенуза'],
+            },
+            {
+              'coords': [0.1, 0.6, 0.8, 0.6, 0.8, 0.1],
+              'xCoord': [0.7, 0.3],
+              'answer': ['против. к', 'прил. к', 'гипотенуза'],
+            },
+
+            {
+              'coords': [0.1, 0.6, 0.9, 0.6, 0.1, 0.1],
+              'xCoord': [0.17, 0.3],
+              'answer': ['прот. к', 'гипотенуза', 'прил. к'],
+            },
+            {
+              'coords': [0.1, 0.6, 0.9, 0.6, 0.1, 0.1],
+              'xCoord': [0.7, 0.6],
+              'answer': ['прил. к', 'гипотенуза', 'прот. к'],
+            },
+  ]
+
+
+
+  const triangleGdeKatet = [
+    {
+      'coords': [0.1, 0.1, 0.9, 0.1, 0.1, 0.6],
+      'xCoord': [0.7, 0.2],
+      'answer': ['катет', 'гипотенуза', 'катет'],
+    },
+    {
+      'coords': [0.1, 0.1, 0.9, 0.1, 0.1, 0.6],
+      'xCoord': [0.15, 0.5],
+      'answer': ['катет', 'гипотенуза', 'катет'],
+    },
+
+    {
+      'coords': [0.1, 0.1, 0.8, 0.1, 0.8, 0.6],
+      'xCoord': [0.7, 0.5],
+      'answer': ['катет', 'катет', 'гипотенуза'],
+    },
+    {
+      'coords': [0.1, 0.1, 0.8, 0.1, 0.8, 0.6],
+      'xCoord': [0.25, 0.2],
+      'answer': ['катет', 'катет', 'гипотенуза'],
+    },
+
+    {
+      'coords': [0.1, 0.6, 0.8, 0.6, 0.8, 0.1],
+      'xCoord': [0.25, 0.6],
+      'answer': ['катет', 'катет', 'гипотенуза'],
+    },
+    {
+      'coords': [0.1, 0.6, 0.8, 0.6, 0.8, 0.1],
+      'xCoord': [0.7, 0.3],
+      'answer': ['катет', 'катет', 'гипотенуза'],
+    },
+
+    {
+      'coords': [0.1, 0.6, 0.9, 0.6, 0.1, 0.1],
+      'xCoord': [0.17, 0.3],
+      'answer': ['катет', 'гипотенуза', 'катет'],
+    },
+    {
+      'coords': [0.1, 0.6, 0.9, 0.6, 0.1, 0.1],
+      'xCoord': [0.7, 0.6],
+      'answer': ['катет', 'гипотенуза', 'катет'],
+    },
+]
+
+
+
+
+const triangleGdeSinCosTg = [
+  {
+    'coords': [0.1, 0.1, 0.9, 0.1, 0.1, 0.6],
+    'xCoord': [0.7, 0.2],
+    'answer': 
+    [{variant: 'sin',answer: ['c', 'b'],},
+      {variant: 'cos',answer: ['a', 'b'],},
+      {variant: 'tg',answer: ['c', 'a'],},]
+    // 'answer': ['прил. к', 'гипотенуза', 'прот. к'],
+  },
+  {
+    'coords': [0.1, 0.1, 0.9, 0.1, 0.1, 0.6],
+    'xCoord': [0.15, 0.5],
+    'answer': 
+    [{variant: 'sin',answer: ['a', 'b'],},
+    {variant: 'cos',answer: ['c', 'b'],},
+    {variant: 'tg',answer: ['a', 'c'],},]
+
+    // 'answer': ['прот. к', 'гипотенуза', 'прил. к'],
+  },
+
+  {
+    'coords': [0.1, 0.1, 0.8, 0.1, 0.8, 0.6],
+    'xCoord': [0.7, 0.5],
+    'answer': 
+    [{variant: 'sin',answer: ['a', 'c'],},
+    {variant: 'cos',answer: ['b', 'c'],},
+    {variant: 'tg',answer: ['a', 'b'],},]
+
+    // 'answer': ['прот. к', 'прил. к', 'гипотенуза'],
+  },
+  {
+    'coords': [0.1, 0.1, 0.8, 0.1, 0.8, 0.6],
+    'xCoord': [0.25, 0.2],
+    'answer': 
+    [{variant: 'sin',answer: ['b', 'c'],},
+    {variant: 'cos',answer: ['a', 'c'],},
+    {variant: 'tg',answer: ['b', 'a'],},]
+
+    // 'answer': ['прил. к', 'прот. к', 'гипотенуза'],
+  },
+
+  {
+    'coords': [0.1, 0.6, 0.8, 0.6, 0.8, 0.1],
+    'xCoord': [0.25, 0.6],
+    'answer': 
+    [{variant: 'sin',answer: ['b', 'c'],},
+    {variant: 'cos',answer: ['a', 'c'],},
+    {variant: 'tg',answer: ['b', 'a'],},]
+
+    // 'answer': ['прил. к', 'прот. к', 'гипотенуза'],
+  },
+  {
+    'coords': [0.1, 0.6, 0.8, 0.6, 0.8, 0.1],
+    'xCoord': [0.7, 0.3],
+    'answer': 
+    [{variant: 'sin',answer: ['a', 'c'],},
+    {variant: 'cos',answer: ['b', 'c'],},
+    {variant: 'tg',answer: ['a', 'c'],},]
+
+    // 'answer': ['против. к', 'прил. к', 'гипотенуза'],
+  },
+
+  {
+    'coords': [0.1, 0.6, 0.9, 0.6, 0.1, 0.1],
+    'xCoord': [0.17, 0.3],
+    'answer': 
+    [{variant: 'sin',answer: ['a', 'b'],},
+    {variant: 'cos',answer: ['c', 'b'],},
+    {variant: 'tg',answer: ['a', 'c'],},]
+
+    // 'answer': ['прот. к', 'гипотенуза', 'прил. к'],
+  },
+  {
+    'coords': [0.1, 0.6, 0.9, 0.6, 0.1, 0.1],
+    'xCoord': [0.7, 0.6],
+    'answer': 
+    [{variant: 'sin',answer: ['c', 'b'],},
+    {variant: 'cos',answer: ['a', 'b'],},
+    {variant: 'tg',answer: ['c', 'a'],},]
+
+    // 'answer': ['прил. к', 'гипотенуза', 'прот. к'],
+  },
+]
 
 
   return (
@@ -212,7 +452,7 @@ useEffect(() => {
 
       
       
-      <ul className="grid grid-cols-12 justify-between gap-y-1">
+      {/* <ul className="grid grid-cols-12 justify-between gap-y-1">
 
         <li key={37113} className="col-span-3 flex justify-center ">
 
@@ -272,7 +512,7 @@ useEffect(() => {
         
 
 
-      </ul>
+      </ul> */}
 
 
 
@@ -323,11 +563,17 @@ useEffect(() => {
 
 
         {question.questionType !== "WORKBOOK" &&
-          <h2 className="text-xl font-semibold mt-4">
+          <motion.h2 
+            className="text-xl font-semibold mt-4"
+            // animate={{ scale : [2, 1] }}
+            initial={{ x: 250, y:-20, opacity: 0}}
+            animate={{ x : 10, y:-20, opacity: 1 }}
+            transition={{ delay: 0.2, type: 'spring', stiffness: 300 }}
+          >
             <Latex>          
               {question.question}
             </Latex>
-          </h2>
+          </motion.h2>
         }
 
       
@@ -352,26 +598,12 @@ useEffect(() => {
 
         {
           question.questionType == "ASSIST" 
-          // ? <TypeAssist 
-          //     question={question} 
-          //     onAnswer={onAnswer}
-          //   />
-
-            ? <TypeAssistTRIANGLE 
-            // question={question} 
-            // onAnswer={onAnswer}
+          ? <TypeAssist 
+              question={question} 
+              onAnswer={onAnswer}
+            />
 
 
-            threeCoordinates = {[0.1, 0.1, 0.9, 0.1, 0.1, 0.6]}
-
-
-
-            // xCoordinates = {[0.13, 0.47]}
-            xCoordinates = {[0.7, 0.11]}
-            arcSVG = {"M 440,42 Q 420,80 460,92"}
-
-
-          />
 
 
 
@@ -409,6 +641,62 @@ useEffect(() => {
         // />
 
 
+        : (question.questionType == "GEOSIN") && (question.difficulty == '1') 
+        
+        // ? <TypeAssistTRIANGLEsincostg 
+
+        //     threeCoordinates = {triangleGdeSinCosTg[2].coords}
+        //                                                                 // -0.09 тк нет стикеров сверху и все опускается
+        //     xCoordinates = {[triangleGdeSinCosTg[2].xCoord[0], triangleGdeSinCosTg[2].xCoord[1]-0.09]}
+        //     answer = {triangleGdeSinCosTg[2].answer}
+        //     onAnswer={onAnswer}
+        //     variant='tg'
+        //   />
+
+        ? <TypeAssistTRIANGLEformGip
+
+        threeCoordinates = {triangleGdeSinCosTg[2].coords}
+                                                                    // -0.09 тк нет стикеров сверху и все опускается
+        xCoordinates = {[triangleGdeSinCosTg[2].xCoord[0], triangleGdeSinCosTg[2].xCoord[1]-0.09]}
+        answer = {triangleGdeSinCosTg[2].answer}
+        onAnswer={onAnswer}
+        variant='tg'
+      />
+
+
+
+      // ? <TypeAssistTRIANGLETable 
+      //     ButtonList={ButtonList}
+      //     onAnswer={onAnswer}
+      // />
+
+
+      
+
+
+
+
+        // ? <TypeAssistTRIANGLEgdeProtivKatet 
+            
+        //     threeCoordinates = {triangleGdeProtivKatet[7].coords}
+        //     xCoordinates = {triangleGdeProtivKatet[7].xCoord}
+        //     answer = {triangleGdeProtivKatet[7].answer}
+        //     onAnswer={onAnswer}
+
+        //     arcSVG = {"M 440,42 Q 420,80 460,92"}
+        //   />
+
+
+        // ? <TypeAssistTRIANGLEgdeKatet 
+            
+        //     threeCoordinates = {triangleGdeKatet[7].coords}
+        //     answer = {triangleGdeKatet[7].answer}
+        //     onAnswer={onAnswer}
+        //   />
+
+
+
+
 
 
 
@@ -416,6 +704,14 @@ useEffect(() => {
               question={question} 
               onAnswer={onAnswer}
             />
+
+
+
+
+
+
+
+
 
 
         }
@@ -434,3 +730,33 @@ useEffect(() => {
 
 
 
+
+
+
+
+// threeCoordinates = {[0.1, 0.1, 0.9, 0.1, 0.1, 0.6]}
+            // xCoordinates = {[0.7, 0.2]}
+            // answer = {['прил. к', 'гипотенуза', 'прот. к']}
+
+            // xCoordinates = {[0.15, 0.5]}
+            // answer = {['прот. к', 'гипотенуза', 'прил. к']}
+
+            // threeCoordinates = {[0.1, 0.1, 0.8, 0.1, 0.8, 0.6]}
+            // xCoordinates = {[0.7, 0.5]}
+            // answer = {['прот. к', 'прил. к', 'гипотенуза']}
+            // xCoordinates = {[0.25, 0.2]}
+            // answer = {['прил. к', 'прот. к', 'гипотенуза']}
+
+
+            // threeCoordinates = {[0.1, 0.6, 0.8, 0.6, 0.8, 0.1]}
+            // xCoordinates = {[0.25, 0.6]}
+            // answer = {['прил. к', 'прот. к', 'гипотенуза']}
+            // xCoordinates = {[0.7, 0.3]}
+            // answer = {['против. к', 'прил. к', 'гипотенуза']}
+
+
+            // threeCoordinates = {[0.1, 0.6, 0.9, 0.6, 0.1, 0.1]}
+            // xCoordinates = {[0.17, 0.3]}
+            // answer = {['прот. к', 'гипотенуза', 'прил. к']}
+            // xCoordinates = {[0.7, 0.6]}
+            // answer = {['прил. к', 'гипотенуза', 'прот. к']}

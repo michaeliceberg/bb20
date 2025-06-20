@@ -165,7 +165,7 @@ export const useSnap = ({
         }
  
         const points = convertSnappoints(snapPoints);
-        console.log('Converted snappoints', points);
+        // console.log('Converted snappoints', points);
         if (!points) {
             throw new Error(`snap point weren't calculated on drag start`);
         }
@@ -254,7 +254,7 @@ export const useSnap = ({
                 : afterInertiaClamped.y - base.y,
         };
  
-        console.log('Snapping result', { target, velocity, afterInertia, afterInertiaClamped, selectedPoint });
+        // console.log('Snapping result', { target, velocity, afterInertia, afterInertiaClamped, selectedPoint });
  
         if (direction === 'x' || direction === 'both') {
             animate(
