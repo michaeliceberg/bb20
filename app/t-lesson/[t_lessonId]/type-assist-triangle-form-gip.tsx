@@ -827,7 +827,8 @@ useEffect(()=>{
         ref={button.buttonRef}
         className={index < 3 
             ? `absolute text-xl rounded text-primary-foreground` 
-            : `absolute border-2 border-dashed border-stone-900 text-stone-900 text-xl rounded`}
+            // : `absolute border-2 border-dashed border-stone-900 text-stone-900 text-xl rounded`}
+            : `absolute text-primary-foreground text-xl rounded`}
         style={index < 3 
             ? { width: handleWidth, height: handleHeight } 
             : { width: handleWidth + 20, height: handleHeight }} 
