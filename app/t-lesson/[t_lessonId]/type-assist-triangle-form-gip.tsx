@@ -7,12 +7,12 @@ import 'katex/dist/katex.min.css';
 
 
 
-import { BoundingBox, MotionProps, useAnimationControls } from "framer-motion";
+import { MotionProps, useAnimationControls } from "framer-motion";
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { motion } from "framer-motion";
-import { ArrowUpLeft, Divide } from "lucide-react";
+import { ArrowUpLeft } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { SnapPointsType } from './useSnap';
+import { SnapPointsType, useSnap } from './useSnap';
 import { useSnapFTrue } from './useSnapFTrue';
 
 
@@ -65,15 +65,6 @@ export const TypeAssistTRIANGLEformGip = ({
         "#a855f7",   // purple500
     ]
 
-    // const tailwindColorLineList = [
-    //     'bg-green-500', 
-    //     'bg-sky-500', 
-    //     'bg-purple-500'
-    // ]
-
-    // const colorCircle1 = "#16a34a"  // green600
-    // const colorCircle2 = "#0284c7"  // sky600
-    // const colorCircle3 = "#9333ea"  // purple600
     
 
     const containerRef = useRef<HTMLDivElement>(null);
@@ -105,6 +96,7 @@ export const TypeAssistTRIANGLEformGip = ({
 
     //555
     const initialestate:initialestateType = [
+        // const [initialestate, setInitialState] = useState<initialestateType>([
 
         {
             pointId: 0,
@@ -142,8 +134,6 @@ export const TypeAssistTRIANGLEformGip = ({
             pointId: 4,
             isFree: true,
             occupiedBy: -1,
-            // coord: { x: x1 * width + 120 + 30, y: HEIGHT_FORMULA_COEFF * height - handleWidth + 5},
-            // coord: { x: x1 * width + 120 + 30, y: height*0.8},
             coord: { x: x1 * width + 120 - 40, y: height*0.8},
 
 
@@ -152,10 +142,9 @@ export const TypeAssistTRIANGLEformGip = ({
             pointId: 5,
             isFree: true,
             occupiedBy: -1,
-            // coord: { x: x1 * width + 120 + 30, y: (HEIGHT_FORMULA_COEFF + 0.1) * height - handleWidth/4},
             coord: { x: x1 * width + 120 + 40, y: height*0.8},
         },
-//123
+
     ]
 
     const [BigSnapListState, setBigSnapListState] = useState(initialestate)
@@ -174,8 +163,6 @@ export const TypeAssistTRIANGLEformGip = ({
             cx: initialestate[4].coord.x,
             cy: initialestate[4].coord.y,
 
-
-
         },
         {
             id: 'formulaDot2',
@@ -184,13 +171,6 @@ export const TypeAssistTRIANGLEformGip = ({
         },
 
     ]
-
-
-
-
-
-
-
 
 
 
@@ -213,6 +193,21 @@ export const TypeAssistTRIANGLEformGip = ({
             text: 'c',
             buttonRef: useRef<HTMLButtonElement>(null),
         },
+
+        // TODO: добавляем стикеры на магнит
+
+
+        {
+            id: 3,
+            text: 'sin(x)',
+            buttonRef: useRef<HTMLButtonElement>(null),
+        },
+        {
+            id: 4,
+            text: 'cos(x)',
+            buttonRef: useRef<HTMLButtonElement>(null),
+        },
+
 
     ]
 
@@ -251,13 +246,13 @@ export const TypeAssistTRIANGLEformGip = ({
         y?: number | undefined,
     }[]
 
-    // const points = BigSnapListState.map(point => point.coord)
+    const points = BigSnapListState.map(point => point.coord)
 
-    const [points, setPoints] = useState(BigSnapListState.map(point => point.coord))
+    // const [points, setPoints] = useState(BigSnapListState.map(point => point.coord))
 
-    useEffect(()=>{
-        setPoints(BigSnapListState.map(point => point.coord))
-    }, [BigSnapListState])
+    // useEffect(()=>{
+    //     setPoints(BigSnapListState.map(point => point.coord))
+    // }, [BigSnapListState])
 
 
 
@@ -265,7 +260,8 @@ export const TypeAssistTRIANGLEformGip = ({
         type: 'constraints-box',
        
         unit: 'pixel',
-        points: points,
+        // points: points,
+        points: BigSnapListState.map(point => point.coord),
     };
  
     type TypeUseSnapList= {
@@ -298,7 +294,7 @@ export const TypeAssistTRIANGLEformGip = ({
                 type: snapPoints.type,
                 unit: snapPoints.unit,
                 
-                // сюда вставляем СВОБОДНЫЕ snap point
+                // сюда вставляем ВСЕ snap point (если заняты, то координата x=0 y=0)
                 points: snapPoints.points,
             },
             
@@ -395,6 +391,85 @@ export const TypeAssistTRIANGLEformGip = ({
 
 
 
+
+            // TODO: Новые верхние стикеры
+            //
+
+            ii = 3
+            spanResult  = useSnap(
+            
+                {
+                    // initialSnapPoint: index, // к чему изначально прикреплена эта кнопка
+                    // initialSnapPoint: BigSnapListState.filter(el=>el.occupiedBy == ButtonList[ii].id)[0]?.pointId, 
+    
+                    
+                    direction: 'both',
+                    ref: ButtonList[ii].buttonRef,
+                    constraints: containerRef,
+        
+                    snapPoints: 
+                    { 
+                        type: snapPoints.type,
+                        unit: snapPoints.unit,
+                        
+                        // сюда вставляем СВОБОДНЫЕ snap point
+                        points: snapPoints.points,
+                    },
+                    
+                })
+    
+            useSnapList[ii]=
+                {
+                    buttonId: ButtonList[ii].id,
+                    buttonIndex: ii,
+                    dragProps: spanResult.dragProps,
+                    currentSnappointIndex: spanResult.currentSnappointIndex       
+                }
+
+
+
+
+                ii = 4
+                spanResult  = useSnap(
+                
+                    {
+                        // initialSnapPoint: index, // к чему изначально прикреплена эта кнопка
+                        // initialSnapPoint: BigSnapListState.filter(el=>el.occupiedBy == ButtonList[ii].id)[0]?.pointId, 
+        
+                        
+                        direction: 'both',
+                        ref: ButtonList[ii].buttonRef,
+                        constraints: containerRef,
+            
+                        snapPoints: 
+                        { 
+                            type: snapPoints.type,
+                            unit: snapPoints.unit,
+                            
+                            // сюда вставляем СВОБОДНЫЕ snap point
+                            points: snapPoints.points,
+                        },
+                        
+                    })
+        
+                useSnapList[ii]=
+                    {
+                        buttonId: ButtonList[ii].id,
+                        buttonIndex: ii,
+                        dragProps: spanResult.dragProps,
+                        currentSnappointIndex: spanResult.currentSnappointIndex       
+                    }
+
+
+
+
+
+
+
+
+
+
+
     // РИСУЕМ:
 
     const draw = {
@@ -437,7 +512,6 @@ export const TypeAssistTRIANGLEformGip = ({
     ]
 
 
-    // const [isAnswered, setIsAnswered] = useState(false)
     const [isDone, setIsDone] = useState(false) // выбран ли ответ (но еще не нажата кнопка "ОТВЕТИТЬ")
     const [isDoneRight, setIsDoneRight] = useState(false) // правильный ли ответ
 
@@ -459,20 +533,32 @@ export const TypeAssistTRIANGLEformGip = ({
             })
         })
 
-        console.log('LifeSaver: .... ')
-        console.log(LifeSaver)
+        // console.log('LifeSaver: .... ')
+        // console.log(LifeSaver)
 
 
         const OccupiedPointsObject = LifeSaver.filter(el => el.currentSnappointIndex > 0)
         const OccupiedPointsList = OccupiedPointsObject.map(el => el.currentSnappointIndex)
         
-        console.log('OccupiedPointsList: ', OccupiedPointsList)
-
+        // console.log('OccupiedPointsList: ', OccupiedPointsList)
+        console.log('useSnapList')
+        console.log(useSnapList)
 
         // 
         //
         let newInitialState:initialestateType = []
         
+
+
+        // setBigSnapListState(
+        //     // setInitialState(
+        //         BigSnapListState.map(state => 
+        //             state.pointId === 4
+        //         ? {...state, coord: {x: state.coord.x ? state.coord.x : 0, y: state.coord.y ? state.coord.y - 140 : 0} }
+        //         : state
+        // ))
+
+
         initialestate.map((point, index) => {
                 if (!OccupiedPointsList.includes(index)) {
                     //
@@ -482,7 +568,20 @@ export const TypeAssistTRIANGLEformGip = ({
                         pointId: point.pointId,
                         isFree: true,
                         occupiedBy: -1,
-                        coord: point.coord,
+                        // coord: point.coord,
+
+                        //TODO: нажата ли кнопка ЗНАМЕНАТЕЛЬ для 4 и 5 point
+                        //
+                        coord: index == 4 && znamenatel ? 
+                            {x: point.coord.x ? point.coord.x + 25 : 0, y: point.coord.y ? point.coord.y - 40 : 0} 
+                            : index == 4 && !znamenatel ? 
+                            {x: point.coord.x ? point.coord.x : 0, y: point.coord.y ? point.coord.y : 0} 
+                            : index == 5 && znamenatel ?
+                            {x: point.coord.x ? point.coord.x - 55 : 0, y: point.coord.y ? point.coord.y + 40 : 0} 
+                            : index == 5 && !znamenatel ?
+                            {x: point.coord.x ? point.coord.x : 0, y: point.coord.y ? point.coord.y : 0} 
+                            : point.coord,
+                            
                     })
                     return {
                 point
@@ -537,41 +636,17 @@ export const TypeAssistTRIANGLEformGip = ({
             // 
             // Если SnapPoint Не равен индексу Стикера, то перекрашиваем
             //
-            if (useSnapResult.currentSnappointIndex != indexButton + 1) 
-                {
-                    listControlsColorLine[indexButton].start('snapColor') 
-                    listControlsColorBG[indexButton].start('snapColorBG')
-                } else {
-                    listControlsColorLine[indexButton].start('initial') 
-                    listControlsColorBG[indexButton].start('initialBG')
+            // БЕЗ стикеров на магните сверху
+            if (indexButton < 3) {
+                if (useSnapResult.currentSnappointIndex != indexButton + 1) {
+                        listControlsColorLine[indexButton].start('snapColor') 
+                        listControlsColorBG[indexButton].start('snapColorBG')
+                    } else {
+                        listControlsColorLine[indexButton].start('initial') 
+                        listControlsColorBG[indexButton].start('initialBG')
                 }   
-
-
-
-
-        // готовим ОТВЕТ
-        //
-        // let isDone = true
-        // ButtonListWithSnap.map(el => {
-        //     if (el.snapPointId > 0) {} else {isDone = false}
-        // })
-        // setIsDone(isDone)
-
-
-        // if ( isDone ){
-        //     ButtonListWithSnap.sort((a, b) => a.snapPointId - b.snapPointId);
-        //     console.log('SORTED ', ButtonListWithSnap)
-        //     let isRight = true
-        //     ButtonListWithSnap.map((el, index) => {
-        //         if (el.buttonText == answer[index]) {} else {isRight = false}
-        //     })
-        //     setIsDoneRight(isRight)
-        //     // console.log(isRight)
-        // }
-
-
-        // rightAns
-
+            }
+       
             // Смотрим, был ли дан ответ (заняты ли Snap4 и Snap5)
             //
             if (useSnapResult.currentSnappointIndex == 4) {
@@ -587,8 +662,11 @@ export const TypeAssistTRIANGLEformGip = ({
             }
                 
 
+
+
         })
     
+
         const findAnsSnap4 = ButtonListWithSnap.filter(el => el.snapPointId == 4)
         let ans4isRight = false
         if (findAnsSnap4.length > 0) {
@@ -621,6 +699,7 @@ export const TypeAssistTRIANGLEformGip = ({
 
         
     }, useSnapList.map(el => el.currentSnappointIndex)
+    // }, [useSnapList[0].currentSnappointIndex, useSnapList[1].currentSnappointIndex, useSnapList[2].currentSnappointIndex]
 )
 
 
@@ -647,20 +726,27 @@ useEffect(()=>{
     placeDiv((x3+x2)*width/2, (y3+y2)*height/2, `${ButtonList[1].id}`)
     placeDiv((x1+x3)*width/2, (y1+y3)*height/2, `${ButtonList[2].id}`)
 
+
+    // еще два стикера
+    //
+    placeDiv(0.9*width, 0, `${ButtonList[3].id}`)
+    placeDiv(0.9*width, 10+handleHeight, `${ButtonList[4].id}`)
+
+
     // Div для нижней формулы Sin
     placeDiv(x1*width, height*0.8 , 'sincostg')
 
     // Div для Угла X на треугольнике
     placeDiv(xCoordinates[0]*width, xCoordinates[1]*height, 'x')
     
-
-
-    // placeDiv(0.8*width, height*0.8 , 'znamenatel')
-    
+   
     
     // Рисуем / для КНОПКИ переключения дроби
     placeDiv(x1 * width + 250, HEIGHT_FORMULA_COEFF * height -4 , 'blindZnamenatel')
 
+    // Умножение ×
+    placeDiv(x1 * width + 138, HEIGHT_FORMULA_COEFF * height + 7 , 'multiply')
+    
 
     // Div для кнопки ответа
     placeDiv(width * 0.8 - 50, height - 20, 'btnAnswer')
@@ -676,32 +762,30 @@ useEffect(()=>{
 
 
 
-  const [znamenatel, setZnamenatel] = useState(false)
-
-
-
-
-//   let something = 200
-//   const [someShit, setSomeShit] = useState(0)
-//   something = someShit
+    const [znamenatel, setZnamenatel] = useState(false)
 
 
 
     const znamenatelHandlerNew = (state: boolean) => {
+
         controlsZnamenatel.start(state ? 'goZnamenatel' : 'initial') 
+
         setZnamenatel(!znamenatel)
 
-        // const [BigSnapListState, setBigSnapListState] = useState(initialestate)
 
-        setBigSnapListState(
-            BigSnapListState.map(state => 
-                    state.pointId === 4
-                ? {...state, coord: {x: state.coord.x ? state.coord.x : 0, y: state.coord.y ? state.coord.y - 140 : 0} }
-                : state
-        ))
+        //TODO: уже НЕ НАДО
+        // setInitialState
+        // setBigSnapListState(
+        //     // setInitialState(
+        //         BigSnapListState.map(state => 
+        //             state.pointId === 4
+        //         ? {...state, coord: {x: state.coord.x ? state.coord.x : 0, y: state.coord.y ? state.coord.y - 140 : 0} }
+        //         : state
+        // ))
 
-        console.log('BigSnapListState')
-        console.log(BigSnapListState)
+        // console.log('BigSnapListState ОБНОВЛЕННЫЙ')
+
+        // console.log(BigSnapListState)
 
         // setData(
         //     data.map(item => 
@@ -711,38 +795,12 @@ useEffect(()=>{
         // ))
 
 
-        // controlsZnamenatel.start(state) 
     }
     
 
 
   return (
     
-  // <div className="grid grid-cols-2 gap-x-2 gap-y-2 mt-10">
-    
-  //   {question.options.map((option, index) => (
-
-  //         <button
-  //           key={index*28748}
-  //           onClick={() => onAnswer(option)}
-  //           className="inline-flex items-center justify-center whitespace-nowrap rounded-xl text-sm font-bold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 tracking-wide bg-white border-slate-200 border-2 border-b-4 active:border-b-2 hover:bg-slate-100 text-slate-500"
-  //         >
-  //           <p className="m-4">
-  //             <Latex>
-  //               {option}
-  //             </Latex>
-  //           </p>
-  //         </button>
-          
-  //   ))}
-
-  
-  // </div>
-
-
-
-
-
 
 
   <motion.div 
@@ -750,57 +808,68 @@ useEffect(()=>{
   ref={containerRef}
 >
     
-{/* 
-    <div>
+
+    {/* <div>
     {JSON.stringify(points)}
-    </div>
-     */}
+    </div> */}
+    
 
 
   {/* TODO: 234 СТИКЕРЫ - кнопки,  которые перетягиваем */}
 
    {ButtonList.map( (button, index) => 
 
+    
       <motion.button 
-          key={index*51078}
-          id={`${button.id}`}
-          ref={button.buttonRef}
-          className={`text-xl rounded text-primary-foreground`}
-          style={{ width: handleWidth, height: handleHeight }} 
-          drag 
-          dragConstraints={containerRef}
-          {...useSnapList[index].dragProps}
+        key={index*51078}
+        // этим АЙДИ устанавливаем НАЧАЛЬНУЮ КООРДИНАТУ в placeDiv
+        id={`${button.id}`}
+        ref={button.buttonRef}
+        className={index < 3 
+            ? `absolute text-xl rounded text-primary-foreground` 
+            : `absolute border-2 border-dashed border-stone-900 text-stone-900 text-xl rounded`}
+        style={index < 3 
+            ? { width: handleWidth, height: handleHeight } 
+            : { width: handleWidth + 20, height: handleHeight }} 
+        drag 
+        dragConstraints={containerRef}
+        {...useSnapList[index].dragProps}
 
-          custom={13}
+        custom={13}
 
-          variants = {{
-              initialBG: {
-                  backgroundColor: colorLineSlate,
-                  
-              },
-              snapColorBG: {
-                  backgroundColor: colorLineList[index],
-              },
-          }}
+        variants = {{
+            initialBG: index < 3 
+            ? {
+            backgroundColor: colorLineSlate,                                
+            } 
+            : {
+                backgroundColor: "#ff637e",
+            }
+            
+            ,
+            snapColorBG: {
+                backgroundColor: colorLineList[index],
+            },
+        }}
 
-          initial = 'initialBG'
-          animate= {listControlsColorBG[index]}
-          
+        initial = 'initialBG'
+        animate= {listControlsColorBG[index]}
+        
 
-          whileHover={{
-              scale: 1.2,
-              rotate: 5,
-              transition: { duration: 0.2 },
-          }}
-          whileTap={{
-              scale: 0.8,
-              rotate: -5,
-          }}
-          transition={{
-              type: "spring",
-              stiffness: 400,
-              damping: 17,
-          }}
+        whileHover={{
+            scale: 1.2,
+            rotate: 5,
+            transition: { duration: 0.2 },
+        }}
+        whileTap={{
+            scale: 0.8,
+            rotate: -5,
+        }}
+        transition={{
+            type: "spring",
+            stiffness: 400,
+            damping: 17,
+        }}
       
 
 
@@ -808,12 +877,13 @@ useEffect(()=>{
               
           {button.text}
 
+        {index < 3 && 
           <motion.div className="absolute top-0 -pt-4  text-white text-2xl">
 
               <ArrowUpLeft size='20' />
 
           </motion.div>
-
+        }
 
       </motion.button>
       
@@ -843,34 +913,103 @@ useEffect(()=>{
   </motion.div>
 
 
+{/* 
+  <motion.div
+    id='multiply'
+
+
+    initial={{ opacity: 0, scale: 0 }}
+    animate={{ opacity: 1, scale: 1, rotateZ: 360 }}
+
+    variants = {{
+
+        initial: 
+        {
+            opacity: 1, 
+            scale: 1, 
+            rotateZ: 360,
+        },
+        goZnamenatel: 
+        {
+            opacity: 0, 
+            scale: 0,
+        },
+
+    }}
+
+    initial='initial'
+    animate = { controlsZnamenatel }
 
 
 
 
-  {/* <motion.div
-      id='znamenatel'
-      className="absolute text-3xl rounded-xl bg-cyan-500 p-4"
-    //   onMouseEnter={() => setZnamenatel(true)}
-    //   onMouseLeave={() => setZnamenatel(false)}
-
-    // onMouseEnter={znamenatelHandler}
-    // onMouseEnter={()=>znamenatelHandler}
-    onMouseLeave={()=>{znamenatelHandler('initial')}}
-    onMouseEnter={()=>{znamenatelHandler('goZnamenatel')}}
-
+    // variants = {{ 
+    //     initial: 
+    //     {
+    //         opacity: '1' 
+    //     }, 
+    //     goZnamenatel: 
+    //     {
+    //         opacity: [1, 0]
+    //     }
+    //     }}
+    //   initial='initial'
+    //   animate = {controlsZnamenatel}
+    
+    transition={{ delay: 4, type: 'spring', stiffness: 300 }}
+    className="absolute text-xl"
   >
-     hello  
+     ×
   </motion.div> */}
+  
 
 
 
+
+  <motion.div
+    id='multiply'
+
+
+    // initial={{ opacity: 0, scale: 0 }}
+    // animate={{ opacity: 1, scale: 1, rotateZ: 360 }}
+
+    variants = {{
+
+        initial: 
+        {
+            opacity: 1, 
+            scale: 1, 
+            rotateZ: 360,
+        },
+        goZnamenatel: 
+        {
+            opacity: [1, 0], 
+            scale: [1, 0],
+        },
+
+    }}
+
+    initial='initial'
+    animate = { controlsZnamenatel }
+
+
+    
+    transition={{ type: 'spring', stiffness: 300 }}
+    className="absolute text-xl"
+  >
+     ×
+  </motion.div>
+
+  
 
   <motion.button
       id='blindZnamenatel'
       className="absolute bg-white  text-sky-500 hover:bg-slate-100     h-11 px-4 py-2     inline-flex items-center justify-center whitespace-nowrap rounded-xl text-sm font-bold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 uppercase tracking-wide"
       onClick={()=>{znamenatelHandlerNew(!znamenatel)}}
   >
-     [ / ]
+     [ {!znamenatel ? '/' : '×'} ]
+
+     
   </motion.button>
 
 
@@ -891,13 +1030,6 @@ useEffect(()=>{
 
       transition={{ delay: 4, type: 'spring', stiffness: 300 }}
 
-    //   transition={{
-    //         delay: 3,
-    //         // duration: 0.4,
-    //         // scale: { type: "spring", visualDuration: 0.4, bounce: 0.5 },
-    //         // duration: 0.4,
-    //         // scale: { type: "spring", visualDuration: 0.4, bounce: 0.5 },
-    //       }}
       className="absolute text-3xl text-slate-300 font-bold"
   >
       x 
@@ -934,6 +1066,8 @@ useEffect(()=>{
       initial="hidden"
       animate="visible"
   >
+
+
 
 
 
@@ -1019,8 +1153,7 @@ variants = {draw}
               }}
               initial = 'initial'
               animate = {listControlsColorLine[index]}
-              // transition={{ duration: 1 }}
-              // transition={{ type: "spring" }}
+
           />
 
       ))}
@@ -1039,9 +1172,17 @@ variants = {draw}
           x2 = {x1 * width + 80 + 100 }
           y2 = {HEIGHT_FORMULA_COEFF * height + 20}
           stroke= "#404040"
-        //   variants = {draw}
 
-          variants = {{ initial: {opacity: '0' }, goZnamenatel: {opacity: [0, 1]}}}
+          variants = {{ 
+            initial: 
+            {
+                opacity: '0' 
+            }, 
+            goZnamenatel: 
+            {
+                opacity: [0, 1]
+            }
+            }}
           initial='initial'
           animate = {controlsZnamenatel}
 
@@ -1069,19 +1210,22 @@ variants = {draw}
               // stroke= {colorCircle1}
               stroke= {colorLineSlate}
 
-            //   variants={draw}
 
-            //   variants={draw}
+            variants = { 
+                // index 0 - snap 4   index 1 - snap 5
+                index == 0 ? 
+                { 
+                    initial: {y:0, x:0}, 
+                    goZnamenatel: {y: -40, x: 25}
+                } : 
+                {
+                    initial: {y:0, x: 0}, 
+                    goZnamenatel: {y: 40, x: -55
 
-            // var variable = (condition) ? (true block) : ((condition2) ? (true block2) : (else block2))
-
-
-            variants = { index == 0 ? { initial: {y:0, x:0}, goZnamenatel: {y: -40, x: 25}} : {initial: {y:0, x: 0}, goZnamenatel: {y: 40, x: -55}}}
+                }
+            }}
             initial='initial'
             animate = {controlsZnamenatel}
-            // transition={{ delay: 4, type: 'spring', stiffness: 300 }}
-
-
 
 
               custom={6.5 + index}
