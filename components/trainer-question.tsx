@@ -30,6 +30,7 @@ import { TypeAssistTRIANGLEgdeKatet } from "@/app/t-lesson/[t_lessonId]/type-ass
 import { TypeAssistTRIANGLEgdeProtivKatet } from "@/app/t-lesson/[t_lessonId]/type-assist-triangle-protiv-katet";
 import { TypeAssistTRIANGLEsincostg } from "@/app/t-lesson/[t_lessonId]/type-assist-triangle-sin-cos-tg";
 import { TypeAssistTRIANGLEformGip } from "@/app/t-lesson/[t_lessonId]/type-assist-triangle-form-gip";
+import { TypeAssistTRIANGLETable } from "@/app/t-lesson/[t_lessonId]/type-assist-triangle-table";
 
 
 
@@ -642,26 +643,61 @@ const triangleGdeSinCosTg = [
 
 
         : (question.questionType == "GEOSIN") && (question.difficulty == '1') 
+          ? <TypeAssistTRIANGLEgdeKatet 
+              
+          threeCoordinates = {triangleGdeKatet[7].coords}
+          answer = {triangleGdeKatet[7].answer}
+          onAnswer={onAnswer}
+        />
+
+
+        : (question.questionType == "GEOSIN") && (question.difficulty == '2') 
+
+
+        ? <TypeAssistTRIANGLEgdeProtivKatet 
+            
+            threeCoordinates = {triangleGdeProtivKatet[7].coords}
+            xCoordinates = {triangleGdeProtivKatet[7].xCoord}
+            answer = {triangleGdeProtivKatet[7].answer}
+            onAnswer={onAnswer}
+
+            arcSVG = {"M 440,42 Q 420,80 460,92"}
+          />
+
+
+
+
+        : (question.questionType == "GEOSIN") && (question.difficulty == '3') 
+
+        ? <TypeAssistTRIANGLEsincostg 
+
+            threeCoordinates = {triangleGdeSinCosTg[2].coords}
+                                                                        // -0.09 тк нет стикеров сверху и все опускается
+            xCoordinates = {[triangleGdeSinCosTg[2].xCoord[0], triangleGdeSinCosTg[2].xCoord[1]-0.09]}
+            answer = {triangleGdeSinCosTg[2].answer}
+            onAnswer={onAnswer}
+            variant='tg'
+          />
+
+
+
+        : (question.questionType == "GEOSIN") && (question.difficulty == '4') 
         
-        // ? <TypeAssistTRIANGLEsincostg 
 
-        //     threeCoordinates = {triangleGdeSinCosTg[2].coords}
-        //                                                                 // -0.09 тк нет стикеров сверху и все опускается
-        //     xCoordinates = {[triangleGdeSinCosTg[2].xCoord[0], triangleGdeSinCosTg[2].xCoord[1]-0.09]}
-        //     answer = {triangleGdeSinCosTg[2].answer}
-        //     onAnswer={onAnswer}
-        //     variant='tg'
-        //   />
+        ? <TypeAssistTRIANGLETable 
+            ButtonList={ButtonList}
+            onAnswer={onAnswer}
+        />
 
-        ? <TypeAssistTRIANGLEformGip
+        // ? <TypeAssistTRIANGLEformGip
 
-        threeCoordinates = {triangleGdeSinCosTg[2].coords}
-                                                                    // -0.09 тк нет стикеров сверху и все опускается
-        xCoordinates = {[triangleGdeSinCosTg[2].xCoord[0], triangleGdeSinCosTg[2].xCoord[1]-0.09]}
-        answer = {triangleGdeSinCosTg[2].answer}
-        onAnswer={onAnswer}
-        variant='tg'
-      />
+        //   threeCoordinates = {triangleGdeSinCosTg[2].coords}
+        //                                                               // -0.09 тк нет стикеров сверху и все опускается
+        //   xCoordinates = {[triangleGdeSinCosTg[2].xCoord[0], triangleGdeSinCosTg[2].xCoord[1]-0.09]}
+        //   answer = {triangleGdeSinCosTg[2].answer}
+        //   onAnswer={onAnswer}
+        //   variant='tg'
+        // />
 
 
 
@@ -676,23 +712,7 @@ const triangleGdeSinCosTg = [
 
 
 
-        // ? <TypeAssistTRIANGLEgdeProtivKatet 
-            
-        //     threeCoordinates = {triangleGdeProtivKatet[7].coords}
-        //     xCoordinates = {triangleGdeProtivKatet[7].xCoord}
-        //     answer = {triangleGdeProtivKatet[7].answer}
-        //     onAnswer={onAnswer}
 
-        //     arcSVG = {"M 440,42 Q 420,80 460,92"}
-        //   />
-
-
-        // ? <TypeAssistTRIANGLEgdeKatet 
-            
-        //     threeCoordinates = {triangleGdeKatet[7].coords}
-        //     answer = {triangleGdeKatet[7].answer}
-        //     onAnswer={onAnswer}
-        //   />
 
 
 

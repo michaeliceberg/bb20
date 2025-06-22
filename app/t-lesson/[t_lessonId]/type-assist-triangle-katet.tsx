@@ -231,9 +231,9 @@ export const TypeAssistTRIANGLEgdeKatet = ({
             
         })
 
-    useSnapList[0]=
+    useSnapList[ii]=
         {
-            buttonId: ButtonList[0].id,
+            buttonId: ButtonList[ii].id,
             buttonIndex: ii,
             dragProps: spanResult.dragProps,
             currentSnappointIndex: spanResult.currentSnappointIndex       
@@ -439,6 +439,9 @@ export const TypeAssistTRIANGLEgdeKatet = ({
         setBigSnapListState(newInitialState)
         //
         
+
+        console.log('newInitialState', newInitialState)
+
 
         // Создаем объект: со ВСЕМИ СТИКЕРАМИ. Если кнопка НЕ занимает SNAP POINT то snapPointId = -1
         // Если заняты - красим в цвет, иначе SLATE

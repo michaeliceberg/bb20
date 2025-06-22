@@ -359,9 +359,9 @@
 
 //         console.log(spanResult)
 
-//         useSnapList[0]=
+//         useSnapList[ii]=
 //             {
-//                 buttonId: ButtonList[0].id,
+//                 buttonId: ButtonList[ii].id,
 //                 buttonIndex: ii,
 //                 dragProps: spanResult.dragProps,
 //                 currentSnappointIndex: spanResult.currentSnappointIndex       

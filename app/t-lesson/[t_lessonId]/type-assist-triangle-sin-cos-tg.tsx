@@ -274,9 +274,9 @@ export const TypeAssistTRIANGLEsincostg = ({
 
 
 
-    useSnapList[0]=
+    useSnapList[ii]=
         {
-            buttonId: ButtonList[0].id,
+            buttonId: ButtonList[ii].id,
             buttonIndex: ii,
             dragProps: spanResult.dragProps,
             currentSnappointIndex: spanResult.currentSnappointIndex       
@@ -634,6 +634,18 @@ useEffect(()=>{
 
 
 
+const HandleClickAnswerButton = () => {
+    if (isDoneRight) 
+        {
+            onAnswer("right")
+        }
+    else 
+        {
+            onAnswer("wrong")
+        }
+}
+
+
 
 
   return (
@@ -794,6 +806,7 @@ useEffect(()=>{
       disabled = {!isDone}
       className = "absolute"
       variant='primary'
+      onClick={HandleClickAnswerButton}
   >
       ответить
   </Button>
