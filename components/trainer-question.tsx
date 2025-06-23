@@ -689,26 +689,18 @@ const triangleGdeSinCosTg = [
             onAnswer={onAnswer}
         />
 
-        // ? <TypeAssistTRIANGLEformGip
 
-        //   threeCoordinates = {triangleGdeSinCosTg[2].coords}
-        //                                                               // -0.09 тк нет стикеров сверху и все опускается
-        //   xCoordinates = {[triangleGdeSinCosTg[2].xCoord[0], triangleGdeSinCosTg[2].xCoord[1]-0.09]}
-        //   answer = {triangleGdeSinCosTg[2].answer}
-        //   onAnswer={onAnswer}
-        //   variant='tg'
-        // />
+        : (question.questionType == "GEOSIN") && (question.difficulty == '5') 
+        
+        ? <TypeAssistTRIANGLEformGip
 
-
-
-      // ? <TypeAssistTRIANGLETable 
-      //     ButtonList={ButtonList}
-      //     onAnswer={onAnswer}
-      // />
-
-
-      
-
+          threeCoordinates = {triangleGdeSinCosTg[2].coords}
+                                                                      // -0.09 тк нет стикеров сверху и все опускается
+          xCoordinates = {[triangleGdeSinCosTg[2].xCoord[0], triangleGdeSinCosTg[2].xCoord[1]-0.09]}
+          answer = {triangleGdeSinCosTg[2].answer}
+          onAnswer={onAnswer}
+          variant='tg'
+        />
 
 
 
