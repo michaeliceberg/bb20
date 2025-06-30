@@ -368,6 +368,7 @@ export const TypeAssistTRIANGLEgdeKatet = ({
         )
     }) )
 
+
     const [PTP, setPTP] = useState( 
         initialestate.slice(1).map(el => {
             return (
@@ -378,6 +379,30 @@ export const TypeAssistTRIANGLEgdeKatet = ({
                 }
             )
         }) )
+
+    // let BL = ButtonList.map(el => {
+    //     return (
+    //         {
+    //             buttonId: el.id,
+    //             snapPointId: 0,
+    //             snapColor: "#BADCEF",
+    //             isSnapped: false,
+    //         }
+    //     )
+    // }) 
+
+    // // "#22c55e",   // green500
+    // // "#0ea5e9",
+
+    // let PTP = initialestate.slice(1).map(el => {
+    //         return (
+    //             {
+    //                 snapPointId: el.pointId,
+    //                 snapColor: "#CEFBAD",
+    //                 isSnapped: false,
+    //             }
+    //         )
+    //     }) 
 
   
 
@@ -460,6 +485,7 @@ export const TypeAssistTRIANGLEgdeKatet = ({
         })
 
         setBL(ButtonListWithSnap)
+        // BL = ButtonListWithSnap
 
         console.log('ButtonListWithSnap ---- ', ButtonListWithSnap)
 
@@ -475,7 +501,13 @@ export const TypeAssistTRIANGLEgdeKatet = ({
         })
 
         setPTP(snapPointsToPaint)
+        // PTP = snapPointsToPaint
      
+
+        console.log('BL', BL)
+        console.log('PTP', PTP)
+
+
         console.log('snapPointsToPaint ---- ', snapPointsToPaint)
         
 
@@ -685,6 +717,13 @@ useEffect(()=>{
   )} 
 
 
+<div className='absolute'>
+    {JSON.stringify(BL)}
+ </div>
+
+ {/* <div className='absolute'>
+    {JSON.stringify(PTP)}
+ </div> */}
 
 
 

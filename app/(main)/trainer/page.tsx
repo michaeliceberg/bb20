@@ -96,12 +96,16 @@ const LearnPage = async () => {
 	//   const unique = [...new Set<typeof>(t_lessonProgress.map(item => item.userId))];
 
 
-
+	// Смотрим КАКИЕ уникальные Lesson в таблице LessonProgress были хотябы раз решены
+	//
 	const UniqueLessonIds = all_t_lessonProgress.map(el => el.t_lessonId)
 	  .filter(
 		  (value, index, current_value) => current_value.indexOf(value) === index
 	  );
 
+
+	// Смотрим Рейтинг ВСЕХ учеников по этим Lesson'ам
+	//
 	const TRatingUsers = UniqueLessonIds.map(t_lesson_id => {
 
 		const currentLessonProgress = all_t_lessonProgress.filter(progress => progress.t_lessonId == t_lesson_id)
@@ -194,7 +198,7 @@ const LearnPage = async () => {
 
 				
 
-				<ScrollTriggered />
+				{/* <ScrollTriggered /> */}
 
 			</FeedWrapper>
 		</div>

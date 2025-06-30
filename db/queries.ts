@@ -255,12 +255,42 @@ export const getTopTenUsers = cache (async () => {
 })
 
 
+
+export const getAllUsers = cache (async () => {
+	const { userId } = await auth()
+
+	if (!userId) {
+		return []
+	}
+	const data = await db.query.userProgress.findMany({
+		orderBy: (userProgress, { desc }) => [desc(userProgress.points)],
+		columns: {
+			userId: true,
+			userName: true,
+			userImageSrc: true,
+			points: true,
+			classId: true,
+		}
+	})
+
+	return data
+})
+
+
 export const getAllProgresses = cache(async () => {
 	const data = await db.query.userProgress.findMany();
 
 	return data;
 });
 
+
+
+
+export const getAllClasses = cache(async () => {
+	const data = await db.query.classes.findMany();
+
+	return data;
+});
 
 
 
@@ -465,6 +495,19 @@ export const getAllUsersProgress = cache(async () => {
 	}
 
 	const data = await db.query.userProgress.findMany({
+	});
+	return data;
+});
+
+
+
+export const getAllClassHW = cache(async () => {
+	const { userId } = await auth();
+	if (!userId) {
+		return null;
+	}
+
+	const data = await db.query.classesHw.findMany({
 	});
 	return data;
 });

@@ -53,6 +53,12 @@ export const userProgress = pgTable('user_progress', {
 	hearts: integer('hearts').notNull().default(500),
 	points: integer('points').notNull().default(0),
 
+	isAdmin: integer('is_admin').notNull().default(0),
+
+
+	classId: integer('class_id')
+	.references(() => classes.id, { onDelete: 'cascade' }),
+
 
 	// isOnMeme: boolean('is_on_meme').notNull().default(true),
 	isOnMeme: integer('is_on_meme').notNull().default(1),
@@ -85,6 +91,13 @@ export const userProgressRelations = relations(userProgress, ({ one }) => ({
 		fields: [userProgress.activeCourseId],
 		references: [courses.id],
 	}),
+
+
+	class: one(classes, {
+		fields: [userProgress.classId],
+		references: [classes.id],
+	}),
+
 
 	
 }));
@@ -391,3 +404,100 @@ export const t_lessonProgressRelations = relations(t_lessonProgress, ({ one }) =
 
 
 
+
+
+
+
+
+
+export const classes = pgTable('classes', {
+	id: serial('id').primaryKey(),
+	title: text('title').notNull(),
+	imageSrc: text('image_src').notNull(),
+});
+
+export const classesRelations = relations(classes, ({ many }) => ({
+	userProgress: many(userProgress),
+	classesHw: many(classesHw),
+}));
+
+// export const coursesRelations = relations(courses, ({ many }) => ({
+// 	userProgress: many(userProgress),
+// 	units: many(units),
+// }));
+
+
+
+
+
+export const classesHw = pgTable('classes_hw', {
+	id: serial('id').primaryKey(),
+	task: text('task'),
+	taskTrainer: text('task_trainer'),
+	
+
+	dateHw: timestamp('date_hw').notNull().defaultNow(),
+
+	classId: integer('class_id')
+	.references(() => classes.id, { onDelete: 'cascade' })
+	.notNull(),
+
+});
+
+
+
+
+export const classesHwRelations = relations(classesHw, ({ one }) => ({
+	class: one(classes, {
+		fields: [classesHw.classId],
+		references: [classes.id],
+	}),
+	
+}));
+
+// export const classesHwRelations = relations(courses, ({ many }) => ({
+// 	userProgress: many(userProgress),
+// }));
+
+
+
+
+
+// export const units = pgTable('units', {
+// 	id: serial('id').primaryKey(),
+// 	title: text('title').notNull(), // Unit 1
+// 	description: text('description').notNull(), // Learn the basics
+// 	imageSrc: text('image_src').notNull(),
+// 	courseId: integer('course_id')
+// 		.references(() => courses.id, { onDelete: 'cascade' })
+// 		.notNull(),
+// 	order: integer('order').notNull(),
+// });
+
+// export const unitsRelations = relations(units, ({ many, one }) => ({
+// 	course: one(courses, {
+// 		fields: [units.courseId],
+// 		references: [courses.id],
+// 	}),
+// 	lessons: many(lessons),
+// }));
+
+
+
+
+// export const lessons = pgTable('lessons', {
+// 	id: serial('id').primaryKey(),
+// 	title: text('title').notNull(),
+// 	unitId: integer('unit_id')
+// 		.references(() => units.id, { onDelete: 'cascade' })
+// 		.notNull(),
+// 	order: integer('order').notNull(),
+// });
+
+// export const lessonsRelations = relations(lessons, ({ one, many }) => ({
+// 	unit: one(units, {
+// 		fields: [lessons.unitId],
+// 		references: [units.id],
+// 	}),
+// 	challenges: many(challenges),
+// }));

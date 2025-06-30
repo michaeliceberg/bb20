@@ -8,10 +8,54 @@ import { motion, useAnimationControls } from 'framer-motion'
 import 'katex/dist/katex.min.css';
 import Latex from 'react-latex-next';
 import { Button } from './ui/button'
-import { ArrowUpRight, CircleCheckBig, CircleX, Layers, Star, ToyBrick } from 'lucide-react'
+import { ArrowUpRight, CircleCheckBig, CircleX, Layers, Star, ToyBrick, 
+
+        Cat,
+        // Scull,
+        Heart,
+        Gem,
+        HandMetal,
+        HandPlatter,
+        Ham,
+        // Hamburger,
+        Hammer,
+        IceCreamCone,
+        IceCreamBowl,
+        Laugh,
+        Landmark,
+        Pickaxe,
+        Pizza,
+        Puzzle,
+        Pyramid,
+        Rat,
+        Rabbit,
+        Radiation,
+        // PopSlice,
+        Sailboat,
+        Salad,
+        Sandwich,
+        Sprout,
+        SprayCan,
+        Sword,
+        Swords,
+        Sun,
+        Telescope,
+        ThumbsUp,
+        TreePalm,
+        TreePine,
+        Umbrella,
+        Waves,
+        Apple,
+        LucideProps,
+        Lock,
+
+
+
+} from 'lucide-react'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { CircularProgressbarWithChildren } from 'react-circular-progressbar'
+import ScrollTriggered from './framer-card'
 
 type Props = {
     t_lesson: { 
@@ -35,7 +79,8 @@ type Props = {
     }[],
     
     user_id: string,
-    index: number,
+    indexLesson: number,
+    isDisabled: boolean,
     
 }
 
@@ -49,7 +94,8 @@ export const TrainerLessonItemRound = ({
     t_lessonProgress,
     TRatingUsers,
     user_id,
-    index,
+    indexLesson,
+    isDisabled,
 } : Props) => {
 
 
@@ -60,7 +106,7 @@ export const TrainerLessonItemRound = ({
 
 
 const cycleLength = 8
-const cycleIndex = index % cycleLength
+const cycleIndex = indexLesson % cycleLength
 
 let indentationLevel
 
@@ -75,8 +121,8 @@ if (cycleIndex <= 2){
 }
     const rightPosition = indentationLevel * 40
 
-    const isFirst = index === 0
-    const isLast = index === 1 // totalCount
+    const isFirst = indexLesson === 0
+    const isLast = indexLesson === 1 // totalCount
     const isCompleted = 1 // !locked
 
 
@@ -153,11 +199,70 @@ if (cycleIndex <= 2){
         : "#fff"
     
 
+        
+    const locked = isDisabled
 
-    const locked = false
 
-
+    // console.log('DR_thisL_thisU')
     // console.log(DR_thisL_thisU)
+    // console.log('t_lessonProgress')
+    // console.log(t_lessonProgress)
+
+
+
+
+    // type randomIconType = React.ForwardRefExoticComponent<Omit<LucideProps, "ref"> & React.RefAttributes<SVGSVGElement>>[]
+
+    const randomIconList = [
+        Cat,
+        // Scull,
+        // Hert,
+        Gem,
+        HandMetal,
+        HandPlatter,
+        Ham,
+        // Hamburger,
+        Hammer,
+        IceCreamCone,
+        IceCreamBowl,
+        Laugh,
+        Landmark,
+        Pickaxe,
+        Pizza,
+        Puzzle,
+        Pyramid,
+        Rat,
+        Rabbit,
+        Radiation,
+        // Popslice,
+        Sailboat,
+        Salad,
+        Sandwich,
+        Sprout,
+        SprayCan,
+        Sword,
+        Swords,
+        Sun,
+        Telescope,
+        ThumbsUp,
+        TreePalm,
+        TreePine,
+        Umbrella,
+        Waves,
+        Apple,
+    ]
+
+
+
+
+
+    // const icons = [Home, Settings, User, Bell];
+    const randomIndex = Math.floor(Math.random() * randomIconList.length);
+    const RandomIcon = randomIconList[randomIndex];
+
+
+
+
 
     return (
 
@@ -165,170 +270,164 @@ if (cycleIndex <= 2){
 
 
     <Link 
+    //
+    // ПРИ НАЖАТИИ - переходим в ТРЕНАЖЕР     /t-lesson/${t_lesson.id}
         href={href} 
         aria-disabled={locked} 
         style={{pointerEvents: locked?"none":"auto"}}
+    >
+        <div className="relative flex flex-1 ml-12" style={{
+            right: `${-30 + rightPosition}px`,
+            marginTop: isFirst && !isCompleted ? 60 : 24,
+            }}
         >
-            <div className="relative flex flex-1 ml-12" style={{
-                right: `${-30 + rightPosition}px`,
-                marginTop: isFirst && !isCompleted ? 60 : 24,
-                }}
-            >
-                { 1 ? (
-                    <div className="h-[102px] w-[102px] relative">
-     
-                        <CircularProgressbarWithChildren
-                            value={Number.isNaN(percentage) ? 0:percentage}
-                            styles={{
-                                path:{
-                                    stroke: color
-                                    },
-                                trail:{
-                                    stroke: "#e5e7eb",
-                                    },
-                                
-                            }}
-                        >
-
-                            <Button
-                                size='rounded'
-                                // variant={locked ? "locked" : "secondary"}
-
-                                variant= {
-                                    percentage > 90  
-                                    ? 'trainer_best' 
-                                    
-                                    :percentage > 60 
-                                    ? 'trainer_better' 
-                                    
-                                    :percentage > 1 
-                                    ? 'trainer_bad' 
-
-                                    : 'default'
-                                    }
-                                    className="h-[70px] w-[70px] border-b-8
-                                    
-                                    group relative overflow-hidden px-4 py-2 transition-colors"
-                            >
-                                    {percentage > 90 && 
-                                        <motion.span
-                                            initial={{
-                                            y: "100%",
-                                            }}
-                                            animate={{
-                                            y: "-100%",
-                                            }}
-                                            transition={{
-                                            repeat: Infinity,
-                                            repeatType: "mirror",
-                                            duration: 1,
-                                            ease: "linear",
-                                            }}
-                                            className="duration-300 absolute inset-0 z-0 scale-125 bg-gradient-to-t 
-                                            
-                                            from-yellow-400/0 from-40% 
-                                            via-white/100 
-                                            to-indigo-400/0 to-60% 
-                                            
-                                            transition-opacity "
-                                        />
-                                    }
-{/* from-indigo-400/0 from-40% 
-via-indigo-400/100 
-to-indigo-400/0 to-60%  
-
-opacity-0 transition-opacity group-hover:opacity-100"
-*/}
-
-
-                                <Icon
-                                    className={cn(
-                                        "h-10 w-10",
-                                     
-                                    percentage > 1 
-                                    ? 'fill-primary-foreground text-primary-foreground' 
-
-                                    : ' text-slate-200 '
-
-                                        // ? "fill-neutral-400 text-neutral-400 stroke-neutral-400"
-                                        // // : "fill-primary-foreground text-primary-foreground",
-                                        // : "fill-primary-foreground text-primary-foreground",
-                                        // // isCompleted && "fill-none stroke-[4]"
-                                        // isCompleted && "fill-none stroke-[2]"
-                                    )}
-                                />
-                            </Button>
-                        </CircularProgressbarWithChildren>
-                    </div>
-                ): (
-                    <Button
-                        size='rounded'
-                        variant={locked?"locked" : "secondary"}
-                        className="h-[70px] w-[70px] border-b-8"
+            { 1 ? (
+                <div className="h-[102px] w-[102px] relative">
+    
+                    <CircularProgressbarWithChildren
+                        value={Number.isNaN(percentage) ? 0:percentage}
+                        styles={{
+                            path:{
+                                stroke: color
+                                },
+                            trail:{
+                                stroke: "#e5e7eb",
+                                },                            
+                        }}
                     >
-                        <Icon
-                            className={cn(
-                                "h-10 w-10",
-                                locked
-                                ? "fill-neutral-400 text-neutral-400 stroke-neutral-400"
-                                : "fill-primary-foreground text-primary-foreground",
-                                // isCompleted && "fill-none stroke-[4]"
-                                isCompleted && "fill-none stroke-[2]"
-                            )}
-                        />
-                    </Button>
-                )}   
+                        <Button
+                            size='rounded'
+                            // variant={locked ? "locked" : "secondary"}
 
-{/* text-neutral-400
-border-slate-500 */}
+                            variant= {
+                                percentage > 90  
+                                ? 'trainer_best' 
+                                
+                                :percentage > 60 
+                                ? 'trainer_better' 
+                                
+                                :percentage > 1 
+                                ? 'trainer_bad' 
+
+                                :locked
+                                ? 'locked' 
+
+                                : 'default'
+                                }
+                                className="h-[70px] w-[70px] border-b-8
+                                
+                                group relative overflow-hidden px-4 py-2 transition-colors"
+                        >
+                            {percentage > 90 && 
+                            //
+                            // ЗОЛОТЫМ ЦВЕТОМ ЕСЛИ РЕШЕНО
+                            //
+                                <motion.span
+                                    initial={{
+                                    y: "100%",
+                                    }}
+                                    animate={{
+                                    y: "-100%",
+                                    }}
+                                    transition={{
+                                    repeat: Infinity,
+                                    repeatType: "mirror",
+                                    duration: 1,
+                                    ease: "linear",
+                                    }}
+                                    className="duration-300 absolute inset-0 z-0 scale-125 bg-gradient-to-t 
+                                    
+                                    from-yellow-400/0 from-40% 
+                                    via-white/100 
+                                    to-indigo-400/0 to-60% 
+                                    
+                                    transition-opacity "
+                                />
+                            }
+
+
+
+                            {!locked 
+                            ? 
+                            <RandomIcon
+
+                            // РАЗЛИЧНЫЕ ИКОНКИ 
+
+                                className={cn(
+                                    "h-10 w-10",
+                                    
+                                percentage > 1 
+                                // ? 'fill-primary-foreground text-primary-foreground' 
+                                ? 'text-primary-foreground' 
+
+                                : ' text-slate-200 '
+
+                                )}
+                            />
+                            
+                            : 
+                            <Lock
+
+                            // РАЗЛИЧНЫЕ ИКОНКИ 
+
+                                className={cn(
+                                    "h-10 w-10",
+                                    
+                                'text-primary-foreground' 
+
+                                )}
+                            />
+                            }
+
+
+
+
+                        </Button>
+
+                    </CircularProgressbarWithChildren>
+
+
+
+                </div>
+                
+            ): (
+                <Button
+                    size='rounded'
+                    variant={locked?"locked" : "secondary"}
+                    className="h-[70px] w-[70px] border-b-8"
+                >
+                        
+                    <Icon
+                        className={cn(
+                            "h-10 w-10",
+                            locked
+                            ? "fill-neutral-400 text-neutral-400 stroke-neutral-400"
+                            : "fill-primary-foreground text-primary-foreground",
+                            // isCompleted && "fill-none stroke-[4]"
+                            isCompleted && "fill-none stroke-[2]"
+                        )}
+                    />
+                </Button>
+            )}   
+
+
+
+            {/* <ScrollTriggered someText={t_lesson.title}/> */}
+            
             <button className="ml-4 rounded-2xl border-2 border-dashed border-neutral-400 bg-white 
                                 px-6 py-3 uppercase text-sm font-semibold text-neutral-400 transition-all duration-300 
                                 hover:translate-x-[-4px] hover:translate-y-[-4px] hover:rounded-md 
                                 hover:shadow-[4px_4px_0px_gray] 
                                 active:translate-x-[0px] active:translate-y-[0px] active:rounded-2xl active:shadow-none">
-                {t_lesson.title}     
+                {t_lesson.title}    
+                
             </button>
 
 
-            {/* <div className="pt-8 hover:translate-x-4 transition-transform duration-500 ease-in-out">
-                <div>
-                    <h1 className="px-3 py-0.5 border-2 font-bold text-green-500 bg-white rounded-xl tracking-white z-10">
-                    {t_lesson.title}                
-                    </h1>
-                </div>    
-                <div>
-                    
-                    <h1 className="px-3 py-0.5 font-bold text-green-500 bg-white rounded-xl tracking-white z-10">
-                
-                        <div className="flex flex-1">
-                            {currentLessonStat[0].done[1] > 0 && 
-                                <div className="flex mr-1">
-                                    <CircleCheckBig className='h-5 w-5 stroke-2 text-green-500 mr-1' />
-                                    <p className='mr-2 text-green-500 text-center font-bold '>{currentLessonStat[0].done[1]}</p>
-                            </div>
-                            }
+            
 
-                            {currentLessonStat[0].done[2] > 0 && 
-                                <div className="flex mr-1">
-                                    <CircleX className='h-5 w-5 stroke-2 text-rose-500 mr-1' />
-                                    <p className='mr-2 text-rose-500 text-center font-bold '>{currentLessonStat[0].done[2]}</p>
-                            </div>
-                            }
 
-                            {currentLessonStat[0].done[0] > 0 && 
-                                <div className="flex mr-1">
-                                    <Layers className='h-5 w-5 stroke-2 text-neutral-400 mr-1' />
-                                    <p className='text-neutral-400 mr-2 text-center font-bold '>{currentLessonStat[0].done[0]}</p>
-                            </div>
-                            }
-
-                        </div>
-                    
-                    </h1>
-                </div>    
-            </div> */}
-
-            </div>
+        </div>
           
     </Link>
     )
@@ -339,106 +438,8 @@ border-slate-500 */}
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-        // <div className=
-        //         'flex justify-between mt-3 border-2 border-slate-100 rounded-xl '
-        // >
-
-
-        //     <div className='flex'>
-
-        //         <p className='m-2'>
-        //                     #{index+1}
-        //         </p>
-
-        //         <p className=
-        //             {
-        //                 DR_thisL_thisU > 90 
-        //                 ? 'bg-green-400/90 text-white font-bold h-full m-auto align-middle pt-2 pl-2 pr-2 rounded-r-xl'
-                    
-        //                 : DR_thisL_thisU > 50
-        //                 ? 'bg-amber-500/90 text-white font-bold h-full m-auto align-middle pt-2 pl-2 pr-2 rounded-r-xl'
-
-        //                 : 'bg-pink-500/90 text-white font-bold h-full m-auto align-middle pt-2 pl-2 pr-2 rounded-r-xl'
-
-                    
-        //             } 
-        //         >
-        //             {DR_thisL_thisU}%
-        //         </p>
-
-        //     </div>
-
-
-
-        //     <p className='mt-2'>
-        //                 {t_lesson.title}
-        //     </p>
-
-        //     <Button
-        //         variant=
-        //         { DR_thisL_thisU > 90 
-        //             ? 'trainer_best'
-
-        //             : DR_thisL_thisU > 50
-        //             ? 'trainer_better'
-
-        //             : 'trainer_bad'
-        //         }
-                
-        //         onClick={()=>window.location.href = `/t-lesson/${t_lesson.id}`}
-        //         className=''   
-        //     >
-        //         <p className='text-lg'>
-        //             <ToyBrick />
-        //         </p>
-        //     </Button>
-        // </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+                                    // ? "fill-neutral-400 text-neutral-400 stroke-neutral-400"
+                                    // // : "fill-primary-foreground text-primary-foreground",
+                                    // : "fill-primary-foreground text-primary-foreground",
+                                    // // isCompleted && "fill-none stroke-[4]"
+                                    // isCompleted && "fill-none stroke-[2]"

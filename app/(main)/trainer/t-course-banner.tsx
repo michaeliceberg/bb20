@@ -23,7 +23,9 @@ type Props = {
     CourseStat: {
         listOfMini: number[],
         courseTitle: string,
-    }[]
+    }[],
+
+
 }
 
 
@@ -65,6 +67,7 @@ export const TCourseBanner = ({
     t_units,
     t_lessonProgress,
     CourseStat,
+    
 }: Props)=>{
 
     

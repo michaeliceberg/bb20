@@ -482,6 +482,7 @@ export default function TQuiz(
       
       setQuizCompleted(true)
 
+      let doneRightPercent =  Math.round( (score + 1) / ( questions.length ) * 100 )
 
       upsertTrainerLessonProgress(t_lessonId, doneRightPercent, trainingPts, score + 1, questions.length - score - 1)
       .catch(()=>toast.error('Что-то пошло не так! Результат не добавлен в базу данных.'))
@@ -705,7 +706,7 @@ export default function TQuiz(
 
 
 
-  const doneRightPercent = 100
+  // let doneRightPercent = 100
   const trainingPts = 200
 
 

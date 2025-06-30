@@ -120,13 +120,21 @@ type Props = {
         const this_courseUnits = t_units.filter(unit => unit.t_courseId == course.id)
 
         const StatThisUnit = this_courseUnits.map(unit => 
-            unit.t_lessons.map(t_lesson => {                
-                const lessonStat = {
+            {
+                const unitStat = unit.t_lessons.map(t_lesson => ({                
                     lessonId: t_lesson.id,
                     PD: GetTLessonStat(t_lessonProgress, t_lesson.id).totalPercentDR
-                    }
-                return {lessonStat: lessonStat}
-             })
+                }))
+             
+                return (
+                {
+                    unitStat: unitStat,
+                    unitId: unit.id,
+                })
+            }
+          
+
+
            
         )
         return {
@@ -138,16 +146,17 @@ type Props = {
     })
 
 
+    console.log('AllTStat')
+    console.log(AllTStat)
 
-    // console.log(AllTStat)
 
 
 
     let CourseStat = AllTStat.map(t_course => {
         let listOfMini:number[] = []
         t_course.StatThisCourse.map(unit => {
-            unit.map(lesson => {
-                listOfMini.push(lesson.lessonStat.PD)
+            unit.unitStat.map(lesson => {
+                listOfMini.push(lesson.PD)
             })
             
         })
@@ -161,6 +170,9 @@ type Props = {
     // для Заголовка Unit'a
     // const t_unit.t_lessons[t_unit.t_lessons.length - 1].t_challenges}
 
+
+    // console.log('CourseStat CourseStat')
+    // console.log(CourseStat)
 
 
 return(
@@ -181,7 +193,7 @@ return(
             className="pt-5      flex items-center flex-col relative ">
     
 
-            {/*  TODO:    TAB TOP */}
+            {/*  TODO:    TAB TOP    M9  M3 и тд */}
             <TabsList>
             {
                 t_courses.map((t_course, index) => (
@@ -195,12 +207,12 @@ return(
 
 
 
-            {/* TODO:    COURSE banner  */}
-            {t_courses.map((t_course, index) => (
+            {/* TODO:    COURSE banner        МАТЕМАТИКА 9 и статистика */}
+            {t_courses.map((t_course, indexCourse) => (
                 
-                <TabsContent key={index*19339} value={t_course.title} className="pt-10">
+                <TabsContent key={indexCourse*19339} value={t_course.title} className="pt-10">
                     
-                    <div key={index*1389}>
+                    <div key={indexCourse*1389}>
 
 						<TCourseBanner 
 							t_course_title={t_course.title} 
@@ -225,162 +237,96 @@ return(
                         
 
 							{t_units.filter(u => u.t_courseId === t_course.id)
-							.map((t_unit, index) => (
+							.map((t_unit, indexUnit) => (
 
-								<div key={index*81872} className="w-full ml-7">
-
-
+								<div key={indexUnit*81872} className="w-full ml-7">
 
 
-
-{/* <BounceCard className="mt-14 col-span-12 md:col-span-8"> */}
-                                        {/* <BounceCard className="mt-14 w-full">
-                                    
-                                        <CardTitle>
-                                            <div className="flex justify-between">
-                                                <p>
-                                                    {t_unit.title}
-                                                </p>
-                                                <p>
-                                                    {index+1}/{t_units.length}
-                                                </p>
-                                            </div>
-                                        </CardTitle>
-                                        
-                                        <div className="absolute bottom-0 left-4 right-4 top-16 translate-y-8 rounded-t-2xl bg-gradient-to-b from-white/50 to-green-500/50 p-4 transition-transform duration-[250ms] group-hover:translate-y-4 group-hover:rotate-[2deg]">
-                                            <span className="block text-center text-xl">
-                                                
-                                                {
-                                                    t_unit.t_lessons[t_unit.t_lessons.length - 1].t_challenges.filter(el => !el.question.includes("Соедините") )[0].imageSrc 
-                                                    &&  t_unit.t_lessons[t_unit.t_lessons.length - 1].t_challenges.filter(el => !el.question.includes("Соедините") )[0].imageSrc  !== '0' 
-                                                    ?
-                                                    
-                                                    // <Image
-                                                    //     className="pt-8 mx-auto"
-                                                    //     src={`/trainer-images/${
-                                                    //         t_unit.t_lessons[t_unit.t_lessons.length - 1].t_challenges.filter(el => !el.question.includes("Соедините") )[0].imageSrc
-                                                    //     }`}
-                                                    //     alt='task_image'
-                                                    //     height={90}
-                                                    //     width={90}
-                                                    // />  
-                                                    <div></div>
-
-                                                    :
-                                                    <p className="text-gray-700 m-7 pt-3 pb-3 text-2xl">
-                                                        <Latex>
-                                                            {t_unit.t_lessons[t_unit.t_lessons.length - 1].t_challenges.filter(el => !el.question.includes("Соедините") )[0].question}
-                                                        </Latex>
-                                                    </p>
-                                                }
-
-                                            </span>
-                                        </div>
-                                        
-                                    </BounceCard> */}
-
-
-
-									<Block 
-                                        
-                                        // whileHover={{
-                                        //     scale: 0.9,
-                                        //     rotate: index % 2 == 0 ? "1deg" : "-1deg",
-                                        //     boxShadow: "5px 5px #758277",
-                                        // }}
-
-                                        className=
-                                            "mt-10 font-bold w-full rounded-xl  bg-green-500 p-4 text-2xl text-white  pt-2 pb-2 bg-[url('/MemesImage/i-like-food.svg')]  bg-repeat"
+									<Block       
+                                    // ТЕОРЕМА ВИЕТА      1/5                              
+                                        className="mt-10 font-bold w-full rounded-xl  bg-green-500 p-4 text-2xl text-white  pt-2 pb-2 bg-[url('/MemesImage/i-like-food.svg')]  bg-repeat"
                                     >
+                                        
                                         <div className="flex justify-between">
-                                            
-                                            
-                                            {/* <p>
-                                                <FlipLink href="#">
-                                                    {t_unit.title}
-                                                </FlipLink>
-                                            </p> */}
-                                            
-                                            
+                                                                                        
                                             <p>
                                                 {t_unit.title}
                                             </p>
                                             <p>
-                                                {index+1}/{t_units.length}
+                                                {indexUnit+1}/{t_units.length}
                                             </p>
                                         </div>
                                         
                                         
                                         <div className="rounded-xl bg-white/50">
 
-                                        {
-                                            // t_unit.t_lessons[t_unit.t_lessons.length - 1].t_challenges.filter(el => !el.question.includes("Соедините") )[0].imageSrc 
-                                            // &&  t_unit.t_lessons[t_unit.t_lessons.length - 1].t_challenges.filter(el => !el.question.includes("Соедините") )[0].imageSrc  !== '0' 
-                                            t_unit.title != '1'
-                                            
-                                            
-                                            ?
-                                            
-
-                                            // <Image
-                                            //     className="pt-8 mx-auto"
-                                            //     src={`/trainer-images/${
-                                            //         t_unit.t_lessons[t_unit.t_lessons.length - 1].t_challenges.filter(el => !el.question.includes("Соедините") )[0].imageSrc
-                                            //     }`}
-                                            //     alt='task_image'
-                                            //     height={90}
-                                            //     width={90}
-                                            // />  
-
-                                            <div>
-
-                                            </div>
-
-
-
-                                            :
-                                            <p className="text-gray-700 m-7 pt-3 pb-3 text-lg">
-                                            <Latex>
-                                                {t_unit.t_lessons[t_unit.t_lessons.length - 1].t_challenges.filter(el => !el.question.includes("Соедините") )[0].question}
-                                            </Latex>
-                                        </p>
-                                        }
-
-
-
-
+                                            {
+                                                t_unit.title != '12345'                                            
+                                                ?                                            
+                                                <div>
+                                                    
+                                                </div>
+                                                :
+                                                <p className="text-gray-700 m-7 pt-3 pb-3 text-lg">
+                                                    <Latex>
+                                                        {t_unit.t_lessons[t_unit.t_lessons.length - 1].t_challenges.filter(el => !el.question.includes("Соедините") )[0].question}
+                                                    </Latex>
+                                                </p>
+                                            }
                                         </div>
+
 									</Block>
 
 
 
-
-
-
-
-
-
-
-									{
-										t_units.filter(ul => ul.id == t_unit.id)[0].t_lessons.map((t_lesson, index) => {
-										                                    
-                                        return(
-										<div key={index * 2241} className='justify-center'>
-											<TrainerLessonItemRound 
-                                                t_lesson={t_lesson} 
-                                                t_lessonProgress={t_lessonProgress}
-                                                TRatingUsers={TRatingUsers}
-                                                user_id={user_id}
-                                                index={index}
-                                            />
 									
-										</div>
+                                    {t_units.filter(ul => ul.id == t_unit.id)[0].t_lessons.map((t_lesson, indexLesson) => {
+                                    //
+                                    // Идем по ЛЕССОНАМ этого ЮНИТА чтобы рисовать КРУЖОЧКИ
+                                    //      
+                                    const StatThisUnitLessons = AllTStat[indexCourse].StatThisCourse[indexUnit].unitStat
+                                    // Готовим в блокировке несделанных Lesson'ов
+                                    //
+                                    let isDisabled = true
+                                    if (indexLesson == 0 || StatThisUnitLessons[indexLesson - 1].PD > 0.9) {
+                                        isDisabled = false
+                                    }
+                                        
+
+                                        return(
+                                            <div key={indexLesson * 2241} className='justify-center'>
+                                                <TrainerLessonItemRound 
+                                                    t_lesson={t_lesson} 
+                                                    t_lessonProgress={t_lessonProgress}
+                                                    TRatingUsers={TRatingUsers}
+                                                    user_id={user_id}
+                                                    indexLesson={indexLesson}
+                                                    isDisabled={isDisabled}
+                                                />
+                                        
+                                                {/* <h1>
+                                                    {JSON.stringify(StatThisUnitLessons)}
+                                                </h1> */}
+                                            </div>
                                         )}
 
 									)}
 								</div>
 							))}
 						</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -430,15 +376,6 @@ return(
                         </div>
 
                         }
-
-
-
-
-                     <AnimRightTriangleSin
-                      threeCoordinates = {[0.1, 0.1, 0.9, 0.1, 0.1, 0.6]}
-                      xCoordinates = {[464, 42]}
-                      arcSVG = {"M 440,42 Q 420,80 460,92"}
-                    />
 
 						
 					</div>
@@ -498,3 +435,36 @@ export default TabTCourses
 //   xCoordinates = {[464, 42]}
 //   arcSVG = {"M 440,42 Q 420,80 460,92"}
 // >
+
+
+
+
+
+
+
+// const AllTStat = t_courses.map(course => {
+
+//     const this_courseUnits = t_units.filter(unit => unit.t_courseId == course.id)
+
+//     const StatThisUnit = this_courseUnits.map(unit => 
+// {
+//          const unitStat = unit.t_lessons.map(t_lesson => {                
+//             const lessonStat = {
+//                 lessonId: t_lesson.id,
+//                 PD: GetTLessonStat(t_lessonProgress, t_lesson.id).totalPercentDR
+//                 }
+//             return (
+//                 {
+//                 lessonStat: lessonStat,
+//                 // unitId: unit.id
+//                 }
+//                 )
+//             })
+         
+//          return (
+//             {
+//                 unitStat: unitStat,
+//                 unitId: unit.id,
+//             }
+//           )
+//         }
