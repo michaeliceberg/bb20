@@ -12,33 +12,11 @@ import { GetTLessonStat } from "@/usefulFunctions";
 import 'katex/dist/katex.min.css';
 import Latex from 'react-latex-next';
 import { useState, useTransition } from "react";
-import { TrainerLessonItemRound } from "@/components/trainer-list-round";
 import { Button } from "@/components/ui/button";
 import { Block } from "@/components/block";
 import { Checkbox } from "@/components/ui/checkbox";
 import { upsertClassHW } from "@/actions/class-hw-update";
 import { toast } from "sonner"
-
-
-// type t_lessonsType = {
-//     id: number;
-//     title: string;
-//     order: number;
-//     t_unitId: number;
-//     t_challenges: {
-//         imageSrc: string;
-//         numRans: string;
-//         difficulty: string;
-//         id: number;
-//         points: number;
-//         order: number;
-//         type:  "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT" | "WORKBOOK" | "R ASSIST" | "R CONNECT" | "R SLIDER" | "GEOSIN",
-//         // type:  typeof t_challengesEnum.$inferSelect[],
-//         question: string;
-//         author: string;
-//         t_lessonId: number;
-//         t_challengeOptions: typeof t_challengeOptions.$inferSelect[],
-//     }[];}[]
 
 
 type t_lessonsType = number[]
@@ -80,11 +58,13 @@ type Props = {
                 }[];}[]
         }[],
         
-        // t_lessonProgress: typeof t_lessonProgress.$inferSelect[],
-
+        
         cur_class_id: number,
 
-    
+        hwLIdsToDoNumUsersMissed: {
+            lessonIdToDo: number;
+            missNumOfToDoLIds: number;
+        }[]
     }
 
   
@@ -92,7 +72,7 @@ type Props = {
     export const    TabTCoursesHW = ({
         t_courses,
         t_units,
-        // t_lessonProgress,
+        hwLIdsToDoNumUsersMissed,
 
         cur_class_id,
     }: Props) => {
@@ -103,71 +83,6 @@ type Props = {
     const onClickHandler = () => {
         setShowFormulas(!showFormulas)
     }
-
-    // const AllTStat = t_courses.map(course => {
-
-    //     const this_courseUnits = t_units.filter(unit => unit.t_courseId == course.id)
-
-    //     const StatThisUnit = this_courseUnits.map(unit => 
-    //         {
-    //             const unitStat = unit.t_lessons.map(t_lesson => ({                
-    //                 lessonId: t_lesson.id,
-    //                 PD: GetTLessonStat(t_lessonProgress, t_lesson.id).totalPercentDR
-    //             }))
-             
-    //             return (
-    //             {
-    //                 unitStat: unitStat,
-    //                 unitId: unit.id,
-    //             })
-    //         }
-          
-
-
-           
-    //     )
-    //     return {
-    //         StatThisCourse: StatThisUnit,
-    //         courseTitle: course.title
-    //     }
-
-
-    // })
-
-
-    // console.log('AllTStat')
-    // console.log(AllTStat)
-
-
-
-
-    // let CourseStat = AllTStat.map(t_course => {
-    //     let listOfMini:number[] = []
-    //     t_course.StatThisCourse.map(unit => {
-    //         unit.unitStat.map(lesson => {
-    //             listOfMini.push(lesson.PD)
-    //         })
-            
-    //     })
-    //     return {
-    //         listOfMini: listOfMini,
-    //         courseTitle: t_course.courseTitle
-    //     }
-
-    // })
-
-
-
-
-
-
-
-
-
-
-
-
-
 
     
 
@@ -336,17 +251,29 @@ return(
                                     return(
                                         <div key={indexLesson * 2241} className='justify-between flex'>
                                             
-                                            <h1>
+                                            <div className="flex gap-x-4">
+                                            <h1 >
                                                 {t_lesson.title}
                                             </h1>
+                                            <h1 className=
+                                            
+                                            {
+                                                hwLIdsToDoNumUsersMissed.filter(el => el.lessonIdToDo == t_lesson.id)[0]?.missNumOfToDoLIds == 0 
+                                                ? "pl-2 pr-2 text-sm text-white bg-green-400 rounded-sm" 
+                                                : hwLIdsToDoNumUsersMissed.filter(el => el.lessonIdToDo == t_lesson.id)[0]?.missNumOfToDoLIds > 0
+                                                ? "pl-2 pr-2 text-sm text-white bg-red-400 rounded-sm" 
+                                                : ""
+                                            }
+                                                >
+                                                {hwLIdsToDoNumUsersMissed.filter(el => el.lessonIdToDo == t_lesson.id)[0]?.missNumOfToDoLIds}
+                                            </h1>
+
+                                            </div>
                                             <Checkbox 
                                                 key={indexLesson*276251314}
+                                                
                                                 checked={checkedState.filter(el => el.lessonId == t_lesson.id)[0].isChecked}
-                                                // checked={
-                                                //     checkedState.filter(state => state.lessonId == t_lesson.id)[0] !== undefined ?
-                                                //     checkedState.filter(state => state.lessonId == t_lesson.id)[0] :
-                                                //     false
-                                                // }
+                                                
                                                 onCheckedChange={() => handleOnChange(t_lesson.id)}
                                             />
                                             
@@ -381,10 +308,15 @@ return(
             ))}
 
 
-
+            
+            {/* 
+                Показать Какие чекбоксы выбрали
             <h1>
                 {JSON.stringify(checkedState.filter(el => el.isChecked).map(el => el.lessonId))}
-            </h1>
+            </h1> 
+            
+            */}
+
             <Button 
                 onClick={onButtonPressSendHW}
                 type="submit"

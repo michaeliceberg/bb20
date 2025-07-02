@@ -4,6 +4,8 @@
 import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import React, { useState, useTransition } from 'react'
+import TabTCoursesHW from './tab-t-courses-hw'
+import { t_challengeOptions } from '@/db/schema'
 
 
 type Props = {
@@ -37,6 +39,48 @@ type Props = {
         dateHw: Date;
     }[] | null,
 
+
+
+
+
+
+
+    t_courses: {
+        id: number;
+        title: string;
+        imageSrc: string;
+    }[],
+    t_units:  
+   
+    {
+        id: number;
+        title: string;
+        description: string;
+        imageSrc: string;
+        t_courseId: number;
+        order: number;
+        t_lessons: {
+            id: number;
+            title: string;
+            order: number;
+            t_unitId: number;
+            t_challenges: {
+                imageSrc: string;
+                numRans: string;
+                difficulty: string;
+                id: number;
+                points: number;
+                order: number;
+                type:  "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT" | "WORKBOOK" | "R ASSIST" | "R CONNECT" | "R SLIDER" | "GEOSIN",
+                // type:  typeof t_challengesEnum.$inferSelect[],
+                question: string;
+                author: string;
+                t_lessonId: number;
+                t_challengeOptions: typeof t_challengeOptions.$inferSelect[],
+            }[];}[]
+    }[],
+
+
     
 }
 export const CheckListUsers = ({
@@ -45,7 +89,9 @@ export const CheckListUsers = ({
 
     all_t_lessonProgress,
     allClassHW,
-    
+
+    t_courses,
+    t_units,
 
 
 }: Props) => {
@@ -83,22 +129,27 @@ export const CheckListUsers = ({
                     // const hw_trainer_missed = 
 
                     
-                    // Контрольное ПРОИЗВЕДЕНИЕ (если будет 1 то все Lesson'ы этого HW выполнены)
-                    //
-                    // let controlMultiply = 1
-                    // let ListOfMissedLessonsIds: number[] = []
-                    // console.log('lessonsDoneByThisUser')
-                    // console.log(lessonsDoneByThisUser)
-
+   
                     hw_trainer.map(cur_les_in_hw => {
-                        // смотрим первый (нулевой) результат по этому Lesson'у тк был отсортирован в query по дате
+                        // смотрим первый (нулевой) результат по этому Lesson'у тк УЖЕ был отсортирован в query по дате
                         const doneRightPercent = lessonsDoneByThisUser.filter(lessonDone => lessonDone.t_lessonId == cur_les_in_hw)[0]?.doneRightPercent
                         console.log(user.userId)
                         console.log(doneRightPercent)
                         console.log('----')
                         
-                        if (doneRightPercent > 90) {
-                            
+
+                        // смотрим, сколько раз был решен Lesson ПОСЛЕ даты выдачи HW
+                        //
+                        const timesDoneCurLessonAfterHWDate = lessonsDoneByThisUser.filter(lessonDone => 
+
+                            (lessonDone.t_lessonId == cur_les_in_hw) && (lessonDone.dateDone > cur_hw.dateHw))?.length
+
+
+
+                        if (doneRightPercent > 90 && timesDoneCurLessonAfterHWDate > 0) {
+                            //
+                            // ничего не делаем
+                            //
                         } else {
                             controlMultiply = controlMultiply * 0
                             ListOfMissedLessonsIds.push(cur_les_in_hw)
@@ -125,6 +176,71 @@ export const CheckListUsers = ({
             )
         }
     })
+
+    console.log(big)
+
+    let listOfAllHWIds:number[] = []
+    //
+    thisClassHW?.map(cur_hw=> {
+        let ListOfMissedLessonsIds: number[] = []
+        //
+        const hw_trainer_string = cur_hw.taskTrainer
+        if (hw_trainer_string != null) {
+            const hw_trainer_list_of_str = hw_trainer_string.split(',')
+            
+            // hw_trainer - список номеров задач этого HW
+            hw_trainer_list_of_str.map(str => {
+                listOfAllHWIds.push(Number(str))
+            })
+        }
+    })
+
+    console.log('listOfAllHWIds123123123 ',listOfAllHWIds)
+
+    const uniqueSet = new Set(listOfAllHWIds)
+    const listOfUniqueHWIds = Array.from(uniqueSet);
+    console.log('listOfUniqueHWIds', listOfUniqueHWIds)
+
+
+    const hwLIdsToDoNumUsersMissed = listOfUniqueHWIds.map(lessonIdToDo => {
+
+        let missNumOfToDoLIds = 0
+
+        let numToDo = 0 // за каждого User по +1 за Не сделанный LessonId
+
+        big.map(cur_user => {
+            
+            cur_user?.thisUserListHWStat.map(cur_hw => {
+
+                // Если этот LessonIdToDo находится ХОТЯ БЫ в одном из НЕ сделанных списках HW, то = 1 
+                // то есть этот ученик НЕ сделал ЭТОТ lessonId из одного из HW
+                if (cur_hw.ListOfMissedLessonsIds.includes(lessonIdToDo)) {
+                    console.log('----')
+                    console.log(cur_hw.ListOfMissedLessonsIds)
+                    console.log(lessonIdToDo)
+                    console.log('----')
+                    numToDo = 1
+                }
+                
+            })
+
+            missNumOfToDoLIds += numToDo // За каждого User по +1 у ЭТОГО LessonId
+        })
+
+
+        return (
+            {
+                lessonIdToDo: lessonIdToDo,
+                missNumOfToDoLIds: missNumOfToDoLIds,
+            }
+        )
+    })
+
+    console.log('hwLIdsToDoNumUsersMissed:::::', hwLIdsToDoNumUsersMissed)
+
+
+
+
 
 
     console.log('big')
@@ -173,15 +289,30 @@ export const CheckListUsers = ({
 
 
 
-            <li className="col-span-4 flex justify-center">
-                <p className="text-sm content-center     mx-auto text-center align-middle">
-                    points
+            <li className="flex justify-center">
+                <p className="text-sm content-center">
+                    ht
+                </p>    
+            </li>
+            <li className="flex justify-center">
+                <p className="text-sm content-center">
+                    hw
+                </p>    
+            </li>
+            <li className="flex justify-center">
+                <p className="text-sm content-center">
+                    1
+                </p>    
+            </li>
+            <li className="flex justify-center">
+                <p className="text-sm content-center">
+                    2
                 </p>    
             </li>
             
             <li className="flex justify-center">
                 <p className="text-sm content-center">
-                    #
+                    3
                 </p>    
             </li>
 
@@ -224,7 +355,7 @@ export const CheckListUsers = ({
                     </li>
 
                     <li  className="col-span-2 flex justify-center" key={index*1241}>
-                        <p key={index*31251} className="text-lg font-bold content-center">
+                        <p key={index*31251} className="text-sm font-bold content-center">
                             {user.userName}
                         </p>
                     </li>
@@ -235,13 +366,17 @@ export const CheckListUsers = ({
                         
                     <li  key={index*1236} className=
                         {notFinishedHW == 0 
-                            ? "content-center text-center text-sm text-white bg-green-400 rounded-sm"  
-                            : "content-center text-center text-sm text-white bg-red-400 rounded-sm"
+                            ? "content-center text-center text-sm text-white font-bold bg-green-400 rounded-sm"  
+                            : "content-center text-center text-sm text-white font-bold bg-red-400 rounded-sm"
                         }
                     >
                     {/* {finishedHW} / {finishedHW+notFinishedHW} */}
-                        <p>{finishedHW}</p>
-                        <p>{finishedHW}</p>
+                        <p>
+                            {notFinishedHW}
+                        </p>
+                        <p>
+                            {finishedHW}
+                        </p>
                        
                         {/* <Checkbox 
                             key={index*276251314}
@@ -255,15 +390,26 @@ export const CheckListUsers = ({
 
                     {/* СКОЛЬКО ВСЕГО МОНЕТ */}
 
-                    <li className="col-span-3 hover:-translate-y-2 transition-transform duration-500 ease-in-out" key={index*15335}>
-                        <Button key={index*25571} className="w-full" variant={'ghost' } size='leader'>
-                                {user.points}
+                    <li className="col-span-1" key={index*1726}>
+                        <Button key={index*254421} className="w-full" variant={'ghost' } size='leader'>
+                                {user.classId}            
+                        </Button>
+                    </li>
+                    <li className="col-span-1" key={index*2726}>
+                        <Button key={index*25421} className="w-full" variant={'ghost' } size='leader'>
+                                {user.classId}            
+                        </Button>
+                    </li>
+                    <li className="col-span-1" key={index*3726}>
+                        <Button key={index*225421} className="w-full" variant={'ghost' } size='leader'>
+                                {user.classId}            
                         </Button>
                     </li>
 
 
+
                     <li className="col-span-1" key={index*726}>
-                        <Button key={index*25421} className="w-full" variant={'ghost' } size='leader'>
+                        <Button key={index*254211} className="w-full" variant={'ghost' } size='leader'>
                                 {user.classId}            
                         </Button>
                     </li>
@@ -291,22 +437,21 @@ export const CheckListUsers = ({
 
 
 
-        {/* <div className='pt-10 w-full flex justify-between gap-x-10'>
-        <Input 
-            placeholder={placeholder}
-            type="text"
-            value={newName}
-            onChange={handleChangeName} 
-        />
 
-        <Button 
-            // onClick={onButtonPress}
-            type="submit"
-        >
-            Поменять имя
-        </Button> 
 
-        </div> */}
+
+
+
+
+                    <TabTCoursesHW 
+                        t_courses={t_courses} 
+                        t_units={t_units} 
+
+                        cur_class_id={cur_class_id}
+
+                        hwLIdsToDoNumUsersMissed={hwLIdsToDoNumUsersMissed}
+                    />
+
 
 
     </div>

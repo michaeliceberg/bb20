@@ -66,7 +66,11 @@ type Props = {
             }[];}[]
     }[],
     
-    // t_lessonProgress: typeof t_lessonProgress.$inferSelect[],
+
+
+
+    // для HW компонента TabTCoursesHW
+
     all_t_lessonProgress: {
         id: number;
         userId: string;
@@ -86,19 +90,9 @@ type Props = {
         dateHw: Date;
     }[] | null,
 
-    // allUsersProgress: {
-    //     points: number;
-    //     userId: string;
-    //     userName: string;
-    //     userImageSrc: string;
-    //     activeCourseId: number | null;
-    //     hearts: number;
-    //     isAdmin: number;
-    //     classId: number | null;
-    //     isOnMeme: number;
-    //     courseProgress: SuperType;
-    // }[],
+   
 
+    
     }
 
   
@@ -154,6 +148,9 @@ return(
                 <TabsContent key={indexCourse*123} value={cur_class.title} className="pt-10">                    
                     
                     <CheckListUsers 
+                    //
+                    // И ТАМ ВНУТРИ КОМПОНЕНТ TabTCoursesHW ДЛЯ HW
+                    //
                         usersThisClass={usersThisClass}
                         
                         // для отправки ДЗ конкретному классу
@@ -162,17 +159,12 @@ return(
                         // для статистики в таблице Учеников
                         all_t_lessonProgress={all_t_lessonProgress}
                         allClassHW={allClassHW}
-                    />
 
-
-
-
-                    <TabTCoursesHW 
+                        // для HW компонента TabTCoursesHW
                         t_courses={t_courses} 
                         t_units={t_units} 
-
-                        cur_class_id={cur_class.id}
                     />
+
 
 
                 </TabsContent>
