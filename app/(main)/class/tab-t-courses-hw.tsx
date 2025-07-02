@@ -258,6 +258,10 @@ return(
                                             <h1 className=
                                             
                                             {
+                                                // Если НЕ задавал то НЕТ цвета
+                                                // Если задавал и ВСЕ сделали - Зеленый Ноль
+                                                // Если задавал и НЕ ВСЕ сделали - красным количество user'ов
+                                                //
                                                 hwLIdsToDoNumUsersMissed.filter(el => el.lessonIdToDo == t_lesson.id)[0]?.missNumOfToDoLIds == 0 
                                                 ? "pl-2 pr-2 text-sm text-white bg-green-400 rounded-sm" 
                                                 : hwLIdsToDoNumUsersMissed.filter(el => el.lessonIdToDo == t_lesson.id)[0]?.missNumOfToDoLIds > 0
