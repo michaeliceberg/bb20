@@ -13,7 +13,7 @@ import { RightAnswerModal } from '@/components/modals/rightanswer-modal';
 const font = Nunito({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
-	title: 'BrickBrain',
+	title: '5x5',
 	description: 'Физико-математическая школа',
 };
 

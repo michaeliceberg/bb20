@@ -25,6 +25,7 @@ export default function HTMLContent({
         //     0
         // </pre>
 
-    <motion.pre>{rounded}</motion.pre>
+    <motion.p>{rounded}</motion.p>
+    
 )}
 

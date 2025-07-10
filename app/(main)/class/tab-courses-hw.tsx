@@ -68,6 +68,9 @@ type Props = {
             missNumOfToDoCIds: number;
         }[],
 
+        hwTLessonIds: number[],
+
+
     }
 
   
@@ -78,9 +81,14 @@ type Props = {
         hwCIdsToDoNumUsersMissed,
 
         cur_class_id,
+
+        hwTLessonIds,
+
     }: Props) => {
 
 
+        // console.log(hwTLessonIds)
+    // console.log(hwCIdsToDoNumUsersMissed)
     const [showFormulas, setShowFormulas] = useState(false)
 
     const onClickHandler = () => {
@@ -160,6 +168,22 @@ type Props = {
         setCheckedState(newState)
     }
 
+    // Отправляем Casual ДЗ challengeIds
+    const [hwListChallengeIds, setHwListChallengeIds] = useState<number[]>([])
+    const handleChallengeClick = (challengeId: number) => {
+        if (hwListChallengeIds.includes(challengeId)) {
+
+            // Если 2 раза нажал на один и тот же challenge то убрать из HW
+            //
+            let listWithout:number[] = hwListChallengeIds.filter(el => el != challengeId)
+            setHwListChallengeIds(listWithout)
+        } else {
+            setHwListChallengeIds([...hwListChallengeIds, challengeId])
+        }
+        // console.log(hwListChallengeIds)
+    }
+
+
     const [pending, startTransition] = useTransition()
 
     const onButtonPressSendHW = () => {
@@ -169,7 +193,12 @@ type Props = {
             
             // отправляем в таблицу class_hw Класс cur_class_id выбранные LessonIds Checkbox
             //
-            upsertClassHW(cur_class_id, checkedState.filter(el => el.isChecked).map(el => el.lessonId))
+            upsertClassHW(
+                cur_class_id, 
+                hwTLessonIds,
+                // checkedState.filter(el => el.isChecked).map(el => el.lessonId),
+                hwListChallengeIds,
+            )
             .catch(()=>toast.error('HW не отправилось!'))
         })
 
@@ -180,6 +209,7 @@ return(
 
     <div className="flex pt-10">
         
+
 
         <Tabs defaultValue=
             {courses[0].title}
@@ -207,7 +237,9 @@ return(
                     
                     <div key={indexCourse*1389}>
 
-				
+                    <div>
+                        {hwTLessonIds}
+                    </div>
 
                         {/* TODO:   unit Banner */}
                         
@@ -252,38 +284,93 @@ return(
                                     // Идем по ЛЕССОНАМ чтобы Checkbox HW
                                     //                                              
                                     return(
-                                        <div key={indexLesson * 2241} className='justify-between flex'>
-                                            
-                                            <div className="flex gap-x-4">
-                                            <h1 >
-                                                {lesson.title}
-                                            </h1>
-                                            {/* <h1 className=
-                                            
-                                            {
-                                                // Если НЕ задавал то НЕТ цвета
-                                                // Если задавал и ВСЕ сделали - Зеленый Ноль
-                                                // Если задавал и НЕ ВСЕ сделали - красным количество user'ов
-                                                //
-                                                hwCIdsToDoNumUsersMissed.filter(el => el.challengeIdToDo == lesson.id)[0]?.missNumOfToDoLIds == 0 
-                                                ? "pl-2 pr-2 text-sm text-white bg-green-400 rounded-sm" 
-                                                : hwCIdsToDoNumUsersMissed.filter(el => el.challengeIdToDo == lesson.id)[0]?.missNumOfToDoLIds > 0
-                                                ? "pl-2 pr-2 text-sm text-white bg-red-400 rounded-sm" 
-                                                : ""
-                                            }
-                                                >
-                                                {hwCIdsToDoNumUsersMissed.filter(el => el.challengeIdToDo == lesson.id)[0]?.missNumOfToDoLIds}
-                                            </h1> */}
+                                        <div key={indexLesson * 221241} >
+                                            <div className='justify-between flex'>
+                                                
+                                                <div className="flex gap-x-4 w-full justify-center  bg-zinc-100 p-2 mt-2 mb-2 rounded-lg">
+                                                    <p>
+                                                        {lesson.title}
+                                                    </p>
+                                                    <h1 className=
+                                                    
+                                                    {
+                                                        // Если НЕ задавал то НЕТ цвета
+                                                        // Если задавал и ВСЕ сделали - Зеленый Ноль
+                                                        // Если задавал и НЕ ВСЕ сделали - красным количество user'ов
+                                                        //
+                                                        hwCIdsToDoNumUsersMissed.filter(el => el.challengeIdToDo == lesson.id)[0]?.missNumOfToDoCIds == 0 
+                                                        ? "pl-2 pr-2 text-sm text-white bg-green-400 rounded-sm" 
+                                                        : hwCIdsToDoNumUsersMissed.filter(el => el.challengeIdToDo == lesson.id)[0]?.missNumOfToDoCIds > 0
+                                                        ? "pl-2 pr-2 text-sm text-white bg-red-400 rounded-sm" 
+                                                        : ""
+                                                    }
+                                                        >
+                                                        {hwCIdsToDoNumUsersMissed.filter(el => el.challengeIdToDo == lesson.id)[0]?.missNumOfToDoCIds}
+                                                    </h1>
 
+                                                </div>
+                                                
+                                                {/* <Checkbox 
+                                                    key={indexLesson*276251314}
+                                                    
+                                                    checked={checkedState.filter(el => el.lessonId == lesson.id)[0].isChecked}
+                                                    
+                                                    onCheckedChange={() => handleOnChange(lesson.id)}
+                                                /> */}
+
+                                                
+                                                
                                             </div>
-                                            <Checkbox 
-                                                key={indexLesson*276251314}
-                                                
-                                                checked={checkedState.filter(el => el.lessonId == lesson.id)[0].isChecked}
-                                                
-                                                onCheckedChange={() => handleOnChange(lesson.id)}
-                                            />
                                             
+                                            {/* TODO: СВОРАЧИВАТЬ ЛИ ВСЕ challengeID в галочку или нет {checkedState.filter(ch => ch.lessonId == lesson.id)[0].isChecked && */}
+                                                <div>
+                                                    {/* {lesson.id} */}
+                                                    
+                                                    <p className="text-xs gap-x-1">
+                                                    {lesson.challenges.map((challenge, index) => 
+                                                        
+                                                        
+                                                    (
+                                                        <Button
+                                                            variant={hwListChallengeIds.includes(challenge.id) ? 'primary': 'default' }
+                                                            key={index*44289}
+                                                            onClick={()=>{handleChallengeClick(challenge.id)}}
+                                                        >
+                                                            <div>
+                                                                {challenge.id}
+
+                                                                {hwCIdsToDoNumUsersMissed.filter(el => el.challengeIdToDo == challenge.id).length > 0 && 
+                                                                    <div className=
+                                                                        {hwCIdsToDoNumUsersMissed.filter(el => el.challengeIdToDo == challenge.id)[0].missNumOfToDoCIds > 0
+                                                                            ? "text-white bg-red-400 rounded-lg"
+                                                                            : "text-white bg-green-400 rounded-lg"
+                                                                        }
+                                                                        
+                                                                    >
+                                                                        
+                                                                        {hwCIdsToDoNumUsersMissed.filter(el => el.challengeIdToDo == challenge.id)[0].missNumOfToDoCIds}
+                                                                    </div>
+                                                                }
+
+                                                            </div>
+
+                                                        </Button>
+                                                    
+                                                   
+                                                
+
+                                                    )
+
+
+                                      
+
+
+                                                    )}
+                                                    </p>
+                                                </div>
+                                                
+                                            {/* } */}
+
                                         </div>
                                     )}
 

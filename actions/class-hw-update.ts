@@ -8,6 +8,7 @@ import { revalidatePath } from "next/cache"
 export const upsertClassHW = async (
         classId: number, 
         lessonsIdsHw: number[], 
+        challengeIdsHw: number[],
     ) => {
     
     const {userId} = await auth()  
@@ -20,6 +21,7 @@ export const upsertClassHW = async (
     await db.insert(classesHw).values({
         classId,
         taskTrainer: lessonsIdsHw.toString(),
+        task: challengeIdsHw.toString(),
     })
 }
 

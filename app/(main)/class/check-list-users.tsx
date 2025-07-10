@@ -361,12 +361,12 @@ export const CheckListUsers = ({
     thisClassHW?.map(cur_hw=> {
         let ListOfMissedChallengesIds: number[] = []
         //
-        const hw_trainer_string = cur_hw.taskTrainer
-        if (hw_trainer_string != null) {
-            const hw_trainer_list_of_str = hw_trainer_string.split(',')
+        const hw_casual_string = cur_hw.task
+        if (hw_casual_string != null) {
+            const hw_casual_list_of_str = hw_casual_string.split(',')
             
             // hw_trainer - список номеров задач этого HW
-            hw_trainer_list_of_str.map(str => {
+            hw_casual_list_of_str.map(str => {
                 listOfAllHWChallengeIds.push(Number(str))
             })
         }
@@ -378,6 +378,7 @@ export const CheckListUsers = ({
     const listOfUniqueHWChallengeIds = Array.from(uniqueSet2);
     // console.log('listOfUniqueHWIds', listOfUniqueHWIds)
 
+    // console.log('listOfUniqueHWChallengeIds<<<', listOfUniqueHWChallengeIds)
 
     const hwCIdsToDoNumUsersMissed = listOfUniqueHWChallengeIds.map(challengeIdToDo => {
 
@@ -415,6 +416,7 @@ export const CheckListUsers = ({
 
 
 
+    console.log('hwCIdsToDoNumUsersMissed::::', hwCIdsToDoNumUsersMissed)
 
 
 
@@ -439,6 +441,9 @@ export const CheckListUsers = ({
         setNewName(event.target.value);
     }
 
+    // в одном компоненте TabTCoursesHW мы получаем LessonIds List с HW который отправляем во второй компонент TabCoursesHW
+    // откуда уже отправляем ДЗ вместе с ChallengeIds
+    const [hwTLessonIds, setHwTLessonIds] = useState<number[]>([])
 
 
 
@@ -650,6 +655,9 @@ export const CheckListUsers = ({
                         cur_class_id={cur_class_id}
 
                         hwLIdsToDoNumUsersMissed={hwLIdsToDoNumUsersMissed}
+
+                        hwTLessonIds={hwTLessonIds}
+                        setHwTLessonIds={setHwTLessonIds}
                     />
 
 
@@ -661,6 +669,9 @@ export const CheckListUsers = ({
                         cur_class_id={cur_class_id}
 
                         hwCIdsToDoNumUsersMissed={hwCIdsToDoNumUsersMissed}
+
+                        hwTLessonIds={hwTLessonIds}
+
                     /> 
 
 

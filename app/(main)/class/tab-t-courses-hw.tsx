@@ -1,16 +1,12 @@
 'use client'
 
-import { TCourseBanner } from "@/app/(main)/trainer/t-course-banner";
 import {
     Tabs,
     TabsContent,
     TabsList,
     TabsTrigger,
   } from "@/components/ui/tabs"
-import { t_challengeOptions, t_lessonProgress } from "@/db/schema";
-import { GetTLessonStat } from "@/usefulFunctions";
-import 'katex/dist/katex.min.css';
-import Latex from 'react-latex-next';
+import { t_challengeOptions } from "@/db/schema";
 import { useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { Block } from "@/components/block";
@@ -64,7 +60,13 @@ type Props = {
         hwLIdsToDoNumUsersMissed: {
             lessonIdToDo: number;
             missNumOfToDoLIds: number;
-        }[]
+        }[],
+
+        hwTLessonIds: number[],
+        setHwTLessonIds: React.Dispatch<React.SetStateAction<number[]>>,
+        // setHwTLessonIds: () => void,
+
+        
     }
 
   
@@ -75,6 +77,10 @@ type Props = {
         hwLIdsToDoNumUsersMissed,
 
         cur_class_id,
+
+        hwTLessonIds,
+        setHwTLessonIds,
+
     }: Props) => {
 
 
@@ -155,22 +161,24 @@ type Props = {
         })
 
         setCheckedState(newState)
+
+        setHwTLessonIds(newState.filter(el => el.isChecked).map(el => el.lessonId))
     }
 
     const [pending, startTransition] = useTransition()
 
-    const onButtonPressSendHW = () => {
+    // const onButtonPressSendHW = () => {
 
-        startTransition(()=> {
-            if (pending) return;
+    //     startTransition(()=> {
+    //         if (pending) return;
             
-            // отправляем в таблицу class_hw Класс cur_class_id выбранные LessonIds Checkbox
-            //
-            upsertClassHW(cur_class_id, checkedState.filter(el => el.isChecked).map(el => el.lessonId))
-            .catch(()=>toast.error('HW не отправилось!'))
-        })
+    //         // отправляем в таблицу class_hw Класс cur_class_id выбранные LessonIds Checkbox
+    //         //
+    //         upsertClassHW(cur_class_id, checkedState.filter(el => el.isChecked).map(el => el.lessonId))
+    //         .catch(()=>toast.error('HW не отправилось!'))
+    //     })
 
-    }
+    // }
 
 
 return(
@@ -321,12 +329,12 @@ return(
             
             */}
 
-            <Button 
+            {/* <Button 
                 onClick={onButtonPressSendHW}
                 type="submit"
             >
                 выдать дз
-            </Button> 
+            </Button>  */}
 
 
 
