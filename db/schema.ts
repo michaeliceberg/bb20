@@ -149,7 +149,7 @@ export const lessonsRelations = relations(lessons, ({ one, many }) => ({
 
 
 export const challengesEnum = pgEnum("type", ["SELECT", "ASSIST", "CONNECT", "SLIDER", "CONSTRUCT", "WORKBOOK",
-												        "R ASSIST", "R CONNECT", "R SLIDER", "GEOSING",
+												        "R ASSIST", "R CONNECT", "R SLIDER", "GEOSIN",
 ])
 
 
@@ -161,7 +161,7 @@ export const t_challengesEnum = pgEnum("type", ["SELECT", "ASSIST", "CONNECT", "
 // export const typeChallenges = "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT" | "WORKBOOK" | "R ASSIST" | "R CONNECT" | "R SLIDER" | "GEOSIN"
 
 // export const challengesEnumAllVariants:[string, ...string[]] = ["SELECT", "ASSIST", "CONNECT", "SLIDER", "CONSTRUCT", "WORKBOOK",
-// "R ASSIST", "R CONNECT", "R SLIDER", "GEOSING",]
+// "R ASSIST", "R CONNECT", "R SLIDER", "GEOSIN",]
 
 
 // export const challengesEnum = pgEnum("type", challengesEnumAllVariants)
@@ -414,6 +414,8 @@ export const classes = pgTable('classes', {
 	id: serial('id').primaryKey(),
 	title: text('title').notNull(),
 	imageSrc: text('image_src').notNull(),
+	courseListIds: text('course_list_ids'),
+	tCourseListIds: text('t_course_list_ids'),
 });
 
 export const classesRelations = relations(classes, ({ many }) => ({

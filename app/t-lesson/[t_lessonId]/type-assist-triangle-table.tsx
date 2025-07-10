@@ -654,14 +654,14 @@ export const TypeAssistTRIANGLETable = ({
             })
         )
 
-        console.log(LifeSaver)
+        // console.log(LifeSaver)
         
         // Делаем так чтобы Занятые точки НЕ магнитились
         // в Магнит пихаем вместо координаты точки  pointsInitial[0]
         //
         const OccupiedPointsObject = LifeSaver.filter(el => el.currentSnappointIndex > 0)
         const OccupiedPointsList = OccupiedPointsObject.map(el => el.currentSnappointIndex)
-        console.log('OccupiedPointsList: ', OccupiedPointsList)
+        // console.log('OccupiedPointsList: ', OccupiedPointsList)
 
         let freeList:PointsInitial = []
         pointsInitial.map((point, index) => {
@@ -679,7 +679,7 @@ export const TypeAssistTRIANGLETable = ({
         setPoints(freeList)
 
 
-        console.log('freeList ', freeList)
+        // console.log('freeList ', freeList)
 
         
         // Проверяем, получен ли ответ

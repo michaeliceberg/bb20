@@ -48,6 +48,9 @@ import { ArrowUpRight, CircleCheckBig, CircleX, Layers, Star, ToyBrick,
         Apple,
         LucideProps,
         Lock,
+        Citrus,
+        House,
+        FlameKindling,
 
 
 
@@ -81,6 +84,8 @@ type Props = {
     user_id: string,
     indexLesson: number,
     isDisabled: boolean,
+
+    missedLIds: number[],
     
 }
 
@@ -96,6 +101,7 @@ export const TrainerLessonItemRound = ({
     user_id,
     indexLesson,
     isDisabled,
+    missedLIds,
 } : Props) => {
 
 
@@ -250,6 +256,7 @@ if (cycleIndex <= 2){
         Umbrella,
         Waves,
         Apple,
+        Citrus
     ]
 
 
@@ -284,6 +291,10 @@ if (cycleIndex <= 2){
             { 1 ? (
                 <div className="h-[102px] w-[102px] relative">
     
+
+                    
+                    
+
                     <CircularProgressbarWithChildren
                         value={Number.isNaN(percentage) ? 0:percentage}
                         styles={{
@@ -385,6 +396,31 @@ if (cycleIndex <= 2){
                         </Button>
 
                     </CircularProgressbarWithChildren>
+
+
+
+
+                     {missedLIds.includes(t_lesson.id) && 
+
+                        <FlameKindling
+                                            
+                        // HW ДОМАШНЕЕ ЗАДАНИЕ
+
+                        className={cn(
+                            "h-10 w-10 absolute bg-white  p-1 rounded-md top-0",
+                            // "translate-y-8 bounce transition-transform duration-[250ms]",
+                            "animate-bounce border-red-400 border-2",
+                            // "h-10 w-10 absolute p-1 top-0",
+                            
+                        percentage > 1 
+                        // ? 'fill-primary-foreground text-primary-foreground' 
+                        ? 'text-red-400' 
+
+                        : ' text-sky-100 '
+                        )}
+                        />
+                     }
+                    
 
 
 

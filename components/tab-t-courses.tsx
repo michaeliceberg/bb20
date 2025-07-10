@@ -18,6 +18,7 @@ import { TrainerLessonItemRound } from "./trainer-list-round";
 import { Block } from "./block";
 import { FlipLink } from "./reveal-links";
 import { AnimRightTriangleSin } from "@/app/(main)/motiontest/AnimRightTriangleSin";
+import { FlameKindling } from "lucide-react";
 
 
 type Props = {    
@@ -26,35 +27,10 @@ type Props = {
             title: string;
             imageSrc: string;
         }[],
-        t_units:  // typeof t_units.$inferSelect[]
-        
 
 
 
-         // {
-    //     id: number;
-    //     title: string;
-    //     description: string;
-    //     imageSrc: string;
-    //     t_courseId: number;
-    //     order: number;
-    //     t_lessons: {
-    //         id: number;
-    //         title: string;
-    //         order: number;
-    //         t_unitId: number;
-    //         t_challenges: {
-    //             id: number;
-    //             points: number;
-    //             order: number;
-    //             type:  "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT" | "WORKBOOK" | "R ASSIST" | "R CONNECT" | "R SLIDER",
-    //             question: string;
-    //             author: string;
-    //             t_lessonId: number;
-    //         }[];}[]
-    // }[],
-
-    
+        t_units:  // typeof t_units.$inferSelect[]    
         {
             id: number;
             title: string;
@@ -96,7 +72,50 @@ type Props = {
         }[],
 
         user_id: string,
+
+
+
+
+
+
+        allClasses: {
+            id: number;
+            title: string;
+            imageSrc: string;
+        }[],
+
+        allClassHW: {
+            id: number;
+            classId: number;
+            task: string | null;
+            taskTrainer: string | null;
+            dateHw: Date;
+        }[] | null,
+    
+
+        allUsers: {
+            userId: string;
+            userName: string;
+            userImageSrc: string;
+            points: number;
+            classId: number | null;
+        }[],
+
+        this_class_id: number | null,
+
+        all_t_lessonProgress: {
+            id: number;
+            userId: string;
+            doneRight: number;
+            dateDone: Date;
+            t_lessonId: number;
+            doneRightPercent: number;
+            doneWrong: number;
+            trainingPts: number;
+        }[],
     }
+
+
 
   
 
@@ -106,6 +125,13 @@ type Props = {
         t_lessonProgress,
         TRatingUsers,
         user_id,
+
+        allClasses,
+        allClassHW,
+        allUsers,
+        this_class_id,
+        all_t_lessonProgress,
+
     }: Props) => {
 
 
@@ -146,8 +172,8 @@ type Props = {
     })
 
 
-    console.log('AllTStat')
-    console.log(AllTStat)
+    // console.log('AllTStat')
+    // console.log(AllTStat)
 
 
 
@@ -175,18 +201,142 @@ type Props = {
     // console.log(CourseStat)
 
 
+
+
+
+
+
+
+
+
+
+    const usersThisClass = allUsers.filter(user=>user.classId == this_class_id)
+
+    const thisClassHW = allClassHW?.filter(el => el.classId == this_class_id)
+
+    const big = usersThisClass.map(user => {
+        
+        // смотрим во ВСЕМ списке выполненых Lesson те, которые выполнены ЭТИМ user
+        //
+        const lessonsDoneByThisUser = all_t_lessonProgress.filter(t_less_propg => t_less_propg.userId == user.userId)
+
+        
+        // идем по HW, 
+        // смотрим в КАЖДОМ HW, выполнены ЛИ Lesson'ы на 90% после ДАТЫ ВЫДАЧИ задания
+        if (thisClassHW) {
+            const thisUserListHWStat = thisClassHW.map(cur_hw => {
+                // смотрим конкретное ОДНО HW
+                //
+                // Контрольное ПРОИЗВЕДЕНИЕ (если будет 1 то все Lesson'ы этого HW выполнены)
+                let controlMultiply = 1
+                let ListOfMissedLessonsIds: number[] = []
+                //
+                const hw_trainer_string = cur_hw.taskTrainer
+                if (hw_trainer_string != null) {
+                    const hw_trainer_list_of_str = hw_trainer_string.split(',')
+                    
+                    // hw_trainer - список номеров задач этого HW
+                    const hw_trainer = hw_trainer_list_of_str.map((str) => Number(str));
+                    
+
+                    // TODO:
+                    // считаем, сколько user'ов НЕ сделало каждый unit
+                    // const hw_trainer_missed = 
+
+                    
+   
+                    hw_trainer.map(cur_les_in_hw => {
+                        // смотрим первый (нулевой) результат по этому Lesson'у тк УЖЕ был отсортирован в query по дате
+                        const doneRightPercent = lessonsDoneByThisUser.filter(lessonDone => lessonDone.t_lessonId == cur_les_in_hw)[0]?.doneRightPercent
+                        // console.log(user.userId)
+                        // console.log(doneRightPercent)
+                        // console.log('----')
+                        
+
+                        // смотрим, сколько раз был решен Lesson ПОСЛЕ даты выдачи HW
+                        //
+                        const timesDoneCurLessonAfterHWDate = lessonsDoneByThisUser.filter(lessonDone => 
+
+                            (lessonDone.t_lessonId == cur_les_in_hw) && (lessonDone.dateDone > cur_hw.dateHw))?.length
+
+
+
+                        if (doneRightPercent > 90 && timesDoneCurLessonAfterHWDate > 0) {
+                            //
+                            // ничего не делаем
+                            //
+                        } else {
+                            controlMultiply = controlMultiply * 0
+                            ListOfMissedLessonsIds.push(cur_les_in_hw)
+                        }
+                    })
+                }
+
+                return (
+                    {
+                        dateHW: cur_hw.dateHw,
+                        isDone: controlMultiply,
+                        ListOfMissedLessonsIds: ListOfMissedLessonsIds,
+                    }
+                )
+                
+
+            })
+            return (
+                {
+                    thisUserListHWStat: thisUserListHWStat,
+                    userName: user.userName,
+                    userId: user.userId,                    
+                }
+            )
+        }
+    })
+
+
+    const thisUserStatHW = big.filter(user => user?.userId == user_id)[0]
+
+    const numOfHwDone = thisUserStatHW?.thisUserListHWStat.filter(el => el.isDone).length
+    const numOfHwNotDone = thisUserStatHW?.thisUserListHWStat.filter(el => !el.isDone).length
+
+
+    let missedLIds: number[] = []
+    thisUserStatHW?.thisUserListHWStat.map( cur_hw => {
+        cur_hw.ListOfMissedLessonsIds.map(lesson_id => {
+            missedLIds.push(lesson_id)
+        })
+    })
+
+
+
+
+
+
 return(
 
     <div className="flex items-center flex-col relative ">
         
-        {/* <ChipTabs /> */}
-        {/* <SmoothScrollLenis /> */}
-        {/* <SmoothScrollHero /> */}
-        {/* <RevealLinks /> */}
-        {/* <AuroraHero /> */}
 
-        {/* <BouncyCardsFeatures /> */}
-        {/* <SlideTabsExample /> */}
+        {missedLIds.length > 0 
+        ?
+            <div className="justify-center w-[100px] rounded-xl border-red-400 border-2 border-dashed text-lg font-bold p-1">
+                <div className="flex text-red-400 justify-center">
+                    <FlameKindling className="h-5 w-5 pt-1" />
+                    <p>
+                        {missedLIds.length}
+                    </p>
+                </div>
+            </div>
+        :
+        <div className="justify-center w-[200px] rounded-xl border-green-500 border-2 border-dashed text-lg font-bold p-1">
+            <div className="flex text-green-500 justify-center">
+                <p>
+                    😍 ДЗ выполнено!
+                </p>
+            </div>
+        </div>
+        }
+
+
 
         <Tabs defaultValue=
             {t_courses[0].title}
@@ -295,6 +445,7 @@ return(
 
                                         return(
                                             <div key={indexLesson * 2241} className='justify-center'>
+
                                                 <TrainerLessonItemRound 
                                                     t_lesson={t_lesson} 
                                                     t_lessonProgress={t_lessonProgress}
@@ -302,7 +453,10 @@ return(
                                                     user_id={user_id}
                                                     indexLesson={indexLesson}
                                                     isDisabled={isDisabled}
+
+                                                    missedLIds={missedLIds}
                                                 />
+                                                
                                         
                                                 {/* <h1>
                                                     {JSON.stringify(StatThisUnitLessons)}

@@ -56,7 +56,8 @@ export const getUnits = cache(async()=>{
 					challenges: {
 						with: {
 							challengeProgress: {
-								where: eq (challengeProgress.userId,
+							// challengeOptions: {
+									where: eq (challengeProgress.userId,
 									userId
 								)
 							}
@@ -322,18 +323,9 @@ export const getTUnits = cache(async()=>{
                 with: {
                     t_challenges: {
 						with: {
-							t_challengeOptions: {
-		
+							t_challengeOptions: {	
 							},
-						}
-                        // with: {
-                            
-						// 	t_lessonProgress: {
-                        //         where: eq (challengeProgress.userId,
-                        //             userId
-                        //         )
-                        //     }
-                        // },
+						}                        
                     },
                 },
             },

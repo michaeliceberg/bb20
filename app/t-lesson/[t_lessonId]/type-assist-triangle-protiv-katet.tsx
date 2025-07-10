@@ -462,7 +462,7 @@ export const TypeAssistTRIANGLEgdeProtivKatet = ({
 
         setBL(ButtonListWithSnap)
 
-        console.log('ButtonListWithSnap ---- ', ButtonListWithSnap)
+        // console.log('ButtonListWithSnap ---- ', ButtonListWithSnap)
 
         const snapPointsToPaint = initialestate.slice(1).map(snapPoint =>{
             const snapFound = ButtonListWithSnap.filter(button => button.snapPointId == snapPoint.pointId)
@@ -477,7 +477,7 @@ export const TypeAssistTRIANGLEgdeProtivKatet = ({
 
         setPTP(snapPointsToPaint)
      
-        console.log('snapPointsToPaint ---- ', snapPointsToPaint)
+        // console.log('snapPointsToPaint ---- ', snapPointsToPaint)
         
 
         // Перекрашиваем отдельно Buttons CТИКЕРЫ - отдельно Линии 
@@ -491,7 +491,7 @@ export const TypeAssistTRIANGLEgdeProtivKatet = ({
         ButtonListWithSnap.map( el => {
             if (el.isSnapped) {
                 listControlsColorBG[el.buttonId].start('snapColorBG')
-                console.log( ' перекрасили buttonId:', el.buttonId )
+                // console.log( ' перекрасили buttonId:', el.buttonId )
 
             } 
             // else {
@@ -505,7 +505,7 @@ export const TypeAssistTRIANGLEgdeProtivKatet = ({
             if (el.isSnapped) {
             // Линии это IdSnap МИНУС 1  потому что НУЛЕВОЙ snap  это x 0 y 0
             listControlsColorLine[el.snapPointId - 1].start('snapColor')
-            console.log( ' перекрасили el.snapPointId - 1:', el.snapPointId - 1 )
+            // console.log( ' перекрасили el.snapPointId - 1:', el.snapPointId - 1 )
 
             } else {
             // Линии это IdSnap МИНУС 1  потому что НУЛЕВОЙ snap  это x 0 y 0

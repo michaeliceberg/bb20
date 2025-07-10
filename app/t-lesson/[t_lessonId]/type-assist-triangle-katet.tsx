@@ -465,7 +465,7 @@ export const TypeAssistTRIANGLEgdeKatet = ({
         //
         
 
-        console.log('newInitialState', newInitialState)
+        // console.log('newInitialState', newInitialState)
 
 
         // Создаем объект: со ВСЕМИ СТИКЕРАМИ. Если кнопка НЕ занимает SNAP POINT то snapPointId = -1
@@ -487,7 +487,7 @@ export const TypeAssistTRIANGLEgdeKatet = ({
         setBL(ButtonListWithSnap)
         // BL = ButtonListWithSnap
 
-        console.log('ButtonListWithSnap ---- ', ButtonListWithSnap)
+        // console.log('ButtonListWithSnap ---- ', ButtonListWithSnap)
 
         const snapPointsToPaint = initialestate.slice(1).map(snapPoint =>{
             const snapFound = ButtonListWithSnap.filter(button => button.snapPointId == snapPoint.pointId)
@@ -504,11 +504,11 @@ export const TypeAssistTRIANGLEgdeKatet = ({
         // PTP = snapPointsToPaint
      
 
-        console.log('BL', BL)
-        console.log('PTP', PTP)
+        // console.log('BL', BL)
+        // console.log('PTP', PTP)
 
 
-        console.log('snapPointsToPaint ---- ', snapPointsToPaint)
+        // console.log('snapPointsToPaint ---- ', snapPointsToPaint)
         
 
         // Перекрашиваем отдельно Buttons CТИКЕРЫ - отдельно Линии 
@@ -522,7 +522,7 @@ export const TypeAssistTRIANGLEgdeKatet = ({
         ButtonListWithSnap.map( el => {
             if (el.isSnapped) {
                 listControlsColorBG[el.buttonId].start('snapColorBG')
-                console.log( ' перекрасили buttonId:', el.buttonId )
+                // console.log( ' перекрасили buttonId:', el.buttonId )
 
             } 
             // else {
@@ -536,7 +536,7 @@ export const TypeAssistTRIANGLEgdeKatet = ({
             if (el.isSnapped) {
             // Линии это IdSnap МИНУС 1  потому что НУЛЕВОЙ snap  это x 0 y 0
             listControlsColorLine[el.snapPointId - 1].start('snapColor')
-            console.log( ' перекрасили el.snapPointId - 1:', el.snapPointId - 1 )
+            // console.log( ' перекрасили el.snapPointId - 1:', el.snapPointId - 1 )
 
             } else {
             // Линии это IdSnap МИНУС 1  потому что НУЛЕВОЙ snap  это x 0 y 0

@@ -1,7 +1,7 @@
 import { FeedWrapper } from '@/components/feed-wrapper';
 import { StickyWrapper } from '@/components/sticky-wrapper';
 import { UserProgress } from '@/components/user-progress';
-import { getAllTLessonProgress, getAllUsersProgress, getChallengeProgress, getCourseProgress, getCourses, getTCourses, getTLessonProgress, getTUnits, getUnits, getUserProgress } from '@/db/queries';
+import { getAllClassHW, getAllClasses, getAllTLessonProgress, getAllUsers, getAllUsersProgress, getChallengeProgress, getCourseProgress, getCourses, getTCourses, getTLessonProgress, getTUnits, getUnits, getUserProgress } from '@/db/queries';
 import { redirect } from 'next/navigation';
 import { Header } from './header';
 import { auth, currentUser } from "@clerk/nextjs/server"
@@ -37,6 +37,26 @@ const LearnPage = async () => {
 
 
 
+
+
+
+
+    const allClassesData = getAllClasses()
+
+
+    // const t_coursesData = getTCourses();
+	// const userProgressData = getUserProgress()
+	// const courseProgressData = getCourseProgress()
+	// const challengeProgressData = getChallengeProgress()
+	// const t_unitsData = getTUnits()
+
+    // const userAllTLessonProgressData = getAllTLessonProgress()
+    const allClassHWData = getAllClassHW()
+    const allUsersData = getAllUsers()
+
+
+
+
 	const [
 		t_courses,
 		userProgress,
@@ -48,6 +68,11 @@ const LearnPage = async () => {
 		all_t_lessonProgress,
 		allUsersProgress,
 
+		allClasses,
+		allClassHW,
+		allUsers,
+
+
 	] = await Promise.all([
 		t_coursesData,
 		userProgressData,
@@ -58,9 +83,14 @@ const LearnPage = async () => {
 
 		userAllTLessonProgressData,
 		allUsersProgressData,
+
+
+		allClassesData,
+		allClassHWData,
+		allUsersData,
 	]);
 
-	if (!userProgress || !userProgress.activeCourse) {
+	if (!userProgress || !userProgress.activeCourse || !allClasses) {
 		redirect('/courses');
 	}
 
@@ -78,8 +108,16 @@ const LearnPage = async () => {
 
 	// для сравнения рейтинга в trainer-list
 	//
-	const user_id = userProgress.userId
+	// const user_id = userProgress.userId
 
+	const ThisClassId = userProgress.classId
+	const CoursesIdsThisClass = allClasses.filter(el => el.id == ThisClassId)[0].courseListIds
+	const TCoursesIdsThisClass = allClasses.filter(el => el.id == ThisClassId)[0].tCourseListIds
+
+	console.log('CoursesIdsThisClass', CoursesIdsThisClass)
+	console.log('TCoursesIdsThisClass', TCoursesIdsThisClass)
+
+	// console.log('CoursesIdsThisClass', CoursesIdsThisClass)
 	// отфильтровать последние по дате
 	//
 	// all_t_lessonProgress.map(lesson => (
@@ -193,7 +231,14 @@ const LearnPage = async () => {
 					t_units={t_units} 
 					t_lessonProgress={t_lessonProgress}
 					TRatingUsers={TRatingUsers}
-					user_id={user_id}
+					user_id={userProgress.userId}
+
+					allClasses={allClasses}
+					allClassHW={allClassHW}
+					allUsers={allUsers}
+
+					all_t_lessonProgress={all_t_lessonProgress}
+					this_class_id={userProgress.classId}
 				/>
 
 				

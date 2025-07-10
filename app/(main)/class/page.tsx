@@ -1,7 +1,7 @@
 import { FeedWrapper } from "@/components/feed-wrapper"
 import { StickyWrapper } from "@/components/sticky-wrapper"
 import { Separator } from "@/components/ui/separator"
-import { getAllClassHW, getAllClasses, getAllTLessonProgress, getAllUsers, getAllUsersProgress, getChallengeProgress, getCourseProgress, getTCourses, getTUnits, getUserProgress } from "@/db/queries"
+import { getAllClassHW, getAllClasses, getAllTLessonProgress, getAllUsers, getChallengeProgress, getCourseProgress, getCourses, getTCourses, getTUnits, getUnits, getUserProgress } from "@/db/queries"
 import Image from "next/image"
 import { redirect } from "next/navigation"
 import { TabUsers } from "./tab-users"
@@ -20,6 +20,13 @@ const ClassroomPage = async () => {
 
     const userAllTLessonProgressData = getAllTLessonProgress()
     const allClassHWData = getAllClassHW()
+
+
+    const coursesData = getCourses();
+	const unitsData = getUnits()
+
+
+
     
 	// const allUsersProgressData = getAllUsersProgress()
 
@@ -37,6 +44,9 @@ const ClassroomPage = async () => {
 		all_t_lessonProgress,
         allClassHW,
 
+        courses,
+        units,
+
     ] = await Promise.all([
         allUsersData,
         allClassesData,
@@ -50,6 +60,10 @@ const ClassroomPage = async () => {
 
 		userAllTLessonProgressData,
         allClassHWData,
+
+
+        coursesData,
+        unitsData,
     ])
 
  
@@ -81,7 +95,7 @@ const ClassroomPage = async () => {
         redirect('/learn')
     }
 
-	if (!t_units) {
+	if (!t_units || !units) {
 		redirect('/learn')
 	}
 
@@ -127,14 +141,20 @@ const ClassroomPage = async () => {
                         allUsers={allUsers}
                         allClasses={allClasses}    
 
-                        // для Tab hw
+                        // для Tab hw trainer
                         t_courses={t_courses} 
                         t_units={t_units} 
+
+                        // для Tab hw
+                        courses={courses} 
+                        units={units} 
 
                         // для статистики учеников (просмотр сделали или нет ДЗ)
                         all_t_lessonProgress={all_t_lessonProgress}
                         allClassHW={allClassHW}
-                        // allUsersProgress={allUsersProgress}
+                        challengeProgress={challengeProgress}
+
+
                     />
 
 
@@ -154,3 +174,8 @@ const ClassroomPage = async () => {
 )}
 
 export default ClassroomPage
+
+
+
+// '{ id: number; imageSrc: string; order: number; type: "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT" | "WORKBOOK" | "R ASSIST" | "R CONNECT" | "R SLIDER" | "GEOSIN"; question: string; ... 4 more ...; challengeProgress: { ...; }[]; }[]' 
+// '{ id: number; imageSrc: string; order: number; type: "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT" | "WORKBOOK" | "R ASSIST" | "R CONNECT" | "R SLIDER" | "GEOSIN"; difficulty: string; points: number; ; question: string; author: string; lessonId: number; challengeProgress: { ...; }[]; }[]'.

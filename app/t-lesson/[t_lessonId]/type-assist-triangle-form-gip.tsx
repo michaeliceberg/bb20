@@ -541,8 +541,8 @@ export const TypeAssistTRIANGLEformGip = ({
         const OccupiedPointsList = OccupiedPointsObject.map(el => el.currentSnappointIndex)
         
         // console.log('OccupiedPointsList: ', OccupiedPointsList)
-        console.log('useSnapList')
-        console.log(useSnapList)
+        // console.log('useSnapList')
+        // console.log(useSnapList)
 
         // 
         //
@@ -603,7 +603,7 @@ export const TypeAssistTRIANGLEformGip = ({
             }
         });
 
-        console.log('newInitialState ', newInitialState)
+        // console.log('newInitialState ', newInitialState)
 
 
         // ПЕРЕОБНОВЛЯЕМ НАЧАЛЬНОЕ СОСТОЯНИЕ 
@@ -688,10 +688,10 @@ export const TypeAssistTRIANGLEformGip = ({
 
         if (ans4isRight && ans5isRight && isSnapped_4 && isSnapped_5 ) {
             setIsDoneRight(true)
-            console.log('RIGHT')
+            // console.log('RIGHT')
         } else {
             setIsDoneRight(false)
-            console.log('FALSE')
+            // console.log('FALSE')
 
         }
 

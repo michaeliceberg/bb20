@@ -423,14 +423,14 @@ export const TypeAssistTRIANGLEsincostg = ({
             })
         })
 
-        console.log('LifeSaver: .... ')
-        console.log(LifeSaver)
+        // console.log('LifeSaver: .... ')
+        // console.log(LifeSaver)
 
 
         const OccupiedPointsObject = LifeSaver.filter(el => el.currentSnappointIndex > 0)
         const OccupiedPointsList = OccupiedPointsObject.map(el => el.currentSnappointIndex)
         
-        console.log('OccupiedPointsList: ', OccupiedPointsList)
+        // console.log('OccupiedPointsList: ', OccupiedPointsList)
 
 
         // 
@@ -468,7 +468,7 @@ export const TypeAssistTRIANGLEsincostg = ({
             }
         });
 
-        console.log('newInitialState ', newInitialState)
+        // console.log('newInitialState ', newInitialState)
 
 
         // ПЕРЕОБНОВЛЯЕМ НАЧАЛЬНОЕ СОСТОЯНИЕ 

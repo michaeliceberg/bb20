@@ -6,7 +6,7 @@ import {
     TabsList,
     TabsTrigger,
   } from "@/components/ui/tabs"
-import { t_challengeOptions } from "@/db/schema";
+import { challengeOptions, challengeProgress, courses, t_challengeOptions, units } from "@/db/schema";
 import { CheckListUsers } from "./check-list-users";
 import TabTCoursesHW from "./tab-t-courses-hw";
 
@@ -36,8 +36,8 @@ type Props = {
         title: string;
         imageSrc: string;
     }[],
-    t_units:  
-   
+
+    t_units:
     {
         id: number;
         title: string;
@@ -91,8 +91,51 @@ type Props = {
     }[] | null,
 
    
+    challengeProgress: {
+        id: number;
+        userId: string;
+        challengeId: number;
+        completed: boolean;
+        doneRight: boolean;
+        dateDone: Date;
+    }[],
 
+    courses: typeof courses.$inferSelect[],
+    // units: typeof units.$inferSelect[],
     
+    
+
+    units:
+    {
+        id: number;
+        title: string;
+        description: string;
+        imageSrc: string;
+        courseId: number;
+        order: number;
+        lessons: {
+            id: number;
+            title: string;
+            order: number;
+            unitId: number;
+            challenges: {
+                imageSrc: string;
+                // numRans: string;
+                difficulty: string;
+                id: number;
+                points: number;
+                order: number;
+                type:  "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT" | "WORKBOOK" | "R ASSIST" | "R CONNECT" | "R SLIDER" | "GEOSIN",
+                // type:  "SELECT" | "ASSIST",
+                // type:  typeof t_challengesEnum.$inferSelect[],
+                question: string;
+                author: string;
+                lessonId: number;
+                // challengeOptions: typeof challengeOptions.$inferSelect[],
+                challengeProgress: typeof challengeProgress.$inferSelect[],
+            }[];}[]
+    }[],
+
     }
 
   
@@ -107,6 +150,12 @@ type Props = {
 
         all_t_lessonProgress,
         allClassHW,
+
+        challengeProgress, 
+        
+        courses,
+        units,
+
 
     }: Props) => {
 
@@ -160,9 +209,15 @@ return(
                         all_t_lessonProgress={all_t_lessonProgress}
                         allClassHW={allClassHW}
 
-                        // для HW компонента TabTCoursesHW
+                        challengeProgress={challengeProgress}
+
+                        // для HW компонента TabTCoursesHW trainer
                         t_courses={t_courses} 
                         t_units={t_units} 
+
+                        // для HW компонента TabTCoursesHW
+                        courses={courses} 
+                        units={units} 
                     />
 
 

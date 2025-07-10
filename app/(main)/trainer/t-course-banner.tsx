@@ -5,6 +5,8 @@ import HTMLContent from "@/components/motion-number";
 import { FlipLink } from "@/components/reveal-links";
 import { TypeTextEffect } from "@/components/type-text-effect";
 import { t_lessonProgress, t_units } from "@/db/schema";
+import UsePresenceDataComp from "./slider-com";
+import UsePresenceDataComponent from "./slider-component";
 
 
 
@@ -83,7 +85,7 @@ export const TCourseBanner = ({
     return(
 
         // <div className="ml-4 w-full rounded-xl border-2 border-foreground border-dashed p-5 text-foreground flex items-center justify-between ">
-        <div className="ml-4 mt-4 mb-4 w-full">
+        <div className="ml-4 mb-4 w-full">
          
             
 
@@ -107,7 +109,11 @@ export const TCourseBanner = ({
             </div> 
 
 
-            <div className="flex justify-between mt-10">
+        <div className="pt-8">
+            <UsePresenceDataComp />
+        </div>
+
+            {/* <div className="flex justify-between mt-10">
 
                 <div className="w-[140px] h-[35px]">
                         
@@ -121,7 +127,7 @@ export const TCourseBanner = ({
                     <Example data={thisCourseStat.listOfMini}/>
                 </div>
 
-            </div>
+            </div> */}
     
                
 
