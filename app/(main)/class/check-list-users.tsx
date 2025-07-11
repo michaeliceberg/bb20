@@ -416,7 +416,7 @@ export const CheckListUsers = ({
 
 
 
-    console.log('hwCIdsToDoNumUsersMissed::::', hwCIdsToDoNumUsersMissed)
+    // console.log('hwCIdsToDoNumUsersMissed::::', hwCIdsToDoNumUsersMissed)
 
 
 
@@ -427,8 +427,8 @@ export const CheckListUsers = ({
 
 
 
-    console.log('big')
-    console.log(big)
+    // console.log('big')
+    // console.log(big)
 
 
 

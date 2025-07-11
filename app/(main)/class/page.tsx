@@ -176,6 +176,3 @@ const ClassroomPage = async () => {
 export default ClassroomPage
 
 
-
-// '{ id: number; imageSrc: string; order: number; type: "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT" | "WORKBOOK" | "R ASSIST" | "R CONNECT" | "R SLIDER" | "GEOSIN"; question: string; ... 4 more ...; challengeProgress: { ...; }[]; }[]' 
-// '{ id: number; imageSrc: string; order: number; type: "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT" | "WORKBOOK" | "R ASSIST" | "R CONNECT" | "R SLIDER" | "GEOSIN"; difficulty: string; points: number; ; question: string; author: string; lessonId: number; challengeProgress: { ...; }[]; }[]'.

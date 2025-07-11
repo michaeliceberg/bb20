@@ -165,7 +165,7 @@ export const useSnap = ({
         }
  
         const points = convertSnappoints(snapPoints);
-        console.log('Converted snappoints', points);
+        // console.log('Converted snappoints', points);
         if (!points) {
             throw new Error(`snap point weren't calculated on drag start`);
         }

@@ -114,8 +114,8 @@ const LearnPage = async () => {
 	const CoursesIdsThisClass = allClasses.filter(el => el.id == ThisClassId)[0].courseListIds
 	const TCoursesIdsThisClass = allClasses.filter(el => el.id == ThisClassId)[0].tCourseListIds
 
-	console.log('CoursesIdsThisClass', CoursesIdsThisClass)
-	console.log('TCoursesIdsThisClass', TCoursesIdsThisClass)
+	// console.log('CoursesIdsThisClass', CoursesIdsThisClass)
+	// console.log('TCoursesIdsThisClass', TCoursesIdsThisClass)
 
 	// console.log('CoursesIdsThisClass', CoursesIdsThisClass)
 	// отфильтровать последние по дате

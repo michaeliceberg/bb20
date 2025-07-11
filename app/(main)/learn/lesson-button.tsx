@@ -1,7 +1,7 @@
 "use client"
 
 import Link from "next/link";
-import { AlignJustify, Cake, Check, CircleCheck, CircleCheckBig, CircleX, Crown, Layers, Skull, Star, StickyNote } from "lucide-react";
+import { AlignJustify, Cake, Check, CircleCheck, CircleCheckBig, CircleX, Crown, Donut, FlameKindling, Layers, Skull, Star, StickyNote } from "lucide-react";
 import { CircularProgressbarWithChildren } from "react-circular-progressbar";
 
 import 'react-circular-progressbar/dist/styles.css'
@@ -10,6 +10,7 @@ import { cn } from "@/lib/utils";
 import { Button
 
  } from "@/components/ui/button";
+import Image from "next/image";
 
  interface lessonDone {
     lesson: number;
@@ -25,6 +26,9 @@ type Props = {
     // percentage: number;
     title: string;
     lessonStat: Array<lessonDone>;
+    
+    missedCIds: number[],
+    challengeIdsInLesson: number[],
 }
 
 export const LessonButton = ({
@@ -36,7 +40,22 @@ export const LessonButton = ({
     // percentage,
     title,
     lessonStat,
+
+    missedCIds,
+    challengeIdsInLesson,
 }: Props)=>{
+
+
+
+let isHwNumber = 0
+missedCIds.forEach(missChalId => {
+    if (challengeIdsInLesson.includes(missChalId)) {
+        isHwNumber += 1
+    }
+}
+)
+
+
 
 const cycleLength = 8
 const cycleIndex = index % cycleLength
@@ -75,6 +94,10 @@ if (cycleIndex <= 2){
                         + currentLessonStat[0].done[2])
                         / currentLessonStat[0].done[0]
                         * 100
+
+
+
+    // console.log('missedCIds', missedCIds)
 
     return( 
     <Link 
@@ -117,6 +140,42 @@ if (cycleIndex <= 2){
                                         isCompleted && "fill-none stroke-[2]"
                                     )}
                                 />
+
+
+                                {isHwNumber && 
+
+                                <Image 
+                                    src='/hwSvgs/donut.svg' 
+                                    height={40} 
+                                    width={40} 
+                                    alt='Mascot' 
+                                    className="absolute top-0 left-0 animate-bounce bg-white  rounded-2xl
+                                    "
+                                />
+
+
+                                // <Donut
+                                                    
+                                // // HW ДОМАШНЕЕ ЗАДАНИЕ
+
+                                // className={cn(
+                                //     "h-10 w-10 absolute bg-white  p-1 rounded-md top-0 left-0",
+                                //     // "translate-y-8 bounce transition-transform duration-[250ms]",
+                                //     "animate-bounce border-red-400 border-2",
+                                //     // "h-10 w-10 absolute p-1 top-0",
+                                //     // 'text-red-400' 
+                                //     'text-orange-950', 
+                                //     'fill-fuchsia-400' 
+
+                                // )}
+                                // />
+
+
+
+                                }
+        
+
+
                             </Button>
                         </CircularProgressbarWithChildren>
                     </div>

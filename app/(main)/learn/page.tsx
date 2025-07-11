@@ -1,7 +1,7 @@
 import { FeedWrapper } from '@/components/feed-wrapper';
 import { StickyWrapper } from '@/components/sticky-wrapper';
 import { UserProgress } from '@/components/user-progress';
-import { getChallengeProgress, getCourseProgress, getUnits, getUserProgress } from '@/db/queries';
+import { getAllClassHW, getAllClasses, getAllUsers, getAllUsersProgress, getChallengeProgress, getCourseProgress, getUnits, getUserProgress } from '@/db/queries';
 import { redirect } from 'next/navigation';
 import { Header } from './header';
 import { Unit } from './unit';
@@ -56,6 +56,22 @@ const LearnPage = async () => {
 
 	const unitsData = getUnits()
 
+
+
+	const allUsersProgressData = getAllUsersProgress()
+	const allClassesData = getAllClasses()
+	const allClassHWData = getAllClassHW()
+    const allUsersData = getAllUsers()
+
+
+
+	// allClasses={allClasses}
+	// allClassHW={allClassHW}
+	// allUsers={allUsers}
+
+	// all_t_lessonProgress={all_t_lessonProgress}
+	// this_class_id={userProgress.classId}
+
 	
 	const [
 		userProgress,
@@ -63,11 +79,26 @@ const LearnPage = async () => {
 		courseProgress,
 		challengeProgress,
 
+
+		allUsersProgress,
+
+		allClasses,
+		allClassHW,
+		allUsers,
+
 	] = await Promise.all([
 		userProgressData,
 		unitsData,
 		courseProgressData,
 		challengeProgressData,
+
+
+		allUsersProgressData,
+
+
+		allClassesData,
+		allClassHWData,
+		allUsersData,
 	]);
 
 	if (!userProgress || !userProgress.activeCourse) {
@@ -133,7 +164,7 @@ const LearnPage = async () => {
 				lesson: lesson.id,
 				unitId: unit.id,
 				unitTitle: unit.title,
-				done: [ numChallengesInLesson,  doneRight, doneWrong],
+				done: [ numChallengesInLesson,  doneRight, doneWrong ],
 				percentageDoneLesson: Math.round((doneRight+doneWrong)/numChallengesInLesson * 100) / 100 
 			}
 		})
@@ -372,6 +403,13 @@ const LearnPage = async () => {
 
 
 	
+
+
+
+	const ThisClassId = userProgress.classId
+	const CoursesIdsThisClass = allClasses.filter(el => el.id == ThisClassId)[0].courseListIds
+	const TCoursesIdsThisClass = allClasses.filter(el => el.id == ThisClassId)[0].tCourseListIds
+	
 	 
 		
 
@@ -434,7 +472,12 @@ return (
 								order={unit.order}
 								description={unit.description}
 								title={unit.title}
+								
+								
+								// lessons={unit.lessons}
 								lessons={unit.lessons}
+
+
 								activeLesson={courseProgress.activeLesson as typeof lessons.$inferSelect & {
 									unit: typeof unitsSchema.$inferSelect
 								} | undefined}
@@ -443,6 +486,14 @@ return (
 								imgSrc={unit.imageSrc}
 								RecomNumChallengesToday={RecomNumChallengesToday}
 								bgSvgSrc = {bgSvgSrc[index]}
+
+
+								user_id={userProgress.userId}
+								allClasses={allClasses}
+								allClassHW={allClassHW}
+								allUsers={allUsers}						
+								this_class_id={userProgress.classId}
+								challengeProgress={challengeProgress}
 							/>
 						</div>
 					))}
