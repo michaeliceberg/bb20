@@ -232,7 +232,7 @@ type Props = {
                 let ListOfMissedLessonsIds: number[] = []
                 //
                 const hw_trainer_string = cur_hw.taskTrainer
-                if (hw_trainer_string != null) {
+                if (hw_trainer_string != null && hw_trainer_string != "") {
                     const hw_trainer_list_of_str = hw_trainer_string.split(',')
                     
                     // hw_trainer - список номеров задач этого HW
@@ -248,9 +248,7 @@ type Props = {
                     hw_trainer.map(cur_les_in_hw => {
                         // смотрим первый (нулевой) результат по этому Lesson'у тк УЖЕ был отсортирован в query по дате
                         const doneRightPercent = lessonsDoneByThisUser.filter(lessonDone => lessonDone.t_lessonId == cur_les_in_hw)[0]?.doneRightPercent
-                        // console.log(user.userId)
-                        // console.log(doneRightPercent)
-                        // console.log('----')
+
                         
 
                         // смотрим, сколько раз был решен Lesson ПОСЛЕ даты выдачи HW
@@ -307,6 +305,7 @@ type Props = {
     })
 
 
+    // console.log('missedLIds    >> ', missedLIds)
 
 
 
@@ -315,27 +314,6 @@ return(
 
     <div className="flex items-center flex-col relative ">
         
-
-        {missedLIds.length > 0 
-        ?
-            <div className="justify-center w-[100px] rounded-xl border-red-400 border-2 border-dashed text-lg font-bold p-1">
-                <div className="flex text-red-400 justify-center">
-                    <FlameKindling className="h-5 w-5 pt-1" />
-                    <p>
-                        {missedLIds.length}
-                    </p>
-                </div>
-            </div>
-        :
-        <div className="justify-center w-[200px] rounded-xl border-green-500 border-2 border-dashed text-lg font-bold p-1">
-            <div className="flex text-green-500 justify-center">
-                <p>
-                    😍 ДЗ выполнено!
-                </p>
-            </div>
-        </div>
-        }
-
 
 
         <Tabs defaultValue=

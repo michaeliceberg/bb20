@@ -14,11 +14,23 @@ type Props= {
     author: string
     timesDoneWrong: number
     timesDone: number
+
+    isHWChallenge: boolean
+
 }
 
 // РИСУЕМ УСЛОВИЕ ЗАДАЧИ С ИКОНКАМИ МОНЕТ АВТОРА
 //
-export const QuestionBubble = ({question, pts, author, timesDoneWrong, timesDone}: Props) => {
+export const QuestionBubble = ({
+    question, 
+    pts, 
+    author, 
+    timesDoneWrong, 
+    timesDone,
+    
+    isHWChallenge,
+
+}: Props) => {
     return (
         <div className="flex items-center gap-x-4 mb-6">
             <Image 
@@ -49,6 +61,25 @@ export const QuestionBubble = ({question, pts, author, timesDoneWrong, timesDone
                 /> */}
 
 
+                {isHWChallenge && 
+
+                    (
+                        <Image 
+                            //
+                            // TODO: если HW, то ПОНЧИК РИСУЕМ
+                            //
+                            src='/hwSvgs/donut.svg' 
+                            height={20} 
+                            width={20} 
+                            alt='Mascot' 
+                            className="-mb-10 absolute animate-bounce bg-white  rounded-2xl z-10"
+                        />    
+
+                        
+                    
+                    )
+        
+                }
 
 
                 {timesDone - timesDoneWrong > 0  

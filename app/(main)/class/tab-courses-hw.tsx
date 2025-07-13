@@ -186,6 +186,23 @@ type Props = {
 
     const [pending, startTransition] = useTransition()
 
+
+
+
+    // const onUpgrade = () => {
+    //     startTransition(()=>{
+    //         createStripeUrl()
+    //         .then((response)=> {
+    //             if (response.data) {
+    //                 window.location.href = response.data
+    //             }
+    //         })
+    //         .catch(() => toast.error('Что-то пошло не так!')) 
+    //     })
+    // }
+
+
+
     const onButtonPressSendHW = () => {
 
         startTransition(()=> {
@@ -199,6 +216,7 @@ type Props = {
                 // checkedState.filter(el => el.isChecked).map(el => el.lessonId),
                 hwListChallengeIds,
             )
+            .then(()=> toast.message('✅ ДЗ Успешно отправлено'))
             .catch(()=>toast.error('HW не отправилось!'))
         })
 
@@ -207,7 +225,7 @@ type Props = {
 
 return(
 
-    <div className="flex pt-10">
+    <div className="justify-center flex pt-10">
         
 
 

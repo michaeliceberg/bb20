@@ -142,36 +142,18 @@ if (cycleIndex <= 2){
                                 />
 
 
-                                {isHwNumber && 
-
-                                <Image 
-                                    src='/hwSvgs/donut.svg' 
-                                    height={40} 
-                                    width={40} 
-                                    alt='Mascot' 
-                                    className="absolute top-0 left-0 animate-bounce bg-white  rounded-2xl
-                                    "
-                                />
-
-
-                                // <Donut
-                                                    
-                                // // HW ДОМАШНЕЕ ЗАДАНИЕ
-
-                                // className={cn(
-                                //     "h-10 w-10 absolute bg-white  p-1 rounded-md top-0 left-0",
-                                //     // "translate-y-8 bounce transition-transform duration-[250ms]",
-                                //     "animate-bounce border-red-400 border-2",
-                                //     // "h-10 w-10 absolute p-1 top-0",
-                                //     // 'text-red-400' 
-                                //     'text-orange-950', 
-                                //     'fill-fuchsia-400' 
-
-                                // )}
-                                // />
-
-
-
+                                {isHwNumber > 0 && 
+                                    <Image 
+                                    //
+                                    // TODO: если HW, то ПОНЧИК РИСУЕМ
+                                    //
+                                        src='/hwSvgs/donut.svg' 
+                                        height={40} 
+                                        width={40} 
+                                        alt='Mascot' 
+                                        className="absolute top-0 left-0 animate-bounce bg-white  rounded-2xl
+                                        "
+                                    />           
                                 }
         
 

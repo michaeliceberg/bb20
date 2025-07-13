@@ -183,7 +183,7 @@ type Props = {
 
 return(
 
-    <div className="flex pt-10">
+    <div className="justify-center flex pt-10">
         
 
         <Tabs defaultValue=

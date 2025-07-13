@@ -503,3 +503,49 @@ export const getAllClassHW = cache(async () => {
 	});
 	return data;
 });
+
+
+
+
+// export const getThisUserHW = cache (async () => {
+// 	const { userId } = await auth()
+
+// 	if (!userId) {
+// 		return []
+// 	}
+// 	const data = await db.query.t_lessonProgress.findMany({
+// 		where: eq(t_lessonProgress.userId, userId),
+// 		orderBy: (t_lessonProgress, { desc }) => [desc(t_lessonProgress.dateDone)],
+// 		// limit: 10,
+
+// 	})
+
+// 	return data
+// })
+
+
+
+// export const getThisUserHW = cache(async(id?: number)=>{
+// 	const {userId} = await auth()
+
+// 	if (!userId){
+// 		return null
+// 	}
+
+
+// 	const userProgressData = await db.query.userProgress.findFirst({
+// 		where: eq(userProgress.userId, userId),
+// 	});
+	
+// 	const allClassesHw = await db.query.classesHw.findMany({
+// 	});
+
+// 	const thisClassHw = allClassesHw.filter(cur_class => cur_class.classId == userProgressData?.classId)
+
+// 	// if (thisClassHw.length == 0) {
+// 	// 	return null
+// 	// }
+
+// 	return thisClassHw
+	
+// })

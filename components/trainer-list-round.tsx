@@ -59,6 +59,7 @@ import Link from 'next/link'
 import { cn } from '@/lib/utils'
 import { CircularProgressbarWithChildren } from 'react-circular-progressbar'
 import ScrollTriggered from './framer-card'
+import Image from 'next/image'
 
 type Props = {
     t_lesson: { 
@@ -402,23 +403,44 @@ if (cycleIndex <= 2){
 
                      {missedLIds.includes(t_lesson.id) && 
 
-                        <FlameKindling
+
+                        <Image 
+                            //
+                            // TODO: если HW, то ПОНЧИК РИСУЕМ
+                            //
+                            src={'/hwSvgs/chocolateW.svg'}
+                            height={40} 
+                            width={40} 
+                            alt='Mascot' 
+                            // className= "absolute bg-white  rounded-2xl"
+                            // className= "ml-2"
+                            className="absolute top-0 left-0 animate-bounce "
+
+                        />  
+
+
+
+                        // <FlameKindling
                                             
-                        // HW ДОМАШНЕЕ ЗАДАНИЕ
+                        // // HW ДОМАШНЕЕ ЗАДАНИЕ
 
-                        className={cn(
-                            "h-10 w-10 absolute bg-white  p-1 rounded-md top-0",
-                            // "translate-y-8 bounce transition-transform duration-[250ms]",
-                            "animate-bounce border-red-400 border-2",
-                            // "h-10 w-10 absolute p-1 top-0",
+                        // className={cn(
+                        //     "h-10 w-10 absolute bg-white  p-1 rounded-md top-0",
+                        //     // "translate-y-8 bounce transition-transform duration-[250ms]",
+                        //     "animate-bounce border-red-400 border-2",
+                        //     // "h-10 w-10 absolute p-1 top-0",
                             
-                        percentage > 1 
-                        // ? 'fill-primary-foreground text-primary-foreground' 
-                        ? 'text-red-400' 
+                        // percentage > 1 
+                        // // ? 'fill-primary-foreground text-primary-foreground' 
+                        // ? 'text-red-400' 
 
-                        : ' text-sky-100 '
-                        )}
-                        />
+                        // : ' text-sky-100 '
+                        // )}
+                        // />
+
+
+
+
                      }
                     
 

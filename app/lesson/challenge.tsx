@@ -19,6 +19,7 @@ type Props={
     dateLastDone: Date
     challengeId: number
 
+
 }
 
 export const Challenge = ({
@@ -32,6 +33,8 @@ export const Challenge = ({
     isDoneChallenge,
     dateLastDone,
     challengeId,
+
+
 }: Props) => {
 
 

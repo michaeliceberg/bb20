@@ -157,8 +157,14 @@ export const CheckListUsers = ({
         //
         const lessonsDoneByThisUser = all_t_lessonProgress.filter(t_less_propg => t_less_propg.userId == user.userId)
 
+        //NEW SELF    СЧИТАЕМ сколько всего Lesson Trainer сделал user САМ (с HW и БЕЗ)
+        const selfLIdsDoneRight = lessonsDoneByThisUser.filter(el => el.doneRightPercent > 80)?.length
 
         const challengesDoneByThisUser = challengeProgress.filter(chal_prog => chal_prog.userId == user.userId)
+
+        //NEW SELF      СЧИТАЕМ сколько всего Challenge сделал user САМ (с HW и БЕЗ)
+        const selfCIdsDoneRight = challengesDoneByThisUser.filter(el => el.doneRight)?.length
+
         
         // идем по HW, 
         // смотрим в КАЖДОМ HW, выполнены ЛИ Lesson'ы на 90% после ДАТЫ ВЫДАЧИ задания
@@ -177,8 +183,16 @@ export const CheckListUsers = ({
                 const hw_trainer_string = cur_hw.taskTrainer
                 const hw_casual_string = cur_hw.task
                 //
-                if (hw_trainer_string != null) {
+                if (hw_trainer_string != null && hw_trainer_string != "") {
                     wasHwTrainer = 1
+
+                    console.log('----WEHERE', thisClassHW)
+
+
+
+
+
+
                     const hw_trainer_list_of_str = hw_trainer_string.split(',')
                     
                     // hw_trainer - список номеров задач Тренажёра этого HW
@@ -216,7 +230,7 @@ export const CheckListUsers = ({
 
 
 
-                if (hw_casual_string != null) {
+                if (hw_casual_string != null && hw_casual_string != "") {
                     wasHwCasual = 1
                     const hw_casual_list_of_str = hw_casual_string.split(',')
                     
@@ -273,7 +287,12 @@ export const CheckListUsers = ({
                 {
                     thisUserListHWStat: thisUserListHWStat,
                     userName: user.userName,
-                    userId: user.userId,                    
+                    userId: user.userId,    
+                    selfLIdsDoneRight: selfLIdsDoneRight,
+                    selfCIdsDoneRight: selfCIdsDoneRight,
+
+
+
                 }
             )
         }
@@ -285,30 +304,29 @@ export const CheckListUsers = ({
     
     
     
+    // TODO: LESSON TRAINER
+    
     // Собираем подготовку к HW списку всех НЕ решенных LessonId
     //
-    let listOfAllHWIds:number[] = []
+    let listOfAllHWLessonsIds:number[] = []
     //
     thisClassHW?.map(cur_hw=> {
         let ListOfMissedLessonsIds: number[] = []
         //
         const hw_trainer_string = cur_hw.taskTrainer
-        if (hw_trainer_string != null) {
+        if (hw_trainer_string != null && hw_trainer_string != "") {
             const hw_trainer_list_of_str = hw_trainer_string.split(',')
             
             // hw_trainer - список номеров задач этого HW
             hw_trainer_list_of_str.map(str => {
-                listOfAllHWIds.push(Number(str))
+                listOfAllHWLessonsIds.push(Number(str))
             })
         }
     })
 
-    // console.log('listOfAllHWIds123123123 ',listOfAllHWIds)
 
-    const uniqueSet = new Set(listOfAllHWIds)
+    const uniqueSet = new Set(listOfAllHWLessonsIds)
     const listOfUniqueHWIds = Array.from(uniqueSet);
-    // console.log('listOfUniqueHWIds', listOfUniqueHWIds)
-
 
     const hwLIdsToDoNumUsersMissed = listOfUniqueHWIds.map(lessonIdToDo => {
 
@@ -322,11 +340,8 @@ export const CheckListUsers = ({
 
                 // Если этот LessonIdToDo находится ХОТЯ БЫ в одном из НЕ сделанных списках HW, то = 1 
                 // то есть этот ученик НЕ сделал ЭТОТ lessonId из одного из HW
+                //
                 if (cur_hw.ListOfMissedLessonsIds.includes(lessonIdToDo)) {
-                    // console.log('----')
-                    // console.log(cur_hw.ListOfMissedLessonsIds)
-                    // console.log(lessonIdToDo)
-                    // console.log('----')
                     numToDo = 1
                 }
                 
@@ -347,12 +362,55 @@ export const CheckListUsers = ({
 
 
 
+    // Считаем СКОЛЬКО LESSON Id's НЕ решил ЭТОТ user из всех HW
+    
+    const hwLIdsEachUserMissedAndDone = big.map(cur_user => {
+        
+        let lessonsMissedThisUser = 0
+
+        let numLessonsDoneRightByThisUser = 0
+        let numLessonsDoneTriesByThisUser = 0
+
+        cur_user?.thisUserListHWStat.map(cur_hw => {
+
+            listOfAllHWLessonsIds.map(lessonIdToDo => {
+                if (cur_hw.ListOfMissedChallengesIds.includes(lessonIdToDo)) {
+                    lessonsMissedThisUser += 1
+                }
+            })
+            //
+            // сколько ВСЕГО решено LessonIds из HW
+            //
+            numLessonsDoneRightByThisUser = all_t_lessonProgress.filter(t_less_propg => (t_less_propg.userId == cur_user.userId)).filter(el=>el.doneRightPercent > 90).length
+            numLessonsDoneTriesByThisUser = all_t_lessonProgress.filter(t_less_propg => t_less_propg.userId == cur_user.userId).length
+            
+        })
+        return (
+            {
+                userId: cur_user?.userId,
+                hwLIdsThisUserMissed: lessonsMissedThisUser,
+                numLessonsDoneRightByThisUser: numLessonsDoneRightByThisUser,
+                numLessonsDoneTriesByThisUser: numLessonsDoneTriesByThisUser,
+
+            }
+        )
+    })
+    
+    // console.log('hwLIdsEachUserMissed=======>', hwLIdsEachUserMissedAndDone)
+
+
+    // console.log('ASJKLFHLAJSHFLASHLFA listOfAllHWLessonsIds', listOfAllHWLessonsIds)
+
+
+    // console.log('11111', all_t_lessonProgress)
 
 
 
 
 
 
+
+    // TODO: CHALLANGE CASUAL
     
     // Собираем подготовку к HW списку всех НЕ решенных Challenge
     //
@@ -362,7 +420,7 @@ export const CheckListUsers = ({
         let ListOfMissedChallengesIds: number[] = []
         //
         const hw_casual_string = cur_hw.task
-        if (hw_casual_string != null) {
+        if (hw_casual_string != null && hw_casual_string != "") {
             const hw_casual_list_of_str = hw_casual_string.split(',')
             
             // hw_trainer - список номеров задач этого HW
@@ -372,13 +430,8 @@ export const CheckListUsers = ({
         }
     })
 
-    // console.log('listOfAllHWIds123123123 ',listOfAllHWChallengeIds)
-
     const uniqueSet2 = new Set(listOfAllHWChallengeIds)
     const listOfUniqueHWChallengeIds = Array.from(uniqueSet2);
-    // console.log('listOfUniqueHWIds', listOfUniqueHWIds)
-
-    // console.log('listOfUniqueHWChallengeIds<<<', listOfUniqueHWChallengeIds)
 
     const hwCIdsToDoNumUsersMissed = listOfUniqueHWChallengeIds.map(challengeIdToDo => {
 
@@ -392,11 +445,8 @@ export const CheckListUsers = ({
 
                 // Если этот challengeIdToDo находится ХОТЯ БЫ в одном из НЕ сделанных списках HW, то = 1 
                 // то есть этот ученик НЕ сделал ЭТОТ lessonId из одного из HW
+                //
                 if (cur_hw.ListOfMissedChallengesIds.includes(challengeIdToDo)) {
-                    // console.log('----')
-                    // console.log(cur_hw.ListOfMissedChallengesIds)
-                    // console.log(challengeIdToDo)
-                    // console.log('----')
                     numToDo = 1
                 }
                 
@@ -416,19 +466,40 @@ export const CheckListUsers = ({
 
 
 
-    // console.log('hwCIdsToDoNumUsersMissed::::', hwCIdsToDoNumUsersMissed)
+    // Считаем СКОЛЬКО CHALLANGE Id's НЕ решил ЭТОТ user из всех HW
+    
+    const hwCIdsEachUserMissed = big.map(cur_user => {
+        
+        let challengesMissedThisUser = 0
+
+        cur_user?.thisUserListHWStat.map(cur_hw => {
+
+            listOfUniqueHWChallengeIds.map(challengeIdToDo => {
+                if (cur_hw.ListOfMissedChallengesIds.includes(challengeIdToDo)) {
+                    challengesMissedThisUser += 1
+                }
+            })
+            
+        })
+        return (
+            {
+                userId: cur_user?.userId,
+                hwCIdsThisUserMissed: challengesMissedThisUser,
+
+            }
+        )
+    })
+    
+    console.log('hwCIdsEachUserMissed--------->', hwCIdsEachUserMissed)
+    
+    
+    
 
 
 
+    
 
 
-
-
-
-
-
-    // console.log('big')
-    // console.log(big)
 
 
 
@@ -455,13 +526,13 @@ export const CheckListUsers = ({
     <div className="pt-10 w-full">
            
 
-        <SuperCards />
+        {/* <SuperCards /> */}
 
         <ul className="grid grid-cols-8 gap-y-4 ">
 
 
             <li className="col-span-1 flex justify-center ">
-                    #
+                    
             </li>
 
             
@@ -475,32 +546,58 @@ export const CheckListUsers = ({
 
             
 
+            <li className="flex justify-center">
+                <p className="text-sm content-center">
+                    🏡C
+                    {/* сверху сколько Домашек по Сhallenge НЕ СДЕЛАЛ снизу сколько СДЕЛАЛ */}
+                </p>    
+            </li>
 
+            <li className="flex justify-center">
+                <p className="text-sm content-center">
+                    🏡T
+                    {/* сверху сколько Домашек по Trainer НЕ СДЕЛАЛ снизу сколько СДЕЛАЛ */}
+                    </p>    
+            </li>
 
             <li className="flex justify-center">
                 <p className="text-sm content-center">
-                    ht
+                    nC
+                    <p
+                        // сколько задач ВСЕГО НЕ сделал (из HW)
+                    >
+                        🏡🐢
+                    </p>
+                    <p 
+                    // сколько задач ВСЕГО сделал (c HW и без)
+                    >
+                        Σ✓ 
+                    </p>
+                    
+                    
                 </p>    
             </li>
             <li className="flex justify-center">
                 <p className="text-sm content-center">
-                    hc
-                </p>    
-            </li>
-            <li className="flex justify-center">
-                <p className="text-sm content-center">
-                    1
-                </p>    
-            </li>
-            <li className="flex justify-center">
-                <p className="text-sm content-center">
-                    2
+                    nT
+                    
+                    <p
+                    // сколько задач ВСЕГО НЕ сделал (из HW)
+                    >
+                        🏡🐢
+                    </p>
+                    <p 
+                    // сколько задач ВСЕГО сделал (c HW и без)
+                    >
+                        Σ✓ 
+                    </p>    
+                    
                 </p>    
             </li>
             
             <li className="flex justify-center">
                 <p className="text-sm content-center">
-                    3
+                    
                 </p>    
             </li>
 
@@ -524,6 +621,20 @@ export const CheckListUsers = ({
                 notFinishedHWTrainer == undefined ? notFinishedHWTrainer = 0 : notFinishedHWTrainer
                 finishedHWTrainer == undefined ? finishedHWTrainer = 0 : finishedHWTrainer
                 
+
+
+                let hwCIdsThisUserMissed = hwCIdsEachUserMissed.filter(el => el.userId == user.userId)[0]?.hwCIdsThisUserMissed
+
+                let hwLIdsThisUserMissed = hwLIdsEachUserMissedAndDone.filter(el => el.userId == user.userId)[0]?.hwLIdsThisUserMissed
+                let hwLIdsThisUserDoneRigth = hwLIdsEachUserMissedAndDone.filter(el => el.userId == user.userId)[0]?.numLessonsDoneRightByThisUser
+                let hwLIdsThisUserDoneWrong = hwLIdsEachUserMissedAndDone.filter(el => el.userId == user.userId)[0]?.numLessonsDoneTriesByThisUser
+
+
+                // SELF  Сколько user СДЕЛАЛ САМ 
+                const selfCIdsDoneRight = big.filter(el => el?.userId == user.userId)[0]?.selfCIdsDoneRight
+                const selfLIdsDoneRight = big.filter(el => el?.userId == user.userId)[0]?.selfLIdsDoneRight
+
+
                 return (
                 <>
                     <li key={index*276}>
@@ -560,6 +671,26 @@ export const CheckListUsers = ({
 
 
                     {/* STREAK */}
+
+
+
+                    <li  key={index*122236} className=
+                        {notFinishedHWCasual == 0 
+                            ? "content-center text-center text-sm text-white font-bold bg-green-400 rounded-sm"  
+                            : "content-center text-center text-sm text-white font-bold bg-red-400 rounded-sm"
+                        }
+                    >
+                        <p>
+                            {notFinishedHWCasual}
+                        </p>
+                        <p>
+                            {finishedHWCasual}
+                        </p>
+                       
+                    </li>
+
+
+
                         
                     <li  key={index*1236} className=
                         {notFinishedHWTrainer == 0 
@@ -578,19 +709,31 @@ export const CheckListUsers = ({
 
 
 
-                    {/* СКОЛЬКО ВСЕГО МОНЕТ */}
 
-                    <li  key={index*122236} className=
-                        {notFinishedHWTrainer == 0 
+
+
+
+
+
+
+
+                    <li  key={index*1298136} className=
+                        {hwCIdsThisUserMissed == 0 
+                            // СКОЛЬКО ВСЕГО challenge casual НЕ СДЕЛАЛ ЭТОТ УЧЕНИК по HW
+                            //
                             ? "content-center text-center text-sm text-white font-bold bg-green-400 rounded-sm"  
                             : "content-center text-center text-sm text-white font-bold bg-red-400 rounded-sm"
                         }
                     >
-                        <p>
-                            {notFinishedHWCasual}
+                        <p
+                            // сколько задач ВСЕГО НЕ сделал (из HW)
+                        >
+                           {hwCIdsThisUserMissed}
                         </p>
-                        <p>
-                            {finishedHWCasual}
+                        <p 
+                        // сколько задач ВСЕГО сделал (c HW и без)
+                        >
+                           {selfCIdsDoneRight}
                         </p>
                        
                     </li>
@@ -598,18 +741,27 @@ export const CheckListUsers = ({
 
 
 
+                    
+                    <li  key={index*10396} className=
+                        {hwLIdsThisUserMissed > 0
+                            // СКОЛЬКО ВСЕГО lesson trainer НЕ СДЕЛАЛ ЭТОТ УЧЕНИК по HW
+                            // сколько всего сдела правильно Из / всех, что сделал
+                            ? "content-center text-center text-sm text-white font-bold bg-red-400 rounded-sm"
+                            : "content-center text-center text-sm text-white font-bold bg-green-400 rounded-sm"  
+                        }
+                    >
+                        <p>
+                            {hwLIdsThisUserMissed}
+                        </p>
+                        <p>
+                            {selfLIdsDoneRight}
+                            {/* {hwLIdsThisUserDoneRigth}/{hwLIdsThisUserDoneWrong + hwLIdsThisUserDoneRigth} */}
+                        </p>
+                       
+                    </li>
 
 
-                    <li className="col-span-1" key={index*2726}>
-                        <Button key={index*25421} className="w-full" variant={'ghost' } size='leader'>
-                                {user.classId}            
-                        </Button>
-                    </li>
-                    <li className="col-span-1" key={index*3726}>
-                        <Button key={index*225421} className="w-full" variant={'ghost' } size='leader'>
-                                {user.classId}            
-                        </Button>
-                    </li>
+
 
 
 

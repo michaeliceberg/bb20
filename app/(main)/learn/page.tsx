@@ -13,6 +13,9 @@ import { Quests } from '@/components/quests';
 import db from '@/db/drizzle';
 import { eq } from 'drizzle-orm';
 import { auth, currentUser } from "@clerk/nextjs/server"
+import { FlameKindling } from 'lucide-react';
+import Image from 'next/image';
+import { HwTopBanner } from './hw-top-banner';
 
 
 const bgList = [
@@ -51,14 +54,14 @@ const LearnPage = async () => {
 	}
 
 	const userProgressData = getUserProgress()
+	const unitsData = getUnits()
 	const courseProgressData = getCourseProgress()
 	const challengeProgressData = getChallengeProgress()
 
-	const unitsData = getUnits()
-
-
 
 	const allUsersProgressData = getAllUsersProgress()
+
+
 	const allClassesData = getAllClasses()
 	const allClassHWData = getAllClassHW()
     const allUsersData = getAllUsers()
@@ -407,10 +410,118 @@ const LearnPage = async () => {
 
 
 	const ThisClassId = userProgress.classId
-	const CoursesIdsThisClass = allClasses.filter(el => el.id == ThisClassId)[0].courseListIds
-	const TCoursesIdsThisClass = allClasses.filter(el => el.id == ThisClassId)[0].tCourseListIds
+	// const CoursesIdsThisClass = allClasses.filter(el => el.id == ThisClassId)[0].courseListIds
+	// const TCoursesIdsThisClass = allClasses.filter(el => el.id == ThisClassId)[0].tCourseListIds
 	
 	 
+
+
+
+
+
+
+	const usersThisClass = allUsers.filter(user=>user.classId == ThisClassId)
+
+    const thisClassHW = allClassHW?.filter(el => el.classId == ThisClassId)
+
+
+    // console.log('lessonStat', lessonStat)
+
+    const big = usersThisClass.map(user => {
+        
+        // смотрим во ВСЕМ списке выполненых Challenge те, которые выполнены ЭТИМ user
+        //
+        const ChallengesDoneByThisUser = challengeProgress.filter(chal_prog => chal_prog.userId == user.userId)
+
+        
+        // идем по HW, 
+        // смотрим в КАЖДОМ HW, выполнены ЛИ Challeng's после ДАТЫ ВЫДАЧИ задания
+        if (thisClassHW) {
+            const thisUserListHWStat = thisClassHW.map(cur_hw => {
+                // смотрим конкретное ОДНО HW
+                //
+                // Контрольное ПРОИЗВЕДЕНИЕ (если будет 1 то все Lesson'ы этого HW выполнены)
+                let controlMultiply = 1
+                let ListOfMissedChallengesIds: number[] = []
+                //
+                const hw_casual_string = cur_hw.task
+                if (hw_casual_string != null && hw_casual_string != "") {
+                    const hw_casual_list_of_str = hw_casual_string.split(',')
+                    
+                    // hw_trainer - список номеров задач этого HW
+                    const hw_casual = hw_casual_list_of_str.map((str) => Number(str));
+                    
+
+                    // TODO:
+                    // считаем, сколько user'ов НЕ сделало каждый unit
+                    // const hw_trainer_missed = 
+
+                    
+   
+                    hw_casual.map(cur_chal_in_hw => {
+                        // смотрим первый (нулевой) результат по этому challenge'у тк УЖЕ был отсортирован в query по дате
+                        const isDoneChallenge = ChallengesDoneByThisUser.filter(challengeDone => challengeDone.challengeId == cur_chal_in_hw)[0]?.completed
+                        const isDoneRightChallenge = ChallengesDoneByThisUser.filter(challengeDone => challengeDone.challengeId == cur_chal_in_hw)[0]?.doneRight
+                        // console.log(user.userId)
+                        // console.log(doneRightPercent)
+                        // console.log('----')
+                        
+
+                        // смотрим, сколько раз был решен Lesson ПОСЛЕ даты выдачи HW
+                        //
+                        const timesDoneCurChallengeAfterHWDate = ChallengesDoneByThisUser.filter(challengeDone => 
+
+                            (challengeDone.challengeId == cur_chal_in_hw) && (challengeDone.dateDone > cur_hw.dateHw))?.length
+
+
+
+                        if (isDoneRightChallenge && timesDoneCurChallengeAfterHWDate > 0) {
+                            //
+                            // ничего не делаем
+                            //
+                        } else {
+                            controlMultiply = controlMultiply * 0
+                            ListOfMissedChallengesIds.push(cur_chal_in_hw)
+                        }
+                    })
+                }
+
+                return (
+                    {
+                        dateHW: cur_hw.dateHw,
+                        isDone: controlMultiply,
+                        ListOfMissedChallengesIds: ListOfMissedChallengesIds,
+                    }
+                )
+                
+
+            })
+            return (
+                {
+                    thisUserListHWStat: thisUserListHWStat,
+                    userName: user.userName,
+                    userId: user.userId,                    
+                }
+            )
+        }
+    })
+
+
+    const thisUserStatHW = big.filter(user => user?.userId == userProgress.userId)[0]
+
+    const numOfHwDone = thisUserStatHW?.thisUserListHWStat.filter(el => el.isDone).length
+    const numOfHwNotDone = thisUserStatHW?.thisUserListHWStat.filter(el => !el.isDone).length
+
+
+    let missedCIds: number[] = []
+    thisUserStatHW?.thisUserListHWStat.map( cur_hw => {
+        cur_hw.ListOfMissedChallengesIds.map(challenge_id => {
+            missedCIds.push(challenge_id)
+        })
+    })
+
+
+
 		
 
 	
@@ -455,14 +566,16 @@ return (
 
 
 
-			<FeedWrapper>
-				
-					<Header title={userProgress.activeCourse.title} />
+		<FeedWrapper>
+			
+		<Header title={userProgress.activeCourse.title} />
 
-					{/* <div className='absolute z-10'> */}
-					
-					{/* <HeroParallax /> */}
+		<div className='content-center mx-auto justify-center text-center align-middle'>
+			<HwTopBanner missedCIds={missedCIds}  variant='casual'/>
+		</div>					
 
+
+		<div className='mt-5'>
 
 					{units.map((unit, index)=>(
 					
@@ -488,18 +601,20 @@ return (
 								bgSvgSrc = {bgSvgSrc[index]}
 
 
-								user_id={userProgress.userId}
-								allClasses={allClasses}
-								allClassHW={allClassHW}
-								allUsers={allUsers}						
-								this_class_id={userProgress.classId}
-								challengeProgress={challengeProgress}
+								// user_id={userProgress.userId}
+								// allClasses={allClasses}
+								// allClassHW={allClassHW}
+								// allUsers={allUsers}						
+								// this_class_id={userProgress.classId}
+								// challengeProgress={challengeProgress}
+
+								missedCIds = {missedCIds}
 							/>
 						</div>
 					))}
 
 
-				
+		</div>
 			
 			</FeedWrapper>
 		</div>

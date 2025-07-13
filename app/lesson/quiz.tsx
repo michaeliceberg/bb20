@@ -1,6 +1,6 @@
 'use client';
 
-import { SuperType, challengeOptions, challengeProgress, challenges, userProgress } from "@/db/schema";
+import { SuperType, challengeOptions, challengeProgress, challenges } from "@/db/schema";
 import { useEffect, useState, useTransition } from "react";
 import { Header } from "./header";
 import { QuestionBubble } from "./question-bubble";
@@ -46,6 +46,8 @@ type Props= {
 
     oldCourseProgress: SuperType
     activeCourseTitle: string
+
+    missedCIds: number[]
 }
 
 
@@ -69,8 +71,12 @@ export const Quiz = ({
     userSubscription,
     challengeProgress,
     lessonTitle,
+
     oldCourseProgress,
     activeCourseTitle,
+
+    missedCIds,
+
 }: Props) => {
 
 
@@ -572,8 +578,9 @@ export const Quiz = ({
                 
                 <div className='pt-2 grid grid-cols-6 gap-2 justify-between'>
                 {challenges.map((challenge)=>(
-                    <div key={challenge.id * 12786}>
+                    <div key={challenge.id * 12786} className="relative">
                         <Button 
+                            className='relative'
                             variant={
                                 
                                 wrongChallengesId.includes(challenge.id) ? 'danger' 
@@ -590,6 +597,31 @@ export const Quiz = ({
                                 {/* {challenge.id} */}
                             </h1>
                         </Button>
+
+
+                        {missedCIds.includes(challenge.id) && 
+
+                        <p className="text-4xl absolute top-0 pl-2 z-10 ">
+                            .
+                        </p>
+                                    // <Image 
+                                    // //
+                                    // // TODO: если HW, то ПОНЧИК РИСУЕМ
+                                    // //
+                                    //     src='/hwSvgs/donut.svg' 
+                                    //     height={20} 
+                                    //     width={20} 
+                                    //     alt='Mascot' 
+                                    //     className="-mb-10 absolute animate-bounce bg-white  rounded-2xl z-10"
+                                    // />           
+                        }
+
+
+
+
+
+
+
                     </div>
                     ))}
                 </div>
@@ -623,6 +655,7 @@ export const Quiz = ({
                                 timesDoneWrong={timesDoneWrong}
                                 timesDone={timesDone}
                                 
+                                isHWChallenge={missedCIds.includes(challenge.id)}
                             />
                         )}
 
@@ -638,6 +671,8 @@ export const Quiz = ({
                             isDoneChallenge={isDoneChallenge}
                             dateLastDone={dateLastDone}
                             challengeId={challenge.id}
+
+                            
                         />
                     </div>
                 </div>

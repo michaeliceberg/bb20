@@ -8,6 +8,7 @@ import { auth, currentUser } from "@clerk/nextjs/server"
 import { TabTCourses } from '@/components/tab-t-courses';
 import ScrollTriggered from '@/components/framer-card';
 import HTMLContent from '@/components/motion-number';
+import { HwTopBanner } from '../learn/hw-top-banner';
 
 
 
@@ -201,8 +202,119 @@ const LearnPage = async () => {
 	 )
 	
 
-	//  console.log(TRatingUsers[0].usersSortedStat)
-	//  console.log(TRatingUsers[1])
+
+	 
+
+
+
+
+
+
+
+	 // для отображения сверху СКОЛЬКО ОСТАЛОСЬ сделать ДЗ Trainer LessonIds
+
+	 const usersThisClass = allUsers.filter(user=>user.classId == ThisClassId)
+
+	 const thisClassHW = allClassHW?.filter(el => el.classId == ThisClassId)
+ 
+ 
+	 // console.log('lessonStat', lessonStat)
+ 
+	 const big = usersThisClass.map(user => {
+		 
+		 // смотрим во ВСЕМ списке выполненых Challenge те, которые выполнены ЭТИМ user
+		 //
+		 const lessonsDoneByThisUser = all_t_lessonProgress.filter(t_less_propg => t_less_propg.userId == user.userId)
+ 
+		 
+		 // идем по HW, 
+		 // смотрим в КАЖДОМ HW, выполнены ЛИ Challeng's после ДАТЫ ВЫДАЧИ задания
+		 if (thisClassHW) {
+			 const thisUserListHWStat = thisClassHW.map(cur_hw => {
+				 // смотрим конкретное ОДНО HW
+				 //
+				 // Контрольное ПРОИЗВЕДЕНИЕ (если будет 1 то все Lesson'ы этого HW выполнены)
+				 let controlMultiplyTrainer = 1
+				 let ListOfMissedLessonsIds: number[] = []
+				 //
+				 const hw_trainer_string = cur_hw.taskTrainer
+				 if (hw_trainer_string != null && hw_trainer_string != "") {
+					 const hw_trainer_list_of_str = hw_trainer_string.split(',')
+					 
+					 // hw_trainer - список номеров задач этого HW
+					 const hw_trainer = hw_trainer_list_of_str.map((str) => Number(str));
+					 
+ 
+					 // TODO:
+                    // считаем, сколько user'ов НЕ сделали каждый lesson
+                   
+   
+                    hw_trainer.map(cur_les_in_hw => {
+                        // смотрим первый (нулевой) результат по этому Lesson'у тк УЖЕ был отсортирован в query по дате
+                        const doneRightPercent = lessonsDoneByThisUser.filter(lessonDone => lessonDone.t_lessonId == cur_les_in_hw)[0]?.doneRightPercent
+ 
+                        // смотрим, сколько раз был решен Lesson ПОСЛЕ даты выдачи HW
+                        //
+                        const timesDoneCurLessonAfterHWDate = lessonsDoneByThisUser.filter(lessonDone => 
+                            (lessonDone.t_lessonId == cur_les_in_hw) && (lessonDone.dateDone > cur_hw.dateHw))?.length
+
+                        if (doneRightPercent > 90 && timesDoneCurLessonAfterHWDate > 0) {
+                            //
+                            // ничего не делаем
+                            //
+                        } else {
+                            controlMultiplyTrainer = controlMultiplyTrainer * 0
+                            ListOfMissedLessonsIds.push(cur_les_in_hw)
+                        }
+                    })
+
+
+
+				 }
+ 
+				 return (
+					 {
+						 dateHW: cur_hw.dateHw,
+						 isDone: controlMultiplyTrainer,
+						 ListOfMissedLessonsIds: ListOfMissedLessonsIds,
+					 }
+				 )
+				 
+ 
+			 })
+			 return (
+				 {
+					 thisUserListHWStat: thisUserListHWStat,
+					 userName: user.userName,
+					 userId: user.userId,                    
+				 }
+			 )
+		 }
+	 })
+ 
+ 
+	 const thisUserStatHW = big.filter(user => user?.userId == userProgress.userId)[0]
+ 
+	 const numOfHwDone = thisUserStatHW?.thisUserListHWStat.filter(el => el.isDone).length
+	 const numOfHwNotDone = thisUserStatHW?.thisUserListHWStat.filter(el => !el.isDone).length
+ 
+ 
+	 let missedLIds: number[] = []
+	 thisUserStatHW?.thisUserListHWStat.map( cur_hw => {
+		 cur_hw.ListOfMissedLessonsIds.map(lesson_id => {
+			missedLIds.push(lesson_id)
+		 })
+	 })
+
+
+
+
+
+
+
+
+
+
 
 
 	return (
@@ -223,6 +335,15 @@ const LearnPage = async () => {
 
 			<FeedWrapper>
 				<Header title="Тренажёр" />
+
+
+
+
+				<div className='content-center mx-auto justify-center text-center align-middle'>
+					<HwTopBanner missedCIds={missedLIds}  variant='trainer'/>
+				</div>	
+
+
 
 
 
