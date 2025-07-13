@@ -374,7 +374,7 @@ export const CheckListUsers = ({
         cur_user?.thisUserListHWStat.map(cur_hw => {
 
             listOfAllHWLessonsIds.map(lessonIdToDo => {
-                if (cur_hw.ListOfMissedChallengesIds.includes(lessonIdToDo)) {
+                if (cur_hw.ListOfMissedLessonsIds.includes(lessonIdToDo)) {
                     lessonsMissedThisUser += 1
                 }
             })
