@@ -1,4 +1,4 @@
-import { getAllClassHW, getAllClasses, getAllUsers, getAllUsersProgress, getChallengeProgress, getLesson, getUserProgress } from "@/db/queries"
+import { getAllClassHW, getAllUsers, getChallengeProgress, getLesson, getUserProgress } from "@/db/queries"
 import { redirect } from "next/navigation"
 import { Quiz } from "../quiz"
 import { getUserPointsHearts } from "@/usefulFunctions"
@@ -17,8 +17,9 @@ const LessonIdPage =  async ({
     const challengeProgressData = getChallengeProgress()
 
 
-    const allUsersProgressData = getAllUsersProgress()
-	const allClassesData = getAllClasses()
+    // const allUsersProgressData = getAllUsersProgress()
+
+	// const allClassesData = getAllClasses()
 	const allClassHWData = getAllClassHW()
     const allUsersData = getAllUsers()
 
@@ -29,9 +30,9 @@ const LessonIdPage =  async ({
         challengeProgress,
 
 
-        allUsersProgress,
+        // allUsersProgress,
 
-		allClasses,
+		// allClasses,
 		allClassHW,
 		allUsers,
         
@@ -40,10 +41,10 @@ const LessonIdPage =  async ({
         userProgressData,
         challengeProgressData,
 
-        allUsersProgressData,
+        // allUsersProgressData,
 
 
-		allClassesData,
+		// allClassesData,
 		allClassHWData,
 		allUsersData,
     ])
