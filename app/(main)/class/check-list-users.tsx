@@ -164,6 +164,8 @@ export const CheckListUsers = ({
 
         //NEW SELF      СЧИТАЕМ сколько всего Challenge сделал user САМ (с HW и БЕЗ)
         const selfCIdsDoneRight = challengesDoneByThisUser.filter(el => el.doneRight)?.length
+        const ListSelfCIdsDoneRight = challengesDoneByThisUser.filter(el => el.doneRight).map(el => el.challengeId)
+        
 
         
         // идем по HW, 
@@ -186,7 +188,6 @@ export const CheckListUsers = ({
                 if (hw_trainer_string != null && hw_trainer_string != "") {
                     wasHwTrainer = 1
 
-                    console.log('----WEHERE', thisClassHW)
 
 
 
@@ -290,6 +291,7 @@ export const CheckListUsers = ({
                     userId: user.userId,    
                     selfLIdsDoneRight: selfLIdsDoneRight,
                     selfCIdsDoneRight: selfCIdsDoneRight,
+                    ListSelfCIdsDoneRight: ListSelfCIdsDoneRight,
 
 
 
@@ -496,10 +498,32 @@ export const CheckListUsers = ({
     
 
 
+    const ListSelfChallengeDoneRight = challengeProgress.filter(el=>el.doneRight).map(el => el.challengeId)
+    
+    // big.map(el => el.)
+
+    const uniqueSetC = new Set(ListSelfChallengeDoneRight)
+    const UniqueListSelfChallengeDoneRight = Array.from(uniqueSetC);
 
     
+    // Делаем СПИСОК СКОЛЬКО ЛЮДЕЙ СДЕЛАЛО ОДИН И ТОТ ЖЕ CHALLENGE SELF ИЛИ ПО HW (вообще сделало правильно)
+    const nUsersDoneCurChallenge = UniqueListSelfChallengeDoneRight.map(challengeId => {
+        let nUsersDone = 0
+        big.map(el => {
+            if (el?.ListSelfCIdsDoneRight.includes(challengeId)) {
+                nUsersDone += 1
+            }
+        })
+        
+        return (
+            {
+                challengeId: challengeId,
+                nUsersDone: nUsersDone,
+            }
+    )
+    })
 
-
+    console.log('nUsersDoneCurChallenge', nUsersDoneCurChallenge)
 
 
 
@@ -810,6 +834,8 @@ export const CheckListUsers = ({
 
                         hwTLessonIds={hwTLessonIds}
                         setHwTLessonIds={setHwTLessonIds}
+
+
                     />
 
 
@@ -822,7 +848,12 @@ export const CheckListUsers = ({
 
                         hwCIdsToDoNumUsersMissed={hwCIdsToDoNumUsersMissed}
 
+                        nUsersDoneCurChallenge={nUsersDoneCurChallenge}
+
                         hwTLessonIds={hwTLessonIds}
+
+                        // const ListSelfCIdsDoneRight = big.filter(el => el?.userId == user.userId)[0]?.ListSelfCIdsDoneRight
+
 
                     /> 
 

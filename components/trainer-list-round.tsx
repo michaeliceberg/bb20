@@ -408,7 +408,7 @@ if (cycleIndex <= 2){
                             //
                             // TODO: если HW, то ПОНЧИК РИСУЕМ
                             //
-                            src={'/hwSvgs/chocolateW.svg'}
+                            src={'/hwSvgs/friesW.svg'}
                             height={40} 
                             width={40} 
                             alt='Mascot' 

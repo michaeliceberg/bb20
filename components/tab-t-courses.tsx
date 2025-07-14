@@ -312,7 +312,8 @@ type Props = {
 
 return(
 
-    <div className="flex items-center flex-col relative ">
+    // <div className="flex items-center flex-col relative ">
+    <div className="flex justify-center flex-col relative ">
         
 
 
@@ -340,7 +341,7 @@ return(
                 
                 <TabsContent key={indexCourse*19339} value={t_course.title} className="pt-10">
                     
-                    <div key={indexCourse*1389}>
+                    <div key={indexCourse*1389} >
 
 						<TCourseBanner 
 							t_course_title={t_course.title} 

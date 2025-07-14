@@ -71,6 +71,12 @@ type Props = {
         hwTLessonIds: number[],
 
 
+        nUsersDoneCurChallenge: {
+            challengeId: number;
+            nUsersDone: number;
+        }[],
+
+
     }
 
   
@@ -83,6 +89,8 @@ type Props = {
         cur_class_id,
 
         hwTLessonIds,
+
+        nUsersDoneCurChallenge,
 
     }: Props) => {
 
@@ -326,8 +334,18 @@ return(
                                                         {hwCIdsToDoNumUsersMissed.filter(el => el.challengeIdToDo == lesson.id)[0]?.missNumOfToDoCIds}
                                                     </h1>
 
+
+
+
+
+
+
+
                                                 </div>
                                                 
+
+
+
                                                 {/* <Checkbox 
                                                     key={indexLesson*276251314}
                                                     
@@ -357,19 +375,48 @@ return(
                                                             <div>
                                                                 {challenge.id}
 
-                                                                {hwCIdsToDoNumUsersMissed.filter(el => el.challengeIdToDo == challenge.id).length > 0 && 
-                                                                    <div className=
-                                                                        {hwCIdsToDoNumUsersMissed.filter(el => el.challengeIdToDo == challenge.id)[0].missNumOfToDoCIds > 0
-                                                                            ? "text-white bg-red-400 rounded-lg"
-                                                                            : "text-white bg-green-400 rounded-lg"
-                                                                        }
-                                                                        
-                                                                    >
-                                                                        
-                                                                        {hwCIdsToDoNumUsersMissed.filter(el => el.challengeIdToDo == challenge.id)[0].missNumOfToDoCIds}
-                                                                    </div>
-                                                                }
+                                                            
+                                                                <div 
+                                                                    // ДВЕ ЦИФРЫ В ОДНОЙ СТРОКЕ под номером задания
+                                                                    className="flex justify-between">
 
+                                                                    {hwCIdsToDoNumUsersMissed.filter(el => el.challengeIdToDo == challenge.id).length > 0 && 
+                                                                        <div className=
+                                                                            {hwCIdsToDoNumUsersMissed.filter(el => el.challengeIdToDo == challenge.id)[0].missNumOfToDoCIds > 0
+                                                                                ? "text-white bg-red-400 rounded-lg pl-2 pr-2"
+                                                                                : "text-white bg-green-400 rounded-lg pl-2 pr-2"
+                                                                            }
+                                                                            
+                                                                        >
+                                                                            
+                                                                            {hwCIdsToDoNumUsersMissed.filter(el => el.challengeIdToDo == challenge.id)[0].missNumOfToDoCIds}
+
+                                                                        
+                                                                        </div>
+                                                                    }
+
+
+                                                                    {nUsersDoneCurChallenge.filter(el => el.challengeId == challenge.id).length > 0 && 
+                                                                        <div className=
+                                                                            {nUsersDoneCurChallenge.filter(el => el.challengeId == challenge.id)[0]?.nUsersDone > 0
+                                                                                ? "text-white bg-sky-400 rounded-lg pl-2 pr-2"
+                                                                                : "text-white bg-green-400 rounded-lg"
+                                                                            }
+                                                                            
+                                                                        >
+                                                                            
+
+                                                                            {nUsersDoneCurChallenge.filter(el => el.challengeId == challenge.id)[0]?.nUsersDone > 0
+                                                                            ? "👍" + nUsersDoneCurChallenge.filter(el => el.challengeId == challenge.id)[0]?.nUsersDone
+                                                                            : ""
+                                                                            }
+                                                                        </div>
+                                                                    }
+
+                                                                </div>
+
+
+                                                               
                                                             </div>
 
                                                         </Button>

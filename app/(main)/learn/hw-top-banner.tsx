@@ -56,7 +56,7 @@ export const HwTopBanner = ({
                             //
                             // TODO: если HW, то ПОНЧИК РИСУЕМ
                             //
-                            src={variant=='casual' ? '/hwSvgs/donut.svg' : '/hwSvgs/chocolate.svg'}
+                            src={variant=='casual' ? '/hwSvgs/donut.svg' : '/hwSvgs/friesW.svg'}
                             height={40} 
                             width={40} 
                             alt='Mascot' 

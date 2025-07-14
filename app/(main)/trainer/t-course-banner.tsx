@@ -31,29 +31,6 @@ type Props = {
 }
 
 
-// const Table = [
-//     {
-//       listOfMini: [ 0.3068181818181818, 0.1875, 0.42857142857142855, 1,0.3068181818181818, 0.1875, 0.42857142857142855, 1,0.3068181818181818, 0.1875, 0.42857142857142855, 0,0.3068181818181818, 0.1875, 0.42857142857142855, 1,0.3068181818181818, 0.1875, 0.42857142857142855, 0 ],
-//       courseTitle: 'Тренажер Математика 6'
-//     },
-//     {
-//       listOfMini: [ 0.30303030303030304, 0, 0, 0 ],
-//       courseTitle: 'Тренажер Физика Формулы'
-//     }
-//   ]
-
-
-//   const Table2 = [
-//     {
-//       listOfMini: [ 0.2, 0.5, 0.7, 0.8, 1 ],
-//       courseTitle: 'Тренажер Математика 6'
-//     },
-//     {
-//       listOfMini: [ 0.30303030303030304, 0, 0, 0 ],
-//       courseTitle: 'Тренажер Физика Формулы'
-//     }
-//   ]
-
 
 
 
@@ -80,17 +57,15 @@ export const TCourseBanner = ({
 
 
     const averageDonePercent = thisCourseStat.listOfMini.reduce((a, b) => a + b) / thisCourseStat.listOfMini.length;
-    // console.log('thisCourseStat: ', thisCourseStat)
 
     return(
 
-        // <div className="ml-4 w-full rounded-xl border-2 border-foreground border-dashed p-5 text-foreground flex items-center justify-between ">
-        <div className="ml-4 mb-4 w-full">
+        <div className="mb-4  mx-auto text-center align-middle justify-center content-center">
          
             
 
 
-            <div className="flex justify-between">
+            <div className="flex justify-between content-center mx-auto">
                     
                 <p className="text-2xl font-bold">
                     <FlipLink href="#">
@@ -109,25 +84,11 @@ export const TCourseBanner = ({
             </div> 
 
 
-        <div className="pt-8">
-            <UsePresenceDataComp />
-        </div>
+            <div className="justify-center text-center align-middle mx-auto content-center">
+                <UsePresenceDataComp />
+            </div>
 
-            {/* <div className="flex justify-between mt-10">
-
-                <div className="w-[140px] h-[35px]">
-                        
-                        <TypeTextEffect />
-                    
-                </div>
-                
-
-
-                <div>
-                    <Example data={thisCourseStat.listOfMini}/>
-                </div>
-
-            </div> */}
+            
     
                
 
