@@ -126,6 +126,19 @@ export default function TQuiz(
 
   const [threeHearts, setThreeHearts] = useState(3)
 
+  useEffect(() => {
+    if (threeHearts == 0)
+      {
+        setQuizCompleted(true)
+        setThreeHearts(3)
+        upsertTrainerLessonProgress(t_lessonId, 0, 0, 0, questions.length)
+        .catch(()=>toast.error('Что-то пошло не так! Результат не добавлен в базу данных.'))
+    
+      }
+    
+  },[threeHearts])
+  
+
   const [pending, startTransition] = useTransition()
   const [quizStarted, setQuizStarted] = useState(false)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
@@ -392,6 +405,9 @@ export default function TQuiz(
         isRight: true,
       }])
 
+
+      // TODO:  scorescore возможно тут добавляется лишний праивльынй ответ
+      // TODO: 
 
       setScore(score + 1)
 
@@ -729,6 +745,10 @@ export default function TQuiz(
   const trainingPts = 200
 
 
+
+
+
+
   
 
 
@@ -830,6 +850,13 @@ export default function TQuiz(
       </>
     )
   }
+
+
+
+
+
+
+
 
 
 
