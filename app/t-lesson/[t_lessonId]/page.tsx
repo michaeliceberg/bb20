@@ -1,7 +1,7 @@
 import { getAllTLessonProgress, getAllUsersProgress, getTLesson, getTLessonProgress, getTUnits, getUserProgress } from "@/db/queries"
 import { redirect } from "next/navigation"
 import { Shuffle2, ShuffleTS } from "@/usefulFunctions"
-import TQuiz from "@/components/TQUIZ"
+import TQuiz from "@/app/t-lesson/[t_lessonId]/TQUIZ"
 
 
 function randomBetween(min: number, max: number) { // min and max included 

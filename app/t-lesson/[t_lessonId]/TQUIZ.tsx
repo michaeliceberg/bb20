@@ -4,11 +4,11 @@
 import { useEffect, useState, useTransition } from "react"
 import Confetti from "react-confetti"
 import { useAudio, useWindowSize } from "react-use"
-import TrainerQuestion from "./trainer-question"
+import TrainerQuestion from "../../../components/trainer-question"
 import { t_challenges, t_lessonProgress } from "@/db/schema"
-import { Button } from "./ui/button"
+import { Button } from "../../../components/ui/button"
 import Lottie from "lottie-react"
-import { Avatar, AvatarImage } from "./ui/avatar";
+import { Avatar, AvatarImage } from "../../../components/ui/avatar";
 
 
 import LottieTrainerSharkFailDNO from '@/public/Lottie/trainer/LottieTrainerSharkFailDNO.json'
@@ -39,12 +39,13 @@ import { toast } from "sonner"
 import { upsertTrainerLessonProgress } from "@/actions/user-progress"
 import { ArrowLeft, Badge, BadgeAlert, BadgeCheck, Check, TrendingDown, TrendingUp, X, Baby, Crown, Pizza, Zap, Trophy, Heart } from "lucide-react"
 import { ShuffleTS } from "@/usefulFunctions"
-import { ChartComponent } from "./chart-comp"
+import { ChartComponent } from "../../../components/chart-comp"
 import { cn } from "@/lib/utils"
-import { Separator } from "./ui/separator"
-import { FinishTrainerStat } from "./finish-trainer-stat"
-import { TgSendMsgCom } from "./tg-send-msg-com"
+import { Separator } from "../../../components/ui/separator"
+import { FinishTrainerStat } from "../../../components/finish-trainer-stat"
+import { TgSendMsgCom } from "../../../components/tg-send-msg-com"
 import { QuestionType } from "@/app/t-lesson/[t_lessonId]/page"
+import Image from "next/image"
 
 
 
@@ -120,6 +121,11 @@ export default function TQuiz(
     userName,
 
   } : Props) {
+
+
+
+  const [threeHearts, setThreeHearts] = useState(3)
+
   const [pending, startTransition] = useTransition()
   const [quizStarted, setQuizStarted] = useState(false)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
@@ -414,6 +420,10 @@ export default function TQuiz(
     {
       // РЕШЕНО НЕПРАВИЛЬНО  2
 
+
+      setThreeHearts(threeHearts - 1)
+
+
       setIsRightPrevious(false)
       // setRandomEmotionLottie([...LottieEmotionWrongList].sort(() => 0.5 - Math.random())[0])
       setRandomEmotionLottie([...LottieEmotionRightList].sort(() => 0.5 - Math.random())[0])
@@ -516,6 +526,13 @@ export default function TQuiz(
 
     }
   }
+
+
+
+
+
+
+
 
 
 
@@ -656,7 +673,9 @@ export default function TQuiz(
                 
 
                 {usersStat.map((el, index)=> 
-
+                //
+                // РИСУЕМ СТАТИСТИКУ ЭТОГО ТРЕНАЖЕРА СРЕДИ ВСЕХ USERS
+                //
                   <>
 
                     <li className="pt-5 col-span-2 flex justify-center" key={index*722137}>
@@ -791,7 +810,12 @@ export default function TQuiz(
           <Separator />
         </div>
 
-         <FinishTrainerStat finishList = {finishList} />
+         <FinishTrainerStat 
+          //
+          // СТАТИСТИКА ПРАВИЛЬНЫХ / НЕПРАВИЛЬНЫХ ОТВЕТОВ
+          //
+          finishList = {finishList}   
+        />
        
 
 
@@ -810,7 +834,7 @@ export default function TQuiz(
 
 
 
-  // TODO:    идёт КВИЗ
+  // TODO:    НАЧАЛИ КВИЗ КВИЗ КВИЗ КВИЗ КВИЗ КВИЗ КВИЗ
   return (
     
     <>
@@ -835,9 +859,50 @@ export default function TQuiz(
 
         isRightPrevious={isRightPrevious}
         randomEmotionLottie={randomEmotionLottie}
+
+        setThreeHearts={setThreeHearts}
+        threeHearts={threeHearts}
       />
       
+
+
+      {/* <Image src='/heart.svg' height={22} width={22} alt='Hearts' className='mr-2' /> */}
+
      
+
+      <div className="mt-5 mx-auto w-[200px] ">
+        {threeHearts == 3
+        //
+        // РИСУЕМ СЕРДЕЧКИ ВНИЗУ ПОД ЗАДАНИЕМ
+        //
+        ? <div className="justify-center gap-x-1 flex">
+            
+            <Image src='/heartYes.svg' height={22} width={22} alt='Hearts' className='' />
+            <Image src='/heartYes.svg' height={22} width={22} alt='Hearts' className='' />
+            <Image src='/heartYes.svg' height={22} width={22} alt='Hearts' className='' />
+
+          </div>
+        : threeHearts == 2
+        ?
+        <div className="justify-center gap-x-1 flex">
+            
+          <Image src='/heartYes.svg' height={22} width={22} alt='Hearts' className='' />
+          <Image src='/heartYes.svg' height={22} width={22} alt='Hearts' className='' />
+          <Image src='/heartNo.svg' height={22} width={22} alt='Hearts' className='' />
+
+        </div>
+        :
+        <div className="justify-center gap-x-1 flex">
+            
+            <Image src='/heartYes.svg' height={22} width={22} alt='Hearts' className='' />
+            <Image src='/heartNo.svg' height={22} width={22} alt='Hearts' className='' />
+            <Image src='/heartNo.svg' height={22} width={22} alt='Hearts' className='' />
+
+        </div>
+        } 
+      </div>
+
+
 
       <p className="mt-4 text-center">
         <Button 

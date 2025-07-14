@@ -3,7 +3,7 @@
 
 import { motion } from "framer-motion";
 
-import { useState, useEffect, useRef, useLayoutEffect } from "react"
+import { useState, useEffect, useRef, useLayoutEffect, SetStateAction, Dispatch } from "react"
 import Lottie from "lottie-react"
 
 import LottieOclockBlue from '@/public/Lottie/trainer/LottieOclockBlue.json'
@@ -47,6 +47,9 @@ interface QuestionProps {
 
   isRightPrevious: boolean
   randomEmotionLottie: any
+
+  setThreeHearts: Dispatch<SetStateAction<number>>
+  threeHearts: number,
 }
 
 export default function TrainerQuestion({
@@ -57,6 +60,9 @@ export default function TrainerQuestion({
   onTimeout, 
   isRightPrevious,
   randomEmotionLottie,
+
+  setThreeHearts,
+  threeHearts,
 
 }: QuestionProps) {
   
