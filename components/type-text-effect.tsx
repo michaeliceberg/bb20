@@ -63,7 +63,7 @@ const Typewrite = ({ examples }: { examples: string[] }) => {
   }, []);
 
   return (
-    <p className="text-xs font-light">
+    <div className="text-xs font-light">
       {/* <span className="inline-block size-2 bg-neutral-950" /> */}
       <span className="ml-3">
 
@@ -143,6 +143,6 @@ const Typewrite = ({ examples }: { examples: string[] }) => {
       </span>
 
 
-    </p>
+    </div>
   );
 };

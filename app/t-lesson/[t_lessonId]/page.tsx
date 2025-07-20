@@ -555,7 +555,8 @@ const LessonIdPage =  async ({
 
 
 
-    let finishAudioSrcList = ['/MemesAudio/meme-right-chetko.WAV',
+    let finishAudioSrcList = [
+                        '/MemesAudio/meme-right-chetko.WAV',
                         '/MemesAudio/meme-right-chinazes.WAV',
                         '/MemesAudio/meme-right-umeetemogete.WAV',
                         ]

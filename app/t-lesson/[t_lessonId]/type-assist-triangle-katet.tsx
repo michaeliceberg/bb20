@@ -557,7 +557,7 @@ export const TypeAssistTRIANGLEgdeKatet = ({
 
         if ( isDone ){
             ButtonListWithSnap.sort((a, b) => a.snapPointId - b.snapPointId);
-            console.log('SORTED ', ButtonListWithSnap)
+            // console.log('SORTED ', ButtonListWithSnap)
             let isRight = true
             ButtonListWithSnap.map((el, index) => {
                 if (el.buttonText == answer[index]) {} else {isRight = false}

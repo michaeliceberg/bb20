@@ -197,6 +197,7 @@ return(
                 <TabsContent key={indexCourse*123} value={cur_class.title} className="pt-10">                    
                     
                     <CheckListUsers 
+                    key={indexCourse * 98633}
                     //
                     // И ТАМ ВНУТРИ КОМПОНЕНТ TabTCoursesHW ДЛЯ HW
                     //

@@ -3,7 +3,7 @@
 import Image from 'next/image'
 
 import Lottie, {LottieRefCurrentProps} from 'lottie-react'
-import {useRef} from 'react'
+import {useEffect, useRef, useState} from 'react'
 
 import {
     Dialog,
@@ -18,7 +18,6 @@ import {
 
 import { Button } from '../ui/button'
 import { useWrongAnswerModal } from '@/store/use-wronganswer-modal'
-import { useEffect, useState } from 'react';
 import LottieDeathHeart from '@/public/Lottie/wrongAnswer/LottieDeathHeart.json'
 import LottieDeathWrongCoffin from '@/public/Lottie/wrongAnswer/LottieDeathWrongCoffin.json'
 import LottieDeathWrongCry from '@/public/Lottie/wrongAnswer/LottieDeathWrongCry.json'
@@ -28,97 +27,53 @@ import LottieDeathWrongShakeHead from '@/public/Lottie/wrongAnswer/LottieDeathWr
 import { useAudio } from 'react-use'
 
 
+const wrongLottieList = 
+    [
+        LottieDeathHeart, 
+        LottieDeathWrongCoffin, 
+        LottieDeathWrongCry, 
+        LottieDeathWrongDoor, 
+        LottieDeathWrongHeartsSteel, 
+        LottieDeathWrongShakeHead
+    ]
 
-const ComboList = {
-                    wrongAudioImage: [
-                                        ['/MemesAudio/meme-wrong-kid.WAV', '/MemesImage/meme-wrong-kid.jpg'], 
-                                        ['/MemesAudio/meme-wrong-sharish.WAV', '/MemesImage/meme-wrong-sharish.jpeg'],
-                                        ['/MemesAudio/meme-wrong-polnomochia.WAV', '/MemesImage/meme-wrong-polnomochia.jpeg'],
-                                        ['/MemesAudio/meme-wrong-ponovoy.WAV', '/MemesImage/meme-wrong-ponovoy.jpeg'],
-                                        ['/MemesAudio/meme-wrong-shirokuiu.WAV', '/MemesImage/meme-wrong-shirokuiu.jpeg'],
-                                        ['/MemesAudio/meme-wrong-tivtiraesh.WAV', '/MemesImage/meme-wrong-tivtiraesh.jpeg'],
-                                        ['/MemesAudio/meme-wrong-tipereputal.WAV', '/MemesImage/meme-wrong-tipereputal.jpg'],
-                                        ['/MemesAudio/meme-wrong-pacankuspehy.WAV', '/MemesImage/meme-wrong-pacankuspehy.jpeg'],
-                                        ['/MemesAudio/meme-wrong-shokoladnevinovat.WAV', '/MemesImage/meme-wrong-pacankuspehy.jpeg'],
-                                        ['/MemesAudio/meme-wrong-etofiaskobratan.WAV', '/MemesImage/meme-wrong-etofiaskobratan.jpeg'],
+                
+type Props = {
+    randomWrongAudio: string,
+    randomWrongImage: string,
+    randomWrongMessage: string,
+    
+    randomLottieNumber: number,
 
+}
 
-                                        
-                                        
-                                     ],
-                    rightAudioImage: [
-                                        ['/MemesAudio/meme-right-papichlegkaya.WAV', '/memes/meme-right-papich.jpg'], 
-                                        ['/MemesAudio/meme-right-chinazes.WAV', '/memes/meme-right-chinazes.jpg']
-                                     ],
-                    wrongLottie:     [LottieDeathHeart, LottieDeathWrongCoffin, LottieDeathWrongCry ,LottieDeathWrongDoor, LottieDeathWrongHeartsSteel, LottieDeathWrongShakeHead],
-                    wrongMessage:    ['О нет!', 'Вжик!', 'АхХахахАх!', 'Почти угадал!']
-                    
-                }
+export const WrongAnswerModal = ({
+    randomWrongAudio,
+    randomWrongImage,
+    randomWrongMessage,
 
-export const WrongAnswerModal = () => {
+    randomLottieNumber,
 
+}: Props) => {
+
+    const randomWrongLottie = wrongLottieList[randomLottieNumber]
     const phoneRef = useRef<LottieRefCurrentProps>(null)
 
-    const [isClient, setIsClient] = useState(false)
     const {isOpen, close} = useWrongAnswerModal()
 
-
-
-    const [randomAudio, setRandomAudio] =  useState(ComboList.wrongAudioImage[0][0]);
-    const [randomImage, setRandomImage] =  useState(ComboList.wrongAudioImage[0][1]);
-    const [randomLottie, setRandomLottie] =  useState(ComboList.wrongLottie[0]);
-    const [randomMessage, setRandomMessage] =  useState(ComboList.wrongMessage[0]);
-    
-
-
-    // const [
-    //     incorrectAudio,
-    //     _i,
-    //     incorrectControls,
-    // ] = useAudio({ src: ComboList.wrongAudioImage[0][0] })
-
-
-    // const [
-    //     incorrectAudio,
-
-    // ] = useAudio({ src: ComboList.wrongAudioImage[0][0], autoPlay: true})
-    
-
-
-
-    useEffect(() => {
-        const randomizeArray = [...ComboList.wrongAudioImage].sort(() => 0.5 - Math.random());
-        setRandomAudio(randomizeArray[0][0]);
-        setRandomImage(randomizeArray[0][1]);
-    }, [isOpen])
 
 
     const [
         incorrectAudio,
         _i,
         incorrectControls,
-    ] = useAudio({ src: randomAudio })
+    ] = useAudio({ src: randomWrongAudio })
 
 
 
-    useEffect(() => {
-
-        const randomizeArrayLottie = [...ComboList.wrongLottie].sort(() => 0.5 - Math.random());
-        setRandomLottie(randomizeArrayLottie[0])
-
-        const randomizeArrayMessage = [...ComboList.wrongMessage].sort(() => 0.5 - Math.random());
-        setRandomMessage(randomizeArrayMessage[0])
-
-        incorrectControls.play()
-        // incorrectAudio
-
-    }, [isOpen]);
-
-
-
-
-
+    const [isClient, setIsClient] = useState(false)
     useEffect(()=>setIsClient(true),[]) 
+    // БЕЗ этого ПОЧЕМУ-то Hydration ERROR
     if (!isClient){
         return null
     }
@@ -139,7 +94,7 @@ export const WrongAnswerModal = () => {
 
 
                         <Lottie className="h-50 w-50"
-                            animationData={ randomLottie } 
+                            animationData={ randomWrongLottie } 
                             lottieRef={phoneRef }
                             loop={false}  
                             onComplete={()=>{
@@ -149,8 +104,7 @@ export const WrongAnswerModal = () => {
                         />
 
             <Image 
-            src={randomImage}
-            // src='/memes/mem-wrong-sharish.jpeg'
+            src={randomWrongImage}
             alt='Mascot'
                 height={200}
                 width={200}
@@ -159,7 +113,7 @@ export const WrongAnswerModal = () => {
 
                     </div>
                     <DialogTitle className='text-center font-bold text-2xl'>
-                        {randomMessage}
+                        {randomWrongMessage}
                     </DialogTitle>
                     <DialogDescription className='text-center text-base'>
                   
@@ -172,15 +126,14 @@ export const WrongAnswerModal = () => {
                             variant='dangerOutline' 
                             className='w-full' 
                             size='lg' 
-                            // onClick={close}
                         >
                             - 1 
                             <Image
-                    src="/heart.svg"
-                    alt='Heart'
-                    height={20}
-                    width={20}
-                />
+                                src="/heart.svg"
+                                alt='Heart'
+                                height={20}
+                                width={20}
+                            />
                         </Button>
                         
                     </div>

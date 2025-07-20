@@ -362,7 +362,7 @@ return(
                                                 <div>
                                                     {/* {lesson.id} */}
                                                     
-                                                    <p className="text-xs gap-x-1">
+                                                    <div className="text-xs gap-x-1">
                                                     {lesson.challenges.map((challenge, index) => 
                                                         
                                                         
@@ -431,7 +431,7 @@ return(
 
 
                                                     )}
-                                                    </p>
+                                                    </div>
                                                 </div>
                                                 
                                             {/* } */}

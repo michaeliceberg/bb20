@@ -41,6 +41,19 @@ export const getChallengeProgress = cache(async () => {
 });
 
 
+
+export const getChallengeProgressAllUsers = cache(async () => {
+	const { userId } = await auth();
+	if (!userId) {
+		return null;
+	}
+
+	const data = await db.query.challengeProgress.findMany({
+	});
+	return data;
+});
+
+
 export const getUnits = cache(async()=>{
 	const {userId} = await auth()
 	const userProgress = await getUserProgress();

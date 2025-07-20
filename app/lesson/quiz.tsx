@@ -96,58 +96,10 @@ export const Quiz = ({
     const [finishAudio] = useAudio({src:'/finish.mp3', autoPlay: true})
 
 
-
-//     const [audio, _state, _controls, ref] = useAudio({ ...props});
-// return(
-//   ...
-//   {isSound ? <div>{audio}</div> : <audio ref={ref} />}
-//   ...
-// )
-
-
-
-    //TODO:
-    // // const doneRightAudio = ['/MemesAudio/meme-right-chinazes.WAV', '/MemesAudio/meme-right-papichlegkaya.WAV']
-    // const doneRightAudio = ['/MemesAudio/meme-right-papichlegkaya.WAV', '/MemesAudio/meme-right-chinazes.WAV']
-
-    // const [randomAudioRight, setRandomAudioRight] =  useState(doneRightAudio[0]);
-    // useEffect(() => {
-    //     const randomizeArray = [...doneRightAudio].sort(() => 0.5 - Math.random());
-    //     setRandomAudioRight(randomizeArray[0]);
-    // }, []);
-
-
-
-    // const doneWrongAudio = ['/MemesAudio/meme-wrong-kid.WAV','/MemesAudio/meme-wrong-sharish.WAV']
-
-    // const [randomAudioWrong, setRandomAudioWrong] =  useState(doneWrongAudio[0]);
-    // useEffect(() => {
-    //     const randomizeArray = [...doneWrongAudio].sort(() => 0.5 - Math.random());
-    //     setRandomAudioWrong(randomizeArray[0]);
-    // }, []);
-
-
-
-
-
-    // const [isOpenDialog, setIsOpenDialog] = useState(false)
-
-
     
 
-    // const [
-    //     correctAudio,
-    //     _c,
-    //     correctControls,
-    // // ] = useAudio({ src: '/correct.wav' })
-    // ] = useAudio({ src: randomAudioRight })
 
-    // const [
-    //     incorrectAudio,
-    //     _i,
-    //     incorrectControls,
-    // // ] = useAudio({ src: '/incorrect.wav' })
-    // ] = useAudio({ src: randomAudioWrong })
+
 
 
 
@@ -194,38 +146,10 @@ export const Quiz = ({
 
 
 
-    // const [optionsList, setOptionsList] = useState([
-    //     {
-    //         id: 1,
-    //         imageSrc: null,
-    //         challengeId: 1,
-    //         text: '',
-    //         correct: true,
-    //         audioSrc: null
-    //     }
-    // ])
-
     
-    // const [randomArray, setRandomArray] = useState([]);
     
-    // useEffect(() => {
-    //     const randomizeArray = [...array].sort(() => 0.5 - Math.random());
-    //     setRandomArray(randomizeArray.slice(0, 3));
-    // }, []);
 
 
-
-
-
-
-
-
-    // const [randomArray, setRandomArray] = useState([]);
-    
-    // useEffect(() => {
-    //     const randomizeArray = [...array].sort(() => 0.5 - Math.random());
-    //     setRandomArray(randomizeArray.slice(0, 3));
-    // }, []);
 
 
     
@@ -286,12 +210,9 @@ export const Quiz = ({
     
 
 
-    
+
     // SHUFFLE FUNCTION
     //
-    // let options = challenge?.challengeOptions ?? []
-    // useEffect(()=>{
-        // const Shuffle = (array: any) : typeof challengeOptions.$inferSelect => {
     const Shuffle = (array: any) => {
         let currentIndex = array.length;
     
@@ -305,24 +226,8 @@ export const Quiz = ({
         }
     }
 
-        // Shuffle(options)
-
-    // },[activeIndex, options])
 
 
-
-
-
-    // const [options, setOptions] = useState(Shuffle(challenge?.challengeOptions ?? []))
-    // const [options, setOptions] = useState(challenge?.challengeOptions ?? [])
-    // const [options, setOptions] = useState(challenge?.challengeOptions)
-
-    // const randomizeArray = [...challenge?.challengeOptions].sort(() => 0.5 - Math.random());
-    // setOptions(randomizeArray.slice(0, 3));
-
-    
-
-    // const [options, setOptions] = useState(randomizeArray)
 
     //TODO: новое перемешивание вариантов ответа
 
@@ -336,13 +241,6 @@ export const Quiz = ({
 
 
 
-
-
-
-    //     useEffect(() => {
-    //     const randomizeArray = [...array].sort(() => 0.5 - Math.random());
-    //     setRandomArray(randomizeArray.slice(0, 3));
-    // }, []);
 
 
 
@@ -362,8 +260,6 @@ export const Quiz = ({
 
     const onContinue = () => {
 
-
-        // let hz = challengesDone.filter(el => el.challengeId === challenge.id) 
 
         if (!selectedOption) return
 
@@ -594,26 +490,18 @@ export const Quiz = ({
                                 {Number(activeIndex) === (challenge.id) ? "overline" : ""}
                                 >
                                 {challenge.id % 1000}
-                                {/* {challenge.id} */}
                             </h1>
                         </Button>
 
 
                         {missedCIds.includes(challenge.id) && 
-
-                        <p className="text-4xl absolute top-0 pl-2 z-10 ">
-                            .
-                        </p>
-                                    // <Image 
-                                    // //
-                                    // // TODO: если HW, то ПОНЧИК РИСУЕМ
-                                    // //
-                                    //     src='/hwSvgs/donut.svg' 
-                                    //     height={20} 
-                                    //     width={20} 
-                                    //     alt='Mascot' 
-                                    //     className="-mb-10 absolute animate-bounce bg-white  rounded-2xl z-10"
-                                    // />           
+                            //
+                            // Если HW то рисуем ТОЧКУ в углу кнопки номера
+                            //
+                            <p className="text-4xl absolute top-0 pl-2 z-10 ">
+                                .
+                            </p>
+                                   
                         }
 
 

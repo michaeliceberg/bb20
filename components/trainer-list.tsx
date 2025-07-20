@@ -139,9 +139,12 @@ export const TrainerLessonItem = ({
                 onClick={()=>window.location.href = `/t-lesson/${t_lesson.id}`}
                 className=''   
             >
-                <p className='text-lg'>
+                {/* <p className='text-lg'>
                     <ToyBrick />
-                </p>
+                </p> */}
+                <div className='text-lg'>
+                    <ToyBrick />
+                </div>
             </Button>
         </div>
 

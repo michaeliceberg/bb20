@@ -1,7 +1,7 @@
 import { FeedWrapper } from "@/components/feed-wrapper"
 import { StickyWrapper } from "@/components/sticky-wrapper"
 import { Separator } from "@/components/ui/separator"
-import { getAllClassHW, getAllClasses, getAllTLessonProgress, getAllUsers, getChallengeProgress, getCourseProgress, getCourses, getTCourses, getTUnits, getUnits, getUserProgress } from "@/db/queries"
+import { getAllClassHW, getAllClasses, getAllTLessonProgress, getAllUsers, getChallengeProgress, getChallengeProgressAllUsers, getCourseProgress, getCourses, getTCourses, getTUnits, getUnits, getUserProgress } from "@/db/queries"
 import Image from "next/image"
 import { redirect } from "next/navigation"
 import { TabUsers } from "./tab-users"
@@ -15,7 +15,11 @@ const ClassroomPage = async () => {
     const t_coursesData = getTCourses();
 	const userProgressData = getUserProgress()
 	const courseProgressData = getCourseProgress()
-	const challengeProgressData = getChallengeProgress()
+	// challengeProgress ALL USERS
+	const challengeProgressData = getChallengeProgressAllUsers()
+
+    
+
 	const t_unitsData = getTUnits()
 
     const userAllTLessonProgressData = getAllTLessonProgress()

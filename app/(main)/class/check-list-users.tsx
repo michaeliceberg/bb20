@@ -157,16 +157,18 @@ export const CheckListUsers = ({
         //
         const lessonsDoneByThisUser = all_t_lessonProgress.filter(t_less_propg => t_less_propg.userId == user.userId)
 
-        //NEW SELF    СЧИТАЕМ сколько всего Lesson Trainer сделал user САМ (с HW и БЕЗ)
-        const selfLIdsDoneRight = lessonsDoneByThisUser.filter(el => el.doneRightPercent > 80)?.length
-
         const challengesDoneByThisUser = challengeProgress.filter(chal_prog => chal_prog.userId == user.userId)
 
+
+        //NEW SELF    СЧИТАЕМ сколько всего Lesson Trainer сделал user САМ (с HW и БЕЗ)
+        //
+        const selfLIdsDoneRight = lessonsDoneByThisUser.filter(el => el.doneRightPercent > 80)?.length
+
         //NEW SELF      СЧИТАЕМ сколько всего Challenge сделал user САМ (с HW и БЕЗ)
+        //
         const selfCIdsDoneRight = challengesDoneByThisUser.filter(el => el.doneRight)?.length
         const ListSelfCIdsDoneRight = challengesDoneByThisUser.filter(el => el.doneRight).map(el => el.challengeId)
         
-
         
         // идем по HW, 
         // смотрим в КАЖДОМ HW, выполнены ЛИ Lesson'ы на 90% после ДАТЫ ВЫДАЧИ задания
@@ -491,9 +493,7 @@ export const CheckListUsers = ({
             }
         )
     })
-    
-    console.log('hwCIdsEachUserMissed--------->', hwCIdsEachUserMissed)
-    
+        
     
     
 
@@ -523,8 +523,6 @@ export const CheckListUsers = ({
     )
     })
 
-    console.log('nUsersDoneCurChallenge', nUsersDoneCurChallenge)
-
 
 
 
@@ -551,6 +549,14 @@ export const CheckListUsers = ({
            
 
         {/* <SuperCards /> */}
+
+
+
+
+
+
+
+
 
         <ul className="grid grid-cols-8 gap-y-4 ">
 
@@ -581,11 +587,11 @@ export const CheckListUsers = ({
                 <p className="text-sm content-center">
                     🏡T
                     {/* сверху сколько Домашек по Trainer НЕ СДЕЛАЛ снизу сколько СДЕЛАЛ */}
-                    </p>    
+                </p>    
             </li>
 
             <li className="flex justify-center">
-                <p className="text-sm content-center">
+                <div className="text-sm content-center">
                     nC
                     <p
                         // сколько задач ВСЕГО НЕ сделал (из HW)
@@ -599,10 +605,10 @@ export const CheckListUsers = ({
                     </p>
                     
                     
-                </p>    
+                </div>    
             </li>
             <li className="flex justify-center">
-                <p className="text-sm content-center">
+                <div className="text-sm content-center">
                     nT
                     
                     <p
@@ -616,7 +622,7 @@ export const CheckListUsers = ({
                         Σ✓ 
                     </p>    
                     
-                </p>    
+                </div>    
             </li>
             
             <li className="flex justify-center">
@@ -660,75 +666,74 @@ export const CheckListUsers = ({
 
 
                 return (
-                <>
-                    <li key={index*276}>
-                        <Button key={index*27622} className="w-full" variant='ghost' size='leader'>
-                            <div key={index*21276} className="flex flex-1 justify-between items-center">
-                                <div key={index*4532}>
-                                    <h1 key={index*221151}>{index + 1}</h1> 
-                                </div>
 
-
-
-
-
-                                <div key={index*43532}>
-                                    <Avatar key={index*4511132}
-                                        >
-                                        <AvatarImage  key={index*4553532}
-                                            className="object-cover"
-                                            src={user.userImageSrc}
-                                        />
-                                    </Avatar>  
-                                </div>
-                            </div>
-                        </Button>
-
+                    <React.Fragment key={index}> {/* or omit if not in a list */}
+                    <li key={index} className="list-item">
+                      <Button className="w-full" variant='ghost' size='leader'>
+                        <div className="flex flex-1 justify-between items-center">
+                          <div>
+                            <h1>{index + 1}</h1>
+                          </div>
+                          <div>
+                            <Avatar>
+                              <AvatarImage
+                                className="object-cover"
+                                src={user.userImageSrc}
+                              />
+                            </Avatar>
+                          </div>
+                        </div>
+                      </Button>
                     </li>
+                  
 
-                    <li  className="col-span-2 flex justify-center" key={index*1241}>
-                        <p key={index*31251} className="text-sm font-bold content-center">
+
+
+
+
+                    <li  key={index + 2000} className="col-span-2 flex justify-center" >
+                        <p className="text-sm font-bold content-center">
                             {user.userName}
                         </p>
-                    </li>
+                        </li>
 
 
 
-                    {/* STREAK */}
+                        {/* STREAK */}
 
 
 
-                    <li  key={index*122236} className=
+                    <li  key={index + 3000} className=
                         {notFinishedHWCasual == 0 
                             ? "content-center text-center text-sm text-white font-bold bg-green-400 rounded-sm"  
                             : "content-center text-center text-sm text-white font-bold bg-red-400 rounded-sm"
                         }
-                    >
+                        >
                         <p>
                             {notFinishedHWCasual}
                         </p>
                         <p>
                             {finishedHWCasual}
                         </p>
-                       
+
                     </li>
 
 
 
-                        
-                    <li  key={index*1236} className=
+
+                    <li  key={index + 4000} className=
                         {notFinishedHWTrainer == 0 
                             ? "content-center text-center text-sm text-white font-bold bg-green-400 rounded-sm"  
                             : "content-center text-center text-sm text-white font-bold bg-red-400 rounded-sm"
                         }
-                    >
+                        >
                         <p>
                             {notFinishedHWTrainer}
                         </p>
                         <p>
                             {finishedHWTrainer}
                         </p>
-                       
+
                     </li>
 
 
@@ -741,39 +746,39 @@ export const CheckListUsers = ({
 
 
 
-                    <li  key={index*1298136} className=
+                    <li  key={index + 5000} className=
                         {hwCIdsThisUserMissed == 0 
                             // СКОЛЬКО ВСЕГО challenge casual НЕ СДЕЛАЛ ЭТОТ УЧЕНИК по HW
                             //
                             ? "content-center text-center text-sm text-white font-bold bg-green-400 rounded-sm"  
                             : "content-center text-center text-sm text-white font-bold bg-red-400 rounded-sm"
                         }
-                    >
+                        >
                         <p
                             // сколько задач ВСЕГО НЕ сделал (из HW)
                         >
-                           {hwCIdsThisUserMissed}
+                            {hwCIdsThisUserMissed}
                         </p>
-                        <p 
+                        <p
                         // сколько задач ВСЕГО сделал (c HW и без)
                         >
-                           {selfCIdsDoneRight}
+                            {selfCIdsDoneRight}
                         </p>
-                       
-                    </li>
+
+                        </li>
 
 
 
 
-                    
-                    <li  key={index*10396} className=
+
+                    <li  key={index + 6000} className=
                         {hwLIdsThisUserMissed > 0
                             // СКОЛЬКО ВСЕГО lesson trainer НЕ СДЕЛАЛ ЭТОТ УЧЕНИК по HW
                             // сколько всего сдела правильно Из / всех, что сделал
                             ? "content-center text-center text-sm text-white font-bold bg-red-400 rounded-sm"
                             : "content-center text-center text-sm text-white font-bold bg-green-400 rounded-sm"  
                         }
-                    >
+                        >
                         <p>
                             {hwLIdsThisUserMissed}
                         </p>
@@ -781,26 +786,29 @@ export const CheckListUsers = ({
                             {selfLIdsDoneRight}
                             {/* {hwLIdsThisUserDoneRigth}/{hwLIdsThisUserDoneWrong + hwLIdsThisUserDoneRigth} */}
                         </p>
-                       
+
                     </li>
 
 
 
 
 
-
-                    <li className="col-span-1" key={index*726}>
-                        <Button key={index*254211} className="w-full" variant={'ghost' } size='leader'>
-                                {user.classId}            
-                        </Button>
+                  
+                    <li key={index + 1000} className="col-span-1">
+                      <Button className="w-full" variant='ghost' size='leader'>
+                        {user.classId}
+                      </Button>
                     </li>
+                  </React.Fragment>
 
 
-                </>
-            )}
-            
-            
-            )}
+
+
+                
+
+
+
+            )})}
 
 
 
@@ -864,3 +872,34 @@ export const CheckListUsers = ({
 
   )
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

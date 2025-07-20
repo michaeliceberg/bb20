@@ -139,7 +139,7 @@ export default function TQuiz(
   },[threeHearts])
   
 
-  const [pending, startTransition] = useTransition()
+  // const [pending, startTransition] = useTransition()
   const [quizStarted, setQuizStarted] = useState(false)
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0)
   const [score, setScore] = useState(0)
@@ -157,11 +157,32 @@ export default function TQuiz(
 
 
   let finishAudioSrcList = [
+
     '/MemesAudio/meme-right-chetko.WAV',
     '/MemesAudio/meme-right-chinazes.WAV',
     '/MemesAudio/meme-right-umeetemogete.WAV',
+
+    '/MemesAudio/meme-right-clapping.WAV',
+    '/MemesAudio/meme-right-gtapassed.WAV',
+    '/MemesAudio/meme-right-nice.WAV',
+    '/MemesAudio/meme-right-papichlegkaya.WAV',
+    // '/MemesAudio/meme-right-estestvenno.WAV',
+    
+    // '/MemesAudio/meme-wrong-etofiaskobratan.WAV',
+    // '/MemesAudio/meme-wrong-kid.WAV',
+    // '/MemesAudio/meme-wrong-pacankuspehy.WAV',
+    // '/MemesAudio/meme-wrong-polnomochia.WAV',
+    // '/MemesAudio/meme-wrong-ponovoy.WAV',
+    // '/MemesAudio/meme-wrong-sharish.WAV',
+    // '/MemesAudio/meme-wrong-shirokuiu.WAV',
+    // '/MemesAudio/meme-wrong-shokoladnevinovat.WAV',
+    // '/MemesAudio/meme-wrong-skolko.WAV',
+    // '/MemesAudio/meme-wrong-tipereputal.WAV',
+    // '/MemesAudio/meme-wrong-tivtiraesh.WA',
+
   ]
-  // let finishAudioSrc2 = ShuffleTS(finishAudioSrcList)[0]
+
+
 
   const [finishA, setFinishA] = useState(finishAudioSrcList[0])
 
@@ -194,19 +215,13 @@ export default function TQuiz(
 
 
 
-  // const [righthAudio] = useAudio({src:'/correct.mp3', autoPlay: true})
+
+  
   const [audioCorrect, _, controlsCorrect] = useAudio({src: '/correct.wav'})
   const [audioInCorrect, _c, controlsInCorrect] = useAudio({src: '/incorrect.wav'})
 
 
-
-
-
   const [finishAudio] = useAudio({src: finishA, autoPlay: true})
-  // const [audio, _, controls] = useAudio({src: '/correct.wav'})
-  // const [audio, _, controls] = useAudio({src: '/MemesAudio/meme-right-chetko.WAV'})
-
-
 
 
 
@@ -356,6 +371,20 @@ export default function TQuiz(
   }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+  // TODO:    HANDLE ANSWER HANDLE ANSWER HANDLE ANSWER HANDLE ANSWER HANDLE ANSWER HANDLE ANSWER 
+
   const handleAnswer = async (answer: string) => {
     
     setAnsweredQuestions(answeredQuestions + 1)
@@ -380,7 +409,7 @@ export default function TQuiz(
       setRandomEmotionLottie([...LottieEmotionRightList].sort(() => 0.5 - Math.random())[0])
 
 
-      // Анимация Зеленым фоном вверх при правильном ответе
+      // TODO: ANIMATION GREEN    Анимация Зеленым фоном вверх при правильном ответе
       //
       const body = document.querySelector("body")
       body?.classList.add("trainer-slide-up-transition")
@@ -388,6 +417,13 @@ export default function TQuiz(
       await sleep(200)
     
     
+
+
+
+
+
+
+
 
 
 
@@ -424,8 +460,11 @@ export default function TQuiz(
 
 
 
+      
+      
+      // EXIT ANIMATION
+      
       await sleep(200)
-
       body?.classList.remove ("trainer-slide-up-transition")
 
 
@@ -445,11 +484,23 @@ export default function TQuiz(
       setRandomEmotionLottie([...LottieEmotionRightList].sort(() => 0.5 - Math.random())[0])
 
 
-      // Анимация Красным фоном вниз при НЕправильном ответе
+
+
+
+
+
+
+
+      // TODO: ANIMATION RED Анимация Красным фоном вниз при НЕправильном ответе
       //
       const body = document.querySelector("body")
       body?.classList.add("trainer-slide-down-transition")
       await sleep(200)
+
+
+
+
+
 
 
 
@@ -477,8 +528,9 @@ export default function TQuiz(
 
 
 
-      await sleep(200)
+      // EXIT ANIMATION
 
+      await sleep(200)
       body?.classList.remove ("trainer-slide-down-transition")
     
     }
@@ -931,7 +983,7 @@ export default function TQuiz(
 
 
 
-      <p className="mt-4 text-center">
+      <div className="mt-4 text-center">
         <Button 
           variant='dangerOutline'
           className="gap-2"
@@ -940,7 +992,7 @@ export default function TQuiz(
           <X size='18'/>
           завершить
         </Button>
-      </p>
+      </div>
 
 
     </div>

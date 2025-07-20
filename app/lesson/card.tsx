@@ -1,7 +1,5 @@
 import { challenges } from "@/db/schema"
 import { cn } from "@/lib/utils"
-// import { useWrongAnswerModal } from "@/store/use-wronganswer-modal"
-import { stat } from "fs"
 import Image from "next/image"
 import { useCallback } from "react"
 import { useKey } from "react-use"

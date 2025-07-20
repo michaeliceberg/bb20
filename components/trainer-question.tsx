@@ -107,11 +107,12 @@ export default function TrainerQuestion({
 
 
 
-
+  // const audioRef1 = useRef<HTMLAudioElement | null>(null);
+  // const audioRef2 = useRef<HTMLAudioElement | null>(null);
 
   const [audioCorrect, _, controlsCorrect] = useAudio({src: '/correct.wav'})
   const [audioInCorrect, _c, controlsInCorrect] = useAudio({src: '/incorrect.wav'})
-
+  
   const [audioConstructAdd, _ca, controlsAudioConstructAdd] = useAudio({src: '/Lottie/trainer/frozen/sounds/soundClick2.mp3'})
   const [audioConstructFire, _cf, controlsAudioConstructFire] = useAudio({src: '/Lottie/trainer/frozen/sounds/soundClickFire1.mp3'})
 
