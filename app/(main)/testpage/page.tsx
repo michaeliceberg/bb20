@@ -134,7 +134,7 @@ const [textBtnsState, setTextBtnsState] = useState(textBtnsInitial)
 					
 					
 					
-					<div className="flex">
+					<div key={index_line + 8000}className="flex">
 					
 					{
 					
@@ -170,7 +170,7 @@ const [textBtnsState, setTextBtnsState] = useState(textBtnsInitial)
 											{textBtnsState.filter(btn => (btn.rowInd == index_line && btn.colInd == index_btn))[0]?.allVariantsThisBtn.map((variant, index_variant) => {
 												console.log('variant:', variant, typeof variant);
 												return(
-													<div>
+													<div key={10000 + index_variant}>
 														<Button onClick={()=>{handleClickVariant(index_line, index_btn, variant)}} key={202020 + index_variant}>
 															{variant}
 														</Button>
@@ -210,7 +210,7 @@ const [textBtnsState, setTextBtnsState] = useState(textBtnsInitial)
 						)} else {
 							console.log(el)
 							return(
-								<p style={{ whiteSpace: 'pre' }}>
+								<p key={18000 + index_btn}style={{ whiteSpace: 'pre' }}>
 									{el}
 								</p>
 							)

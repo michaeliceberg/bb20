@@ -199,7 +199,7 @@ const [textBtnsState, setTextBtnsState] = useState(textBtnsInitial)
 					
 					
 					
-					<div className="flex">
+					<div key={index_line + 7000} className="flex">
 					
 					{
 					
