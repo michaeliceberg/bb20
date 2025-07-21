@@ -31,6 +31,7 @@ import { TypeAssistTRIANGLEgdeProtivKatet } from "@/app/t-lesson/[t_lessonId]/ty
 import { TypeAssistTRIANGLEsincostg } from "@/app/t-lesson/[t_lessonId]/type-assist-triangle-sin-cos-tg";
 import { TypeAssistTRIANGLEformGip } from "@/app/t-lesson/[t_lessonId]/type-assist-triangle-form-gip";
 import { TypeAssistTRIANGLETable } from "@/app/t-lesson/[t_lessonId]/type-assist-triangle-table";
+import { TypeRussianDictant } from "@/app/t-lesson/[t_lessonId]/type-russian-dictant";
 
 
 
@@ -711,6 +712,24 @@ const triangleGdeSinCosTg = [
 
 
 
+
+
+
+
+
+
+        : (question.questionType == "RUSSIANDICTANT")
+
+
+        ? <TypeRussianDictant 
+            
+            // threeCoordinates = {triangleGdeProtivKatet[7].coords}
+            // xCoordinates = {triangleGdeProtivKatet[7].xCoord}
+            question = {question}
+            onAnswer={onAnswer}
+
+            // arcSVG = {"M 440,42 Q 420,80 460,92"}
+          />
 
 
 

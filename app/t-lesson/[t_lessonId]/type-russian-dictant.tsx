@@ -1,7 +1,11 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { QuestionType } from './page'
 import Latex from 'react-latex-next';
 import 'katex/dist/katex.min.css';
+import { Button } from "@/components/ui/button"
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover"
+import { motion } from "framer-motion";
+import { PopoverClose } from "@radix-ui/react-popover";
 
 
 type Props = {
@@ -9,30 +13,243 @@ type Props = {
     onAnswer: (answer: string) => void
 }
 
-export const TypeAssist = ({
+export const TypeRussianDictant = ({
     question,
     onAnswer,
 }:Props) => {
+
+
+
+
+  const text = question.question
+
+
+	const textNL = text.split('NL')
+	const textListNL = textNL.map(el => el.split("*"))
+
+
+	console.log(textListNL)
+
+
+	type btnListType = 
+	{
+		rightAnswer: string,
+		allVariantsThisBtn: string[],
+		selectedVariant: string,
+		rowInd: number,
+		colInd: number,
+	}[]
+
+	let textBtnsInitial: btnListType = []
+
+
+	let index_element = 0
+	const textWithBtnNumbersNL = textListNL.map((this_line_textList, index_line) => {
+
+		const textWithBtnNumbers = this_line_textList.map((el, index) => {
+			index_element += 1
+
+			if (el.includes("%"))
+				{
+					textBtnsInitial.push
+						(
+							{
+								rightAnswer: el.split("%")[0],
+								//
+								// перемешиваем варианты
+								allVariantsThisBtn: el.split("%").sort(() => 0.5 - Math.random()),
+																
+								selectedVariant: "🌼", 
+
+								rowInd: index_line,
+								colInd: index,
+
+								//"🍟",
+							}
+						)
+					return('BTN')
+					
+				} 
+			else 
+				{
+					return (el)
+
+				}
+			
+			
+	
+	
+		})
+
+		return( 
+			{
+				textWithBtnNumbers: textWithBtnNumbers,
+				index_line: index_line,
+			}
+		)
+
+	})
+
+
+
+  const [textBtnsState, setTextBtnsState] = useState(textBtnsInitial)
+	const [doneRight, setDoneRight] = useState(false)
+	
+	const handleClickVariant = (rowInd: number, colInd: number, variant: string) => {
+		setTextBtnsState(prev =>
+		  prev.map(btn =>
+			(btn.rowInd === rowInd && btn.colInd === colInd) ? { ...btn, selectedVariant: variant } : btn
+		  )
+		);
+  };
+	  
+
+
+	useEffect(() => {
+		const allCorrect = textBtnsState.every(btn => btn.rightAnswer === btn.selectedVariant);
+		setDoneRight(allCorrect);
+		console.log('doneRight:', allCorrect);
+	}, [textBtnsState]);
+
+
 
   return (
     
     <div className="grid grid-cols-2 gap-x-2 gap-y-2 mt-10">
           
-    {question.options.map((option, index) => (
+    
+    
+          <div className="text-2xl">
 
-          <button
-            key={index*28748}
-            onClick={() => onAnswer(option)}
-            className="inline-flex items-center justify-center whitespace-nowrap rounded-xl text-sm font-bold ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 tracking-wide bg-white border-slate-200 border-2 border-b-4 active:border-b-2 hover:bg-slate-100 text-slate-500"
-          >
-            <p className="m-4">
-              <Latex>
-                {option}
-              </Latex>
-            </p>
-          </button>
-          
-    ))}
+{
+
+textWithBtnNumbersNL.map((textWithBtnNumbers, index_line) => 
+  
+  {
+    return (
+    
+    
+    
+    
+    <div key={index_line + 8000}className="flex">
+    
+    {
+    
+    textWithBtnNumbers.textWithBtnNumbers.map((el, index_btn) => {
+      if (el == 'BTN') 
+      {return (					
+        
+        <Popover key={303030 + index_btn}>
+          <PopoverTrigger asChild>
+
+
+            <motion.div 
+              whileHover={{ scale: 1.2 }}
+              whileTap={{ scale: 0.8 }}
+              className="font-bold text-sky-500 border-dashed border-sky-500 border-b-2  cursor-pointer"
+
+            >									
+                {textBtnsState.filter(btn => (btn.rowInd == index_line && btn.colInd == index_btn))[0]?.selectedVariant}
+
+            </motion.div>
+
+
+
+          </PopoverTrigger>
+
+          <PopoverContent className="w-80">
+
+          <PopoverClose asChild>
+  
+            <div className="flex justify-center gap-x-4">
+
+            
+                {textBtnsState.filter(btn => (btn.rowInd == index_line && btn.colInd == index_btn))[0]?.allVariantsThisBtn.map((variant, index_variant) => {
+                  console.log('variant:', variant, typeof variant);
+                  return(
+                    <div key={10000 + index_variant}>
+                      <Button onClick={()=>{handleClickVariant(index_line, index_btn, variant)}} key={202020 + index_variant}>
+                        {variant}
+                      </Button>
+
+                      {variant == "|"
+                        ?
+                        <p className="text-xs -m-3 mt-1">раздельно</p>
+                        :
+                        variant == "/"
+                        ?
+                        <p className="text-xs mt-1">слитно</p>
+                        :
+                        variant == "-"
+                        ?
+                        <p className="text-xs m-1 mt-1">дефис</p>
+                        :
+                        variant == "␣"
+                        ?
+                        <p className="text-xs m-2 mt-1">пусто</p>
+                        :
+                        <p></p>
+                      }
+                    </div>
+                )}
+                
+                
+                
+                )}
+                
+
+            </div>
+            </PopoverClose>
+          </PopoverContent>
+        </Popover>
+
+
+      )} else {
+        console.log(el)
+        return(
+          <p key={18000 + index_btn}style={{ whiteSpace: 'pre' }}>
+            {el}
+          </p>
+        )
+      }
+    })}
+
+
+  </div>
+
+
+
+
+
+  )}
+
+
+
+
+
+
+
+  
+)
+
+
+
+
+
+
+
+
+
+
+
+
+
+}
+
+
+
+</div>
+
 
   
   </div>

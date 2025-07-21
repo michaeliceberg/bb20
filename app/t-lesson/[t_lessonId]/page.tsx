@@ -1,7 +1,8 @@
-import { getAllTLessonProgress, getAllUsersProgress, getTLesson, getTLessonProgress, getTUnits, getUserProgress } from "@/db/queries"
+import { getAllTLessonProgress, getAllUsersProgress, getTLesson, getTLessonProgress, getUserProgress } from "@/db/queries"
 import { redirect } from "next/navigation"
 import { Shuffle2, ShuffleTS } from "@/usefulFunctions"
 import TQuiz from "@/app/t-lesson/[t_lessonId]/TQUIZ"
+import { allTypesCT } from "@/db/schema";
 
 
 function randomBetween(min: number, max: number) { // min and max included 
@@ -32,7 +33,13 @@ function replaceAll(str:string, find:string, replace:string) {
 
 export type QuestionType = {
        
-    questionType: "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT" | "WORKBOOK" | "R ASSIST" | "R CONNECT" | "R SLIDER" | "GEOSIN";
+    // questionType: "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT" | "WORKBOOK" | "R ASSIST" | "R CONNECT" | "R SLIDER" | "GEOSIN";
+
+    // questionType: typeof allTypesCasualTrainer;
+
+    questionType: allTypesCT;
+    
+
     question: string;
     imageSrc: string;
     options: string[];

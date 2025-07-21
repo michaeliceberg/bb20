@@ -1,20 +1,15 @@
 'use client'
 
-import { TCourseBanner } from "@/app/(main)/trainer/t-course-banner";
 import {
     Tabs,
     TabsContent,
     TabsList,
     TabsTrigger,
   } from "@/components/ui/tabs"
-import { challengeOptions, challengeProgress, courses, t_challengeOptions, t_lessonProgress, units } from "@/db/schema";
-import { GetTLessonStat } from "@/usefulFunctions";
-import 'katex/dist/katex.min.css';
-import Latex from 'react-latex-next';
+import { allTypesCT, challengeProgress, courses, } from "@/db/schema";
 import { useState, useTransition } from "react";
 import { Button } from "@/components/ui/button";
 import { Block } from "@/components/block";
-import { Checkbox } from "@/components/ui/checkbox";
 import { upsertClassHW } from "@/actions/class-hw-update";
 import { toast } from "sonner"
 
@@ -47,7 +42,9 @@ type Props = {
                 id: number;
                 points: number;
                 order: number;
-                type:  "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT" | "WORKBOOK" | "R ASSIST" | "R CONNECT" | "R SLIDER" | "GEOSIN",
+                // type:  "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT" | "WORKBOOK" | "R ASSIST" | "R CONNECT" | "R SLIDER" | "GEOSIN",
+                // type: typeof allTypesCasualTrainer;
+                type: allTypesCT;
                 // type:  "SELECT" | "ASSIST",
                 // type:  typeof t_challengesEnum.$inferSelect[],
                 question: string;

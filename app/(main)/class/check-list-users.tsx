@@ -5,8 +5,7 @@ import { Avatar, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import React, { useState, useTransition } from 'react'
 import TabTCoursesHW from './tab-t-courses-hw'
-import { challengeOptions, challengeProgress, courses, t_challengeOptions, units } from '@/db/schema'
-import SuperCards from './CardCheck'
+import { challengeProgress, courses, t_challengeOptions, allTypesCT } from '@/db/schema'
 import TabCoursesHW from './tab-courses-hw'
 
 
@@ -73,8 +72,13 @@ type Props = {
                 id: number;
                 points: number;
                 order: number;
-                type:  "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT" | "WORKBOOK" | "R ASSIST" | "R CONNECT" | "R SLIDER" | "GEOSIN",
+                // type: allTypesCasualTrainer;
+                // type: typeof allTypesCasualTrainer;
+                type: allTypesCT;
+
+                // type:  "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT" | "WORKBOOK" | "R ASSIST" | "R CONNECT" | "R SLIDER" | "GEOSIN",
                 // type:  typeof t_challengesEnum.$inferSelect[],
+                // type: 
                 question: string;
                 author: string;
                 t_lessonId: number;
@@ -105,9 +109,10 @@ type Props = {
                 id: number;
                 points: number;
                 order: number;
-                type:  "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT" | "WORKBOOK" | "R ASSIST" | "R CONNECT" | "R SLIDER" | "GEOSIN",
-                // type:  "SELECT" | "ASSIST",
-                // type:  typeof t_challengesEnum.$inferSelect[],
+                // type: typeof allTypesCasualTrainer;
+                type: allTypesCT,
+                // type:  "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT" | "WORKBOOK" | "R ASSIST" | "R CONNECT" | "R SLIDER" | "GEOSIN",
+
                 question: string;
                 author: string;
                 lessonId: number;

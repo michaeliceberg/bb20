@@ -147,14 +147,26 @@ export const lessonsRelations = relations(lessons, ({ one, many }) => ({
 
 
 
+// export const allTypesCasualTrainer = ["SELECT", "ASSIST", "CONNECT", "SLIDER", "CONSTRUCT", "WORKBOOK",
+// "R ASSIST", "R CONNECT", "R SLIDER", "GEOSIN", "RUSSIANDICTANT"] as const;
+
+// export const allTypesCasualTrainer = "SELECT", "ASSIST", "CONNECT", "SLIDER", "CONSTRUCT", "WORKBOOK",
+// "R ASSIST", "R CONNECT", "R SLIDER", "GEOSIN", "RUSSIANDICTANT"
+
+
+
+
+export type allTypesCT = "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT" | "WORKBOOK" | "R ASSIST" | "R CONNECT" | "R SLIDER" | "GEOSIN" | "RUSSIANDICTANT";
+
+
 
 export const challengesEnum = pgEnum("type", ["SELECT", "ASSIST", "CONNECT", "SLIDER", "CONSTRUCT", "WORKBOOK",
-												        "R ASSIST", "R CONNECT", "R SLIDER", "GEOSIN",
+												        "R ASSIST", "R CONNECT", "R SLIDER", "GEOSIN", "RUSSIANDICTANT",
 ])
 
 
 export const t_challengesEnum = pgEnum("type", ["SELECT", "ASSIST", "CONNECT", "SLIDER", "CONSTRUCT", "WORKBOOK",
-															"R ASSIST", "R CONNECT", "R SLIDER", "GEOSIN",
+															"R ASSIST", "R CONNECT", "R SLIDER", "GEOSIN", "RUSSIANDICTANT",
 ])
 
 

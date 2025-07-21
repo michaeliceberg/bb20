@@ -6,9 +6,8 @@ import {
     TabsList,
     TabsTrigger,
   } from "@/components/ui/tabs"
-import { challengeOptions, challengeProgress, courses, t_challengeOptions, units } from "@/db/schema";
+import { allTypesCT, challengeProgress, courses, t_challengeOptions } from "@/db/schema";
 import { CheckListUsers } from "./check-list-users";
-import TabTCoursesHW from "./tab-t-courses-hw";
 
 
 type Props = {    
@@ -57,7 +56,10 @@ type Props = {
                 id: number;
                 points: number;
                 order: number;
-                type:  "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT" | "WORKBOOK" | "R ASSIST" | "R CONNECT" | "R SLIDER" | "GEOSIN",
+                // type:  "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT" | "WORKBOOK" | "R ASSIST" | "R CONNECT" | "R SLIDER" | "GEOSIN",
+                // type: typeof allTypesCasualTrainer;
+                type: allTypesCT;
+
                 // type:  typeof t_challengesEnum.$inferSelect[],
                 question: string;
                 author: string;
@@ -125,7 +127,10 @@ type Props = {
                 id: number;
                 points: number;
                 order: number;
-                type:  "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT" | "WORKBOOK" | "R ASSIST" | "R CONNECT" | "R SLIDER" | "GEOSIN",
+                // type:  "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT" | "WORKBOOK" | "R ASSIST" | "R CONNECT" | "R SLIDER" | "GEOSIN",
+                // type: typeof allTypesCasualTrainer;
+                type: allTypesCT;
+
                 // type:  "SELECT" | "ASSIST",
                 // type:  typeof t_challengesEnum.$inferSelect[],
                 question: string;

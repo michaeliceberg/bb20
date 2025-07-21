@@ -6,13 +6,10 @@ import {
     TabsList,
     TabsTrigger,
   } from "@/components/ui/tabs"
-import { t_challengeOptions } from "@/db/schema";
+import { allTypesCT, t_challengeOptions } from "@/db/schema";
 import { useState, useTransition } from "react";
-import { Button } from "@/components/ui/button";
 import { Block } from "@/components/block";
 import { Checkbox } from "@/components/ui/checkbox";
-import { upsertClassHW } from "@/actions/class-hw-update";
-import { toast } from "sonner"
 
 
 type t_lessonsType = number[]
@@ -45,7 +42,10 @@ type Props = {
                     id: number;
                     points: number;
                     order: number;
-                    type:  "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT" | "WORKBOOK" | "R ASSIST" | "R CONNECT" | "R SLIDER" | "GEOSIN",
+                    // type:  "SELECT" | "ASSIST" | "CONNECT" | "SLIDER" | "CONSTRUCT" | "WORKBOOK" | "R ASSIST" | "R CONNECT" | "R SLIDER" | "GEOSIN",
+                    // type: typeof allTypesCasualTrainer;
+                    type: allTypesCT;
+
                     // type:  typeof t_challengesEnum.$inferSelect[],
                     question: string;
                     author: string;
