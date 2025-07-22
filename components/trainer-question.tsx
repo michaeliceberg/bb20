@@ -571,7 +571,7 @@ const triangleGdeSinCosTg = [
 
 
 
-        {question.questionType !== "WORKBOOK" &&
+        { (question.questionType !== "WORKBOOK" ) && (question.questionType !== "RUSSIANDICTANT")  &&
           <motion.h2 
             className="text-xl font-semibold mt-4"
             // animate={{ scale : [2, 1] }}
@@ -717,9 +717,9 @@ const triangleGdeSinCosTg = [
 
 
 
-
+        
         : (question.questionType == "RUSSIANDICTANT")
-
+        
 
         ? <TypeRussianDictant 
             

@@ -1,13 +1,11 @@
 import { FeedWrapper } from '@/components/feed-wrapper';
 import { StickyWrapper } from '@/components/sticky-wrapper';
 import { UserProgress } from '@/components/user-progress';
-import { getAllClassHW, getAllClasses, getAllTLessonProgress, getAllUsers, getAllUsersProgress, getChallengeProgress, getCourseProgress, getCourses, getTCourses, getTLessonProgress, getTUnits, getUnits, getUserProgress } from '@/db/queries';
+import { getAllClassHW, getAllClasses, getAllTLessonProgress, getAllUsers, getAllUsersProgress, getChallengeProgress, getCourseProgress, getTCourses, getTLessonProgress, getTUnits, getUserProgress } from '@/db/queries';
 import { redirect } from 'next/navigation';
 import { Header } from './header';
 import { auth, currentUser } from "@clerk/nextjs/server"
 import { TabTCourses } from '@/components/tab-t-courses';
-import ScrollTriggered from '@/components/framer-card';
-import HTMLContent from '@/components/motion-number';
 import { HwTopBanner } from '../learn/hw-top-banner';
 
 
@@ -112,8 +110,8 @@ const LearnPage = async () => {
 	// const user_id = userProgress.userId
 
 	const ThisClassId = userProgress.classId
-	const CoursesIdsThisClass = allClasses.filter(el => el.id == ThisClassId)[0].courseListIds
-	const TCoursesIdsThisClass = allClasses.filter(el => el.id == ThisClassId)[0].tCourseListIds
+	// const CoursesIdsThisClass = allClasses.filter(el => el.id == ThisClassId)[0].courseListIds
+	// const TCoursesIdsThisClass = allClasses.filter(el => el.id == ThisClassId)[0].tCourseListIds
 
 	// console.log('CoursesIdsThisClass', CoursesIdsThisClass)
 	// console.log('TCoursesIdsThisClass', TCoursesIdsThisClass)
