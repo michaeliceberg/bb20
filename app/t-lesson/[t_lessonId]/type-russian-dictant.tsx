@@ -24,9 +24,7 @@ export const TypeRussianDictant = ({
 
 	const textNL = text.split('NL')
 	const textListNL = textNL.map(el => el.split("*"))
-
-
-	// console.log(textListNL)
+  
 
 
 	type btnListType = 
@@ -41,6 +39,8 @@ export const TypeRussianDictant = ({
 	let textBtnsInitial: btnListType = []
 
 
+
+  
 	let index_element = 0
 	const textWithBtnNumbersNL = textListNL.map((this_line_textList, index_line) => {
 
@@ -92,9 +92,13 @@ export const TypeRussianDictant = ({
 
   const [textBtnsState, setTextBtnsState] = useState(textBtnsInitial)
 
-  // useEffect(()=>{
-  //   setTextBtnsState(textBtnsInitial)
-  // }, [])
+
+
+  useEffect(()=>{
+    setTextBtnsState(textBtnsInitial)
+  },[question])
+
+
 
 
   const [isDone, setIsDone] = useState(false) // выбран ли ответ (но еще не нажата кнопка "ОТВЕТИТЬ")
@@ -136,6 +140,7 @@ export const TypeRussianDictant = ({
             onAnswer("wrong")
         }
         setTextBtnsState(textBtnsInitial)
+        textBtnsInitial = []
       }
 
 
@@ -353,3 +358,20 @@ export const TypeRussianDictant = ({
 // лу(н,нн)ый свет участвуют в этом прЕ лесТ ном торжестве и
 // пробуждают страсТную жажду жизни.
 // (3 ош.)
+
+
+
+
+
+// Его неуверенный, а застенчив
+
+// Камыш*о%ё*вые зар*о%а*сли в NLокрес*т%␣*ностях NLпер*е%и*ш*ё%о*птывают*␣%ъ%ь*ся NLш*е%и*лестящей л*и%е*ствой, NLпр*и%е*к*а%о*сают*␣%ъ%ь*ся к NLчу*в%␣*свтительным тр*а%о*винкам, NLр*о%а*ня*ю%я*т ст*е%и*кля*нн%н*ые NLр*о%а*синки на зелё*н%нн*ую пор*о%а*сль.
+
+
+
+// Т*а%о*инстве*нн%н*ый луч*␣%ь* NLлу*нн%н*ой доро*ж%ш*кой NLро*б%п*ко блес*␣%т*нул на NLтр*а%о*вянистом ковре, NLпр*и%е*чудл*и%е*во оз*а%о*рил NLр*а%о*вни*нн%н*ую гла*д%т*ь NLна окраин*е%и*.
+// На ст*а%о*ри*нн%н*ые улицы NLзам*и%е*рающего города NLл*о%а*жился бл*и%е*стающий NLп*о%а*кров ночи.
+// Его  не*|%/*уверенный, а NLзастенч*и%е*вый свет NLпр*е%и*вратил р*а%о**сс%с%зс*тилающееся NLпро*о%а*стран*␣%т*ство в NLсветло*-%/%|*серебр*я%е**н%нн*ое NLобл*а%о*ко, праз*д%␣*нич*␣%ь*но NLосв*е%я*тил всё вокруг NLгиган*т%␣*ским прожектором, NLкак*|%/%-*буд*/%|%-*то со*нн%н*ая NLтиш*ь%␣* в*с%з*кинула NLпр*и%е*крытые рес*␣%т*ниц*ы%и*.
+
+
+
